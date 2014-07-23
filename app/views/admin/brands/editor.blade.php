@@ -22,7 +22,7 @@ Fashion Brands: Dashboard
 
 <!--Editor section-->
 <div class="col-xs-9">
-	<h2 class="admin-section-title">패션 브랜드 대시보드</h2>
+	<h2 class="admin-section-title">패션 브랜드 에디터</h2>
 </div>
 <!--/Editor section-->
 @stop

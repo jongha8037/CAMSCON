@@ -18,9 +18,11 @@ Route::get('/', function()
 
 
 /*Admin Routes*/
-Route::get('/admin/brands', function() {
-	return View::make('admin.brands.dashboard');
-});
+/*Admin Brands*/
+Route::get('/admin/brands/dashboard', array('uses'=>'BrandsController@showDashboard'));
+Route::get('/admin/brands/edit/{brand_id}', array('uses'=>'BrandsController@showEditor'));
+Route::post('/admin/brands/save', array('uses'=>'BrandsController@saveBrand'));
+Route::post('/admin/brands/delete', array('uses'=>'BrandsController@deleteBrand'));
 
 
 /*Dev Routes*/

@@ -33,6 +33,14 @@
 					<li><a href="#">업로드</a></li>
 				</ul>
 			</li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					메타데이터 관리 <span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="{{action('BrandsController@showDashboard')}}">패션 브랜드 관리</a></li>
+				</ul>
+			</li>
 		</ul>
 	</header>
 
