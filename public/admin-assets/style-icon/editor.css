@@ -1,0 +1,28 @@
+.meta-input-col {
+	border-left:1px solid #ddd;
+}
+
+.add-photo-area {
+	opacity:0.6;
+	background-color:#00ADA9;
+	color:#CBFF48;
+	text-align:center;
+	font-size:22px;
+	font-weight:700;
+	padding:20px 0px;
+	cursor:pointer;
+	border-radius: 3px;
+
+	-webkit-transition: opacity ease-out 500ms;
+	-moz-transition: opacity ease-out 500ms;
+	-o-transition: opacity ease-out 500ms;
+	transition: opacity ease-out 500ms;
+}
+.add-photo-area:hover, 
+.add-photo-area:active {
+	opacity:1;
+}
+.add-photo-area .glyphicon-camera {
+	font-size:34px;
+	vertical-align: bottom;
+}

@@ -1,0 +1,68 @@
+/*Layout*/
+.page-header {
+	border-bottom: 1px solid #ddd;
+}
+
+.page-body {
+	padding:15px 0px;
+}
+
+/*Pin Editor*/
+.image-container-wrapper {
+	margin:0px auto;
+	border:2px dashed #00ADA9;
+}
+
+.image-container {
+	position: relative;
+}
+
+.image-container.edit {
+	overflow:hidden;
+	cursor:crosshair;
+}
+
+.image-container.edit.move {
+	overflow:visible;
+	opacity:.65;
+}
+
+.image-container.view img {
+	max-width: 100%;
+	height:auto;
+}
+
+.image-container .pin-container {
+	z-index:999999;
+	position:absolute;
+}
+
+.image-container.view .pin-container {
+	opacity:0;
+
+	-webkit-transition: opacity ease-out 300ms;
+	-moz-transition: opacity ease-out 300ms;
+	-o-transition: opacity ease-out 300ms;
+	transition: opacity ease-out 300ms;
+}
+
+.image-container.view:hover .pin-container {
+	opacity:1;
+}
+
+.image-container .pin-container .pin {
+	position:absolute;
+	background-color:#fff;
+	border-radius: 50%;
+	width:20px;
+	height:20px;
+	font-size:10px;
+	line-height: 1;
+	padding:6px 0px;
+	text-align: center;
+	cursor:pointer;
+}
+
+.image-container.edit .pin-container .pin {
+	cursor:move;
+}

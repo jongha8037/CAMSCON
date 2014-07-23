@@ -1,0 +1,17 @@
+.admin-header {
+	margin-top:50px;
+}
+
+.admin-body {
+	padding:10px 0px;
+}
+
+.admin-footer-content {
+	border-top:1px solid #ddd;
+	padding:5px 0px;
+	text-align: right;
+}
+
+.admin-footer-content .admin-logout-btn {
+	/**/
+}
