@@ -1,0 +1,46 @@
+/*Brand List Section*/
+#addBrandBtn {
+	width: 100%;
+}
+
+ul.brand-list {
+	padding:0px;
+	margin:25px 0px;
+	list-style-type: none;
+}
+
+ul.brand-list li {
+	border-bottom:1px solid #ddd;
+}
+
+ul.brand-list li a {
+	display: block;
+	padding:10px 5px;
+	text-decoration: none;
+	color:#5F7A87;
+
+	-webkit-transition: background-color ease-out 400ms, color ease-out 400ms;
+	-moz-transition: background-color ease-out 400ms, color ease-out 400ms;
+	-o-transition: background-color ease-out 400ms, color ease-out 400ms;
+	transition: background-color ease-out 400ms, color ease-out 400ms;
+}
+
+ul.brand-list li a.current {
+	font-weight: 700;
+	color:#293B47;
+}
+
+ul.brand-list li a:hover {
+	background-color:#ededed;
+	color:#00ADA9;
+}
+
+/*Brand Editor Section*/
+.brand-form-wrapper {
+	max-width: 400px;
+	margin: 45px auto;
+}
+
+.brand-submit-wrapper {
+	text-align: right;
+}

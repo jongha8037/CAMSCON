@@ -54,6 +54,24 @@
 		</div>
 	</footer>
 
+	<!--Confirm Modal-->
+	<div id="confirmModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title">확인</h4>
+				</div>
+				<div id="confirmModalBody" class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+					<button type="button" id="confirmModalConfirm" class="btn btn-primary">확인</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<!--/Confirm Modal-->
+
 	<!-- jQuery 1.11.1 -->
 	<script src="{{asset('packages/jquery-1.11.1/jquery-1.11.1.min.js')}}"></script>
 	<!-- Bootstrap 3.2.0 -->
@@ -63,6 +81,9 @@
 	<script type="text/javascript">
 		jQuery.extend(verge);
 	</script>
+
+	<!--Admin Layout-->
+	<script src="{{asset('admin-assets/layouts/admin-master.js')}}"></script>
 	@yield('footer_scripts')
 </body>
 </html>

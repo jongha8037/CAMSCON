@@ -1,3 +1,4 @@
+/*Layout*/
 .admin-header {
 	margin-top:50px;
 }
@@ -14,4 +15,64 @@
 
 .admin-footer-content .admin-logout-btn {
 	/**/
+}
+
+/*Titles*/
+h2.admin-section-title {
+	font-size: 26px;
+	color: #5F7A87;
+}
+
+/*Buttons*/
+.btn-primary {
+	background-color: #00ADA9;
+	border-color: #00ADA9;
+}
+
+.btn-primary:hover {
+	background-color: #00BAB5;
+	border-color: #00BAB5;
+}
+
+.btn-primary:active {
+	background-color: #00BAB5;
+	border-color: #00BAB5;
+}
+
+.btn-warning {
+	background-color:#f0ad4e;
+	border-color:#f0ad4e;
+}
+
+.btn-warning:hover {
+	background-color:#ec971f;
+	border-color:#ec971f;
+}
+
+.btn-warning:active {
+	background-color:#ec971f;
+	border-color:#ec971f;
+}
+
+
+/*Modals*/
+
+/*Confirm Modal*/
+#confirmModal .modal-header {
+	padding: 9px 15px;
+	color: #666;
+}
+
+#confirmModal .modal-header .modal-title {
+	font-size: 17px;
+	line-height: 19px;
+}
+
+#confirmModal .modal-body {
+	font-size: 16px;
+}
+
+#confirmModal .modal-footer {
+	border:none;
+	padding:10px;
 }

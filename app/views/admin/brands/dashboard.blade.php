@@ -5,24 +5,23 @@ Fashion Brands: Dashboard
 @stop
 
 @section('head_styles')
-<!-- <link href="{{asset('admin-assets/style-icon/editor.css')}}" rel="stylesheet" /> -->
-<style type="text/css"></style>
+<link href="{{asset('admin-assets/brands/style.css')}}" rel="stylesheet" />
 @stop
 
 @section('content')
 <!--Brand list section-->
 <div class="col-xs-3">
-	<h2 class="admin-section-title">브랜드 목록</h2>
-	<a href="{{action('BrandsController@showEditor','new')}}" class="btn btn-primary">새 브랜드 추가</a>
-	<ul id="brandList" class="brand-list">
-		<?php var_dump($brands); ?>
-	</ul>
+	@include('admin.brands.list')
 </div>
 <!--/Brand list section-->
 
 <!--Editor section-->
 <div class="col-xs-9">
 	<h2 class="admin-section-title">패션 브랜드 대시보드</h2>
+
+	@if(Session::has('delete_success'))
+	<div class="alert alert-success"><strong>성공</strong> 브랜드가 삭제되었습니다 :)</div>
+	@endif
 </div>
 <!--/Editor section-->
 @stop
