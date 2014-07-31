@@ -6,6 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@yield('head_title','Campus Style Icon')</title>
 
+	<!--jQuery UI-->
+	<link href="{{asset('packages/jquery-ui-1.11.0-hot-sneaks-full/jquery-ui.min.css')}}" rel="stylesheet" />
+
 	<!-- Bootstrap -->
 	<link href="{{asset('packages/bootstrap-3.2.0/css/bootstrap.min.css')}}" rel="stylesheet" />
 
@@ -39,6 +42,7 @@
 				</a>
 				<ul class="dropdown-menu" role="menu">
 					<li><a href="{{action('BrandsController@showDashboard')}}">패션 브랜드 관리</a></li>
+					<li><a href="{{action('CategoriesController@showDashboard')}}">패션 아이템 카테고리 관리</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -72,8 +76,27 @@
 	</div><!-- /.modal -->
 	<!--/Confirm Modal-->
 
+	<!--Alert Modal-->
+	<div id="alertModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title">알림</h4>
+				</div>
+				<div id="alertModalBody" class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" id="alertModalConfirm" class="btn btn-primary">확인</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<!--/Alert Modal-->
+
 	<!-- jQuery 1.11.1 -->
 	<script src="{{asset('packages/jquery-1.11.1/jquery-1.11.1.min.js')}}"></script>
+	<!--jQuery UI-->
+	<script src="{{asset('packages/jquery-ui-1.11.0-hot-sneaks-full/jquery-ui.min.js')}}"></script>
 	<!-- Bootstrap 3.2.0 -->
 	<script src="{{asset('packages/bootstrap-3.2.0/js/bootstrap.min.js')}}"></script>
 	<!--Verge.js-->

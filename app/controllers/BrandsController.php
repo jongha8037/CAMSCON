@@ -34,16 +34,29 @@ class BrandsController extends BaseController {
 	}//showEditor()
 
 	private function getList() {
-		return FashionBrand::orderBy('name','asc')->get();
+		return FashionBrand::orderBy('id','asc')->get();
 	}//getList()
 
 	public function saveBrand() {
 		Input::flash();
-		$input=Input::only('brand_id','brand_name','brand_url','brand_description');
+		$input=Input::only(
+			'brand_id',
+			'brand_name_en',
+			'brand_name_ko',
+			'brand_name_ja',
+			'brand_name_zh_cn',
+			'brand_name_zh_tw',
+			'brand_name_ru',
+			'brand_name_th',
+			'brand_name_es',
+			'brand_name_vi',
+			'brand_url',
+			'brand_description'
+		);
 
 		$validationRules=array(
 			'brand_id'=>array('sometimes','exists:fashion_brands,id'),
-			'brand_name'=>array('required'),
+			'brand_name_en'=>array('required'),
 			'brand_url'=>array('sometimes','url'),
 			'brand_description'=>array('sometimes')
 		);
@@ -77,7 +90,17 @@ class BrandsController extends BaseController {
 			}
 
 			//Set data
-			$brand->name=$input['brand_name'];
+			$brand->name_en=$input['brand_name_en'];
+
+			$brand->name_ko=$input['brand_name_ko'];
+			$brand->name_ja=$input['brand_name_ja'];
+			$brand->name_zh_cn=$input['brand_name_zh_cn'];
+			$brand->name_zh_tw=$input['brand_name_zh_tw'];
+			$brand->name_ru=$input['brand_name_ru'];
+			$brand->name_th=$input['brand_name_th'];
+			$brand->name_es=$input['brand_name_es'];
+			$brand->name_vi=$input['brand_name_vi'];
+
 			$brand->url=$input['brand_url'];
 			$brand->description=$input['brand_description'];
 

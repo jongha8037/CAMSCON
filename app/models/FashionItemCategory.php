@@ -1,7 +1,8 @@
 <?php
 
-class FashionBrand extends Eloquent {
+class FashionItemCategory extends Eloquent {
 
+	protected $table = 'fashion_item_categories';
 	protected $appends = array('name');
 
 	//Accessor for name

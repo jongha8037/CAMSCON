@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin-master')
 
 @section('head_title')
-Fashion Brands: Dashboard
+Fashion Brands: Editor
 @stop
 
 @section('head_styles')
@@ -36,12 +36,84 @@ Fashion Brands: Dashboard
 			<!--Brand id-->
 			<input type="hidden" id="brandID" name="brand_id" value="@if(Input::old('brand_id')){{Input::old('brand_id')}}@else{{$editTarget->id or ''}}@endif" />
 
-			<!--Brand name-->
+			<!--Brand name English-->
 			<div class="form-group">
-				<label for="brandName">브랜드 이름</label>
-				<input type="text" class="form-control" id="brandName" name="brand_name" placeholder="브랜드 이름" value="@if(Input::old('brand_name')){{Input::old('brand_name')}}@else{{$editTarget->name or ''}}@endif" />
-				@if($errors->has('brand_name'))
-				<p class="text-danger">{{$errors->first('brand_name')}}</p>
+				<label for="brandNameEn">브랜드 영문 이름</label>
+				<input type="text" class="form-control" id="brandNameEn" name="brand_name_en" placeholder="브랜드 영문 이름" value="@if(Input::old('brand_name_en')){{Input::old('brand_name_en')}}@else{{$editTarget->name_en or ''}}@endif" />
+				@if($errors->has('brand_name_en'))
+				<p class="text-danger">{{$errors->first('brand_name_en')}}</p>
+				@endif
+			</div>
+
+			<!--Brand name Korean-->
+			<div class="form-group">
+				<label for="brandNameKo">브랜드 한글 이름</label>
+				<input type="text" class="form-control" id="brandNameKo" name="brand_name_ko" placeholder="브랜드 한글 이름" value="@if(Input::old('brand_name_ko')){{Input::old('brand_name_ko')}}@else{{$editTarget->name_ko or ''}}@endif" />
+				@if($errors->has('brand_name_ko'))
+				<p class="text-danger">{{$errors->first('brand_name_ko')}}</p>
+				@endif
+			</div>
+
+			<!--Brand name Japanese-->
+			<div class="form-group">
+				<label for="brandNameJa">브랜드 일본어 이름</label>
+				<input type="text" class="form-control" id="brandNameJa" name="brand_name_ja" placeholder="브랜드 일본어 이름" value="@if(Input::old('brand_name_ja')){{Input::old('brand_name_ja')}}@else{{$editTarget->name_ja or ''}}@endif" />
+				@if($errors->has('brand_name_ja'))
+				<p class="text-danger">{{$errors->first('brand_name_ja')}}</p>
+				@endif
+			</div>
+
+			<!--Brand name Chinese Simplified-->
+			<div class="form-group">
+				<label for="brandNameZnCn">브랜드 중국어 (간체, 중국) 이름</label>
+				<input type="text" class="form-control" id="brandNameZnCn" name="brand_name_zn_cn" placeholder="브랜드 중국어 (간체, 중국) 이름" value="@if(Input::old('brand_name_zn_cn')){{Input::old('brand_name_zn_cn')}}@else{{$editTarget->name_zn_cn or ''}}@endif" />
+				@if($errors->has('brand_name_zn_cn'))
+				<p class="text-danger">{{$errors->first('brand_name_zn_cn')}}</p>
+				@endif
+			</div>
+
+			<!--Brand name Chinese Traditional-->
+			<div class="form-group">
+				<label for="brandNameZnTw">브랜드 중국어 (번체, 대만) 이름</label>
+				<input type="text" class="form-control" id="brandNameZnTw" name="brand_name_zn_tw" placeholder="브랜드 중국어 (번체, 대만) 이름" value="@if(Input::old('brand_name_zn_tw')){{Input::old('brand_name_zn_tw')}}@else{{$editTarget->name_zn_tw or ''}}@endif" />
+				@if($errors->has('brand_name_zn_tw'))
+				<p class="text-danger">{{$errors->first('brand_name_zn_tw')}}</p>
+				@endif
+			</div>
+
+			<!--Brand name Russian-->
+			<div class="form-group">
+				<label for="brandNameRu">브랜드 러시아어 이름</label>
+				<input type="text" class="form-control" id="brandNameRu" name="brand_name_ru" placeholder="브랜드 러시아어 이름" value="@if(Input::old('brand_name_ru')){{Input::old('brand_name_ru')}}@else{{$editTarget->name_ru or ''}}@endif" />
+				@if($errors->has('brand_name_ru'))
+				<p class="text-danger">{{$errors->first('brand_name_ru')}}</p>
+				@endif
+			</div>
+
+			<!--Brand name Thai-->
+			<div class="form-group">
+				<label for="brandNameTh">브랜드 태국어 이름</label>
+				<input type="text" class="form-control" id="brandNameTh" name="brand_name_th" placeholder="브랜드 태국어 이름" value="@if(Input::old('brand_name_th')){{Input::old('brand_name_th')}}@else{{$editTarget->name_th or ''}}@endif" />
+				@if($errors->has('brand_name_th'))
+				<p class="text-danger">{{$errors->first('brand_name_th')}}</p>
+				@endif
+			</div>
+
+			<!--Brand name Spanish-->
+			<div class="form-group">
+				<label for="brandNameEs">브랜드 스페인어 이름</label>
+				<input type="text" class="form-control" id="brandNameEs" name="brand_name_es" placeholder="브랜드 스페인어 이름" value="@if(Input::old('brand_name_es')){{Input::old('brand_name_es')}}@else{{$editTarget->name_es or ''}}@endif" />
+				@if($errors->has('brand_name_es'))
+				<p class="text-danger">{{$errors->first('brand_name_es')}}</p>
+				@endif
+			</div>
+
+			<!--Brand name Vietnamese-->
+			<div class="form-group">
+				<label for="brandNameVi">브랜드 베트남어 이름</label>
+				<input type="text" class="form-control" id="brandNameVi" name="brand_name_vi" placeholder="브랜드 베트남어 이름" value="@if(Input::old('brand_name_vi')){{Input::old('brand_name_vi')}}@else{{$editTarget->name_vi or ''}}@endif" />
+				@if($errors->has('brand_name_vi'))
+				<p class="text-danger">{{$errors->first('brand_name_vi')}}</p>
 				@endif
 			</div>
 

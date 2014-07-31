@@ -1,0 +1,86 @@
+/*Category List Section*/
+#addCategoryBtn {
+	width: 100%;
+}
+
+.category-list {
+	padding: 0px;
+	margin: 15px 0px;
+	list-style-type: none;
+}
+
+.category-list .top-level {
+	border: 2px solid #00ADA9;
+	border-radius: 4px;
+	margin-bottom: 15px;
+
+	-webkit-transition: border-color ease-out 250ms;
+	-moz-transition: border-color ease-out 250ms;
+	-o-transition: border-color ease-out 250ms;
+	transition: border-color ease-out 250ms;
+}
+
+.category-list .top-level > a {
+	background-color: #00ADA9;
+	display: block;
+	color: #fff;
+	padding: 5px 10px;
+	font-weight: 700;
+	text-decoration: none;
+
+	-webkit-transition: background-color ease-out 250ms;
+	-moz-transition: background-color ease-out 250ms;
+	-o-transition: background-color ease-out 250ms;
+	transition: background-color ease-out 250ms;
+}
+
+.category-list.frozen .top-level {
+	border: 2px solid #ddd;
+}
+
+.category-list.frozen .top-level > a {
+	background-color: #ddd;
+}
+
+.category-list .top-level.state-hover {
+	border: 2px solid #00BAB5;
+}
+
+.category-list .top-level.state-hover > a {
+	background-color: #00BAB5;
+}
+
+.category-list .top-level .category-children {
+	padding: 0px;
+	list-style-type: none;
+}
+
+.category-list .top-level .category-children .sub-level {
+	width:100%;
+	padding: 5px 10px;
+	cursor:move;
+}
+
+.category-list .top-level .category-children .sub-level > a {
+	color: #5F7A87;
+	text-decoration: none;
+
+	-webkit-transition: color ease-out 250ms;
+	-moz-transition: color ease-out 250ms;
+	-o-transition: color ease-out 250ms;
+	transition: color ease-out 250ms;
+}
+
+.category-list.frozen .top-level .category-children .sub-level > a {
+	color: #ddd;
+}
+
+/*Category Editor Section*/
+.category-form-wrapper {
+	max-width: 400px;
+	margin: 45px auto;
+}
+
+.category-submit-wrapper {
+	text-align: right;
+}

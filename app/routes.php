@@ -24,6 +24,13 @@ Route::get('/admin/brands/edit/{brand_id}', array('uses'=>'BrandsController@show
 Route::post('/admin/brands/save', array('uses'=>'BrandsController@saveBrand'));
 Route::post('/admin/brands/delete', array('uses'=>'BrandsController@deleteBrand'));
 
+/*Admin Categories*/
+Route::get('/admin/categories/dashboard', array('uses'=>'CategoriesController@showDashboard'));
+Route::get('/admin/categories/edit/{category_id}', array('uses'=>'CategoriesController@showEditor'));
+Route::post('/admin/categories/save', array('uses'=>'CategoriesController@saveCategory'));
+Route::post('/admin/categories/change-parent', array('uses'=>'CategoriesController@changeParent'));
+Route::post('/admin/categories/delete', array('uses'=>'CategoriesController@deleteCategory'));
+
 
 /*Dev Routes*/
 
@@ -40,4 +47,24 @@ Route::get('/admin/style-icon/editor', function()
 Route::get('/pintest', function()
 {
 	return View::make('tests.pin');
+});
+
+Route::get('/jsontest', function() {
+	$response=new stdClass();
+	$response->result="success";
+	$response->message="processed";
+	return Response::json($response);
+});
+
+Route::get('/inputtest', function() {echo('start');
+	$input=Input::only('first_input','second_input');
+	if(Input::has('first_input')) {
+		echo('has first input');
+	}
+	if(isset($input['first_input'])) {
+		echo('first_input isset');
+	}
+	if(empty($input['first_input'])) {
+		echo('empty');
+	}
 });
