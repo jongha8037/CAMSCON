@@ -45,6 +45,14 @@
 					<li><a href="{{action('CategoriesController@showDashboard')}}">패션 아이템 카테고리 관리</a></li>
 				</ul>
 			</li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					회원 체계 관리 <span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="{{action('GroupsController@showEditor')}}">회원 그룹 관리</a></li>
+				</ul>
+			</li>
 		</ul>
 	</header>
 

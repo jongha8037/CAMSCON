@@ -31,6 +31,9 @@ Route::post('/admin/categories/save', array('uses'=>'CategoriesController@saveCa
 Route::post('/admin/categories/change-parent', array('uses'=>'CategoriesController@changeParent'));
 Route::post('/admin/categories/delete', array('uses'=>'CategoriesController@deleteCategory'));
 
+/*Admin User Groups*/
+Route::get('/admin/user-groups', array('uses'=>'GroupsController@showEditor'));
+
 
 /*Dev Routes*/
 
