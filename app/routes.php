@@ -34,6 +34,9 @@ Route::post('/admin/categories/delete', array('uses'=>'CategoriesController@dele
 /*Admin User Groups*/
 Route::get('/admin/user-groups', array('uses'=>'GroupsController@showEditor'));
 
+/*Admin User Routes*/
+Route::get('/admin/login', array('uses'=>'AdminController@showLogin'));
+Route::post('/admin/login', array('uses'=>'AdminController@loginUser'));
 
 /*Dev Routes*/
 
@@ -70,4 +73,8 @@ Route::get('/inputtest', function() {echo('start');
 	if(empty($input['first_input'])) {
 		echo('empty');
 	}
+});
+
+Route::get('/fb', function() {
+	return View::make('fblogin');
 });
