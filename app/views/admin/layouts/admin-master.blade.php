@@ -50,7 +50,7 @@
 					회원 체계 관리 <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="{{action('GroupsController@showEditor')}}">회원 그룹 관리</a></li>
+					<li><a href="{{action('GroupsController@showEditor')}}">회원 조회 및 그룹 관리</a></li>
 				</ul>
 			</li>
 		</ul>

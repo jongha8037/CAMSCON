@@ -21,6 +21,7 @@ class GroupTableSeeder extends Seeder {
 
 	public function run() {
 		DB::table('groups')->delete();
+		DB::table('groups')->truncate();
 
 		Group::create(array('name'=>'Campus Style Icons'));
 		Group::create(array('name'=>'Active Photographers'));
@@ -29,6 +30,7 @@ class GroupTableSeeder extends Seeder {
 		Group::create(array('name'=>'Staff'));
 		Group::create(array('name'=>'Managers'));
 		Group::create(array('name'=>'Super Users'));
+		Group::create(array('name'=>'Blacklist'));
 	}
 
 }
