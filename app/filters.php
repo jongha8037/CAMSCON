@@ -49,6 +49,22 @@ Route::filter('auth', function()
 });
 
 
+Route::filter('auth.admin', function() {
+	if(Auth::check()) {
+		//User is logged in check groups
+		$groups=Auth::user()->groups()->id;
+		dd($groups);
+	} else {
+		//User is not logged in
+		if (Request::ajax()) {
+			return Response::make('Unauthorized', 401);
+		} else {
+			return Redirect::to('admin/login')->with('intended',Route::getCurrentRoute()->getPath());
+		}
+	}
+});
+
+
 Route::filter('auth.basic', function()
 {
 	return Auth::basic();
@@ -87,4 +103,25 @@ Route::filter('csrf', function()
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| User Data Filter
+|--------------------------------------------------------------------------
+|
+| The User Data filter is responsible for setting up the user data object
+| intended to be passed to views.
+|
+*/
+
+Route::filter('userdata', function() {
+	$userData=new stdClass();
+	if(Auth::check()) {
+		$userData->status='logged_in';
+	} else {
+		$userData->status='not_logged_in';
+	}
+	ViewData::update('UserData',$userData);
 });

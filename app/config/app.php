@@ -121,7 +121,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-
+		/*Service Provider for ViewData*/
+		'CafeCoder\Laravel\ViewData\ViewDataServiceProvider'
 	),
 
 	/*
@@ -188,7 +189,8 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-
+		/*ViewData Facade*/
+		'ViewData'=>'CafeCoder\Laravel\ViewData\ViewData'
 	),
 
 );
