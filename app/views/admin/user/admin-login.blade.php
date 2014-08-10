@@ -48,13 +48,13 @@ Admin Login
 	</div>
 	<div class="login-controls row">
 		<div class="col-xs-12 col-sm-4">
-			<button class="btn btn-primary">Login with FB</button>
+			<button type="button" id="fbLoginBtn" class="btn btn-primary">Login with FB</button>
 		</div>
 		<div class="col-xs-12 col-sm-4">
-			<button class="btn btn-default">비밀번호 되찾기</button>
+			<button type="button" class="btn btn-default">비밀번호 되찾기</button>
 		</div>
 		<div class="col-xs-12 col-sm-4">
-			<button class="btn btn-primary">로그인</button>
+			<button type="submit" class="btn btn-primary">로그인</button>
 		</div>
 	</div>
 	{{ Form::close() }}
@@ -63,4 +63,11 @@ Admin Login
 @stop
 
 @section('footer_scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+	$(document).on('click','#fbLoginBtn',null,function() {
+		User.FB.checkLoginState();
+	});
+});
+</script>
 @stop
