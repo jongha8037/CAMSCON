@@ -59,7 +59,7 @@ Route::filter('auth.admin', function() {
 		if (Request::ajax()) {
 			return Response::make('Unauthorized', 401);
 		} else {
-			return Redirect::to('admin/login')->with('intended',Route::getCurrentRoute()->getPath());
+			return Redirect::to('auth/admin/login')->with('intended',Route::getCurrentRoute()->getPath());
 		}
 	}
 });
@@ -117,11 +117,16 @@ Route::filter('csrf', function()
 */
 
 Route::filter('userdata', function() {
+	//Create userData object
 	$userData=new stdClass();
+
+	//Set login status
 	if(Auth::check()) {
 		$userData->status='logged_in';
 	} else {
 		$userData->status='not_logged_in';
 	}
+
+	//Pass userData object to ViewData
 	ViewData::update('UserData',$userData);
 });

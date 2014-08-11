@@ -9,7 +9,9 @@ var AdminMaster={
 			this.modal.modal({show:false});
 			this.confirmBtn.on('click',null,{confirmModal:this},function(e) {
 				var confirmModal=e.data.confirmModal;
-				confirmModal.callback.apply(null,confirmModal.callbackParams);
+				if(typeof confirmModal.callback==='function') {
+					confirmModal.callback.apply(null,confirmModal.callbackParams);
+				}
 				confirmModal.modal.modal('hide');
 			});
 		}/*init()*/,
@@ -33,7 +35,9 @@ var AdminMaster={
 			this.modal.modal({show:false});
 			this.confirmBtn.on('click',null,{alertModal:this},function(e) {
 				var alertModal=e.data.alertModal;
-				alertModal.callback.apply(null,alertModal.callbackParams);
+				if(typeof alertModal.callback==='function') {
+					alertModal.callback.apply(null,alertModal.callbackParams);
+				}
 				alertModal.modal.modal('hide');
 			});
 		}/*init()*/,

@@ -16,27 +16,32 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+Route::when('admin/*', 'auth.admin');
+
 
 /*Admin Routes*/
+Route::get('admin/dashboard', function() {dd('admin');});
+
 /*Admin Brands*/
-Route::get('/admin/brands/dashboard', array('uses'=>'BrandsController@showDashboard'));
-Route::get('/admin/brands/edit/{brand_id}', array('uses'=>'BrandsController@showEditor'));
-Route::post('/admin/brands/save', array('uses'=>'BrandsController@saveBrand'));
-Route::post('/admin/brands/delete', array('uses'=>'BrandsController@deleteBrand'));
+Route::get('admin/brands/dashboard', array('uses'=>'BrandsController@showDashboard'));
+Route::get('admin/brands/edit/{brand_id}', array('uses'=>'BrandsController@showEditor'));
+Route::post('admin/brands/save', array('uses'=>'BrandsController@saveBrand'));
+Route::post('admin/brands/delete', array('uses'=>'BrandsController@deleteBrand'));
 
 /*Admin Categories*/
-Route::get('/admin/categories/dashboard', array('uses'=>'CategoriesController@showDashboard'));
-Route::get('/admin/categories/edit/{category_id}', array('uses'=>'CategoriesController@showEditor'));
-Route::post('/admin/categories/save', array('uses'=>'CategoriesController@saveCategory'));
-Route::post('/admin/categories/change-parent', array('uses'=>'CategoriesController@changeParent'));
-Route::post('/admin/categories/delete', array('uses'=>'CategoriesController@deleteCategory'));
+Route::get('admin/categories/dashboard', array('uses'=>'CategoriesController@showDashboard'));
+Route::get('admin/categories/edit/{category_id}', array('uses'=>'CategoriesController@showEditor'));
+Route::post('admin/categories/save', array('uses'=>'CategoriesController@saveCategory'));
+Route::post('admin/categories/change-parent', array('uses'=>'CategoriesController@changeParent'));
+Route::post('admin/categories/delete', array('uses'=>'CategoriesController@deleteCategory'));
 
 /*Admin User Groups*/
-Route::get('/admin/user-groups', array('uses'=>'GroupsController@showEditor'));
+Route::get('admin/user-groups', array('uses'=>'GroupsController@showEditor'));
 
 /*Admin User Routes*/
-Route::get('/admin/login', array('uses'=>'AdminController@showLogin'));
-Route::post('/admin/login', array('uses'=>'AdminController@loginUser'));
+Route::get('auth/admin/login', array('before'=>'userdata','uses'=>'AdminController@showLogin'));
+Route::post('auth/admin/login/fb', array('before'=>'csrf','uses'=>'AdminController@loginWithFB'));
+Route::post('auth/admin/login/email', array('before'=>'csrf','uses'=>'AdminController@loginWithEmail'));
 
 /*Dev Routes*/
 
@@ -45,7 +50,7 @@ Route::get('/main', function()
 	return View::make('front.main');
 });
 
-Route::get('/admin/style-icon/editor', function()
+Route::get('admin/style-icon/editor', function()
 {
 	return View::make('admin.style-icon.editor');
 });
