@@ -11,15 +11,16 @@
 |
 */
 
-Route::get('/', function()
-{
+Route::get('/', function() {
 	return View::make('hello');
 });
 
-Route::when('admin/*', 'auth.admin');
-
+/*Front-end Routes*/
+Route::get('auth/user/reset-password/{token}', array('uses'=>'RemindersController@getReset'));
+Route::post('auth/user/reset-password', array('before'=>'csrf', 'uses'=>'RemindersController@postReset'));
 
 /*Admin Routes*/
+Route::when('admin/*', 'auth.admin');
 Route::get('admin/dashboard', function() {dd('admin');});
 
 /*Admin Brands*/
@@ -42,6 +43,8 @@ Route::get('admin/user-groups', array('uses'=>'GroupsController@showEditor'));
 Route::get('auth/admin/login', array('before'=>'userdata','uses'=>'AdminController@showLogin'));
 Route::post('auth/admin/login/fb', array('before'=>'csrf','uses'=>'AdminController@loginWithFB'));
 Route::post('auth/admin/login/email', array('before'=>'csrf','uses'=>'AdminController@loginWithEmail'));
+Route::get('auth/admin/send-reset', array('uses'=>'RemindersController@getAdminRemind'));
+Route::post('auth/admin/send-reset', array('uses'=>'RemindersController@postRemind'));
 
 /*Dev Routes*/
 
