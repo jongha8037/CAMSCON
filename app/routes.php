@@ -18,6 +18,8 @@ Route::get('/', function() {
 /*Front-end Routes*/
 Route::get('auth/user/reset-password/{token}', array('uses'=>'RemindersController@getReset'));
 Route::post('auth/user/reset-password', array('before'=>'csrf', 'uses'=>'RemindersController@postReset'));
+Route::post('auth/user/login/email', array('before'=>'csrf', 'uses'=>'UserController@loginWithEmail'));
+Route::post('auth/user/signup', array('before'=>'csrf', 'uses'=>'UserController@signupUser'));
 
 /*Admin Routes*/
 Route::when('admin/*', 'auth.admin');
@@ -90,3 +92,7 @@ Route::get('/fb', function() {
 Route::get('master-layout-test', function() {
 	return View::make('tests.master-layout-test');
 });
+
+Route::get('test/login-modal', array('before'=>'userdata', function() {
+	return View::make('tests.login-modal-test');
+}));

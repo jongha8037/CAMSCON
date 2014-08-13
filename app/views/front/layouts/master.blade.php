@@ -47,6 +47,9 @@
 	<!-- Bootstrap 3.2.0 -->
 	<script src="{{asset('packages/bootstrap-3.2.0/js/bootstrap.min.js')}}"></script>
 
+	<!--Login modal-->
+	@include('includes.login-modal')
+
 	<!--Alert/Confirm modals-->
 	@include('includes.confirm-modal')
 	@include('includes.alert-modal')
