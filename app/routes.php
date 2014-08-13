@@ -86,3 +86,7 @@ Route::get('/inputtest', function() {echo('start');
 Route::get('/fb', function() {
 	return View::make('fblogin');
 });
+
+Route::get('master-layout-test', function() {
+	return View::make('tests.master-layout-test');
+});
