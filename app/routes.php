@@ -46,6 +46,17 @@ Route::post('auth/admin/login/email', array('before'=>'csrf','uses'=>'AdminContr
 Route::get('auth/admin/send-reset', array('uses'=>'RemindersController@getAdminRemind'));
 Route::post('auth/admin/send-reset', array('uses'=>'RemindersController@postRemind'));
 
+
+/*Mockup Routes*/
+Route::get('mockup/main', function() {
+	return View::make('mockup.main');
+});
+
+Route::get('mockup/detail', function() {
+	return View::make('mockup.detail');
+});
+
+
 /*Dev Routes*/
 
 Route::get('/main', function()
