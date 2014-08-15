@@ -46,10 +46,10 @@
 									<label for="loginEmail">이메일로 가입</label>
 									<input type="email" name="email" class="form-control" placeholder="이메일" />
 								</div>
-								<div class="form-group">
+								<div class="form-group pswd-fields">
 									<input type="password" name="password" class="form-control" placeholder="비밀번호" />
 								</div>
-								<div class="form-group">
+								<div class="form-group pswd-fields">
 									<input type="password" name="password_confirmation" class="form-control" placeholder="비밀번호 확인" />
 								</div>
 								<div class="form-group">
@@ -95,16 +95,3 @@ $(document).ready(function() {
 	LoginModal.init();
 });
 </script>
-
-{{ Form::open(array('url'=>'')) }}
-	<div id="fbProfileBox" class=""></div>
-	<input type="radio" name="type" value="camscon" />
-	<input type="radio" name="type" value="fb" />
-	<input type="email" name="email" placeholder="" value="" />
-	<div class="signup-password-fields">
-		<input type="password" name="password" placeholder="" value="" />
-		<input type="password" name="password_confirmation" placeholder="" value="" />
-	</div>
-	<input type="text" name="nickname" placeholder="" value="" />
-	<button type="submit">가입하기</button>
-{{ Form::close() }}
