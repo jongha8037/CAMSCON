@@ -49,7 +49,33 @@ Route::post('auth/admin/send-reset', array('uses'=>'RemindersController@postRemi
 
 /*Mockup Routes*/
 Route::get('mockup/main', function() {
-	return View::make('mockup.main');
+
+	$photos=array(
+		'mockup-assets/sample-content/1.jpg',
+		'mockup-assets/sample-content/2.jpg',
+		'mockup-assets/sample-content/3.jpg',
+		'mockup-assets/sample-content/4.jpg',
+		'mockup-assets/sample-content/5.jpg',
+		'mockup-assets/sample-content/6.jpg',
+		'mockup-assets/sample-content/7.jpg',
+		'mockup-assets/sample-content/8.jpg',
+		'mockup-assets/sample-content/9.jpg'
+	);
+
+	$icons=array();
+
+	foreach($photos as $photo) {
+		$icon=new stdClass();
+		$icon->photo=asset($photo);
+		$icon->name='이해인';
+		$icon->meta='한국외국어대학교';
+		$icon->author=new stdClass();
+		$icon->author->photo=asset('mockup-assets/sample-content/author.jpg');
+		$icon->author->name='캠스콘';
+		$icons[]=$icon;
+	}
+
+	return View::make('mockup.main', array('icons'=>$icons));
 });
 
 Route::get('mockup/detail', function() {

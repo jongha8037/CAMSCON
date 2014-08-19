@@ -1,0 +1,426 @@
+.layout-header {
+	
+}
+
+.layout-header .top-row {
+	padding: 18px 0px 14px 0px;
+	border-bottom: 1px solid #7f7f7f;
+}
+
+.layout-header .site-logo {
+	float: left;
+}
+
+.layout-header .site-nav {
+	float: left;
+}
+
+.layout-header .site-nav ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px 0px 0px 54px;
+}
+
+.layout-header .site-nav ul li {
+	float: left;
+}
+
+.layout-header .site-nav ul li a {
+	color: #333;
+	text-decoration: none;
+	display: block;
+	padding:12px 15px;
+}
+
+.layout-header .site-nav ul li a:hover {
+	background-color: #56d8d1;
+	color:#fff;
+}
+
+.layout-header .site-user {
+	float: right;
+}
+
+.layout-header .site-user ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px 0px 0px 54px;
+}
+
+.layout-header .site-user ul li {
+	float: left;
+}
+
+.layout-header .site-user ul li a {
+	color: #20cfc5;
+	text-decoration: none;
+	display: block;
+	padding:12px 15px;
+}
+
+.layout-header .site-user ul li a:hover {
+	background-color: #56d8d1;
+	color:#fff;
+}
+
+.layout-header .site-search {
+	float: right;
+	margin-right:43px;
+	width:100%;
+	max-width:342px;
+}
+
+.layout-header .site-search input[type="text"] {
+	padding: 10px 10px 10px 49px;
+	width:100%;
+}
+
+.layout-header .bottom-row {
+	padding: 0px;
+	border-bottom: 1px solid #7f7f7f;
+}
+
+.layout-header .category-nav {
+	padding: 6px 0px;
+}
+
+.layout-header .category-nav ul {
+	list-style-type: none;
+	padding:0px;
+	margin:0px;
+}
+
+.layout-header .category-nav ul li {
+	float:left;
+	width:12.5%;
+	padding: 13px 0px 13px 0px;
+}
+
+.layout-header .category-nav ul li a {
+	display: block;
+	border-left: 1px solid #7f7f7f;
+	text-align: center;
+	text-decoration: none;
+	color: #000;
+}
+
+.layout-header .category-nav ul li:last-child {
+	padding: 0px;
+	text-align: right;
+}
+
+.layout-header .category-nav ul li:last-child a.post-btn {
+	font-size: 18px;
+	vertical-align: bottom;
+	line-height: 1;
+	display: inline-block;
+	border-left: 0px;
+	background-color: #56d8d1;
+	color:#fff;
+	padding: 13px 20px;
+}
+
+.layout-header .category-nav ul li:last-child a.post-btn span {
+	font-size: 20px;
+	vertical-align: bottom;
+}
+
+.layout-body {
+	padding:0px;
+}
+
+/*Camscon List View*/
+.list-container {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+.list-container .list-item {
+	border: 1px solid #c7c7c7;
+	margin-bottom:30px;
+}
+
+.list-item .img-container {
+	position: relative;
+}
+
+.list-item .img-container img {
+	max-width: 100%;
+	height:auto;
+}
+
+.list-item .like-btn {
+	position:absolute;
+	bottom:10px;
+	left:10px;
+	border:0;
+	background-color:#000;
+	color:#fff;
+	padding: 18px;
+	font-weight: 700;
+}
+
+.list-item .likes {
+	position:absolute;
+	bottom:10px;
+	left: 81px;
+	padding: 18px;
+	background-color: #fff;
+	font-weight: 700;
+}
+
+.list-item .fb-share-btn {
+	position: absolute;
+	bottom:10px;
+	right:10px;
+	border: 0;
+	background-color:#5696d8;
+	color: #fff;
+	font-size: 37px;
+	padding: 2px 22px;
+	font-weight: 700;
+}
+
+.list-item .meta-container {
+	padding: 10px;
+}
+
+.list-item .author-profile {
+	width: 50px;
+	height: auto;
+	border-radius: 50%;
+	float:left;
+}
+
+.list-item .icon-meta {
+	margin-left:60px;
+	margin-top: 5px;
+}
+
+.list-item .icon-meta .category {
+	margin-left: 5px;
+	border-left: 2px solid #000;
+	padding-left: 5px;
+}
+
+.list-item .author-meta {
+	margin-left:60px;
+	color: #959595;
+}
+
+
+.breadcrumbs {
+	color: #737373;
+	margin: 20px 0px;
+}
+
+.content-nav {
+	color: #000;
+	margin-bottom: 20px;
+}
+
+.content-nav a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.content-nav .prev {
+	float: left;
+}
+
+.content-nav .next {
+	float: right;
+}
+
+.single-container .photo-col figure {
+	display: table;
+	margin:0px auto 30px auto;
+	max-width: 100%;
+}
+
+.single-container .photo-col img {
+	width: auto;
+	max-width: 100%;
+	height: auto;
+}
+
+.single-container .primary-photo {
+	position: relative;
+}
+
+.single-container .primary-photo .like-btn {
+	position:absolute;
+	top:10px;
+	left:10px;
+	border:0;
+	background-color:#000;
+	color:#fff;
+	padding: 18px;
+	font-weight: 700;
+
+}
+
+.single-container .primary-photo .likes {
+	position:absolute;
+	top:10px;
+	left: 83px;
+	padding: 18px;
+	background-color: #fff;
+	font-weight: 700;
+}
+
+.single-container .primary-photo .fb-share-btn {
+	position: absolute;
+	top:71px;
+	left:10px;
+	border: 0;
+	background-color:#5696d8;
+	color: #fff;
+	font-size: 37px;
+	padding: 2px 22px;
+	font-weight: 700;
+}
+
+.single-container .data-col {
+	padding-top:40px;
+}
+
+.data-col .icon-section {
+	padding-bottom: 20px;
+	border-bottom: 1px solid #000;
+	margin-bottom: 20px;
+}
+
+.data-col .icon-section h3 {
+	margin:0px;
+}
+
+.data-col .icon-section h3.name {
+	font-weight: 700;
+}
+
+.data-col .icon-section h3.category {
+	margin-top:5px;
+}
+
+.data-col .notes-section {
+	padding-bottom: 20px;
+	border-bottom: 1px solid #000;
+	margin-bottom:20px;
+}
+
+.data-col .pin-list {
+	margin-bottom: 20px;
+}
+
+.data-col .photographer-section {
+	border: 1px solid #20cfc5;
+	padding:15px;
+}
+
+.photographer-section .profile-img {
+	width: auto;
+	max-width: 100px;
+	height: auto;
+	float: left;
+}
+
+.photographer-section .profile-data {
+	padding-left: 115px;
+}
+
+.photographer-section .profile-data .name {
+	background-color: #000;
+	color: #fff;
+	padding: 8px 14px;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+.photographer-section .profile-data p {
+	margin-bottom:6px;
+	line-height: 1;
+}
+
+.photographer-section .profile-data a {
+	color: #666;
+}
+
+.photographer-section .profile-data a:hover {
+	color: #000;
+}
+
+
+.pin-container .pin-link {
+	opacity: 0;
+	position: absolute;
+	background-color:#20cfc5;
+	font-size:14px;
+	color:#fff;
+	text-decoration: none;
+	padding:5px;
+	border-radius: 50%;
+	display: block;
+	width:23px;
+	height:23px;
+	line-height: 1;
+	text-align: center;
+	cursor: pointer;
+}
+
+.pin-container .pin-link.highlight, 
+.pinned:hover .pin-container .pin-link {
+	opacity: 1;
+}
+
+.pin-list {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.pin-list li {
+	line-height: 2.5;
+}
+
+.pin-list .commerce-link {
+	text-decoration: none;
+	color: #000;
+}
+
+.pin-list .commerce-link .pin-numbering {
+	background-color: #000;
+	font-size: 13px;
+	color: #fff;
+	text-decoration: none;
+	padding: 3px 5px;
+	border-radius: 50%;
+	display: inline-block;
+	width: 21px;
+	height: 21px;
+	line-height: 1;
+	text-align: center;
+	margin-right: 3px;
+}
+
+.pin-list .commerce-link.highlight .pin-numbering, 
+.pin-list .commerce-link:hover .pin-numbering {
+	background-color: #20cfc5;
+}
+
+.pin-list .commerce-link.highlight, 
+.pin-list .commerce-link:hover {
+	color: #20cfc5;
+}
+
+
+/*Helper Classes*/
+.caret-right {
+	border-bottom: 4px solid transparent;
+	border-top: 4px solid transparent;
+	border-left: 4px solid;
+	display: inline-block;
+	height: 0;
+	vertical-align: middle;
+	width: 0;
+}
