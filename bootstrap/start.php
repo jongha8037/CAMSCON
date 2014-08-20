@@ -27,8 +27,7 @@ $app = new Illuminate\Foundation\Application;
 $env = $app->detectEnvironment(array(
 
 	'local' => array('devbot-Aspire-V3-572G'),
-	'staging'=>array(),
-	'production'=>array()
+	'production'=>array('camscon-application')
 
 ));
 

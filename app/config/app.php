@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => getenv('DEV_URL'),
+	'url' => $_ENV['DEV_URL'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => getenv('APP_TIMEZONE'),
+	'timezone' => $_ENV['APP_TIMEZONE'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => getenv('APP_LOCALE'),
+	'locale' => $_ENV['APP_LOCALE'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => getenv('APP_KEY'),
+	'key' => $_ENV['APP_KEY'],
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
