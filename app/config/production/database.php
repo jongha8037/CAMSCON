@@ -22,10 +22,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => $_ENV['MYSQL_HOST'],
-			'database'  => $_ENV['MYSQL_DB'],
-			'username'  => $_ENV['MYSQL_USER'],
-			'password'  => $_ENV['MYSQL_PSWD'],
+			'host'      => getenv('MYSQL_HOST'),
+			'database'  => getenv('MYSQL_DB'),
+			'username'  => getenv('MYSQL_USER'),
+			'password'  => getenv('MYSQL_PSWD'),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

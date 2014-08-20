@@ -78,12 +78,12 @@ return array(
 	|
 	*/
 
-	'key' => $_ENV['LARAVEL_ENCRYPTION_KEY'],
+	'key' => getenv('LARAVEL_ENCRYPTION_KEY'),
 
 
 
 	/*Facebook API*/
-	'fb_app_id'=>$_ENV['FB_APP_ID'],
-	'fb_app_secret'=>$_ENV['FB_APP_SECRET'],
+	'fb_app_id'=>getenv('FB_APP_ID'),
+	'fb_app_secret'=>getenv('FB_APP_SECRET'),
 
 );

@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => $_ENV['DEV_URL'],
+	'url' => 'campusstyleicon.dev',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => $_ENV['APP_TIMEZONE'],
+	'timezone' => 'Asia/Seoul',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => $_ENV['APP_LOCALE'],
+	'locale' => 'ko',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => $_ENV['APP_KEY'],
+	'key' => getenv('APP_KEY'),
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
