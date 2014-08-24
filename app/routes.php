@@ -16,10 +16,13 @@ Route::get('/', function() {
 });
 
 /*Front-end Routes*/
+Route::post('auth/user/login/email', array('before'=>'csrf', 'uses'=>'UserController@loginWithEmail'));
+Route::post('auth/user/login/fb', array('before'=>'csrf', 'uses'=>'UserController@loginWithFB'));
+Route::get('user/signup', array('uses'=>'UserController@showSignup'));
+Route::post('user/signup', array('before'=>'csrf', 'uses'=>'UserController@signupUser'));
 Route::get('auth/user/reset-password/{token}', array('uses'=>'RemindersController@getReset'));
 Route::post('auth/user/reset-password', array('before'=>'csrf', 'uses'=>'RemindersController@postReset'));
-Route::post('auth/user/login/email', array('before'=>'csrf', 'uses'=>'UserController@loginWithEmail'));
-Route::post('auth/user/signup', array('before'=>'csrf', 'uses'=>'UserController@signupUser'));
+
 
 /*Admin Routes*/
 Route::when('admin/*', 'auth.admin');
@@ -42,7 +45,7 @@ Route::post('admin/categories/delete', array('uses'=>'CategoriesController@delet
 Route::get('admin/user-groups', array('uses'=>'GroupsController@showEditor'));
 
 /*Admin User Routes*/
-Route::get('auth/admin/login', array('before'=>'userdata','uses'=>'AdminController@showLogin'));
+Route::get('auth/admin/login', array('before'=>'login-wall','uses'=>'AdminController@showLogin'));
 Route::post('auth/admin/login/fb', array('before'=>'csrf','uses'=>'AdminController@loginWithFB'));
 Route::post('auth/admin/login/email', array('before'=>'csrf','uses'=>'AdminController@loginWithEmail'));
 Route::get('auth/admin/send-reset', array('uses'=>'RemindersController@getAdminRemind'));
@@ -96,3 +99,13 @@ Route::get('master-layout-test', function() {
 Route::get('test/login-modal', array('before'=>'userdata', function() {
 	return View::make('tests.login-modal-test');
 }));
+
+Route::get('test/tracker', function() {
+	dd(Tracker::get());
+});
+
+Route::get('test/fbuser', array('uses'=>'UserController@fbTest'));
+
+Route::get('logout', function() {
+	Auth::logout();
+});

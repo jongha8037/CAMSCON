@@ -1,16 +1,74 @@
 <?php
+use Facebook\FacebookSession;
+use Facebook\FacebookJavaScriptLoginHelper;
+use Facebook\FacebookRequest;
+use Facebook\GraphUser;
+use Facebook\FacebookRequestException;
 
 class UserController extends BaseController {
 
-	public function showSignupPage() {
-		return View::make('front.user.signup-page');
+	public function showSignup() {
+		return View::make('front.user.signup');
 	}//showSignupPage()
 
 	public function signupUser() {
-		//
-	}//signupUser()
+		$response=new \stdClass();
+		$input=Input::only('email', 'nickname', 'password', 'password_confirmation', 'gender', 'remember');
 
-	public function showSignupModal() {}//showSignupModal()
+		$validationRules=array(
+			'email'=>array('required', 'email', 'unique:users,email'),
+			'nickname'=>array('required', 'min:3', 'unique:users,nickname'),
+			'password'=>array('required', 'min:8', 'confirmed'),
+			'gender'=>array('required', 'in:male,female')
+		);
+
+		$messages=array(
+			'required'=>':attribute_required',
+			'email'=>':attribute_email',
+			'unique'=>':attribute_unique',
+			'min'=>':attribute_min',
+			'confirmed'=>':attribute_confirmed',
+			'in'=>':attribute_in'
+		);
+
+		$validator=Validator::make($input, $validationRules, $messages);
+
+		if($validator->passes()) {
+			$user=new User;
+			$user->email=$input['email'];
+			$user->password=Hash::make($input['password']);
+			$user->nickname=$input['nickname'];
+			$user->gender=$input['gender'];
+
+			if($user->save()) {
+				$creds=array(
+					'email'=>$input['email'],
+					'password'=>$input['password'],
+				);
+
+				if($input['remember']) {
+					$remember=true;
+				} else {
+					$remember=false;
+				}
+
+				if(Auth::attempt($creds, $remember)) {
+					$response->type='success';
+				} else {
+					$response->type='error';
+					$response->msg='hash_error';
+				}
+			} else {
+				$response->type='error';
+				$response->msg='db_error';
+			}
+		} else {
+			$response->type='error';
+			$response->msg=$validator->messages()->first();
+		}
+
+		return Response::json($response);
+	}//signupUser()
 
 	public function loginWithFB() {
 		if(Auth::check()) {
@@ -21,7 +79,7 @@ class UserController extends BaseController {
 		$response=new stdClass();
 
 		//Init FB SDK
-		FacebookSession::setDefaultApplication(Config::get('app.fb_app_id'), config::get('app.fb_app_secret'));
+		FacebookSession::setDefaultApplication(Config::get('app.fb_app_id'), Config::get('app.fb_app_secret'));
 
 		//Validate login
 		$loginHelper = new FacebookJavaScriptLoginHelper();
@@ -53,8 +111,52 @@ class UserController extends BaseController {
 				$response->type='success';
 			} else {
 				//The fb user does not have an account.
-				$response->type='error';
-				$response->msg='no_user';
+				//Create user with fb account
+				try {
+					$user_profile = (new FacebookRequest(
+						$session, 'GET', '/me'
+					))->execute()->getGraphObject(GraphUser::className());
+
+					$user=new User;
+					$user->email=$user_profile->getProperty('email');
+					$user->password=null;
+					$user->nickname=$user_profile->getName();
+					$gender=$user_profile->getProperty('gender');
+					if($gender=='male') {
+						$user->gender='male';
+					} elseif($gender=='female') {
+						$user->gender='female';
+					} else {
+						$user->gender=null;
+					}
+
+					if($user->save()) {
+						$fbAccount=new FacebookAccount;
+						$fbAccount->user_id=$user->id;
+						$fbAccount->fb_id=$user_profile->getId();
+						$fbAccount->email=$user_profile->getProperty('email');
+						$fbAccount->name=$user_profile->getName();
+						$fbAccount->first_name=$user_profile->getFirstName();
+						$fbAccount->last_name=$user_profile->getLastName();
+						$fbAccount->link=$user_profile->getLink();
+						$fbAccount->gender=$user_profile->getProperty('gender');
+						$fbAccount->locale=$user_profile->getProperty('locale');
+						
+						if($fbAccount->save()) {
+							$response->type='success';
+						} else {
+							$user->forceDelete();
+							$response->type='error';
+							$response->msg='db_error';
+						}
+					} else {
+						$response->type='error';
+						$response->msg='db_error';
+					}
+				} catch(FacebookRequestException $e) {
+					$response->type='error';
+					$response->msg='fb_profile_error';
+				}
 			}
 		}
 
@@ -79,11 +181,15 @@ class UserController extends BaseController {
 			$remember=false;
 		}
 
+		$response=new \stdClass();
+
 		if (Auth::attempt($creds, $remember)) {
-			return Redirect::intended('admin/dashboard');
+			$response->type='success';
 		} else {
-			return Redirect::back()->with('login_error',true);
+			$response->type='error';
 		}
+
+		return Response::json($response);
 	}//loginWithEmail()
 
 }

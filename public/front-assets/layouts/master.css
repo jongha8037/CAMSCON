@@ -1,0 +1,16 @@
+/*Bootstrap offset*/
+input[type="text"].form-control, 
+input[type="email"].form-control, 
+input[type="password"].form-control {
+	border-radius: 0px;
+	padding: 19px 12px;
+}
+
+.btn {
+	outline: none;
+}
+
+.btn:active {
+	box-shadow: none;
+	outline: none;
+}

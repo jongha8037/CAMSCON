@@ -106,27 +106,10 @@ Route::filter('csrf', function()
 });
 
 
-/*
-|--------------------------------------------------------------------------
-| User Data Filter
-|--------------------------------------------------------------------------
-|
-| The User Data filter is responsible for setting up the user data object
-| intended to be passed to views.
-|
-*/
+Route::filter('tracker', function() {
+	Tracker::addPageCount();
+});
 
-Route::filter('userdata', function() {
-	//Create userData object
-	$userData=new stdClass();
-
-	//Set login status
-	if(Auth::check()) {
-		$userData->status='logged_in';
-	} else {
-		$userData->status='not_logged_in';
-	}
-
-	//Pass userData object to ViewData
-	ViewData::update('UserData',$userData);
+Route::filter('restricted-page', function() {
+	Tracker::addRestrictedCount();
 });

@@ -122,7 +122,9 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		/*Service Provider for ViewData*/
-		'CafeCoder\Laravel\ViewData\ViewDataServiceProvider'
+		'CafeCoder\Laravel\ViewData\ViewDataServiceProvider',
+		/*Service Provider for Tracker*/
+		'CafeCoder\Laravel\Tracker\TrackerServiceProvider'
 	),
 
 	/*
@@ -190,7 +192,9 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		/*ViewData Facade*/
-		'ViewData'=>'CafeCoder\Laravel\ViewData\ViewData'
+		'ViewData'=>'CafeCoder\Laravel\ViewData\ViewData',
+		/*Tracker Facade*/
+		'Tracker'=>'CafeCoder\Laravel\Tracker\Tracker'
 	),
 
 );
