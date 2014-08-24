@@ -300,7 +300,7 @@ var LoginModal={
 	}/*hideLoginError()*/,
 	proc_signup:function(signupForm) {
 		var data=signupForm.serialize();
-		$.post(this.endpoints.signup, data, function(response) {console.log(response);
+		$.post(this.endpoints.signup, data, function(response) {
 			if(typeof response === 'object' && 'type' in response) {
 				if(response.type=='success') {
 					LoginModal.login_status=true;
