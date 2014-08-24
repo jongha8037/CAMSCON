@@ -19,6 +19,9 @@
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 
+	<!--Google Web Fonts-->
+	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css' />
+
 	<!--Admin Layout styles-->
 	<link href="{{asset('front-assets/layouts/master.css')}}" rel="stylesheet" />
 
@@ -46,6 +49,11 @@
 	<script src="{{asset('packages/jquery-ui-1.11.0-hot-sneaks-full/jquery-ui.min.js')}}"></script>
 	<!-- Bootstrap 3.2.0 -->
 	<script src="{{asset('packages/bootstrap-3.2.0/js/bootstrap.min.js')}}"></script>
+
+	<!--Login modal-->
+	@if(!Auth::check())
+	@include('includes.login-modal', array('tracker'=>Tracker::get()))
+	@endif
 
 	<!--Alert/Confirm modals-->
 	@include('includes.confirm-modal')
