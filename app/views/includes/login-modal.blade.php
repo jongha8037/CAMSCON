@@ -239,9 +239,9 @@ var LoginModal={
 					} else {
 						LoginModal.setLoginError('페이스북 로그인이 취소됐습니다 :(');
 					}
-				});
+				}, {scope:'email'});
 			}
-		}, {scope:'email'});
+		});
 	}/*proc_login_fb()*/,
 	login_fb_backend:function() {
 		var data={
