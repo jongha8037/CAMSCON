@@ -60,13 +60,14 @@ class GroupsController extends BaseController {
 	public function deleteUsers() {
 		$input=Input::only('checked');
 		$checked=explode(',', $input['checked']);
-		$users=User::whereIn('id', $checked)->get();
+		$users=User::with('groups')->whereIn('id', $checked)->get();
 
 		foreach($users as $user) {
+			DB::table('groupings')->where('user_id','=',$user->id)->delete();
 			$user->delete();
 		}
 
-		return Redirect::back()->with('action_success', 'delete');
+		return Redirect::back()->with('action_success', '선택한 사용자들이 삭제되었습니다! :)');
 	}//deleteUsers()
 
 	public function copyUsers() {
@@ -86,9 +87,9 @@ class GroupsController extends BaseController {
 				$user->groups()->attach($input['group_id']);
 			}
 
-			return Redirect::back()->with('action_success', 'copy');
+			return Redirect::back()->with('action_success', '선택한 사용자들이 복사되었습니다! :)');
 		} else {
-			return Redirect::back()->with('action_error', 'copy_invalid_request');
+			return Redirect::back()->with('action_error', '유효하지 않은 요청 입니다! :(');
 		}
 	}//copyUsers()
 
@@ -111,9 +112,9 @@ class GroupsController extends BaseController {
 				$user->groups()->attach($input['group_id']);
 			}
 
-			return Redirect::back()->with('action_success', 'move');
+			return Redirect::back()->with('action_success', '선택한 사용자들이 이동되었습니다! :)');
 		} else {
-			return Redirect::back()->with('action_error', 'move_invalid_request');
+			return Redirect::back()->with('action_error', '유효하지 않은 요청 입니다! :(');
 		}
 	}//moveUsers()
 
