@@ -87,11 +87,11 @@ Admin Login
 <script type="text/javascript">
 var User={
 	endpoints:{
-		loginWithFB:"{{$UserData->endpoints->loginWithFB}}"
+		loginWithFB:"{{$fbLoginURL}}"
 	},
 	csrf_token:"{{csrf_token()}}",
-	status:"{{$UserData->status}}",
-	intended:"{{url($UserData->intended)}}",
+	status:@if(Auth::check()){{'true'}}@else{{'false'}}@endif,
+	intended:"{{url($intended)}}",
 	loginWithFB:function() {
 		$('#loginFormMsg').text('연결된 페이스북 계정으로 로그인을 시도하고 있습니다...');
 
@@ -135,9 +135,12 @@ var User={
 	FB:{
 		statusChangeCallback:function(response) {
 			console.log(response);
-			if(response.status==='connected' && User.status=='not_logged_in') {
+			if(response.status==='connected' && User.status===false) {
 				//Login to app
 				User.loginWithFB();
+			} else if(response.status==='connected' && User.status===true) {
+				//Handle intended redirection
+				document.location.href=User.intended;
 			}
 		}/*statusChangeCallback()*/,
 		checkLoginState:function() {

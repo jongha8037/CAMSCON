@@ -52,8 +52,18 @@ Route::filter('auth', function()
 Route::filter('auth.admin', function() {
 	if(Auth::check()) {
 		//User is logged in check groups
-		$groups=Auth::user()->groups()->id;
-		dd($groups);
+		$groups=Auth::user()->groups;
+		$isAdmin=false;
+		foreach($groups as $group) {
+			if(intval($group->id)===6 || intval($group->id)===7) {
+				$isAdmin=true;
+				break;
+			}
+		}
+
+		if(!$isAdmin) {
+			App::abort(401);
+		}
 	} else {
 		//User is not logged in
 		if (Request::ajax()) {

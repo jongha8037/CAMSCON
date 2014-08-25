@@ -26,7 +26,7 @@ Route::post('auth/user/reset-password', array('before'=>'csrf', 'uses'=>'Reminde
 
 /*Admin Routes*/
 Route::when('admin/*', 'auth.admin');
-Route::get('admin/dashboard', function() {dd('admin');});
+Route::get('admin/dashboard', array('uses'=>'AdminController@showDashboard'));
 
 /*Admin Brands*/
 Route::get('admin/brands/dashboard', array('uses'=>'BrandsController@showDashboard'));
@@ -42,7 +42,10 @@ Route::post('admin/categories/change-parent', array('uses'=>'CategoriesControlle
 Route::post('admin/categories/delete', array('uses'=>'CategoriesController@deleteCategory'));
 
 /*Admin User Groups*/
-Route::get('admin/user-groups', array('uses'=>'GroupsController@showEditor'));
+Route::get('admin/user-groups/{queryType?}/{field?}', array('uses'=>'GroupsController@showUsers'));
+Route::post('admin/user-groups/delete-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@deleteUsers'));
+Route::post('admin/user-groups/copy-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@copyUsers'));
+Route::post('admin/user-groups/move-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@moveUsers'));
 
 /*Admin User Routes*/
 Route::get('auth/admin/login', array('before'=>'login-wall','uses'=>'AdminController@showLogin'));
@@ -50,6 +53,7 @@ Route::post('auth/admin/login/fb', array('before'=>'csrf','uses'=>'AdminControll
 Route::post('auth/admin/login/email', array('before'=>'csrf','uses'=>'AdminController@loginWithEmail'));
 Route::get('auth/admin/send-reset', array('uses'=>'RemindersController@getAdminRemind'));
 Route::post('auth/admin/send-reset', array('uses'=>'RemindersController@postRemind'));
+Route::get('auth/admin/logout', array('uses'=>'AdminController@logoutUser'));
 
 
 /*Mockup Routes*/

@@ -12,7 +12,7 @@ class RemindersController extends Controller {
 	}
 
 	public function getAdminRemind() {
-		return View::make('admin.user.admin-remind');
+		return View::make('admin.auth.admin-remind');
 	}
 
 	/**

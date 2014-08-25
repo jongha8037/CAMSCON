@@ -28,7 +28,7 @@
 @include('includes.facebook-sdk')
 	<header class="admin-header container">
 		<ul class="nav nav-tabs" role="tablist">
-			<li class="active"><a href="#">대시보드</a></li>
+			<li><a href="{{action('AdminController@showDashboard')}}">대시보드</a></li>
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 					스타일 아이콘 관리 <span class="caret"></span>
@@ -51,7 +51,7 @@
 					회원 체계 관리 <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="{{action('GroupsController@showEditor')}}">회원 조회 및 그룹 관리</a></li>
+					<li><a href="{{action('GroupsController@showUsers')}}">회원 조회 및 그룹 관리</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -64,7 +64,7 @@
 	<footer class="admin-footer container">
 		<div class="admin-footer-content">
 			@if(Auth::check())
-			<a href="" class="btn btn-default btn-xs admin-logout-btn">로그아웃</a>
+			<a href="{{action('AdminController@logoutUser')}}" class="btn btn-default btn-xs admin-logout-btn">로그아웃</a>
 			@endif
 		</div>
 	</footer>

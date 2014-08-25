@@ -7,26 +7,22 @@ use Facebook\FacebookAuthorizationException;
 
 class AdminController extends BaseController {
 
-	public function showLogin() {
-		//Get UserData object from ViewData
-		$userData=ViewData::find('UserData');
+	public function showDashboard() {
+		return View::make('admin.dashboard');
+	}
 
-		//Add endpoints to UserData
-		$userData->endpoints=new stdClass();
-		$userData->endpoints->loginWithFB=action('AdminController@loginWithFB');
+	public function showLogin() {
+		ViewData::add('fbLoginURL', action('AdminController@loginWithFB'));
 
 		//Add intended route to UserData
 		if(Session::has('intended')) {
-			$userData->intended=Session::get('intended');
+			ViewData::add('intended', Session::get('intended'));
 		} else {
-			$userData->intended='admin/dashboard';
+			ViewData::add('intended', 'admin/dashboard');
 		}
 
-		//Update UserData object in ViewData
-		ViewData::update('UserData',$userData);
-
 		//Return View
-		return View::make('admin.user.admin-login',ViewData::get());
+		return View::make('admin.auth.admin-login',ViewData::get());
 	}//showLogin()
 
 	public function loginWithFB() {
@@ -102,5 +98,10 @@ class AdminController extends BaseController {
 			return Redirect::back()->with('login_error',true);
 		}
 	}//loginWithEmail()
+
+	public function logoutUser() {
+		Auth::logout();
+		return Redirect::to('admin/dashboard');
+	}//logoutUser()
 
 }
