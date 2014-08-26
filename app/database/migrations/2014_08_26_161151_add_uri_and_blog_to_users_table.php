@@ -26,7 +26,7 @@ class AddUriAndBlogToUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schemma::table('users' function() {
+		Schema::table('users', function() {
 			$table->dropColumn(array('uri', 'blog'));
 		});
 	}
