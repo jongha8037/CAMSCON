@@ -40,9 +40,9 @@ class StreetMeta extends Eloquent {
 				break;
 		}
 
-		if(!emtpy($name)) {
+		if(!empty($name)) {
 			return $name;
-		} elseif(!emtpy($this->name_en)) {
+		} elseif(!empty($this->name_en)) {
 			return $this->name_en;
 		} else {
 			return $this->name_ko;
