@@ -13,12 +13,37 @@ class CreateCampusStyleIconsTable extends Migration {
 	public function up()
 	{
 		Schema::create('campus_style_icons', function($table) {
+			/*Primary key, Auto increment*/
 			$table->bigIncrements('id');
-			/*Icon data*/
-			$table->bigInteger('icon_id');
 			
-			/*Timestamps*/
+			/*Icon data*/
+			$table->bigInteger('icon_id')->unsigned()->nullable();
+			$table->string('icon_name');
+			$table->enum('icon_gender', array('male', 'female'));
+			$table->integer('icon_age')->unsigned()->nullable();
+			$table->text('icon_comment')->nullable();
+			
+			/*Image content data*/
+			$table->bigInteger('primary_photo_id')->unsigned()->nullable();
+			$table->string('attachments_array')->nullable();
+
+			/*Meta data*/
+			$table->integer('content_type_id')->unsigned();
+			$table->integer('cached_total_likes')->unsigned();
+			$table->integer('cached_total_comments')->unsigned();
+
+			/*Photographer data*/
+			$table->bigInteger('user_id')->unsigned();
+			$table->text('photographer_comment')->nullable();
+
+			/*Timestamps & status*/
 			$table->timestamps();
+			$table->enum('status', array('draft', 'published'));
+
+			/*Indexes*/
+			$table->index('icon_name');
+			$table->index('content_type_id');
+			$table->index('user_id');
 		});
 	}
 
@@ -29,36 +54,7 @@ class CreateCampusStyleIconsTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('campus_style_icons');
 	}
 
 }
-
-/*DB*/
-id
-updated_at
-created_at
-deleted_at
-
-/*Icon data*/
-icon_id
-icon_name
-icon_sex
-icon_profession
-icon_age
-icon_comment
-
-/*Content data*/
-primary_photo_id
-attachments_array
-
-/*Meta data*/
-content_type_id
-meta_id
-total_likes
-total_comments
-
-
-/*Photographer data*/
-user_id
-photographer_comment
