@@ -117,6 +117,16 @@ class UserController extends BaseController {
 						$session, 'GET', '/me'
 					))->execute()->getGraphObject(GraphUser::className());
 
+					$fbPicture = (new FacebookRequest(
+						$session, 'GET', '/me/picture', 
+						array(
+							'redirect'=>false,
+							'type'=>'large',
+							'width'=>200,
+							'height'=>200
+						)
+					))->execute()->getGraphObject();
+
 					$user=new User;
 					$user->email=$user_profile->getProperty('email');
 					$user->password=null;
@@ -141,14 +151,34 @@ class UserController extends BaseController {
 						$fbAccount->link=$user_profile->getLink();
 						$fbAccount->gender=$user_profile->getProperty('gender');
 						$fbAccount->locale=$user_profile->getProperty('locale');
+
+						if($fbPicture->getProperty('is_silhouette')===false) {
+							$profileImage=new ProfileImage;
+							try {
+								$profileImage->user_id=$user->id;
+								$profileImage->setRemoteFile($fbPicture->getProperty('url'));
+							} catch(Exception $e) {
+								$profileImage=null;
+							}
+							
+						}
 						
-						if($fbAccount->save()) {
+						DB::beginTransaction();
+						try {
+							$fbAccount->save();
+							if(isset($profileImage)) {
+								$profileImage->save();
+							}
+
 							$response->type='success';
-						} else {
+						} catch(Exception $e) {Log::info('transaction failed');
+							DB::rollback();
 							$user->forceDelete();
 							$response->type='error';
 							$response->msg='db_error';
 						}
+
+						DB::commit();
 					} else {
 						$response->type='error';
 						$response->msg='db_error';
