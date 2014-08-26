@@ -14,12 +14,12 @@ class CreateUsersTable extends Migration {
 	{
 		Schema::create('users', function($table) {
 			$table->bigIncrements('id');
-			$table->string('email');
-			$table->string('password');
+			$table->string('email')->nullable();
+			$table->string('password')->nullable();
 			$table->string('nickname');
-			$table->bigInteger('facebook_id')->unsigned();
-			$table->bigInteger('instagram_id')->unsigned();
+			$table->enum('gender',array('male', 'female'))->nullable();
 			$table->softDeletes();
+			$table->rememberToken();
 			$table->timestamps();
 		});
 	}

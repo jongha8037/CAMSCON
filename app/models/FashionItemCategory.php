@@ -40,10 +40,12 @@ class FashionItemCategory extends Eloquent {
 				break;
 		}
 
-		if($name) {
+		if(!emtpy($name)) {
 			return $name;
-		} else {
+		} elseif(!emtpy($this->name_en)) {
 			return $this->name_en;
+		} else {
+			return $this->name_ko;
 		}
 	}//getNameAttribute
 

@@ -1,7 +1,8 @@
 <?php
 
-class FashionBrand extends Eloquent {
+class StreetMeta extends Eloquent {
 
+	protected $table = 'street_meta';
 	protected $appends = array('name');
 
 	//Accessor for name

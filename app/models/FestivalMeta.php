@@ -1,7 +1,8 @@
 <?php
 
-class FashionBrand extends Eloquent {
+class FestivalMeta extends Eloquent {
 
+	protected $table = 'festival_meta';
 	protected $appends = array('name');
 
 	//Accessor for name
