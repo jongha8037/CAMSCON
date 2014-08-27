@@ -26,16 +26,17 @@ Route::post('auth/user/reset-password', array('before'=>'csrf', 'uses'=>'Reminde
 
 /*Admin Routes*/
 Route::when('admin/*', 'auth.admin');
+Route::get('admin', function() {return Redirect::to('admin/dashboard');});
 Route::get('admin/dashboard', array('uses'=>'AdminController@showDashboard'));
 
 /*Admin Brands*/
-Route::get('admin/brands/dashboard', array('uses'=>'BrandsController@showDashboard'));
+Route::get('admin/brands', array('uses'=>'BrandsController@showDashboard'));
 Route::get('admin/brands/edit/{brand_id}', array('uses'=>'BrandsController@showEditor'));
 Route::post('admin/brands/save', array('uses'=>'BrandsController@saveBrand'));
 Route::post('admin/brands/delete', array('uses'=>'BrandsController@deleteBrand'));
 
 /*Admin Categories*/
-Route::get('admin/categories/dashboard', array('uses'=>'CategoriesController@showDashboard'));
+Route::get('admin/categories', array('uses'=>'CategoriesController@showDashboard'));
 Route::get('admin/categories/edit/{category_id}', array('uses'=>'CategoriesController@showEditor'));
 Route::post('admin/categories/save', array('uses'=>'CategoriesController@saveCategory'));
 Route::post('admin/categories/change-parent', array('uses'=>'CategoriesController@changeParent'));
