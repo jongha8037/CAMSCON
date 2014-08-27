@@ -88,7 +88,15 @@ class CategoriesController extends BaseController {
 		$validationRules=array(
 			'category_id'=>array('sometimes','exists:fashion_item_categories,id'),
 			'parent_id'=>array('required','integer','min:0'),
-			'category_name_en'=>array('required'),
+			'category_name_en'=>array('required_without_all:category_name_ko,category_name_ja,category_name_zh_cn,category_name_zh_tw,category_name_ru,category_name_th,category_name_es,category_name_vi'),
+			'category_name_ko'=>array('required_without_all:category_name_en,category_name_ja,category_name_zh_cn,category_name_zh_tw,category_name_ru,category_name_th,category_name_es,category_name_vi'),
+			'category_name_ja'=>array('required_without_all:category_name_en,category_name_ko,category_name_zh_cn,category_name_zh_tw,category_name_ru,category_name_th,category_name_es,category_name_vi'),
+			'category_name_zh_cn'=>array('required_without_all:category_name_en,category_name_ko,category_name_ja,category_name_zh_tw,category_name_ru,category_name_th,category_name_es,category_name_vi'),
+			'category_name_zh_tw'=>array('required_without_all:category_name_en,category_name_ko,category_name_ja,category_name_zh_cn,category_name_ru,category_name_th,category_name_es,category_name_vi'),
+			'category_name_ru'=>array('required_without_all:category_name_en,category_name_ko,category_name_ja,category_name_zh_cn,category_name_zh_tw,category_name_th,category_name_es,category_name_vi'),
+			'category_name_th'=>array('required_without_all:category_name_en,category_name_ko,category_name_ja,category_name_zh_cn,category_name_zh_tw,category_name_ru,category_name_es,category_name_vi'),
+			'category_name_es'=>array('required_without_all:category_name_en,category_name_ko,category_name_ja,category_name_zh_cn,category_name_zh_tw,category_name_ru,category_name_th,category_name_vi'),
+			'category_name_vi'=>array('required_without_all:category_name_en,category_name_ko,category_name_ja,category_name_zh_cn,category_name_zh_tw,category_name_ru,category_name_th,category_name_es')
 		);
 
 		$messages=array(
@@ -97,6 +105,7 @@ class CategoriesController extends BaseController {
 			'min'=>'입력값이 잘못됐습니다.',
 			'unique'=>'데이터베이스에 이미 동일한 항목이 존재합니다.',
 			'exists'=>'항목이 존재하지 않습니다!',
+			'required_without_all'=>'카테고리 이름은 적어도 한 가지 언어로 입력이 되어야 합니다.'
 		);
 
 		$validator = Validator::make($input, $validationRules, $messages);

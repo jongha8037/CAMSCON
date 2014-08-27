@@ -83,19 +83,19 @@ Fashion Item Categories: Editor
 
 			<!--Category name Chinese Simplified-->
 			<div class="form-group">
-				<label for="categoryNameZnCn">카테고리 중국어 (간체, 중국) 이름</label>
-				<input type="text" class="form-control" id="categoryNameZnCn" name="category_name_zn_cn" placeholder="카테고리 중국어 (간체, 중국) 이름" value="@if(Input::old('category_name_zn_cn')){{Input::old('category_name_zn_cn')}}@else{{$editTarget->name_zn_cn or ''}}@endif" />
-				@if($errors->has('category_name_zn_cn'))
-				<p class="text-danger">{{$errors->first('category_name_zn_cn')}}</p>
+				<label for="categoryNameZhCn">카테고리 중국어 (간체, 중국) 이름</label>
+				<input type="text" class="form-control" id="categoryNameZhCn" name="category_name_zh_cn" placeholder="카테고리 중국어 (간체, 중국) 이름" value="@if(Input::old('category_name_zh_cn')){{Input::old('category_name_zh_cn')}}@else{{$editTarget->name_zh_cn or ''}}@endif" />
+				@if($errors->has('category_name_zh_cn'))
+				<p class="text-danger">{{$errors->first('category_name_zh_cn')}}</p>
 				@endif
 			</div>
 
 			<!--Category name Chinese Traditional-->
 			<div class="form-group">
-				<label for="categoryNameZnTw">카테고리 중국어 (번체, 대만) 이름</label>
-				<input type="text" class="form-control" id="categoryNameZnTw" name="category_name_zn_tw" placeholder="카테고리 중국어 (번체, 대만) 이름" value="@if(Input::old('category_name_zn_tw')){{Input::old('category_name_zn_tw')}}@else{{$editTarget->name_zn_tw or ''}}@endif" />
-				@if($errors->has('category_name_zn_tw'))
-				<p class="text-danger">{{$errors->first('category_name_zn_tw')}}</p>
+				<label for="categoryNameZhTw">카테고리 중국어 (번체, 대만) 이름</label>
+				<input type="text" class="form-control" id="categoryNameZhTw" name="category_name_zh_tw" placeholder="카테고리 중국어 (번체, 대만) 이름" value="@if(Input::old('category_name_zh_tw')){{Input::old('category_name_zh_tw')}}@else{{$editTarget->name_zh_tw or ''}}@endif" />
+				@if($errors->has('category_name_zh_tw'))
+				<p class="text-danger">{{$errors->first('category_name_zh_tw')}}</p>
 				@endif
 			</div>
 
@@ -145,7 +145,7 @@ Fashion Item Categories: Editor
 
 		@if(isset($editTarget))
 		{{Form::open(array('action'=>'CategoriesController@deleteCategory','id'=>'categoryDeleteForm'))}}
-			<input type="hidden" name="category_id" value="{{$editTarget->id}}" />
+			<input type="hidden" name="category_id" value="{{$editTarget->id or ''}}" />
 		{{Form::close()}}
 		@endif
 	</div><!--/.category-form-wrapper-->
@@ -161,7 +161,7 @@ var CategoryAJAX={
 	editURL:"{{action('CategoriesController@showEditor',array('category_id'=>null))}}/"
 };
 
-@if(isset($editTarget))
+@if(is_object($editTarget))
 var EditTarget={
 	category_id:{{$editTarget->id}}
 };

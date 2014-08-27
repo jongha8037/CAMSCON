@@ -65,19 +65,19 @@ Fashion Brands: Editor
 
 			<!--Brand name Chinese Simplified-->
 			<div class="form-group">
-				<label for="brandNameZnCn">브랜드 중국어 (간체, 중국) 이름</label>
-				<input type="text" class="form-control" id="brandNameZnCn" name="brand_name_zn_cn" placeholder="브랜드 중국어 (간체, 중국) 이름" value="@if(Input::old('brand_name_zn_cn')){{Input::old('brand_name_zn_cn')}}@else{{$editTarget->name_zn_cn or ''}}@endif" />
-				@if($errors->has('brand_name_zn_cn'))
-				<p class="text-danger">{{$errors->first('brand_name_zn_cn')}}</p>
+				<label for="brandNameZhCn">브랜드 중국어 (간체, 중국) 이름</label>
+				<input type="text" class="form-control" id="brandNameZhCn" name="brand_name_zh_cn" placeholder="브랜드 중국어 (간체, 중국) 이름" value="@if(Input::old('brand_name_zh_cn')){{Input::old('brand_name_zh_cn')}}@else{{$editTarget->name_zh_cn or ''}}@endif" />
+				@if($errors->has('brand_name_zh_cn'))
+				<p class="text-danger">{{$errors->first('brand_name_zh_cn')}}</p>
 				@endif
 			</div>
 
 			<!--Brand name Chinese Traditional-->
 			<div class="form-group">
-				<label for="brandNameZnTw">브랜드 중국어 (번체, 대만) 이름</label>
-				<input type="text" class="form-control" id="brandNameZnTw" name="brand_name_zn_tw" placeholder="브랜드 중국어 (번체, 대만) 이름" value="@if(Input::old('brand_name_zn_tw')){{Input::old('brand_name_zn_tw')}}@else{{$editTarget->name_zn_tw or ''}}@endif" />
-				@if($errors->has('brand_name_zn_tw'))
-				<p class="text-danger">{{$errors->first('brand_name_zn_tw')}}</p>
+				<label for="brandNameZhTw">브랜드 중국어 (번체, 대만) 이름</label>
+				<input type="text" class="form-control" id="brandNameZhTw" name="brand_name_zh_tw" placeholder="브랜드 중국어 (번체, 대만) 이름" value="@if(Input::old('brand_name_zh_tw')){{Input::old('brand_name_zh_tw')}}@else{{$editTarget->name_zh_tw or ''}}@endif" />
+				@if($errors->has('brand_name_zh_tw'))
+				<p class="text-danger">{{$errors->first('brand_name_zh_tw')}}</p>
 				@endif
 			</div>
 

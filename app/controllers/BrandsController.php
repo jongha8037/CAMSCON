@@ -56,13 +56,21 @@ class BrandsController extends BaseController {
 
 		$validationRules=array(
 			'brand_id'=>array('sometimes','exists:fashion_brands,id'),
-			'brand_name_en'=>array('required'),
+			'brand_name_en'=>array('required_without_all:brand_name_ko,brand_name_ja,brand_name_zh_cn,brand_name_zh_tw,brand_name_ru,brand_name_th,brand_name_es,brand_name_vi'),
+			'brand_name_ko'=>array('required_without_all:brand_name_en,brand_name_ja,brand_name_zh_cn,brand_name_zh_tw,brand_name_ru,brand_name_th,brand_name_es,brand_name_vi'),
+			'brand_name_ja'=>array('required_without_all:brand_name_en,brand_name_ko,brand_name_zh_cn,brand_name_zh_tw,brand_name_ru,brand_name_th,brand_name_es,brand_name_vi'),
+			'brand_name_zh_cn'=>array('required_without_all:brand_name_en,brand_name_ko,brand_name_ja,brand_name_zh_tw,brand_name_ru,brand_name_th,brand_name_es,brand_name_vi'),
+			'brand_name_zh_tw'=>array('required_without_all:brand_name_en,brand_name_ko,brand_name_ja,brand_name_zh_cn,brand_name_ru,brand_name_th,brand_name_es,brand_name_vi'),
+			'brand_name_ru'=>array('required_without_all:brand_name_en,brand_name_ko,brand_name_ja,brand_name_zh_cn,brand_name_zh_tw,brand_name_th,brand_name_es,brand_name_vi'),
+			'brand_name_th'=>array('required_without_all:brand_name_en,brand_name_ko,brand_name_ja,brand_name_zh_cn,brand_name_zh_tw,brand_name_ru,brand_name_es,brand_name_vi'),
+			'brand_name_es'=>array('required_without_all:brand_name_en,brand_name_ko,brand_name_ja,brand_name_zh_cn,brand_name_zh_tw,brand_name_ru,brand_name_th,brand_name_vi'),
+			'brand_name_vi'=>array('required_without_all:brand_name_en,brand_name_ko,brand_name_ja,brand_name_zh_cn,brand_name_zh_tw,brand_name_ru,brand_name_th,brand_name_es'),
 			'brand_url'=>array('sometimes','url'),
 			'brand_description'=>array('sometimes')
 		);
 
 		$messages=array(
-			'required'=>'필수 항목 입니다.',
+			'required_without_all'=>'브랜드 이름은 적어도 한 가지 언어로 입력이 되어야 합니다.',
 			'unique'=>'데이터베이스에 이미 동일한 항목이 존재합니다.',
 			'exists'=>'수정하고자 하는 항목이 존재하지 않습니다!',
 			'url'=>'url 형식이 잘못됐습니다!'
