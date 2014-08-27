@@ -136,14 +136,14 @@ Fashion Item Categories: Editor
 			</div>
 
 			<div class="category-submit-wrapper">
-				@if(isset($editTarget))
+				@if(is_object($editTarget))
 				<button type="button" id="categoryDeleteBtn" class="btn btn-warning">삭제하기</button>
 				@endif
 				<button type="submit" class="btn btn-primary">저장하기</button>
 			</div>
 		{{Form::close()}}
 
-		@if(isset($editTarget))
+		@if(is_object($editTarget))
 		{{Form::open(array('action'=>'CategoriesController@deleteCategory','id'=>'categoryDeleteForm'))}}
 			<input type="hidden" name="category_id" value="{{$editTarget->id or ''}}" />
 		{{Form::close()}}
