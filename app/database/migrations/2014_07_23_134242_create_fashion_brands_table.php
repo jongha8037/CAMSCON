@@ -23,9 +23,12 @@ class CreateFashionBrandsTable extends Migration {
 			$table->string('name_th')->nullable();
 			$table->string('name_es')->nullable();
 			$table->string('name_vi')->nullable();
+			$table->string('slug');
 			$table->text('description')->nullable();
 			$table->text('url')->nullable;
 			$table->timestamps();
+
+			$table->unique('slug');
 		});
 	}
 

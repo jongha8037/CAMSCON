@@ -18,9 +18,14 @@ class CreateUsersTable extends Migration {
 			$table->string('password')->nullable();
 			$table->string('nickname');
 			$table->enum('gender',array('male', 'female'))->nullable();
+			$table->string('uri')->nullable();
+			$table->string('blog')->nullable();
+			$table->string('slug')->nullable();
 			$table->softDeletes();
 			$table->rememberToken();
 			$table->timestamps();
+
+			$table->unique('slug');
 		});
 	}
 

@@ -24,8 +24,10 @@ class CreateMetaTables extends Migration {
 			$table->string('name_th')->nullable();
 			$table->string('name_es')->nullable();
 			$table->string('name_vi')->nullable();
+			$table->string('slug');
 
 			$table->timestamps();
+			$table->unique('slug');
 		});
 
 		Schema::create('street_meta', function($table) {
@@ -40,8 +42,10 @@ class CreateMetaTables extends Migration {
 			$table->string('name_th')->nullable();
 			$table->string('name_es')->nullable();
 			$table->string('name_vi')->nullable();
+			$table->string('slug');
 
 			$table->timestamps();
+			$table->unique('slug');
 		});
 
 		Schema::create('fashion_week_meta', function($table) {
@@ -56,8 +60,10 @@ class CreateMetaTables extends Migration {
 			$table->string('name_th')->nullable();
 			$table->string('name_es')->nullable();
 			$table->string('name_vi')->nullable();
+			$table->string('slug');
 
 			$table->timestamps();
+			$table->unique('slug');
 		});
 
 		Schema::create('festival_meta', function($table) {
@@ -72,8 +78,10 @@ class CreateMetaTables extends Migration {
 			$table->string('name_th')->nullable();
 			$table->string('name_es')->nullable();
 			$table->string('name_vi')->nullable();
+			$table->string('slug');
 
 			$table->timestamps();
+			$table->unique('slug');
 		});
 
 		Schema::create('club_meta', function($table) {
@@ -88,8 +96,10 @@ class CreateMetaTables extends Migration {
 			$table->string('name_th')->nullable();
 			$table->string('name_es')->nullable();
 			$table->string('name_vi')->nullable();
+			$table->string('slug');
 
 			$table->timestamps();
+			$table->unique('slug');
 		});
 	}
 
