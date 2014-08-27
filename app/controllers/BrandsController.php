@@ -78,6 +78,7 @@ class BrandsController extends BaseController {
 
 		$validator = Validator::make($input, $validationRules, $messages);
 
+		/*
 		$validator->sometimes('brand_name', 'unique:fashion_brands,name,'.$input['brand_id'], function($input) {
 			return !empty($input->brand_id);
 		});
@@ -85,6 +86,7 @@ class BrandsController extends BaseController {
 		$validator->sometimes('brand_name', 'unique:fashion_brands,name', function($input) {
 			return empty($input->brand_id);
 		});
+		*/
 
 		if($validator->passes()) {
 			//Set Brand obj

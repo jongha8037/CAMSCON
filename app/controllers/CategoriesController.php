@@ -114,6 +114,7 @@ class CategoriesController extends BaseController {
 			return intval($input->parent_id)!==0;
 		});
 
+		/*
 		$validator->sometimes('category_name', 'unique:fashion_item_categories,name,'.$input['category_id'], function($input) {
 			return !empty($input->category_id);
 		});
@@ -121,6 +122,7 @@ class CategoriesController extends BaseController {
 		$validator->sometimes('category_name', 'unique:fashion_item_categories,name', function($input) {
 			return empty($input->category_id);
 		});
+		*/
 
 		if($validator->passes()) {
 			//Set Category obj
