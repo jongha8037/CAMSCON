@@ -171,7 +171,8 @@ class CampusMetaTableSeeder extends Seeder {
 		CampusMeta::create(array('name_en'=>'Univ of Toronto','slug'=>'toronto'));
 		CampusMeta::create(array('name_en'=>'Yokohama National Univ.','slug'=>'yokohama-national'));
 		CampusMeta::create(array('name_en'=>'York Univ.','slug'=>'york'));
-
+	}
+	
 }
 
 class FashionBrandsTableSeeder extends Seeder {

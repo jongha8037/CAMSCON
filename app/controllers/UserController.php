@@ -168,13 +168,14 @@ class UserController extends BaseController {
 						DB::beginTransaction();
 						try {
 							$fbAccount->save();
-							if(isset($profileImage)) {
+							if(is_object($profileImage)) {
 								$profileImage->save();
 							}
 
+							Auth::login($user);
 							$response->type='success';
 							$response->msg=$this->userBoxTemplate();
-						} catch(Exception $e) {Log::info('transaction failed');
+						} catch(Exception $e) {//Log::info('transaction failed');
 							DB::rollback();
 							$user->forceDelete();
 							$response->type='error';
