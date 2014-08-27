@@ -91,7 +91,7 @@ var User={
 	},
 	csrf_token:"{{csrf_token()}}",
 	status:@if(Auth::check()){{'true'}}@else{{'false'}}@endif,
-	intended:"{{url($intended)}}",
+	intended:"{{$intended}}",
 	loginWithFB:function() {
 		$('#loginFormMsg').text('연결된 페이스북 계정으로 로그인을 시도하고 있습니다...');
 

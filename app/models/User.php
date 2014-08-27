@@ -28,8 +28,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->belongsToMany('Group', 'groupings');
 	}
 
-	public function facebook_account() {
+	public function fbAccount() {
 		return $this->hasOne('FacebookAccount');
+	}
+
+	public function profileImage() {
+		return $this->hasOne('ProfileImage');
 	}
 
 }

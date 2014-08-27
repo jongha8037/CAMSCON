@@ -7,7 +7,7 @@
 	<title>@yield('head_title','Camscon')</title>
 
 	<!--jQuery UI-->
-	<link href="{{asset('packages/jquery-ui-1.11.0-hot-sneaks-full/jquery-ui.min.css')}}" rel="stylesheet" />
+	<!-- <link href="{{asset('packages/jquery-ui-1.11.0-hot-sneaks-full/jquery-ui.min.css')}}" rel="stylesheet" /> -->
 
 	<!-- Bootstrap -->
 	<link href="{{asset('packages/bootstrap-3.2.0/css/bootstrap.min.css')}}" rel="stylesheet" />
@@ -29,24 +29,64 @@
 	</head>
 <body>
 @include('includes.facebook-sdk')
-	<header class="master-header container">
-		<!--Logo & Navigation-->
-	</header><!--./master-header-->
+	<header class="layout-header">
+		<div class="top-row container">
+			<div class="site-logo">
+				<img src="{{asset('front-assets/layouts/logo.png')}}" alt="Camscon" />
+			</div>
 
-	<div class="master-body container">
-		@yield('content')
-	</div><!--/.master-body-->
+			<nav class="site-nav clearfix">
+				<ul>
+					<li><a href="">Hot</a></li>
+					<li><a href="">New</a></li>
+					<li><a href="" class="deactivated">Editorial</a></li>
+					<li><a href="" class="deactivated">Inspirer</a></li>
+				</ul>
+			</nav>
 
-	<footer class="master-footer container">
-		<div class="master-footer-content">
-			<!--Copyright and shit-->
+			<div id="UserBox" class="site-user">
+				@if(Auth::check())
+				@include('includes.user-box')
+				@else
+				<a href="#" id="camsconLoginBtn" class="login-btn">Login or Sign up</a>
+				@endif
+			</div>
+
+			<div class="site-search">
+				<input type="text" name="search_string" placeholder="보고싶은 학교, 거리, 브랜드 등을 입력하세요" />
+			</div>
 		</div>
-	</footer>
+		<div class="bottom-row container">
+			<nav class="category-nav">
+				<ul class="clearfix">
+					<li><a href="{{url('/')}}">All</a></li>
+					<li><a href="">Campus <span class="caret"></span></a></li>
+					<li><a href="" class="deactivated">Street <span class="caret"></span></a></li>
+					<li><a href="" class="deactivated">Brand <span class="caret"></span></a></li>
+					<li><a href="" class="deactivated">Fashion week <span class="caret"></span></a></li>
+					<li><a href="" class="deactivated">Festival/Club <span class="caret"></span></a></li>
+					<li><a href="" style="border-right: 1px solid #7f7f7f;">Men/Ladies <span class="caret"></span></a></li>
+					<li><a href="{{action('StyleIconController@showEditor')}}" class="post-btn"><span class="glyphicon glyphicon-camera"></span> Post</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header><!--/.layout-header-->
+
+	<main class="layout-body container">
+		@yield('content')
+	</main><!--/.layout-body-->
+
+	<footer class="layout-footer container">
+		<div class="layout-footer-content">
+		</div>
+	</footer><!--/.layout-footer-->
 
 	<!-- jQuery 1.11.1 -->
 	<script src="{{asset('packages/jquery-1.11.1/jquery-1.11.1.min.js')}}"></script>
+	
 	<!--jQuery UI-->
-	<script src="{{asset('packages/jquery-ui-1.11.0-hot-sneaks-full/jquery-ui.min.js')}}"></script>
+	<!-- <script src="{{asset('packages/jquery-ui-1.11.0-hot-sneaks-full/jquery-ui.min.js')}}"></script> -->
+	
 	<!-- Bootstrap 3.2.0 -->
 	<script src="{{asset('packages/bootstrap-3.2.0/js/bootstrap.min.js')}}"></script>
 

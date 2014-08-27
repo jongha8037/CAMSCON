@@ -2,18 +2,55 @@
 	#LoginModal .btn {
 		display:block;
 		width:100%;
+		font-weight:700;
+	}
+
+	#LoginModal .alert.alert-warning {
+		background-color: rgba(0,0,0,0.7);
+		color: #f56545;
+		font-weight: 700;
+		border-color: rgba(0,0,0,0.7);
+	}
+
+	#LoginModal .alert.alert-info {
+		background-color: rgba(0,0,0,0.7);
+		color: #7ed4d3;
+		font-weight: 700;
+		border-color: rgba(0,0,0,0.7);
 	}
 
 	#LoginModal .login-error-msg-wrapper, 
-	#LoginModal .signup-error-msg-wrapper {
+	#LoginModal .signup-error-msg-wrapper,
+	#LoginModal .login-info-msg-wrapper {
 		display: none;
 	}
 
+	#LoginModal .login-logo {
+		padding:23px 0px;
+		text-align: center;
+	}
+
+	#LoginModal .login-text {
+		margin: 4px 0px 24px 0px;
+	}
+
+	#LoginModal .login-text p {
+		color:#fff;
+		text-align:center;
+		font-size:16px;
+		margin-bottom:0px;
+	}
+
+	#LoginModal .login-text p:first-child {
+		font-style: italic;
+	}
+
 	#LoginModal .modal-body {
-		background-image: url("{{asset('front-assets/login-modal/bg.png')}}");
+		background-image: url("{{asset('front-assets/login-modal/login_bg.png')}}");
 		background-position: 50% 0%;
 		background-repeat: no-repeat;
 		background-color: #000;
+		min-height:612px;
 	}
 
 	#LoginModal .modal-content {
@@ -30,10 +67,24 @@
 		margin-bottom: 15px;
 	}
 
+	#LoginModal .login-with-fb-btn {
+		background-color: #37538e;
+		border-color: #37538e;
+		padding: 12px 0px;
+	}
+
+	#LoginModal .login-with-fb-btn img {
+		vertical-align: text-bottom;
+	}
+
 	#LoginModal .login-with-email-wrapper, 
 	#LoginModal .signup-form-wrapper {
 		background-color: rgba(255,255,255,0.35);
 		padding: 10px 20px;
+	}
+
+	#LoginModal .signup-toggle {
+		padding: 17px 0px;
 	}
 
 	#LoginModal .signup-form-wrapper {
@@ -81,17 +132,26 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<div>Logo</div>
+				<div class="login-logo"><img src="{{asset('front-assets/login-modal/login_camscon_logo.png')}}"></div>
+				<div class="login-text">
+					<p>Share your daily look, Share your fashion photography and Share your inspiration!</p>
+					<p>CAMSCON을 통해 패션에 대한 영감을 공유하고 나누세요!</p>
+				</div>
 				<div class="inner-wrapper">
-					<h3>로그인</h3>
 					<div class="login-error-msg-wrapper">
 						<div class="alert alert-warning">
 							<p class="login-error-msg"></p>
 						</div>
 					</div>
 
+					<div class="login-info-msg-wrapper">
+						<div class="alert alert-info">
+							<p class="login-info-msg"></p>
+						</div>
+					</div>
+
 					<div class="login-with-fb-wrapper">
-						<button type="button" class="login-with-fb-btn btn btn-primary">페이스북으로 로그인</button>
+						<button type="button" class="login-with-fb-btn btn btn-primary"><img src="{{asset('front-assets/login-modal/login_facebook.png')}}" />으로 계속하기</button>
 					</div>
 
 					<div class="login-with-email-wrapper">
@@ -108,14 +168,7 @@
 									<input type="checkbox" name="remember"> 기억하기
 								</label>
 							</div>
-							<div class="login-controls row">
-								<div class="col-xs-6">
-									<a href="" class="reset-pswd-btn btn btn-default">비밀번호 재설정</a>
-								</div>
-								<div class="col-xs-6">
-									<button type="submit" class="login-with-email-btn btn btn-primary">로그인</button>
-								</div>
-							</div>
+							<button type="submit" class="login-with-email-btn btn btn-primary">Log in</button>
 						{{ Form::close() }}
 					</div>
 
@@ -174,6 +227,11 @@ var LoginModal={
 	login_status:@if(Auth::check()){{'true'}}@else{{'false'}}@endif,
 	total_page_count:{{$tracker->total_page_count}},
 	restricted_page_count:{{$tracker->restricted_page_count}},
+	@if(Session::has('intended'))
+	intended:"{{Session::get('intended')}}",
+	@else
+	intended:null,
+	@endif
 	jqo:null,
 	endpoints:{
 		fb:"{{action('UserController@loginWithFB')}}",
@@ -201,6 +259,7 @@ var LoginModal={
 		//Attach signup form toggle handler
 		this.jqo.find('.signup-toggle').click(function() {
 			LoginModal.hideSignupError();
+			LoginModal.hideLoginInfo();
 			LoginModal.jqo.find('.signup-form-wrapper').toggle();
 		});
 
@@ -219,6 +278,7 @@ var LoginModal={
 		//Attach Login with FB btn handler
 		this.jqo.find('.login-with-fb-btn').click(function() {
 			LoginModal.hideLoginError();
+			LoginModal.setLoginInfo('페이스북으로 로그인하는 중입니다...<br />처음 로그인하는 경우에는 다소 시간이 걸릴 수 있습니다.');
 			LoginModal.proc_login_fb();
 		});
 	}/*init()*/,
@@ -226,6 +286,7 @@ var LoginModal={
 		this.jqo.modal('show');
 	}/*launch()*/,
 	proc_login_fb:function() {
+		LoginModal.disableBtns();
 		FB.getLoginStatus(function(response) {
 			if(response.status==='connected') {
 				//Logged in. Start backend login.
@@ -239,6 +300,8 @@ var LoginModal={
 					} else {
 						LoginModal.setLoginError('페이스북 로그인이 취소됐습니다 :(');
 					}
+					LoginModal.hideLoginInfo();
+					LoginModal.enableBtns();
 				}, {scope:'email'});
 			}
 		});
@@ -250,9 +313,16 @@ var LoginModal={
 
 		$.post(this.endpoints.fb, data, function(response) {
 			if(typeof response === 'object' && 'type' in response) {
+				LoginModal.hideLoginInfo();
+				LoginModal.enableBtns();
 				if(response.type=='success') {
-					LoginModal.hideLoginError();
-					LoginModal.jqo.modal('hide');
+					if(LoginModal.intended==null) {
+						LoginModal.login_status=true;
+						$('#UserBox').html(response.msg);
+						LoginModal.jqo.modal('hide');
+					} else {
+						window.location.href=LoginModal.intended;
+					}
 				} else if(response.type=='error') {
 					switch(response.msg) {
 						case 'fb_api_error':
@@ -277,12 +347,19 @@ var LoginModal={
 		}, 'json');
 	}/*login_fb_backend()*/,
 	proc_login_email:function(loginForm) {
+		LoginModal.disableBtns();
 		var data=loginForm.serialize();
 		$.post(this.endpoints.email, data, function(response) {
+			LoginModal.enableBtns();
 			if(typeof response === 'object' && 'type' in response) {
 				if(response.type=='success') {
-					LoginModal.login_status=true;
-					LoginModal.jqo.modal('hide');
+					if(LoginModal.intended==null) {
+						LoginModal.login_status=true;
+						$('#UserBox').html(response.msg);
+						LoginModal.jqo.modal('hide');
+					} else {
+						window.location.href=LoginModal.intended;
+					}
 				} else {
 					LoginModal.setLoginError('이메일 또는 비밀번호가 일치하지 않습니다! :(');
 				}
@@ -292,7 +369,7 @@ var LoginModal={
 		}, 'json');
 	}/*proc_login_email()*/,
 	setLoginError:function(msg) {
-		this.jqo.find('.login-error-msg').text(msg);
+		this.jqo.find('.login-error-msg').html(msg);
 		this.jqo.find('.login-error-msg-wrapper').show();
 	}/*setLoginError()*/,
 	hideLoginError:function() {
@@ -301,10 +378,16 @@ var LoginModal={
 	proc_signup:function(signupForm) {
 		var data=signupForm.serialize();
 		$.post(this.endpoints.signup, data, function(response) {
+			LoginModal.enableBtns();
 			if(typeof response === 'object' && 'type' in response) {
 				if(response.type=='success') {
-					LoginModal.login_status=true;
-					LoginModal.jqo.modal('hide');
+					if(LoginModal.intended==null) {
+						LoginModal.login_status=true;
+						$('#UserBox').html(response.msg);
+						LoginModal.jqo.modal('hide');
+					} else {
+						window.location.href=LoginModal.intended;
+					}
 				} else {
 					var msg=null;
 					switch(response.msg) {
@@ -352,12 +435,25 @@ var LoginModal={
 		}, 'json');
 	}/*proc_signup()*/,
 	setSignupError:function(msg) {
-		this.jqo.find('.signup-error-msg').text(msg);
+		this.jqo.find('.signup-error-msg').html(msg);
 		this.jqo.find('.signup-error-msg-wrapper').show();
-	}/*setLoginError()*/,
+	}/*setSignupError()*/,
 	hideSignupError:function() {
 		this.jqo.find('.signup-error-msg-wrapper').hide();
-	}/*hideLoginError()*/
+	}/*hideSignupError()*/,
+	setLoginInfo:function(msg) {
+		this.jqo.find('.login-info-msg').html(msg);
+		this.jqo.find('.login-info-msg-wrapper').show();
+	}/*setLoginInfo()*/,
+	hideLoginInfo:function() {
+		this.jqo.find('.login-info-msg-wrapper').hide();
+	}/*hideLoginInfo()*/,
+	disableBtns:function() {
+		this.jqo.find('button').prop('disabled', true);
+	}/*disableBtns()*/,
+	enableBtns:function() {
+		this.jqo.find('button').prop('disabled', false);
+	}/*enableBtns()*/
 };
 
 $(document).ready(function() {

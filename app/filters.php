@@ -49,6 +49,36 @@ Route::filter('auth', function()
 });
 
 
+Route::filter('auth.active_photographers', function() {
+	if(Auth::check()) {
+		//User is logged in check groups
+		$groups=Auth::user()->groups;
+		$authGroup=array(2,3,4,5,6,7);
+		$auth=false;
+		foreach($groups as $group) {
+			if( in_array(intval($group->id), $authGroup) ) {
+				$auth=true;
+				break;
+			}
+		}
+
+		if(!$auth) {
+			if (Request::ajax()) {
+				return Response::make('Unauthorized', 401);
+			} else {
+				return Redirect::to('error/not-authorized')->with('intended',Request::url());
+			}
+		}
+	} else {
+		//User is not logged in
+		if (Request::ajax()) {
+			return Response::make('Unauthorized', 401);
+		} else {
+			return Redirect::to('error/login-required')->with('intended',Request::url());
+		}
+	}
+});
+
 Route::filter('auth.admin', function() {
 	if(Auth::check()) {
 		//User is logged in check groups
@@ -69,7 +99,7 @@ Route::filter('auth.admin', function() {
 		if (Request::ajax()) {
 			return Response::make('Unauthorized', 401);
 		} else {
-			return Redirect::to('auth/admin/login')->with('intended',Route::getCurrentRoute()->getPath());
+			return Redirect::to('auth/admin/login')->with('intended',Request::url());
 		}
 	}
 });

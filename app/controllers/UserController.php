@@ -54,6 +54,7 @@ class UserController extends BaseController {
 
 				if(Auth::attempt($creds, $remember)) {
 					$response->type='success';
+					$response->msg=$this->userBoxTemplate();
 				} else {
 					$response->type='error';
 					$response->msg='hash_error';
@@ -102,13 +103,14 @@ class UserController extends BaseController {
 			//Get fb user id
 			$fbUserId=$session->getSessionInfo()->asArray()['user_id'];
 			//Search for associated user
-			$user = User::whereHas('facebook_account', function($query) use($fbUserId) {
+			$user = User::whereHas('fbAccount', function($query) use($fbUserId) {
 				$query->where('fb_id','=',$fbUserId);
 			})->first();
 			if($user) {
 				//User account associated with the fb user id exists. Login user.
 				Auth::login($user);
 				$response->type='success';
+				$response->msg=$this->userBoxTemplate();
 			} else {
 				//The fb user does not have an account.
 				//Create user with fb account
@@ -171,6 +173,7 @@ class UserController extends BaseController {
 							}
 
 							$response->type='success';
+							$response->msg=$this->userBoxTemplate();
 						} catch(Exception $e) {Log::info('transaction failed');
 							DB::rollback();
 							$user->forceDelete();
@@ -215,11 +218,22 @@ class UserController extends BaseController {
 
 		if (Auth::attempt($creds, $remember)) {
 			$response->type='success';
+			$response->msg=$this->userBoxTemplate();
 		} else {
 			$response->type='error';
 		}
 
 		return Response::json($response);
 	}//loginWithEmail()
+
+	public function logoutUser() {
+		Auth::logout();
+		return Redirect::back();
+	}//logoutUser()
+
+	private function userBoxTemplate() {
+		$userBox=View::make('includes.user-box')->render();
+		return $userBox;
+	}//userBoxTemplate()
 
 }
