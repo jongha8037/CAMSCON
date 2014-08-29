@@ -90,7 +90,6 @@ Route::group(array('prefix' => 'error'), function() {
 
 /*Mockup Routes*/
 Route::get('mockup/main', function() {
-	Auth::login(User::find(5));
 
 	$photos=array(
 		'mockup-assets/sample-content/1.jpg',

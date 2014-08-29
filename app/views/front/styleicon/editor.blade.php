@@ -5,53 +5,7 @@ Post
 @stop
 
 @section('head_styles')
-<style type="text/css">
-.icon-editor .primary-photo-editor {
-	margin-bottom:50px;
-}
-
-.icon-editor .primary-photo-editor figure.primary-photo {
-	display:table;
-	outline:1px dashed #ddd;
-	position: relative;
-}
-
-.icon-editor .primary-photo-editor figure.primary-photo.empty {
-	display:block;
-	min-height:250px;
-}
-
-.icon-editor .primary-photo-editor figure.primary-photo .pin {
-	position:absolute;
-	color:#fff;
-	font-weight: 700;
-	background-color:#56d8d1;
-	border-radius: 50%;
-	width:20px;
-	height:20px;
-	font-size:10px;
-	line-height: 1;
-	padding:6px 0px;
-	text-align: center;
-	cursor:pointer;
-	margin-top:-10px;
-	margin-left:-10px;
-}
-
-.icon-editor .attachment-editor .attachment-list figure {
-	display:table;
-	outline:1px dashed #ddd;
-	margin-bottom:15px;
-}
-
-.data-col h4:last-child {
-	border-bottom:1px solid #ddd;
-}
-
-.data-col .pin-data .row {
-	margin:-16px 0px 25px 0px;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="{{asset('admin-assets/style-icon/editor.css')}}">
 @stop
 
 @section('content')
@@ -68,6 +22,7 @@ Post
 			<div class="primary-toolbar">
 				<button type="button" class="upload-btn btn btn-primary"><span class="glyphicon glyphicon-camera"></span> Upload</button>
 				<button type="button" class="toggle-mode-btn btn btn-primary"><span class="glyphicon glyphicon-tag"></span> Pin</button>
+				<span class="primary-toolbar-msg"></span>
 			</div>
 		</div><!--/#primaryPhotoEditor-->
 

@@ -1,3 +1,4 @@
+/*Legacy code*/
 .meta-input-col {
 	border-left:1px solid #ddd;
 }
@@ -25,4 +26,59 @@
 .add-photo-area .glyphicon-camera {
 	font-size:34px;
 	vertical-align: bottom;
+}
+
+/*Primary photo editor*/
+.icon-editor .primary-photo-editor {
+	margin-bottom:50px;
+}
+
+.icon-editor .primary-photo-editor figure.primary-photo {
+	display:table;
+	outline:2px dashed #ddd;
+	position: relative;
+}
+
+.icon-editor .primary-photo-editor figure.primary-photo.empty {
+	display:block;
+	min-height:250px;
+	background-image:url('camera_icon.png');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+
+.icon-editor .primary-photo-editor figure.primary-photo .pin {
+	position:absolute;
+	color:#fff;
+	font-weight: 700;
+	background-color:#56d8d1;
+	border-radius: 50%;
+	width:20px;
+	height:20px;
+	font-size:10px;
+	line-height: 1;
+	padding:6px 0px;
+	text-align: center;
+	cursor:pointer;
+	margin-top:-10px;
+	margin-left:-10px;
+}
+
+.primary-toolbar {
+	margin-top:7px;
+}
+
+/*Attachments editor*/
+.icon-editor .attachment-editor .attachment-list figure {
+	display:table;
+	outline:1px dashed #ddd;
+	margin-bottom:15px;
+}
+
+.data-col h4:last-child {
+	border-bottom:1px solid #ddd;
+}
+
+.data-col .pin-data .row {
+	margin:-16px 0px 25px 0px;
 }

@@ -11,7 +11,7 @@ class StyleIcon extends Eloquent {
 	}
 
 	public function attachments() {
-		return $this->hasOne('IconAttachments');
+		return $this->hasOne('IconAttachment');
 	}
 
 }

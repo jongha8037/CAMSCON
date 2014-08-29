@@ -33,9 +33,10 @@ class StyleIconController extends BaseController {
 
 	public function showEditor($id=null) {
 		if($id) {
-			$icon=StyleIcon::find($id);
+			$icon=StyleIcon::with('primary', 'attachments')->find($id);
 		} else {
 			$icon=new StyleIcon;
+			$icon->user_id=Auth::user()->id;
 			$icon->status='draft';
 			$icon->save();
 		}
@@ -46,8 +47,6 @@ class StyleIconController extends BaseController {
 		} else {
 			return Redirect::to('error/not-found');
 		}
-
-		
 	}//showEditor()
 
 	public function uploadPrimary() {
@@ -58,10 +57,9 @@ class StyleIconController extends BaseController {
 		//Check StyleIcon existence and ownership
 		$input=Input::only('id');
 
-		$icon=StyleIcon::with('user', 'primary')->find(intval($input['id']));
+		$icon=StyleIcon::with('user', 'primary', 'attachments')->find(intval($input['id']));
 		if($icon) {
-			//if(intval($icon->user->id)===intval(Auth::user()->id)) {
-			if(true) {
+			if(is_object($icon->user) && (intval($icon->user->id)===intval(Auth::user()->id))) {
 				if(Input::hasFile('image')) {
 					$img=new IconPrimaryImage;
 					try {
@@ -70,24 +68,16 @@ class StyleIconController extends BaseController {
 						$img->restrictWidth(670);
 
 						if($img->save()) {
-							//Remove old image
-							/*
 							if($icon->primary) {
 								$icon->primary()->delete();
 							}
 							$img->icon()->save($icon);
-							*/
 
 							$response->type='success';
-							$response->data=new \stdClass();
-							$response->data->id=$img->id;
-							$response->data->url=$img->url;
-							$response->data->width=$img->width;
-							$response->data->height=$img->height;
+							$response->data=$img->toJson();
 
 						} else {
-							throw new Exception("Failed to save file.", 1000);
-							
+							throw new Exception("Failed to save file.");
 						}
 					} catch(Exception $e) {
 						$response->type='error';

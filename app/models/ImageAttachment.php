@@ -2,7 +2,8 @@
 
 class ImageAttachment extends Eloquent {
 
-	protected $appends = array('uploaded_file', 'remote_file', 'source_type', 'relative_path', 'url');
+	protected $visible = array('id', 'url', 'width', 'height');
+	protected $appends = array('uploaded_file', 'remote_file', 'temp_img', 'source_type', 'relative_path', 'width_restriction', 'height_restriction', 'url');
 
 
 	/*-------------------------------------------------*/
@@ -11,6 +12,7 @@ class ImageAttachment extends Eloquent {
 
 	protected $uploaded_file=null;
 	protected $remote_file=null;
+	protected $temp_img=null;
 	protected $source_type=null;
 	protected $relative_path=null;
 	protected $width_restriction=null;
@@ -29,6 +31,10 @@ class ImageAttachment extends Eloquent {
 		return $this->remote_file;
 	}//getRemoteFileAttribute()
 
+	public function getTempImgAttribute() {
+		return $this->temp_img;
+	}//getTempImgAttribute()
+
 	public function getSourceTypeAttribute() {
 		return $this->source_type;
 	}//getSourceTypeAttribute()
@@ -36,6 +42,14 @@ class ImageAttachment extends Eloquent {
 	public function getRelativePathAttribute() {
 		return $this->relative_path;
 	}//getRelativePathAttribute()
+
+	public function getWidthRestrictionAttribute() {
+		return $this->width_restriction;
+	}//getWidthRestrictionAttribute()
+
+	public function getHeightRestrictionAttribute() {
+		return $this->height_restriction;
+	}//getHeightRestrictionAttribute()
 
 	public function getUrlAttribute() {
 		if(isset($this->id,$this->original_extension,$this->dir_path,$this->filename)) {
@@ -136,13 +150,13 @@ class ImageAttachment extends Eloquent {
 				}
 
 				//Create gd image resource
-				$img=imagecreatefromstring($imgContent);
-				if($img===false) {
+				$this->temp_img=imagecreatefromstring($imgContent);
+				if(empty($this->temp_img)) {
 					throw new Exception('Remote resource is not an image.',204);
 				} else {
 					//Get image size
-					$width=imagesx($img);
-					$height=imagesy($img);
+					$width=imagesx($this->temp_img);
+					$height=imagesy($this->temp_img);
 					if(isset($width,$height)) {
 						$this->width=$width;
 						$this->height=$height;
@@ -329,16 +343,52 @@ class ImageAttachment extends Eloquent {
 							$filename=$attachment->generate_filename();
 						}
 
-						//Add Resize logic
+						//Resize
+						if((isset($attachment->width_restriction) && ($attachment->width>$attachment->width_restriction)) || (isset($attachment->height_restriction) && ($attachment->height>$attachment->height_restriction))) {
+							if(isset($attachment->width_restriction) && empty($attachment->height_restriction)) {
+								$attachment->height_restriction=$attachment->height/$attachment->width*$attachment->width_restriction;
+							} elseif(empty($attachment->width_restriction) && isset($attachment->height_restriction)) {
+								$attachment->width_restriction=$attachment->width/$attachment->height*$attachment->height_restriction;
+							}
+							
+							$resizedImg=imagecreatetruecolor($attachment->width_restriction, $attachment->height_restriction);
+							imagecopyresampled($resizedImg, $attachment->temp_img, 0, 0, 0, 0, $attachment->width_restriction, $attachment->height_restriction, $attachment->width, $attachment->height);
 
-						//Store file
-						if( file_put_contents($absolute_path.'/'.$filename.'.'.$attachment->original_extension, $attachment->remote_file)===false ) {
-							//Failed to store file
-							return false;
+							$saveResult=false;
+							switch($attachment->original_extension) {
+								case 'jpeg':
+									$saveResult=imagejpeg($resizedImg, $absolute_path.'/'.$filename.'.'.$attachment->original_extension, 100);
+									break;
+								case 'jpg':
+									$saveResult=imagejpeg($resizedImg, $absolute_path.'/'.$filename.'.'.$attachment->original_extension, 100);
+									break;
+								case 'png':
+									$saveResult=imagepng($resizedImg, $absolute_path.'/'.$filename.'.'.$attachment->original_extension, 9);
+									break;
+								case 'gif':
+									$saveResult=imagegif($resizedImg, $absolute_path.'/'.$filename.'.'.$attachment->original_extension);
+									break;
+							}
+
+							if( $saveResult===false ) {
+								//Failed to store file
+								return false;
+							} else {
+								//File has been stored!!!
+								$attachment->width=imagesx($resizedImg);
+								$attachment->height=imagesy($resizedImg);
+								$attachment->filename=$filename;
+							}
 						} else {
-							//File has been stored!!!
-							$attachment->filename=$filename;
+							//Store file
+							if( file_put_contents($absolute_path.'/'.$filename.'.'.$attachment->original_extension, $attachment->remote_file)===false ) {
+								//Failed to store file
+								return false;
+							}
 						}
+
+						//File has been stored!!!
+						$attachment->filename=$filename;
 					} else {
 						//Path generation failed
 						return false;
