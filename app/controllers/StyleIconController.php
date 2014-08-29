@@ -67,19 +67,21 @@ class StyleIconController extends BaseController {
 						$img->style_icon_id=0;
 						$img->restrictWidth(670);
 
-						if($img->save()) {
-							if($icon->primary) {
-								$icon->primary()->delete();
+						$oldImg=null;
+						if($icon->primary) {
+							$oldImg=$icon->primary();
+						}
+
+						if($icon->primary()->save($img)) {
+							if($oldImg) {
+								$oldImg->delete();
 							}
-							$img->icon()->save($icon);
-
 							$response->type='success';
-							$response->data=$img->toJson();
-
+							$response->data=$img;
 						} else {
 							throw new Exception("Failed to save file.");
 						}
-					} catch(Exception $e) {
+					} catch(Exception $e) {Log::error($e);
 						$response->type='error';
 						$response->data='file_proc';
 					}

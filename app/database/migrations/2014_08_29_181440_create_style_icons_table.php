@@ -25,8 +25,10 @@ class CreateStyleIconsTable extends Migration {
 			$table->text('icon_comment')->nullable();
 			
 			/*Image content data*/
+			/*Not needed
 			$table->bigInteger('primary_photo_id')->unsigned()->nullable();
 			$table->string('attachments_array')->nullable();
+			*/
 
 			/*Meta data*/
 			$table->integer('meta_id')->unsigned();
