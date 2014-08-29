@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCampusStyleIconsTable extends Migration {
+class CreateStyleIconsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -31,8 +31,8 @@ class CreateCampusStyleIconsTable extends Migration {
 			/*Meta data*/
 			$table->integer('meta_id')->unsigned();
 			$table->string('meta_type');
-			$table->integer('cached_total_likes')->unsigned();
-			$table->integer('cached_total_comments')->unsigned();
+			$table->integer('cached_total_likes')->unsigned()->default(0);
+			$table->integer('cached_total_comments')->unsigned()->default(0);
 			$table->enum('season', array('S/S','F/W'));
 
 			/*Photographer data*/

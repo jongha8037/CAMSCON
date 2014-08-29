@@ -124,7 +124,7 @@ var PinEngine={
 	}/*viewMode()*/,
 	addPin:function(x,y) {
 		//Check max pin restraint
-		if(PinData.length>=9) {
+		if(EditorData.pins.length>=9) {
 			console.log('Max pins');
 		} else {
 			//Create new pin object

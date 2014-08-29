@@ -1,16 +1,5 @@
-.btn {
-	outline: none;
-}
-
-.btn:active {
-	box-shadow: none;
-	outline: none;
-}
-
-.layout-header {
-	
-}
-
+/*Site layout
+----------------------------------------------------------------------------*/
 .layout-header .top-row {
 	padding: 18px 0px 14px 0px;
 	border-bottom: 1px solid #7f7f7f;
@@ -149,7 +138,9 @@
 	padding:0px;
 }
 
-/*Camscon List View*/
+
+/*Style Icon List
+----------------------------------------------------------------------------*/
 .list-container {
 	padding-top: 30px;
 	padding-bottom: 30px;
@@ -229,6 +220,8 @@
 }
 
 
+/*Style Icon Single
+----------------------------------------------------------------------------*/
 .breadcrumbs {
 	color: #737373;
 	margin: 20px 0px;
@@ -434,7 +427,8 @@
 }
 
 
-/*Helper Classes*/
+/*Helper classes
+----------------------------------------------------------------------------*/
 .caret-right {
 	border-bottom: 4px solid transparent;
 	border-top: 4px solid transparent;
@@ -446,7 +440,7 @@
 }
 
 
-/*Deactivation state
+/*Overrides
 ----------------------------------------------------------------------------*/
 a.deactivated {
 	color:#ddd !important;
@@ -457,4 +451,13 @@ a.deactivated {
 a.deactivated:hover {
 	background-color:initial !important;
 	color:#ddd !important;
+}
+
+.btn {
+	outline: none;
+}
+
+.btn:active {
+	box-shadow: none;
+	outline: none;
 }

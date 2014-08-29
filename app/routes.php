@@ -26,9 +26,6 @@ Route::get('campus/{slug}/{id}', function() {
 	dd('Campus single!');
 })->where('id', '[0-9]+');
 
-/*Style icon editor routes*/
-Route::get('post/style-icon/{id?}', array('before'=>'auth.active_photographers', 'uses'=>'StyleIconController@showEditor'))->where('id','[0-9]+');
-
 /*Front-end Auth Routes*/
 Route::post('auth/user/login/email', array('before'=>'csrf', 'uses'=>'UserController@loginWithEmail'));
 Route::post('auth/user/login/fb', array('before'=>'csrf', 'uses'=>'UserController@loginWithFB'));
@@ -38,6 +35,11 @@ Route::get('auth/user/reset-password/{token}', array('uses'=>'RemindersControlle
 Route::post('auth/user/reset-password', array('before'=>'csrf', 'uses'=>'RemindersController@postReset'));
 Route::get('auth/user/logout', array('uses'=>'UserController@logoutUser'));
 Route::get('user/userbox', array('uses'=>'UserController@userBoxTemplate'));
+
+/*Style icon editor routes*/
+Route::get('post/style-icon/{id?}', array('before'=>'auth.active_photographers', 'uses'=>'StyleIconController@showEditor'))->where('id','[0-9]+');
+Route::post('post/style-icon/upload/primary', array('auth.active_photographers', 'uses'=>'StyleIconController@uploadPrimary'));
+Route::post('post/style-icon/upload/attachment', array('auth.active_photographers', 'uses'=>'StyleIconController@uploadAttachment'));
 
 
 /*Admin Routes*/
@@ -81,12 +83,14 @@ Route::group(array('prefix' => 'error'), function() {
 
 	Route::get('not-authorized', array('uses'=>'ErrorPagesController@notAuthorized'));
 	Route::get('login-required', array('uses'=>'ErrorPagesController@loginRequired'));
+	Route::get('not-found', array('uses'=>'ErrorPagesController@notFound'));
 
 });
 
 
 /*Mockup Routes*/
 Route::get('mockup/main', function() {
+	Auth::login(User::find(5));
 
 	$photos=array(
 		'mockup-assets/sample-content/1.jpg',

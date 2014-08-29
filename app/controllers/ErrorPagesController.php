@@ -10,4 +10,8 @@ class ErrorPagesController extends BaseController {
 		return View::make('error-pages.login-required');
 	}
 
+	public function notFound() {
+		return View::make('error-pages.not-found');
+	}
+
 }

@@ -13,6 +13,8 @@ class ImageAttachment extends Eloquent {
 	protected $remote_file=null;
 	protected $source_type=null;
 	protected $relative_path=null;
+	protected $width_restriction=null;
+	protected $height_restriction=null;
 
 
 	/*-------------------------------------------------*/
@@ -45,8 +47,16 @@ class ImageAttachment extends Eloquent {
 
 
 	/*-------------------------------------------------*/
-	/* File setters
+	/* Setters
 	/*-------------------------------------------------*/
+
+	public function restrictWidth($width=null) {
+		$this->width_restriction=intval($width);
+	}//restrictWidth()
+
+	public function restrictHeight($height) {
+		$this->height_restriction=intval($height);
+	}//restrictHeight()
 
 	public function setUploadedFile(Symfony\Component\HttpFoundation\File\UploadedFile $file) {
 
@@ -236,12 +246,67 @@ class ImageAttachment extends Eloquent {
 						while(file_exists($absolute_path.'/'.$filename.'.'.$attachment->original_extension)) {
 							$filename=$attachment->generate_filename();
 						}
-						//Move file
-						try {
-							$attachment->uploaded_file->move($absolute_path, $filename.'.'.$attachment->original_extension);
-						} catch(FileException $e) {
-							//Failed to move file
-							return false;
+
+						//Resize
+						if((isset($attachment->width_restriction) && ($attachment->width>$attachment->width_restriction)) || (isset($attachment->height_restriction) && ($attachment->height>$attachment->height_restriction))) {
+							if(isset($attachment->width_restriction) && empty($attachment->height_restriction)) {
+								$attachment->height_restriction=$attachment->height/$attachment->width*$attachment->width_restriction;
+							} elseif(empty($attachment->width_restriction) && isset($attachment->height_restriction)) {
+								$attachment->width_restriction=$attachment->width/$attachment->height*$attachment->height_restriction;
+							}
+
+							$originalImg=null;
+							switch($attachment->original_extension) {
+								case 'jpeg':
+									$originalImg=imagecreatefromjpeg($attachment->uploaded_file->getRealPath());
+									break;
+								case 'jpg':
+									$originalImg=imagecreatefromjpeg($attachment->uploaded_file->getRealPath());
+									break;
+								case 'png':
+									$originalImg=imagecreatefrompng($attachment->uploaded_file->getRealPath());
+									break;
+								case 'gif':
+									$originalImg=imagecreatefromgif($attachment->uploaded_file->getRealPath());
+									break;
+							}
+							
+							$resizedImg=imagecreatetruecolor($attachment->width_restriction, $attachment->height_restriction);
+							imagecopyresampled($resizedImg, $originalImg, 0, 0, 0, 0, $attachment->width_restriction, $attachment->height_restriction, $attachment->width, $attachment->height);
+
+							$saveResult=false;
+							switch($attachment->original_extension) {
+								case 'jpeg':
+									$saveResult=imagejpeg($resizedImg, $absolute_path.'/'.$filename.'.'.$attachment->original_extension, 100);
+									break;
+								case 'jpg':
+									$saveResult=imagejpeg($resizedImg, $absolute_path.'/'.$filename.'.'.$attachment->original_extension, 100);
+									break;
+								case 'png':
+									$saveResult=imagepng($resizedImg, $absolute_path.'/'.$filename.'.'.$attachment->original_extension, 9);
+									break;
+								case 'gif':
+									$saveResult=imagegif($resizedImg, $absolute_path.'/'.$filename.'.'.$attachment->original_extension);
+									break;
+							}
+
+							if( $saveResult===false ) {
+								//Failed to store file
+								return false;
+							} else {
+								//File has been stored!!!
+								$attachment->width=imagesx($resizedImg);
+								$attachment->height=imagesy($resizedImg);
+								$attachment->filename=$filename;
+							}
+						} else {
+							//Move file
+							try {
+								$attachment->uploaded_file->move($absolute_path, $filename.'.'.$attachment->original_extension);
+							} catch(FileException $e) {
+								//Failed to move file
+								return false;
+							}
 						}
 
 						//File has been moved!!!
@@ -263,6 +328,9 @@ class ImageAttachment extends Eloquent {
 						while(file_exists($absolute_path.'/'.$filename.'.'.$attachment->original_extension)) {
 							$filename=$attachment->generate_filename();
 						}
+
+						//Add Resize logic
+
 						//Store file
 						if( file_put_contents($absolute_path.'/'.$filename.'.'.$attachment->original_extension, $attachment->remote_file)===false ) {
 							//Failed to store file
