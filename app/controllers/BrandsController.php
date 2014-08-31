@@ -152,4 +152,9 @@ class BrandsController extends BaseController {
 		}
 	}//deleteBrand()
 
+	public function jsonList($query) {
+		$brands=FashionBrand::where('name_en', 'LIKE', '%'.$query.'%')->get(array('id','name_en'));
+		return Response::json($brands);
+	}
+
 }

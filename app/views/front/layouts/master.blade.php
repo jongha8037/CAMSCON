@@ -84,9 +84,6 @@
 	<!-- jQuery 1.11.1 -->
 	<script src="{{asset('packages/jquery-1.11.1/jquery-1.11.1.min.js')}}"></script>
 	
-	<!--jQuery UI-->
-	<!-- <script src="{{asset('packages/jquery-ui-1.11.0-hot-sneaks-full/jquery-ui.min.js')}}"></script> -->
-	
 	<!-- Bootstrap 3.2.0 -->
 	<script src="{{asset('packages/bootstrap-3.2.0/js/bootstrap.min.js')}}"></script>
 

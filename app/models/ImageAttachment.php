@@ -402,6 +402,14 @@ class ImageAttachment extends Eloquent {
 				return false;
 			}
 		});//static::saving()
+
+		static::deleting(function($attachment) {
+			$file=public_path().'/'.$attachment->dir_path.'/'.$attachment->filename.'.'.$attachment->original_extension;
+			Log::info($file);
+			if(File::exists($file)) {
+				return File::delete($file);
+			}
+		});
 	}//boot()
 
 }

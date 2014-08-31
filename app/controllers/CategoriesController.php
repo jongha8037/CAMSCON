@@ -34,7 +34,6 @@ class CategoriesController extends BaseController {
 		
 	}//showEditor()
 
-
 	private function getTree($output_type='obj') {
 		$categories=FashionItemCategory::orderBy('id','asc')->get();
 

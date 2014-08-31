@@ -40,6 +40,8 @@ Route::get('user/userbox', array('uses'=>'UserController@userBoxTemplate'));
 Route::get('post/style-icon/{id?}', array('before'=>'auth.active_photographers', 'uses'=>'StyleIconController@showEditor'))->where('id','[0-9]+');
 Route::post('post/style-icon/upload/primary', array('auth.active_photographers', 'uses'=>'StyleIconController@uploadPrimary'));
 Route::post('post/style-icon/upload/attachment', array('auth.active_photographers', 'uses'=>'StyleIconController@uploadAttachment'));
+Route::post('post/style-icon/delete/attachment', array('auth.active_photographers', 'uses'=>'StyleIconController@deleteAttachment'));
+Route::get('post/style-icon/data/brands/{query?}', array('uses'=>'BrandsController@jsonList'));
 
 
 /*Admin Routes*/

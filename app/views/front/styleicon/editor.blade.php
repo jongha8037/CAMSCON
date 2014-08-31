@@ -13,34 +13,69 @@ Post
 	<div id="photoCol" class="photo-col col-xs-7">
 
 		<div id="primaryPhotoEditor" class="primary-photo-editor">
-			<h4>Primary photo</h4>
+			<h4 class="section-title">Primary photo</h4>
 
-			<figure class="primary-photo empty">
-				<div class="pins"></div>
+			<div class="alert alert-info">
+				<strong><span class="glyphicon glyphicon-ok"></span> Tip!</strong> Primary Photo는 스타일 아이콘을 대표하는 사진입니다. 이 사진은 핀 태깅이 가능하며, 썸네일 및 대표 이미지로 사용됩니다. 최적의 이미지 크기는 가로 폭을 <strong>670px</strong>으로 맞춘 것이며, 세로 높이에는 제약이 없습니다.
+			</div>
+
+			<figure class="primary-photo @if(empty($icon->primary)){{'dummy'}}@endif">
+				<div class="pin-container"></div>
+				@if($icon->primary)
+					<img src="{{$icon->primary->url}}" width="{{$icon->primary->width}}" height="{{$icon->primary->height}}" />
+				@endif
 			</figure><!--/.primary-photo-->
 
 			<div class="primary-toolbar">
-				<button type="button" class="upload-btn btn btn-primary"><span class="glyphicon glyphicon-camera"></span> Upload</button>
-				<button type="button" class="toggle-mode-btn btn btn-primary"><span class="glyphicon glyphicon-tag"></span> Pin</button>
+				<button type="button" class="upload-btn btn btn-primary"><span class="glyphicon glyphicon-camera"></span> 사진 업로드</button>
+				<button type="button" class="toggle-mode-btn btn btn-primary"><span class="glyphicon glyphicon-tag"></span> 핀으로 태깅하기</button>
 				<span class="primary-toolbar-msg"></span>
 			</div>
 		</div><!--/#primaryPhotoEditor-->
 
-		<hr />
-
 		<div id="attachmentEditor" class="attachment-editor">
-			<h4>Attachments</h4>
+			<h4 class="section-title">Attachments</h4>
 
-			<div class="attachment-list"></div><!--/.attachment-list-->
+			<div class="alert alert-info">
+				<strong><span class="glyphicon glyphicon-ok"></span> Tip!</strong> 여기에는 스타일 아이콘의 다른 사진들을 업로드 할 수 있습니다. Primary Photo와 마찬가지로 최적의 이미지 크기는 가로 폭을 <strong>670px</strong>으로 맞춘 것이며, 세로 높이에는 제약이 없습니다.
+			</div>
+
+			<div class="attachment-list">
+				@if(count($icon->attachments)>0)
+				@foreach($icon->attachments as $img)
+				<figure data-id="{{$img->id}}">
+					<button class="delete-btn btn btn-warning" data-id="{{$img->id}}">삭제</button>
+					<img src="{{$img->url}}" width="{{$img->width}}" height="{{$img->height}}" />
+				</figure>
+				@endforeach
+				@else
+				<figure class="dummy"></figure>
+				@endif
+			</div><!--/.attachment-list-->
 
 			<div class="attachment-toolbar">
-				<button type button class="upload-btn btn btn-primary"><span class="glyphicon glyphicon-camera"></span> Upload</button>
+				<button type button class="upload-btn btn btn-primary"><span class="glyphicon glyphicon-camera"></span> 사진 업로드</button>
+				<span class="attachment-toolbar-msg"></span>
 			</div><!--/.attachment-toolbar-->
 		</div><!--/#attachmentsEditor-->
 
 	</div><!--/#photoCol-->
+
 	<div id="dataCol" class="data-col col-sm-5">
-		<h4>스타일 아이콘 정보</h4>
+		<div class="pin-section">
+			<h4 class="section-title">Pin tags</h4>
+
+			<div class="alert alert-info">
+				<strong><span class="glyphicon glyphicon-ok"></span> Tip!</strong> Primary Photo 하단의 <strong>핀으로 태깅하기</strong> 버튼을 이용하여 태깅 모드에서 새로운 핀을 생성할 수 있습니다. 브랜드 입력은 영어로 해야 하며, 자동완성에 입력하고자 하는 브랜드가 없는 경우 관리자에게 추가 요청을 하시기 바랍니다.
+			</div>
+
+			<ol id="PinList" class="pin-data-container"></ol>
+		</div><!--/.pin-section-->
+
+
+
+
+		<h4 class="section-title">스타일 아이콘 정보</h4>
 		<div class="form-group">
 			<label>이름</label>
 			<input type="text" class="form-control" />
@@ -83,18 +118,55 @@ Post
 			<textarea class="form-control"></textarea>
 		</div>
 
-		<h4>Pins</h4>
-		<ol id="pinData" class="pin-data-container"></ol>
-
-	</div>
+	</div><!--/#dataCol-->
 </div><!--/.icon-editor-container row-->
 
+<!--PinEdit Modal-->
+<div id="PinEditModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">핀 편집</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<input type="text" class="form-control" name="brand" placeholder="브랜드 (영문)" />
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<select class="form-control" name="item">
+							@foreach($itemCategories as $category)
+							<optgroup label="{{{$category->model->name}}}">
+								@foreach($category->children as $child)
+								<option value="{{$child->id}}">{{{$child->name}}}</option>
+								@endforeach
+							</optgroup>
+							@endforeach
+						</select>
+					</div>
+					<div class="col-xs-12">
+						<input type="text" class="form-control" name="link" placeholder="링크 (옵션)" />
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="confirm-btn btn btn-primary">확인</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--/PinEdit Modal-->
 @stop
 
 @section('footer_scripts')
 @include('includes.upload-modal')
+<!--jQuery UI-->
+<script src="{{asset('packages/jquery-ui-1.11.0-hot-sneaks-full/jquery-ui.min.js')}}"></script>
+
 <script type="text/javascript" src="{{asset('packages/typeahead.js/typeahead.bundle.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('packages/typeahead.js/typeahead.jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('packages/typeahead.js/bloodhound.min.js')}}"></script>
 
 <script type="text/javascript">
 var EditorData={
@@ -104,196 +176,14 @@ var EditorData={
 	},
 	endpoints:{
 		uploadPrimary:"{{action('StyleIconController@uploadPrimary')}}",
-		uploadAttachment:"{{action('StyleIconController@uploadAttachment')}}"
+		uploadAttachment:"{{action('StyleIconController@uploadAttachment')}}",
+		deleteAttachment:"{{action('StyleIconController@deleteAttachment')}}",
+		brandsData:"{{action('BrandsController@jsonList', null)}}"
 	},
-	pins:[],
-	pin_total:0
+	token:"{{csrf_token()}}",
+	pins:[]
 };//EditorData{}
-
-
-var PrimaryEditor={
-	jqo:null,
-	figure:null,
-	pins:null,
-	uploadBtn:null,
-	toggleBtn:null,
-	pinContainer:null,
-	pin_mode:false,
-	photo:{
-		id:null,
-		url:null,
-		width:null,
-		height:null
-	}/*photo{}*/,
-	init:function() {
-		this.jqo=$('#primaryPhotoEditor');
-		this.figure=this.jqo.find('figure.primary-photo');
-		this.pins=this.figure.find('div.pins');
-		this.uploadBtn=this.jqo.find('button.upload-btn');
-		this.toggleBtn=this.jqo.find('button.toggle-mode-btn');
-		this.pinContainer=$('#pinData');
-
-		this.uploadBtn.on('click', null, null, function() {
-			UploadModal.launch(null, function(file) {
-				if(file instanceof File) {
-					PrimaryEditor.upload(file);
-				}
-			}, null);
-		});
-
-		this.toggleBtn.on('click', null, null, function() {
-			if(PrimaryEditor.pin_mode===false) {
-				PrimaryEditor.pin_mode=true;
-				$(this).html('<span class="glyphicon glyphicon-tag"></span> Done');
-			} else {
-				PrimaryEditor.pin_mode=false;
-				$(this).html('<span class="glyphicon glyphicon-tag"></span> Pin');
-			}
-		});
-
-		this.figure.on('click', 'img', null, function(e) {
-			if(PrimaryEditor.pin_mode===true) {
-				var img=PrimaryEditor.figure;
-				PrimaryEditor.addPin(e.pageX-img.offset().left,e.pageY-img.offset().top);
-			}
-		});
-	}/*init()*/,
-	upload:function(file) {
-		var formData=new FormData();
-		formData.append('image', file);
-		formData.append('id', EditorData.icon.id);
-		$.ajax({
-			url: EditorData.endpoints.uploadPrimary,
-			type: "POST",
-			data: formData,
-			processData: false,  // tell jQuery not to process the data
-			contentType: false,   // tell jQuery not to set contentType
-			dataType:'json',
-			success:function(response) {
-				console.log(response);
-				if(response.type=='success') {
-					PrimaryEditor.photo=response.data;
-					PrimaryEditor.setPhoto();
-				}
-			},
-			error:function() {
-				//
-			}
-		});
-	}/*upload()*/,
-	setPhoto:function() {
-		var img=this.resolveUrl(this.photo);
-		this.figure.find('img').remove();
-		this.figure.append(img);
-		this.figure.removeClass('empty');
-
-	},
-	resolveUrl:function(data) {
-		var img=$('<img />');
-		img.prop('src', data.url);
-		img.prop('width', data.width);
-		img.prop('height', data.height);
-		return img;
-	},
-	/*Temp Code*/
-	addPin:function(x,y) {
-		//Check max pin restraint
-		if(EditorData.pins.length>=9) {
-			console.log('Max pins');
-		} else {
-			EditorData.pin_total++;
-			var newPin=$('<div class="pin">'+EditorData.pin_total+'</div>');
-			newPin.css({
-				left:x,
-				top:y
-			});
-			PrimaryEditor.pins.append(newPin);
-
-			var newPinData=$('<li class="pin-data"><div class="row"><div class="col-xs-6"><input type="text" placeholder="브랜드 (자동완성)" class="form-control" /></div><div class="col-xs-6"><select class="form-control"><option>아이템</option></select></div><div class="col-xs-12"><input type="text" class="form-control" placeholder="http://" style="margin-top:5px;" /></div></div></li>');
-			PrimaryEditor.pinContainer.append(newPinData);
-
-			//Create new pin object
-			/*
-			var newPin=new PinClass($('<div class="pin"></div>'),x,y);
-			PinData.push(newPin);
-			*/
-
-			//Render in image container (Edit mode)
-			//this.pinContainer.object.append(newPin.object);
-			//this.renderPinsEdit();
-
-			//Add pin edit controlls
-
-		}
-	}
-};//PrimaryEditor{}
-
-var AttachmentEditor={
-	jqo:null,
-	list:null,
-	uploadBtn:null,
-	toggleBtn:null,
-	photo:{
-		id:null,
-		url:null,
-		width:null,
-		height:null
-	}/*photo{}*/,
-	init:function() {
-		this.jqo=$('#attachmentEditor');
-		this.list=this.jqo.find('div.attachment-list');
-		this.uploadBtn=this.jqo.find('button.upload-btn');
-
-		this.uploadBtn.on('click', null, null, function() {
-			UploadModal.launch(null, function(file) {console.log('asdf');
-				if(file instanceof File) {
-					AttachmentEditor.upload(file);
-				}
-			}, null);
-		});
-	}/*init()*/,
-	upload:function(file) {
-		var formData=new FormData();
-		formData.append('image', file);
-		formData.append('id', EditorData.icon.id);
-		$.ajax({
-			url: EditorData.endpoints.uploadPrimary,
-			type: "POST",
-			data: formData,
-			processData: false,  // tell jQuery not to process the data
-			contentType: false,   // tell jQuery not to set contentType
-			dataType:'json',
-			success:function(response) {
-				console.log(response);
-				if(response.type=='success') {
-					AttachmentEditor.photo=response.data;
-					AttachmentEditor.setPhoto();
-				}
-			},
-			error:function() {
-				//
-			}
-		});
-	}/*upload()*/,
-	setPhoto:function() {
-		var img=this.resolveUrl(this.photo);
-		this.list.append(img);
-
-	},
-	resolveUrl:function(data) {
-		var img=$('<img />');
-		img.prop('src', data.url);
-		img.prop('width', data.width);
-		img.prop('height', data.height);
-		var figure=$('<figure></figure');
-		figure.append(img);
-		return figure;
-	}
-};//AttachmentEditor{}
-
-$(document).ready(function() {
-	PrimaryEditor.init();
-	AttachmentEditor.init();
-});//document.ready()
 </script>
+
+<script type="text/javascript" src="{{asset('admin-assets/style-icon/editor.js')}}"></script>
 @stop

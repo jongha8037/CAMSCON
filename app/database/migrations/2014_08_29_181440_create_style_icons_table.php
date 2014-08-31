@@ -20,7 +20,7 @@ class CreateStyleIconsTable extends Migration {
 			$table->bigInteger('icon_id')->unsigned()->nullable();
 			$table->string('icon_name');
 			$table->enum('icon_gender', array('male', 'female'));
-			$table->integer('icon_age')->unsigned()->nullable();
+			$table->date('icon_birthyear')->nullable();
 			$table->string('icon_association')->nullable();
 			$table->text('icon_comment')->nullable();
 			
