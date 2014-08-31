@@ -29,6 +29,7 @@ function PinEngine() {
 	this.renderPins=function() {
 		this.container.empty();
 		this.list.empty();
+		this.img=this.container.siblings('img');
 		var l=this.pins.length;
 		for(var i=0;i<l;i++) {
 			this.pins[i].indexNo=i;
