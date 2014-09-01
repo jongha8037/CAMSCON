@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIconPrimaryImagesTable extends Migration {
+class CreateStreetSnapAttachmentsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,9 @@ class CreateIconPrimaryImagesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('icon_primary_images', function($table) {
+		Schema::create('street_snap_attachments', function($table) {
 			$table->bigIncrements('id');
-			$table->bigInteger('style_icon_id')->unsigned();
+			$table->bigInteger('snap_id')->unsigned();
 			$table->string('original_name')->nullable();
 			$table->string('original_extension',4);
 			$table->string('mime_type');
@@ -34,7 +34,7 @@ class CreateIconPrimaryImagesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('icon_primary_images');
+		Schema::drop('street_snap_attachments');
 	}
 
 }

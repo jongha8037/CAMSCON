@@ -5,6 +5,10 @@ class FashionWeekMeta extends Eloquent {
 	protected $table = 'fashion_week_meta';
 	protected $appends = array('name');
 
+	public function snap() {
+		return $this->morphMany('StreetSnap', 'meta');
+	}
+
 	//Accessor for name
 	//sets name to match locale (defaults to name_en)
 	public function getNameAttribute() {

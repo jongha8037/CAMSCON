@@ -212,6 +212,7 @@ class ImageAttachment extends Eloquent {
 		//Check dir writable
 		if(!is_writable($absolute_path)) {
 			//absolute_path is not writable
+			Log::error('Path not writable!');
 			return false;
 		}
 

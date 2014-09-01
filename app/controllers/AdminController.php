@@ -57,7 +57,7 @@ class AdminController extends BaseController {
 			//Get fb user id
 			$fbUserId=$session->getSessionInfo()->asArray()['user_id'];
 			//Search for associated user
-			$user = User::whereHas('facebook_account', function($query) use($fbUserId) {
+			$user = User::whereHas('fbAccount', function($query) use($fbUserId) {
 				$query->where('fb_id','=',$fbUserId);
 			})->first();
 			if($user) {

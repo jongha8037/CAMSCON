@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', array('uses'=>"StyleIconController@getListAll"));
+Route::get('/', array('uses'=>"StreetSnapController@getListAll"));
 
-/*Front-end Icon Routes*/
+/*Front-end StreetSnap Routes*/
 Route::get('{slug}/{ordering?}',
-	array('uses'=>"StyleIconController@getListAll")
+	array('uses'=>"StreetSnapController@getListAll")
 )->where(array('slug'=>'all|campus|street|brand|fashion-week|festival|club|men|ladies', 'ordering'=>'new|hot'));
 
 Route::get('campus/{slug}/{ordering?}', function() {
@@ -36,12 +36,17 @@ Route::post('auth/user/reset-password', array('before'=>'csrf', 'uses'=>'Reminde
 Route::get('auth/user/logout', array('uses'=>'UserController@logoutUser'));
 Route::get('user/userbox', array('uses'=>'UserController@userBoxTemplate'));
 
-/*Style icon editor routes*/
-Route::get('post/style-icon/{id?}', array('before'=>'auth.active_photographers', 'uses'=>'StyleIconController@showEditor'))->where('id','[0-9]+');
-Route::post('post/style-icon/upload/primary', array('auth.active_photographers', 'uses'=>'StyleIconController@uploadPrimary'));
-Route::post('post/style-icon/upload/attachment', array('auth.active_photographers', 'uses'=>'StyleIconController@uploadAttachment'));
-Route::post('post/style-icon/delete/attachment', array('auth.active_photographers', 'uses'=>'StyleIconController@deleteAttachment'));
-Route::get('post/style-icon/data/brands/{query?}', array('uses'=>'BrandsController@jsonList'));
+/*Style StreetSnap editor routes*/
+Route::get('post/street-snap/{id?}', array('before'=>'auth.active_photographers', 'uses'=>'StreetSnapEditController@showEditor'))->where('id','[0-9]+');
+Route::post('post/street-snap/upload/primary', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@uploadPrimary'));
+Route::post('post/street-snap/upload/attachment', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@uploadAttachment'));
+Route::post('post/street-snap/delete/attachment', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deleteAttachment'));
+Route::get('post/street-snap/data/brands/{query?}', array('uses'=>'BrandsController@jsonList'));
+Route::post('post/street-snap/save/pin', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@savePin'));
+Route::post('post/street-snap/delete/pin', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deletePin'));
+Route::post('post/street-snap/publish', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@publishPost'));
+Route::post('post/street-snap/delete', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deletePost'));
+Route::get('post/street-snap/data/meta/{query?}', array('uses'=>'StreetSnapEditController@getMetaJson'));
 
 
 /*Admin Routes*/
@@ -133,9 +138,9 @@ Route::get('/main', function()
 	return View::make('front.main');
 });
 
-Route::get('admin/style-icon/editor', function()
+Route::get('admin/street-snap/editor', function()
 {
-	return View::make('admin.style-icon.editor');
+	return View::make('admin.street-snap.editor');
 });
 
 Route::get('/pintest', function()

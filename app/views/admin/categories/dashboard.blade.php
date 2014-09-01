@@ -27,6 +27,5 @@ Fashion Item Categories: Dashboard
 @stop
 
 @section('footer_scripts')
-<!-- <script src="{{asset('admin-assets/style-icon/editor.js')}}"></script> -->
 <script type="text/javascript"></script>
 @stop

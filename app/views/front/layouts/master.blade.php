@@ -66,7 +66,7 @@
 					<li><a href="" class="deactivated">Fashion week <span class="caret"></span></a></li>
 					<li><a href="" class="deactivated">Festival/Club <span class="caret"></span></a></li>
 					<li><a href="" style="border-right: 1px solid #7f7f7f;">Men/Ladies <span class="caret"></span></a></li>
-					<li><a href="{{action('StyleIconController@showEditor')}}" class="post-btn"><span class="glyphicon glyphicon-camera"></span> Post</a></li>
+					<li><a href="{{action('StreetSnapEditController@showEditor')}}" class="post-btn"><span class="glyphicon glyphicon-camera"></span> Post</a></li>
 				</ul>
 			</nav>
 		</div>

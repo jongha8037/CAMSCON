@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePinRelatedTables extends Migration {
+class CreatePinTagAndLinkTables extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,19 +12,18 @@ class CreatePinRelatedTables extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('style_icon_pins', function($table) {
+		Schema::create('pin_tags', function($table) {
 			$table->bigIncrements('id');
-			$table->integer('top')->unsigned();
-			$table->integer('left')->unsigned();
-			$table->bigInteger('style_icon_id')->unsigned();
-			$table->bigInteger('style_icon_photo_id')->unsigned();
-			$table->integer('fashion_brand_id')->unsigned();
-			$table->integer('fashion_item_category_id')->unsigned();
-			$table->integer('fashion_item_id')->unsigned();
+			$table->bigInteger('target_id')->unsigned();
+			$table->string('target_type');
+			$table->decimal('top',7,2)->unsigned();
+			$table->decimal('left',7,2)->unsigned();
+			$table->integer('brand_id')->unsigned();
+			$table->integer('item_id')->unsigned();
 			$table->timestamps();
 
-			$table->index('style_icon_id');
-			$table->index('style_icon_photo_id');
+			$table->index('target_id');
+			$table->index('target_type');
 		});
 
 		Schema::create('pin_links', function($table) {
@@ -46,7 +45,7 @@ class CreatePinRelatedTables extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('style_icon_pins');
+		Schema::drop('pin_tags');
 		Schema::drop('pin_links');
 	}
 

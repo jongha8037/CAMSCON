@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStyleIconsTable extends Migration {
+class CreateStreetSnapsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,17 +12,17 @@ class CreateStyleIconsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('style_icons', function($table) {
+		Schema::create('street_snaps', function($table) {
 			/*Primary key, Auto increment*/
 			$table->bigIncrements('id');
 			
-			/*Icon data*/
-			$table->bigInteger('icon_id')->unsigned()->nullable();
-			$table->string('icon_name');
-			$table->enum('icon_gender', array('male', 'female'));
-			$table->date('icon_birthyear')->nullable();
-			$table->string('icon_association')->nullable();
-			$table->text('icon_comment')->nullable();
+			/*Subject data*/
+			$table->bigInteger('subject_id')->unsigned()->nullable();
+			$table->string('name');
+			$table->enum('gender', array('male', 'female'));
+			$table->integer('birthyear')->unsigned()->nullable();
+			$table->string('affiliation')->nullable();
+			$table->text('subject_comment')->nullable();
 			
 			/*Image content data*/
 			/*Not needed
@@ -46,7 +46,7 @@ class CreateStyleIconsTable extends Migration {
 			$table->enum('status', array('draft', 'published'));
 
 			/*Indexes*/
-			$table->index('icon_name');
+			$table->index('name');
 			$table->index('meta_id');
 			$table->index('meta_type');
 			$table->index('user_id');
@@ -60,7 +60,7 @@ class CreateStyleIconsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('style_icons');
+		Schema::drop('street_snaps');
 	}
 
 }

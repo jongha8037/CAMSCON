@@ -3,6 +3,7 @@
 class FashionItemCategory extends Eloquent {
 
 	protected $table = 'fashion_item_categories';
+	protected $visible = array('id', 'name');
 	protected $appends = array('name');
 
 	//Accessor for name
@@ -48,5 +49,9 @@ class FashionItemCategory extends Eloquent {
 			return $this->name_ko;
 		}
 	}//getNameAttribute
+
+	public function pins() {
+		return $this->hasMany('PinTag', 'item_id');
+	}
 
 }

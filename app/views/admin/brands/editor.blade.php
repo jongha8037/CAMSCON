@@ -154,7 +154,6 @@ Fashion Brands: Editor
 @stop
 
 @section('footer_scripts')
-<!-- <script src="{{asset('admin-assets/style-icon/editor.js')}}"></script> -->
 <script type="text/javascript">
 $(document).ready(function() {
 	$(document).on('click','#brandDeleteBtn',null,function() {

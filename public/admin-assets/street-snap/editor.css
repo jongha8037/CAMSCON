@@ -1,56 +1,27 @@
-/*Legacy code*/
-.meta-input-col {
-	border-left:1px solid #ddd;
-}
-
-.add-photo-area {
-	opacity:0.6;
-	background-color:#00ADA9;
-	color:#CBFF48;
-	text-align:center;
-	font-size:22px;
-	font-weight:700;
-	padding:20px 0px;
-	cursor:pointer;
-	border-radius: 3px;
-
-	-webkit-transition: opacity ease-out 500ms;
-	-moz-transition: opacity ease-out 500ms;
-	-o-transition: opacity ease-out 500ms;
-	transition: opacity ease-out 500ms;
-}
-.add-photo-area:hover, 
-.add-photo-area:active {
-	opacity:1;
-}
-.add-photo-area .glyphicon-camera {
-	font-size:34px;
-	vertical-align: bottom;
-}
-
-
-
-
 /*Icon editor*/
-.icon-editor {
+.post-proc-msg {
+	margin:15px;
+}
+
+.streetsnap-editor {
 	margin:25px 0px 75px 0px;
 }
 
-.icon-editor figure.dummy {
+.streetsnap-editor figure.dummy {
 	min-height:250px;
 	background-image:url('camera_icon.png');
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 }
 
-.icon-editor .btn[disabled] {
+.streetsnap-editor .btn[disabled] {
 	background-color:#ddd;
 	border-color:#ddd;
 	cursor:not-allowed;
 }
 
 /*Primary photo editor*/
-.icon-editor h4.section-title {
+.streetsnap-editor h4.section-title {
 	font-weight: 700;
 }
 
@@ -164,6 +135,9 @@
 	right:10px;
 }
 
+.data-col {
+	border-left:1px solid #eee;
+}
 
 /*Pin editor*/
 #PinEditModal .modal-dialog {
@@ -179,19 +153,26 @@
 #PinList li {
 	margin-bottom: 5px;
 	color: #666;
+
+	-webkit-transition: opacity ease-out 200ms;
+	-moz-transition: opacity ease-out 200ms;
+	-o-transition: opacity ease-out 200ms;
+	transition: opacity ease-out 200ms;
+}
+
+#PinList li.saving {
+	opacity:0.6;
 }
 
 #PinList li .pin-item, 
 #PinList li .pin-brand {
-	border-bottom: 2px dashed #ddd;
-	padding-bottom: 2px;
 	font-size: 15px;
 }
 
 #PinList li .pin-link {
 	display: block;
-	color: #888;
-	padding: 3px 0px;
+	color: #aaa;
+	padding-bottom: 5px;
 	font-style: italic;
 }
 
@@ -199,16 +180,36 @@
 	border-top:1px solid #eee;
 }
 
-
-
-
-/*Meta data editor*/
-.data-col h4:last-child {
-	border-bottom:1px solid #ddd;
+#PinList li .pin-status {
+	margin-left:15px;
 }
 
-.data-col .pin-data .row {
-	margin:-16px 0px 25px 0px;
+/*Meta data editor*/
+.street-snap-form .comment-textbox {
+	min-height:150px;
+	max-width: 100%;
+}
+
+.post-controls {
+	text-align: right;
+	padding-top:15px;
+}
+
+.block-radio input[type="radio"] {
+	display: none;
+}
+
+.block-radio label {
+	display: block;
+	border: 1px solid #ddd;
+	text-align: center;
+	padding: 10px 0px;
+	cursor:pointer;
+}
+
+.block-radio input[type="radio"]:checked+label{
+	background-color: #56d8d1;
+	color:#fff;
 }
 
 /*Typeahead*/
@@ -262,4 +263,11 @@
 	margin: 0 20px 5px 20px;
 	padding: 3px 0;
 	border-bottom: 1px solid #ccc;
+}
+
+.tt-header {
+	padding:3px 10px;
+	font-size: 18px;
+	font-weight:700;
+	border-bottom:1px solid #ddd;
 }

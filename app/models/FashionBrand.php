@@ -2,6 +2,7 @@
 
 class FashionBrand extends Eloquent {
 
+	protected $visible = array('id', 'name', 'name_en');
 	protected $appends = array('name');
 
 	//Accessor for name
@@ -47,5 +48,9 @@ class FashionBrand extends Eloquent {
 			return $this->name_ko;
 		}
 	}//getNameAttribute
+
+	public function pins() {
+		return $this->hasMany('PinTag', 'brand_id');
+	}
 
 }

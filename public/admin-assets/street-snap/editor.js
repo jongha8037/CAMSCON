@@ -9,9 +9,33 @@ function PinEngine() {
 		this.list=list;
 	};
 
+	this.loadPins=function(pins) {
+		var plen=pins.length;
+		for(var i=0;i<plen;i++) {
+			var pin=pins[i];
+			var newPin=new PinObject(parseFloat(pin.left), parseFloat(pin.top));
+			newPin.init();
+			newPin.id=pin.id;
+			newPin.item.item_id=pin.item_category.id;
+			newPin.item.item_name=pin.item_category.name;
+			newPin.brand.brand_id=pin.brand.id;
+			newPin.brand.brand_name=pin.brand.name;
+			var linklen=pin.links.length;
+			for(var k=0;k<linklen;k++) {
+				if(pin.links[k].pin_link_type=='user') {
+					newPin.link=pin.links[k].url;
+					break;
+				}
+			}
+			this.pins.push(newPin);
+		}
+		this.renderPins();
+	};
+
 	this.addPin=function(x, y) {
 		if(this.pins.length<this.max_pins) {
 			var newPin=new PinObject(x, y);
+			newPin.init();
 			var pinsLength=this.pins.push(newPin);
 			this.renderPins();
 			PinEditor.launch(newPin, function(data) {
@@ -26,6 +50,16 @@ function PinEngine() {
 		}
 	};
 
+	this.removePin=function(id) {
+		var pinsLength=this.pins.length;
+		for(var i=0;i<pinsLength;i++) {
+			if(this.pins[i].id==id) {
+				this.pins.splice(i,1);
+				break;
+			}
+		}
+	};
+
 	this.renderPins=function() {
 		this.container.empty();
 		this.list.empty();
@@ -35,22 +69,121 @@ function PinEngine() {
 			this.pins[i].indexNo=i;
 			this.pins[i].displayNo=i+1;
 			scale=this.img.outerWidth()/this.img.attr('width');
-			this.pins[i].tag(i,this.img.position().top,this.img.position().left,scale).appendTo(this.container);
-			this.pins[i].listItem(i).appendTo(this.list);
+			this.pins[i].tag.get(i,this.img.position().top,this.img.position().left,scale).appendTo(this.container);
+			this.pins[i].listItem.get(i).appendTo(this.list);
 		}
 	};
 
 	this.savePin=function(pin) {
-		console.log(pin);
+		pin.listItem.disable();
+
+		var data={
+			_token:EditorData.token,
+			id:pin.id,
+			streetsnap_id:EditorData.snap.id,
+			item_id:pin.item.item_id,
+			brand_id:pin.brand.brand_id,
+			link:pin.link,
+			top:pin.y,
+			left:pin.x
+		};
+
+		$.post(EditorData.endpoints.savePin, data, function(response) {
+			var msg=null;
+			if(typeof response==='object' && 'type' in response && 'data' in response) {
+				if(response.type=='success') {
+					pin.id=parseInt(response.data,10);
+					pin.listItem.enable();
+				} else if(response.type='error') {
+					switch(response.data) {
+						case 'permission_error':
+							msg='권한이 없습니다!';
+							break;
+						case 'url_error':
+							msg='잘못된 링크 주소 입니다!';
+							break;
+						case 'invalid_request':
+							msg='잘못된 요청 입니다!';
+							break;
+						case 'db_error':
+							msg='데이터베이스 에러가 발생했습니다!';
+							break;
+						case 'no_brand':
+							msg='브랜드가 입력되지 않았습니다!';
+							break;
+						default:
+							msg='알 수 없는 오류가 발생했습니다!';
+					}
+					pin.listItem.errorMsg(msg);
+				} else {
+					msg='서버로부터 정상적인 응답을 받지 못했습니다!';
+					pin.listItem.errorMsg(msg);
+				}
+			} else {
+				msg='서버로부터 정상적인 응답을 받지 못했습니다!';
+				pin.listItem.errorMsg(msg);
+			}
+		}, 'json');
 	};
 
 	this.deletePin=function(pin) {
-		console.log(pin);
+		pin.listItem.disable();
+
+		if(pin.id) {
+			var data={
+				_token:EditorData.token,
+				id:pin.id,
+				streetsnap_id:EditorData.snap.id
+			};
+
+			var pinEngine=this;
+
+			$.post(EditorData.endpoints.deletePin, data, function(response) {
+				var msg=null;
+				if(typeof response==='object' && 'type' in response && 'data' in response) {
+					if(response.type=='success') {
+						pinEngine.removePin(parseInt(response.data,10));
+						pinEngine.renderPins();
+					} else if(response.type='error') {
+						switch(response.data) {
+							case 'permission_error':
+								msg='권한이 없습니다!';
+								break;
+							case 'invalid_request':
+								msg='잘못된 요청 입니다!';
+								break;
+							case 'no_pin':
+								pinEngine.renderPins();
+								break;
+							case 'db_error':
+								msg='데이터베이스 에러가 발생했습니다!';
+								break;
+							default:
+								msg='알 수 없는 오류가 발생했습니다!';
+						}
+						pin.listItem.errorMsg(msg);
+					} else {
+						msg='서버로부터 정상적인 응답을 받지 못했습니다!';
+						pin.listItem.errorMsg(msg);
+					}
+				} else {
+					msg='서버로부터 정상적인 응답을 받지 못했습니다!';
+					pin.listItem.errorMsg(msg);
+				}
+			}, 'json');
+		} else {
+			this.pins.splice(pin.indexNo,1);
+			this.renderPins();
+		}
 	};
 };//PinEngine
 
 function PinObject(x, y) {
-	this.id=0;
+	var scope=this;
+
+	//Data members
+	this.id=null;
+	this.indexNo=null;
 	this.item={
 		item_id:0,
 		item_name:'아이템 미지정'
@@ -59,49 +192,109 @@ function PinObject(x, y) {
 		brand_id:0,
 		brand_name:'브랜드 미지정'
 	};
+	this.link=null;
 	this.x=x;
 	this.y=y;
 	
-	//Tag jquery object
-	this.tagObj=$('<div class="pin"></div>');
-	this.tag=function(indexNo,offsetTop,offsetLeft,scale) {
-		this.tagObj.attr('data-index', indexNo)
-			.css({
-				top:(this.y+offsetTop)*scale,
-				left:(this.x+offsetLeft)*scale
-			})
-			.text(indexNo+1);
-		return this.tagObj;
+	//Tag object
+	this.tag={
+		jqo:$('<div class="pin"></div>'),
+		get:function(indexNo,offsetTop,offsetLeft,scale) {
+			this.jqo.attr('data-index', indexNo)
+				.css({
+					top:(scope.y+offsetTop)*scale,
+					left:(scope.x+offsetLeft)*scale
+				})
+				.text(indexNo+1);
+			return this.jqo;
+		}
 	};
 
 	//List item jquery object
-	this.listItemObj=$('<li class="pin"><span class="pin-item"></span> by <span class="pin-brand"></span><a class="pin-link" href=""></a><div class="pin-controls"><a href="" class="pin-edit">수정</a> <a href="" class="pin-delete">삭제</a></div></li>');
-	this.listItem=function(indexNo) {
-		this.listItemObj.attr('data-index', indexNo);
-		this.listItemObj.find('span.pin-item').text(this.item.item_name);
-		this.listItemObj.find('span.pin-brand').text(this.brand.brand_name);
-		this.listItemObj.find('a.pin-link').attr('href', this.link).text(this.link);
+	this.listItem={
+		jqo:null,
+		item:null,
+		brand:null,
+		link:null,
+		editBtn:null,
+		deleteBtn:null,
 
-		this.listItemObj.on('click', 'a.pin-edit', {pin:this}, function(e) {
-			e.preventDefault();
-			var pinObj=e.data.pin;
-			PinEditor.launch(pinObj, function(data) {
-				if(data.brand) {
-					pinObj.brand=data.brand;
-				}
-				pinObj.item=data.item;
-				pinObj.link=data.link;
+		init:function() {
+			this.jqo=$('<li class="pin"><span class="pin-item"></span> by <span class="pin-brand"></span><a class="pin-link" href="" target="_blank"></a><div class="pin-controls"><a href="" class="pin-edit">수정</a> <a href="" class="pin-delete">삭제</a> <span class="pin-status"></span></div></li>');
+			this.item=this.jqo.find('span.pin-item');
+			this.brand=this.jqo.find('span.pin-brand');
+			this.link=this.jqo.find('a.pin-link');
+			this.editBtn=this.jqo.find('a.pin-edit');
+			this.deleteBtn=this.jqo.find('a.pin-delete');
+			this.status=this.jqo.find('span.pin-status');
+		}/*init()*/,
 
-				PrimaryEditor.pinEngine.savePin(pinObj);
-				PrimaryEditor.pinEngine.renderPins();
+		get:function(indexNo) {
+			//Set data
+			this.jqo.attr('data-index', indexNo);
+			this.item.text(scope.item.item_name);
+			if(scope.brand.brand_name=='' || scope.brand.brand_name==null) {
+				this.brand.text('브랜드 미지정');
+			} else {
+				this.brand.text(scope.brand.brand_name);
+			}
+			if(scope.link==null || scope.link=='') {
+				this.link.attr('href', '').text('');
+			} else {
+				this.link.attr('href', scope.link).text(scope.link);
+			}
+
+			//Attach listeners
+			//Pin edit
+			this.editBtn.on('click', null, {pin:scope}, function(e) {
+				e.preventDefault();
+				var pinObj=e.data.pin;
+
+				PinEditor.launch(pinObj, function(data) {
+					if(data.brand) {
+						pinObj.brand=data.brand;
+					}
+					pinObj.item=data.item;
+					pinObj.link=data.link;
+
+					PrimaryEditor.pinEngine.savePin(pinObj);
+					PrimaryEditor.pinEngine.renderPins();
+				});
 			});
-		});
-		this.listItemObj.on('click', 'a.pin-delete', {pin:this}, function(e) {
-			e.preventDefault();
-			PrimaryEditor.pinEngine.deletePin(e.data.pin);
-		});
 
-		return this.listItemObj;
+			//Pin delete
+			this.deleteBtn.on('click', null, {pin:scope}, function(e) {
+				e.preventDefault();
+				PrimaryEditor.pinEngine.deletePin(e.data.pin);
+			});
+
+			return this.jqo;
+		}/*get()*/,
+
+		disable:function() {
+			this.jqo.addClass('saving');
+			this.editBtn.addClass('deactivated');
+			this.deleteBtn.addClass('deactivated');
+			this.status.removeClass('text-success').removeClass('text-danger').addClass('text-warning').text('저장중...');
+		}/*disable()*/,
+
+		enable:function() {
+			this.jqo.removeClass('saving');
+			this.editBtn.removeClass('deactivated');
+			this.deleteBtn.removeClass('deactivated');
+			this.status.removeClass('text-warning').removeClass('text-danger').addClass('text-success').text('저장됨');
+		}/*enable()*/,
+
+		errorMsg:function(msg) {
+			this.jqo.removeClass('saving');
+			this.editBtn.removeClass('deactivated');
+			this.deleteBtn.removeClass('deactivated');
+			this.status.removeClass('text-success').removeClass('text-warning').addClass('text-danger').text(msg);
+		}/*errorMsg()*/
+	};//listItem
+
+	this.init=function() {
+		this.listItem.init();
 	};
 };//PinObject
 
@@ -167,6 +360,10 @@ var PinEditor={
 			}
 			editor.jqo.modal('hide');
 		});
+
+		this.jqo.on('click', '.cancel-btn', {editor:this}, function(e) {
+			e.data.editor.jqo.modal('hide');
+		});
 	}/*init()*/,
 	launch:function(pin,callback) {
 		//Setup callback
@@ -218,6 +415,9 @@ var PrimaryEditor={
 		//Init Pin Engine
 		this.pinEngine=new PinEngine();
 		this.pinEngine.init(this.objects.pinContainer, this.objects.pinList);
+
+		//Load existing pins
+		this.pinEngine.loadPins(EditorData.pins);
 
 		this.objects.uploadBtn.on('click', null, null, function() {
 			UploadModal.launch(null, function(file) {
@@ -317,7 +517,7 @@ var PrimaryEditor={
 		var formData=new FormData();
 		formData.append('image', file);
 		formData.append('_token', EditorData.token);
-		formData.append('styleicon_id', EditorData.icon.id);
+		formData.append('streetsnap_id', EditorData.snap.id);
 		$.ajax({
 			url: EditorData.endpoints.uploadPrimary,
 			type: "POST",
@@ -332,6 +532,8 @@ var PrimaryEditor={
 						PrimaryEditor.photo=response.data;
 						PrimaryEditor.setPhoto(response.data);
 						PrimaryEditor.clearMsg();
+						PrimaryEditor.pinEngine.pins=[];
+						PrimaryEditor.pinEngine.renderPins();
 					} else if(response.type=='error') {
 						switch(response.data) {
 							case 'file_proc':
@@ -429,7 +631,7 @@ var AttachmentEditor={
 		var formData=new FormData();
 		formData.append('image', file);
 		formData.append('_token', EditorData.token);
-		formData.append('styleicon_id', EditorData.icon.id);
+		formData.append('streetsnap_id', EditorData.snap.id);
 		$.ajax({
 			url: EditorData.endpoints.uploadAttachment,
 			type: "POST",
@@ -483,7 +685,7 @@ var AttachmentEditor={
 	delete:function(btn) {console.log(btn);
 		var data={
 			_token:EditorData.token,
-			styleicon_id:EditorData.icon.id,
+			streetsnap_id:EditorData.snap.id,
 			attachment_id:btn.attr('data-id')
 		};
 
@@ -555,8 +757,169 @@ var AttachmentEditor={
 	}
 };//AttachmentEditor{}
 
+var MetaEditor={
+	objects:{
+		metaForm:null,
+		deleteForm:null,
+		metaValue:null,
+		metaInput:null,
+		deleteBtn:null,
+		publishBtn:null
+	},
+	init:function() {
+		var editor=$('.meta-section');
+		this.objects.metaForm=editor.find('#streetSnapForm');
+		this.objects.deleteForm=editor.find('#snapDeleteForm');
+		this.objects.metaType=this.objects.metaForm.find('input[name="meta_type"]');
+		this.objects.metaValue=this.objects.metaForm.find('input[name="meta_id"]');
+		this.objects.metaInput=this.objects.metaForm.find('input[name="meta_category"]');
+		this.objects.deleteBtn=$('.post-controls').find('.delete-btn');
+		this.objects.publishBtn=$('.post-controls').find('.publish-btn');
+
+		//Meta autocomplete
+		var campus = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			limit: 15,
+			remote:{
+				url:EditorData.endpoints.metaData+'/%QUERY',
+				filter:function(response) {
+					return response.campus_meta.data;
+				}
+			}
+		});
+		campus.initialize();
+
+		var street = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			limit: 15,
+			remote:{
+				url:EditorData.endpoints.metaData+'/%QUERY',
+				filter:function(response) {
+					return response.street_meta.data;
+				}
+			}
+		});
+		street.initialize();
+
+		var festival = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			limit: 15,
+			remote:{
+				url:EditorData.endpoints.metaData+'/%QUERY',
+				filter:function(response) {
+					return response.festival_meta.data;
+				}
+			}
+		});
+		festival.initialize();
+
+		var club = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			limit: 15,
+			remote:{
+				url:EditorData.endpoints.metaData+'/%QUERY',
+				filter:function(response) {
+					return response.club_meta.data;
+				}
+			}
+		});
+		club.initialize();
+
+		var fashionweek = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			limit: 15,
+			remote:{
+				url:EditorData.endpoints.metaData+'/%QUERY',
+				filter:function(response) {
+					return response.fashionweek_meta.data;
+				}
+			}
+		});
+		fashionweek.initialize();
+		 
+		this.objects.metaInput.typeahead({
+			hint: true,
+			highlight: true,
+			minLength: 1
+		},
+		{
+			name: 'CampusMeta',
+			displayKey: 'name',
+			// `ttAdapter` wraps the suggestion engine in an adapter that
+			// is compatible with the typeahead jQuery plugin
+			source: campus.ttAdapter(),
+			templates:{
+				header:'<h5 class="tt-header">Campus</h5>'
+			}
+		},
+		{
+			name: 'StreetMeta',
+			displayKey: 'name',
+			// `ttAdapter` wraps the suggestion engine in an adapter that
+			// is compatible with the typeahead jQuery plugin
+			source: street.ttAdapter(),
+			templates:{
+				header:'<h5 class="tt-header">Street</h5>'
+			}
+		},
+		{
+			name: 'FestivalMeta',
+			displayKey: 'name',
+			// `ttAdapter` wraps the suggestion engine in an adapter that
+			// is compatible with the typeahead jQuery plugin
+			source: festival.ttAdapter(),
+			templates:{
+				header:'<h5 class="tt-header">Festival</h5>'
+			}
+		},
+		{
+			name: 'ClubMeta',
+			displayKey: 'name',
+			// `ttAdapter` wraps the suggestion engine in an adapter that
+			// is compatible with the typeahead jQuery plugin
+			source: club.ttAdapter(),
+			templates:{
+				header:'<h5 class="tt-header">Club</h5>'
+			}
+		},
+		{
+			name: 'FashionWeekMeta',
+			displayKey: 'name',
+			// `ttAdapter` wraps the suggestion engine in an adapter that
+			// is compatible with the typeahead jQuery plugin
+			source: fashionweek.ttAdapter(),
+			templates:{
+				header:'<h5 class="tt-header">Fashion Week</h5>'
+			}
+		}).bind('typeahead:selected', function(e,suggestion,dataset) {
+			MetaEditor.objects.metaValue.val(suggestion.id);
+			MetaEditor.objects.metaType.val(dataset);
+		});
+
+		//Delete btn
+		this.objects.deleteBtn.on('click', null, {deleteForm:this.objects.deleteForm}, function(e) {
+			var deleteForm=e.data.deleteForm;
+			ConfirmModal.launch('작성중인 내용을 모두 삭제합니다.', function() {
+				deleteForm.submit();
+			}, null);
+		});
+
+		//Submit btn
+		this.objects.publishBtn.on('click', null, {metaForm:this.objects.metaForm}, function(e) {
+			var metaForm=e.data.metaForm;
+			metaForm.submit();
+		});
+	}
+};//MetaEditor{}
+
 $(document).ready(function() {
 	PrimaryEditor.init();
 	AttachmentEditor.init();
 	PinEditor.init('#PinEditModal');
+	MetaEditor.init();
 });//document.ready()
