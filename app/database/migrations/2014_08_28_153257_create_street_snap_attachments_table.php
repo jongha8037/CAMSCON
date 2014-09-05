@@ -15,7 +15,6 @@ class CreateStreetSnapAttachmentsTable extends Migration {
 		Schema::create('street_snap_attachments', function($table) {
 			$table->bigIncrements('id');
 			$table->bigInteger('snap_id')->unsigned();
-			$table->string('caption')->nullable()->default(null);
 			$table->string('original_name')->nullable();
 			$table->string('original_extension',4);
 			$table->string('mime_type');
