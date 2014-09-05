@@ -32,7 +32,6 @@ class GroupTableSeeder extends Seeder {
 		DB::table('groups')->delete();
 		DB::table('groups')->truncate();
 
-		Group::create(array('name'=>'Campus Style Icons'));
 		Group::create(array('name'=>'Active Photographers'));
 		Group::create(array('name'=>'Retired Photographers'));
 		Group::create(array('name'=>'Bloggers'));

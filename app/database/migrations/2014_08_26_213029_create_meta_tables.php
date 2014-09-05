@@ -101,6 +101,18 @@ class CreateMetaTables extends Migration {
 			$table->timestamps();
 			$table->unique('slug');
 		});
+
+		Schema::create('blog_meta', function($table) {
+			$table->increments('id');
+			
+			$table->string('name');
+			$table->string('slug');
+			$table->text('url');
+			$table->text('description');
+
+			$table->timestamps();
+			$table->unique('slug');
+		});
 	}
 
 	/**
@@ -115,6 +127,7 @@ class CreateMetaTables extends Migration {
 		Schema::drop('fashion_week_meta');
 		Schema::drop('festival_meta');
 		Schema::drop('club_meta');
+		Schema::drop('blog_meta');
 	}
 
 }
