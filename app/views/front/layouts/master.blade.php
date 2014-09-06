@@ -32,7 +32,7 @@
 	<header class="layout-header">
 		<div class="top-row container">
 			<div class="site-logo">
-				<img src="{{asset('front-assets/layouts/logo.png')}}" alt="Camscon" />
+				<a href="{{url('/')}}"><img src="{{asset('front-assets/layouts/logo.png')}}" alt="Camscon" /></a>
 			</div>
 
 			<nav class="site-nav clearfix">
