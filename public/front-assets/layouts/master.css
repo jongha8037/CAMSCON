@@ -463,7 +463,7 @@
 
 /*Profile View
 ----------------------------------------------------------------------------*/
-.profile-data {
+.profile-wrapper .profile-data {
 	min-height:150px;
 	padding-left:165px;
 	background-repeat: no-repeat;
@@ -472,35 +472,35 @@
 	margin:15px 0px;
 }
 
-.profile-data .name {
+.profile-wrapper .profile-data .name {
 	font-weight:700;
 }
 
-.profile-data .details p {
+.profile-wrapper .profile-data .details p {
 	margin-bottom:0px;
 }
 
-.profile-data .details a {
+.profile-wrapper .profile-data .details a {
 	color:#808080;
 }
 
-.profile-data .stats {
+.profile-wrapper .profile-data .stats {
 	text-align: right;
 }
 
-.profile-data .stats h3 {
+.profile-wrapper .profile-data .stats h3 {
 	margin-top:0px;
 }
 
-.profile-data .stats h3 strong {
+.profile-wrapper .profile-data .stats h3 strong {
 	color:#56d8d1;
 }
 
-.profile-filter-tabs {
+.profile-wrapper .profile-filter-tabs {
 	border-bottom:1px solid #000;
 }
 
-.profile-filter-tabs .tab {
+.profile-wrapper .profile-filter-tabs .tab {
 	display: inline-block;
 	border:1px solid #000;
 	border-bottom:0;
@@ -508,16 +508,16 @@
 	cursor:pointer;
 }
 
-.profile-filter-tabs .tab:hover {
+.profile-wrapper .profile-filter-tabs .tab:hover {
 	color:#56d8d1;
 }
 
-.profile-filter-tabs .tab.active {
+.profile-wrapper .profile-filter-tabs .tab.active {
 	background-color:#000;
 	color:#fff;
 }
 
-.profile-filter-tabs .tab.my-collection {
+.profile-wrapper .profile-filter-tabs .tab.my-collection {
 	border-right:0;
 }
 
