@@ -13,6 +13,7 @@ Camscon
 
 @section('footer_scripts')
 <script type="text/javascript" src="{{asset('packages/isotope/isotope.pkgd.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('packages/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
 
 <script type="text/javascript">
 var ListView={
@@ -100,7 +101,11 @@ var ListView={
 		
 		//Append to isotope instance
 		//this.objx.wrapper.append(snapObjx).isotope('appended', snapObjx).isotope('layout');
-		this.objx.wrapper.append(snapObjx).isotope('appended', snapObjx);
+
+		var wrapper=this.objx.wrapper;
+		wrapper.append(snapObjx).imagesLoaded(function() {
+			wrapper.isotope('appended', snapObjx);
+		});
 	},
 	refreshLayout:function() {
 		console.log(this.display);
