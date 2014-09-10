@@ -38,7 +38,8 @@ Camscon
 	<div class="profile-filter-tabs">
 		<div class="my-collection tab">My Collection</div><div class="my-posts tab">My Posts</div>
 	</div>
-	<div id="snapListWrapper" class="snap-list"></div>
+	<div id="myListWrapper" class="snap-list"></div>
+	<div id="likedListWrapper" class="snap-list"></div>
 </div><!--/.profile-wrapper-->
 @stop
 
