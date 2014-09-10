@@ -119,7 +119,7 @@ var ListView={
 		this.objx.wrapper.isotope('layout');
 	},
 	requestMoreSnaps:function() {
-		if(this.endpoints.loadMore!='') {
+		if(typeof this.endpoints.loadMore != 'undefined') {
 			$.get(this.endpoints.loadMore, null, function(response) {
 				if(typeof response==='object' && 'snaps' in response && 'more_url' in response) {
 					ListView.endpoints.loadMore=response.snaps.more_url;
