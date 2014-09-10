@@ -19,44 +19,48 @@ Route::get('{category}/{id}',
 )->where(array('category'=>'men|ladies', 'id'=>'^[0-9]+$'));
 */
 
-//List View
-Route::get('{category}/{slug?}/{ordering?}',
-	array('uses'=>"StreetSnapController@getList")
-)->where(array('category'=>'all|campus|street|brand|fashion-week|festival|club|men|ladies', 'ordering'=>'new|hot'));
+Route::group(array('before' => 'front'), function() {
 
-Route::get('/', array('uses'=>"StreetSnapController@getList"));
+	//List View
+	Route::get('{category}/{slug?}/{ordering?}',
+		array('uses'=>"StreetSnapController@getList")
+	)->where(array('category'=>'all|campus|street|brand|fashion-week|festival|club|men|ladies', 'ordering'=>'new|hot'));
 
-//Single View for campus,street,brand,fashion-week,festival,club
-Route::get('{category}/{slug}/{id}',
-	array('uses'=>"StreetSnapController@getSingle")
-)->where(array('category'=>'filter|campus|street|brand|fashion-week|festival', 'id'=>'^[0-9]+$'));
+	Route::get('/', array('uses'=>"StreetSnapController@getList"));
 
-//Profile View
-Route::get('profile/{id}', array('uses'=>'ProfileController@showProfile'));
+	//Single View for campus,street,brand,fashion-week,festival,club
+	Route::get('{category}/{slug}/{id}',
+		array('uses'=>"StreetSnapController@getSingle")
+	)->where(array('category'=>'filter|campus|street|brand|fashion-week|festival', 'id'=>'^[0-9]+$'));
 
-
-/*Front-end Auth Routes*/
-Route::post('auth/user/login/email', array('before'=>'csrf', 'uses'=>'UserController@loginWithEmail'));
-Route::post('auth/user/login/fb', array('before'=>'csrf', 'uses'=>'UserController@loginWithFB'));
-Route::get('user/signup', array('uses'=>'UserController@showSignup'));
-Route::post('user/signup', array('before'=>'csrf', 'uses'=>'UserController@signupUser'));
-Route::get('auth/user/reset-password/{token}', array('uses'=>'RemindersController@getReset'));
-Route::post('auth/user/reset-password', array('before'=>'csrf', 'uses'=>'RemindersController@postReset'));
-Route::get('auth/user/logout', array('uses'=>'UserController@logoutUser'));
-Route::get('user/userbox', array('uses'=>'UserController@userBoxTemplate'));
+	//Profile View
+	Route::get('profile/{id}', array('uses'=>'ProfileController@showProfile'));
 
 
-/*Style StreetSnap editor routes*/
-Route::get('post/street-snap/{id?}', array('before'=>'auth.active_photographers', 'uses'=>'StreetSnapEditController@showEditor'))->where('id','[0-9]+');
-Route::post('post/street-snap/upload/primary', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@uploadPrimary'));
-Route::post('post/street-snap/upload/attachment', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@uploadAttachment'));
-Route::post('post/street-snap/delete/attachment', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deleteAttachment'));
-Route::get('post/street-snap/data/brands/{query?}', array('uses'=>'BrandsController@jsonList'));
-Route::post('post/street-snap/save/pin', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@savePin'));
-Route::post('post/street-snap/delete/pin', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deletePin'));
-Route::post('post/street-snap/publish', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@publishPost'));
-Route::post('post/street-snap/delete', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deletePost'));
-Route::get('post/street-snap/data/meta/{query?}', array('uses'=>'StreetSnapEditController@getMetaJson'));
+	/*Front-end Auth Routes*/
+	Route::post('auth/user/login/email', array('before'=>'csrf', 'uses'=>'UserController@loginWithEmail'));
+	Route::post('auth/user/login/fb', array('before'=>'csrf', 'uses'=>'UserController@loginWithFB'));
+	Route::get('user/signup', array('uses'=>'UserController@showSignup'));
+	Route::post('user/signup', array('before'=>'csrf', 'uses'=>'UserController@signupUser'));
+	Route::get('auth/user/reset-password/{token}', array('uses'=>'RemindersController@getReset'));
+	Route::post('auth/user/reset-password', array('before'=>'csrf', 'uses'=>'RemindersController@postReset'));
+	Route::get('auth/user/logout', array('uses'=>'UserController@logoutUser'));
+	Route::get('user/userbox', array('uses'=>'UserController@userBoxTemplate'));
+
+
+	/*Style StreetSnap editor routes*/
+	Route::get('post/street-snap/{id?}', array('before'=>'auth.active_photographers', 'uses'=>'StreetSnapEditController@showEditor'))->where('id','[0-9]+');
+	Route::post('post/street-snap/upload/primary', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@uploadPrimary'));
+	Route::post('post/street-snap/upload/attachment', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@uploadAttachment'));
+	Route::post('post/street-snap/delete/attachment', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deleteAttachment'));
+	Route::get('post/street-snap/data/brands/{query?}', array('uses'=>'BrandsController@jsonList'));
+	Route::post('post/street-snap/save/pin', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@savePin'));
+	Route::post('post/street-snap/delete/pin', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deletePin'));
+	Route::post('post/street-snap/publish', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@publishPost'));
+	Route::post('post/street-snap/delete', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deletePost'));
+	Route::get('post/street-snap/data/meta/{query?}', array('uses'=>'StreetSnapEditController@getMetaJson'));
+
+});//Front-end route group
 
 
 /*Admin Routes*/
@@ -96,7 +100,7 @@ Route::get('auth/admin/logout', array('uses'=>'AdminController@logoutUser'));
 
 
 /*Error Routes*/
-Route::group(array('prefix' => 'error'), function() {
+Route::group(array('before'=>'front', 'prefix' => 'error'), function() {
 
 	Route::get('not-authorized', array('uses'=>'ErrorPagesController@notAuthorized'));
 	Route::get('login-required', array('uses'=>'ErrorPagesController@loginRequired'));
@@ -142,67 +146,3 @@ Route::get('mockup/detail', function() {
 
 
 /*Dev Routes*/
-
-Route::get('/main', function()
-{
-	return View::make('front.main');
-});
-
-Route::get('admin/street-snap/editor', function()
-{
-	return View::make('admin.street-snap.editor');
-});
-
-Route::get('/pintest', function()
-{
-	return View::make('tests.pin');
-});
-
-Route::get('/jsontest', function() {
-	$response=new stdClass();
-	$response->result="success";
-	$response->message="processed";
-	return Response::json($response);
-});
-
-Route::get('/inputtest', function() {echo('start');
-	$input=Input::only('first_input','second_input');
-	if(Input::has('first_input')) {
-		echo('has first input');
-	}
-	if(isset($input['first_input'])) {
-		echo('first_input isset');
-	}
-	if(empty($input['first_input'])) {
-		echo('empty');
-	}
-});
-
-Route::get('/fb', function() {
-	return View::make('fblogin');
-});
-
-Route::get('master-layout-test', function() {
-	return View::make('tests.master-layout-test');
-});
-
-Route::get('test/login-modal', array('before'=>'userdata', function() {
-	return View::make('tests.login-modal-test');
-}));
-
-Route::get('test/tracker', function() {
-	dd(Tracker::get());
-});
-
-Route::get('test/fbuser', array('uses'=>'UserController@fbTest'));
-
-Route::get('logout', function() {
-	Auth::logout();
-});
-
-Route::group(array('before' => 'front'), function() {
-	Route::get('test/campus-menu', function() {
-		$campusMenu=ViewData::get('campusMenu');
-		dd($campusMenu);
-	});
-});
