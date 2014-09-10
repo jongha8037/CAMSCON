@@ -203,7 +203,7 @@
 
 .snap-list .snap-inner {
 	border: 1px solid #c7c7c7;
-	display: table;
+	/*display: table;*/
 	margin: 0px auto;
 }
 
