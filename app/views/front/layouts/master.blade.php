@@ -60,15 +60,25 @@
 			<nav class="category-nav">
 				<ul class="clearfix">
 					<li><a href="{{url('/')}}">All</a></li>
-					<li>
+					<li class="campus-menu">
 						<a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>'all', 'ordering'=>'new'))}}">Campus <span class="caret"></span></a>
-						<div class="campus-menu"></div>
+						<ul class="campus-sub-menu sub-menu row">
+							@foreach($CatNav->campus as $campus)
+							<li class="col-xs-4 col-sm-2"><a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>$campus->slug, 'ordering'=>'new'))}}">{{$campus->name}}</a></li>
+							@endforeach
+						</ul>
 					</li>
 					<li><a href="" class="deactivated">Street <span class="caret"></span></a></li>
 					<li><a href="" class="deactivated">Brand <span class="caret"></span></a></li>
 					<li><a href="" class="deactivated">Fashion week <span class="caret"></span></a></li>
 					<li><a href="" class="deactivated">Festival/Club <span class="caret"></span></a></li>
-					<li><a href="" style="border-right: 1px solid #7f7f7f;">Men/Ladies <span class="caret"></span></a></li>
+					<li class="gender-menu">
+						<a href="" style="border-right: 1px solid #7f7f7f;">Men/Ladies <span class="caret"></span></a>
+						<ul class="gender-sub-menu sub-menu row">
+							<li><a href="{{action('StreetSnapController@getList', array('category'=>'men'))}}">Men</a></li>
+							<li><a href="{{action('StreetSnapController@getList', array('category'=>'ladies'))}}">Ladies</a></li>
+						</ul>
+					</li>
 					<li><a href="{{action('StreetSnapEditController@showEditor')}}" class="post-btn"><span class="glyphicon glyphicon-camera"></span> Post</a></li>
 				</ul>
 			</nav>

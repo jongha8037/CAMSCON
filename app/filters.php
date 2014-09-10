@@ -155,6 +155,29 @@ Route::filter('restricted-page', function() {
 });
 
 Route::filter('front', function() {
-	$campusMenu=CampusMeta::get();
-	ViewData::add('campusMenu', $campusMenu);
+	$catNav=new stdClass();
+
+	//Build Campus menu
+	$catNav->campus=array();
+	$campusMeta=CampusMeta::orderBy('name_ko', 'ASC')->get();
+	foreach ($campusMeta as $meta) {
+		$campus=new stdClass();
+		$campus->id=$meta->id;
+		$campus->name=$meta->name;
+		$campus->slug=$meta->slug;
+		$catNav->campus[]=$campus;
+	}
+
+	//Build Street menu
+	$catNav->street=array();
+	$streetMeta=StreetMeta::orderBy('name_ko', 'ASC')->get();
+	foreach ($campusMeta as $meta) {
+		$street=new stdClass();
+		$street->id=$meta->id;
+		$street->name=$meta->name;
+		$street->slug=$meta->slug;
+		$catNav->street[]=$street;
+	}
+
+	ViewData::add('CatNav', $catNav);
 });
