@@ -69,11 +69,7 @@ Camscon
 		</div><!--/.notes-section-->
 
 		<div class="pins-section">
-			<ul id="pinList" class="pin-list">				
-				<li><a href="http://uk.accessorize.com/" target="_blank" alt="" class="commerce-link" data-pin-no="1"><span class="pin-numbering">1</span> <strong class="item-name">Bracelet</strong> <span class="vendor">Accessorize</span> in <span class="category">Accessories</span></a></li>
-				<li><a href="" alt="http://www.louisvuitton.com/" target="_blank" class="commerce-link" data-pin-no="2"><span class="pin-numbering">2</span> <strong class="item-name">Bag</strong> <span class="vendor">Louis Vuitton</span> in <span class="category">Bags</span></a></li>
-				<li><a href="http://www.fendi.com/kr/ko" target="_blank" alt="" class="commerce-link" data-pin-no="3"><span class="pin-numbering">3</span> <strong class="item-name">Shoes</strong> <span class="vendor">Fendi</span> in <span class="category">Shoes</span></a></li>
-			</ul>
+			<ul id="pinList" class="pin-list"></ul>
 		</div>
 
 		<div class="photographer-section">
