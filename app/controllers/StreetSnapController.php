@@ -237,7 +237,11 @@ class StreetSnapController extends BaseController {
 		$nextPage=null;
 		$currentPage=$snaps->getCurrentPage();
 		if($currentPage<$snaps->getLastPage()) {
-			$nextPage=action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$slug, 'ordering'=>$ordering, 'page'=>$currentPage+1));
+			if($category=='all') {
+				$nextPage=action('StreetSnapController@getList', array('category'=>$category, 'slug'=>'order', 'ordering'=>$ordering, 'page'=>$currentPage+1));
+			} else {
+				$nextPage=action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$slug, 'ordering'=>$ordering, 'page'=>$currentPage+1));
+			}
 		}
 		ViewData::add('loadMore', $nextPage);
 
