@@ -45,7 +45,7 @@ Camscon
 	<div id="dataCol" class="data-col col-xs-12 col-sm-5">
 		<div class="icon-section">
 			<h3 class="name">{{{$snap->name}}}</h3>
-			<h3 class="category">{{{trim($snap->meta_type, 'Meta')}}} / {{{$snap->meta->name}}} @if($snap->user->id===Auth::user()->id){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			<h3 class="category">{{{trim($snap->meta_type, 'Meta')}}} / {{{$snap->meta->name}}} @if(Auth::check() && $snap->user->id===Auth::user()->id){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 		</div>
 
 		<div class="notes-section">
