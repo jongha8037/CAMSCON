@@ -60,7 +60,10 @@
 			<nav class="category-nav">
 				<ul class="clearfix">
 					<li><a href="{{url('/')}}">All</a></li>
-					<li><a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>'all', 'ordering'=>'new'))}}">Campus <span class="caret"></span></a></li>
+					<li>
+						<a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>'all', 'ordering'=>'new'))}}">Campus <span class="caret"></span></a>
+						<div class="campus-menu"></div>
+					</li>
 					<li><a href="" class="deactivated">Street <span class="caret"></span></a></li>
 					<li><a href="" class="deactivated">Brand <span class="caret"></span></a></li>
 					<li><a href="" class="deactivated">Fashion week <span class="caret"></span></a></li>

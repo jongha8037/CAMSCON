@@ -53,7 +53,7 @@ Route::filter('auth.active_photographers', function() {
 	if(Auth::check()) {
 		//User is logged in check groups
 		$groups=Auth::user()->groups;
-		$authGroup=array(2,3,4,5,6,7);
+		$authGroup=array(1,2,3,4,5,6);
 		$auth=false;
 		foreach($groups as $group) {
 			if( in_array(intval($group->id), $authGroup) ) {
@@ -85,7 +85,7 @@ Route::filter('auth.admin', function() {
 		$groups=Auth::user()->groups;
 		$isAdmin=false;
 		foreach($groups as $group) {
-			if(intval($group->id)===6 || intval($group->id)===7) {
+			if(intval($group->id)===5 || intval($group->id)===6) {
 				$isAdmin=true;
 				break;
 			}
@@ -152,4 +152,9 @@ Route::filter('tracker', function() {
 
 Route::filter('restricted-page', function() {
 	Tracker::addRestrictedCount();
+});
+
+Route::filter('front', function() {
+	$campusMenu=CampusMeta::get();
+	ViewData::add('campusMenu', $campusMenu);
 });
