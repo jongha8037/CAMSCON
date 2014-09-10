@@ -237,7 +237,7 @@ class StreetSnapController extends BaseController {
 		$nextPage=null;
 		$currentPage=$snaps->getCurrentPage();
 		if($currentPage<$snaps->getLastPage()) {
-			$nextPage=action('StreetSnapController@getListAll', array('category'=>$category, 'slug'=>$slug, 'ordering'=>$ordering, 'page'=>$currentPage+1));
+			$nextPage=action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$slug, 'ordering'=>$ordering, 'page'=>$currentPage+1));
 		}
 		ViewData::add('loadMore', $nextPage);
 
