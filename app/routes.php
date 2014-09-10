@@ -199,3 +199,10 @@ Route::get('test/fbuser', array('uses'=>'UserController@fbTest'));
 Route::get('logout', function() {
 	Auth::logout();
 });
+
+Route::group(array('before' => 'front'), function() {
+	Route::get('test/campus-menu', function() {
+		$campusMenu=ViewData::get('campusMenu');
+		dd($campusMenu);
+	});
+});
