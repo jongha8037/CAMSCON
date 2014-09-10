@@ -139,7 +139,7 @@
 }
 
 
-/*Style Icon List
+/*List View
 ----------------------------------------------------------------------------*/
 .snap-list {
 	padding-top: 30px;
@@ -226,7 +226,7 @@
 }
 
 
-/*Style Icon Single
+/*Single View
 ----------------------------------------------------------------------------*/
 .breadcrumbs {
 	color: #737373;
@@ -421,13 +421,6 @@
 	margin-left:25px;
 }
 
-/*
-.pin-list .commerce-link {
-	text-decoration: none;
-	color: #000;
-}
-*/
-
 .pin-list li .pin-numbering {
 	background-color: #000;
 	font-size: 13px;
@@ -465,6 +458,67 @@
 .pin-list li.highlight .meta, 
 .pin-list li:hover .meta {
 	color: #20cfc5;
+}
+
+
+/*Profile View
+----------------------------------------------------------------------------*/
+.profile-data {
+	min-height:150px;
+	padding-left:165px;
+	background-repeat: no-repeat;
+	background-size:150px 150px;
+	background-position: 0px 0px;
+	margin:15px 0px;
+}
+
+.profile-data .name {
+	font-weight:700;
+}
+
+.profile-data .details p {
+	margin-bottom:0px;
+}
+
+.profile-data .details a {
+	color:#808080;
+}
+
+.profile-data .stats {
+	text-align: right;
+}
+
+.profile-data .stats h3 {
+	margin-top:0px;
+}
+
+.profile-data .stats h3 strong {
+	color:#56d8d1;
+}
+
+.profile-filter-tabs {
+	border-bottom:1px solid #000;
+}
+
+.profile-filter-tabs .tab {
+	display: inline-block;
+	border:1px solid #000;
+	border-bottom:0;
+	padding:8px 35px;
+	cursor:pointer;
+}
+
+.profile-filter-tabs .tab:hover {
+	color:#56d8d1;
+}
+
+.profile-filter-tabs .tab.active {
+	background-color:#000;
+	color:#fff;
+}
+
+.profile-filter-tabs .tab.my-collection {
+	border-right:0;
 }
 
 
