@@ -60,6 +60,13 @@ Route::group(array('before' => 'front'), function() {
 	Route::post('post/street-snap/delete', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deletePost'));
 	Route::get('post/street-snap/data/meta/{query?}', array('uses'=>'StreetSnapEditController@getMetaJson'));
 
+
+	/*Profile Edit routes*/
+	Route::get('profile-edit', array('before'=>'auth', 'uses'=>'ProfileController@showEditor'));
+	Route::post('profile-edit/cover', array('before'=>'auth|csrf', 'uses'=>'ProfileController@uploadCover'));
+	Route::post('profile-edit/image', array('before'=>'auth|csrf', 'uses'=>'ProfileController@uploadProfile'));
+	Route::post('profile-edit/save', array('before'=>'auth|csrf', 'uses'=>'ProfileController@saveProfile'));
+
 });//Front-end route group
 
 

@@ -195,8 +195,16 @@
 	width:33.33%;
 }
 
+@media (max-width:767px) {
+	.snap-list .snap-wrapper {
+		width:100%;
+	}
+}
+
 .snap-list .snap-inner {
 	border: 1px solid #c7c7c7;
+	display: table;
+	margin: 0px auto;
 }
 
 .snap-wrapper .snap {

@@ -80,8 +80,8 @@ Camscon
 			@endif
 			<div class="profile-data">
 				<strong class="name">{{{$snap->user->nickname}}}</strong>
-				@if(!empty($snap->user->uri))
-				<p>MY PAGE <a href="{{action('ProfileController@showProfile', $snap->user->uri)}}">{{action('ProfileController@showProfile', $snap->user->uri)}}</a></p>
+				@if(!empty($snap->user->slug))
+				<p>MY PAGE <a href="{{action('ProfileController@showProfile', $snap->user->slug)}}">{{action('ProfileController@showProfile', $snap->user->slug)}}</a></p>
 				@else
 				<p>MY PAGE <a href="{{action('ProfileController@showProfile', $snap->user->id)}}">{{action('ProfileController@showProfile', $snap->user->id)}}</a></p>
 				@endif

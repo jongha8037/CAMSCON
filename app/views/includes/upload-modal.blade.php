@@ -1,6 +1,6 @@
 <!--Upload Modal-->
 <div id="UploadModal" class="modal fade">
-	<div class="modal-dialog" style="max-width:400px;">
+	<div class="modal-dialog" style="max-width:450px;">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
