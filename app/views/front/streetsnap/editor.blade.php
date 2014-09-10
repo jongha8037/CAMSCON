@@ -124,12 +124,12 @@ Post
 				</div>
 
 				<div class="form-group">
-					<label>메타 카테고리</label>
+					<label>카테고리 (학교/거리 등, 자동완성)</label>
 					<input type="hidden" name="meta_type" value="@if(Input::old('meta_type')){{Input::old('meta_type')}}@else{{$snap->meta_type or ''}}@endif" />
 					<input type="hidden" name="meta_id" value="@if(Input::old('meta_id')){{Input::old('meta_id')}}@else{{$snap->meta_id or ''}}@endif" />
 					<input type="text" class="form-control" name="meta_category" placeholder="School, Street, Festival, Club, etc." value="@if(Input::old('meta_category')){{Input::old('meta_category')}}@elseif($snap->meta){{$snap->meta->name}}@endif" />
 					@if($errors->has('meta_type') || $errors->has('meta_id'))
-					<p class="text-danger">메타 카테고리는 필수 항목 입니다! 자동완성기능을 이용하여 입력해주시기 바랍니다.</p>
+					<p class="text-danger">카테고리는 필수 항목 입니다! 자동완성기능을 이용하여 입력해주시기 바랍니다.</p>
 					@endif
 				</div>
 
@@ -233,7 +233,7 @@ Post
 						</select>
 					</div>
 					<div class="col-xs-12">
-						<input type="text" class="form-control" name="link" placeholder="링크 (옵션)" />
+						<input type="text" class="form-control" name="link" placeholder="http:// or https:// 포함 링크 주소 (옵션)" />
 					</div>
 				</div>
 			</div>
