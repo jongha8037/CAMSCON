@@ -66,7 +66,7 @@ Route::filter('auth.active_photographers', function() {
 			if (Request::ajax()) {
 				return Response::make('Unauthorized', 401);
 			} else {
-				return View::make('error-pages.not-authorized');
+				return View::make('error-pages.not-authorized', ViewData::get());
 			}
 		}
 	} else {

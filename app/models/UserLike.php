@@ -1,6 +1,6 @@
 <?php
 
-class PinTag extends Eloquent {
+class UserLike extends Eloquent {
 
 	public function target() {
 		return $this->morphTo();
