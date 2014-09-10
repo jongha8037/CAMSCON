@@ -123,7 +123,7 @@ var ListView={
 			$.get(this.endpoints.loadMore, null, function(response) {
 				if(typeof response==='object' && 'snaps' in response && 'more_url' in response) {
 					ListView.endpoints.loadMore=response.snaps.more_url;
-					ListView.snaps.concat(response.snaps.data);
+					ListView.snaps.data.concat(response.snaps.data);
 					ListView.appendSnaps(response.snaps.data);
 				}
 			}, 'json');
