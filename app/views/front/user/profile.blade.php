@@ -114,7 +114,11 @@ var ListView={
 
 			var meta=$('<div class="meta-container clearfix"></div>');
 			
-			$('<img src="" alt="" class="author-profile" />').attr('src', snaps[i].user.profile_image.url).appendTo(meta);
+			if(snaps[i].user.profile_image) {
+				$('<img src="" alt="" class="author-profile" />').attr('src', snaps[i].user.profile_image.url).appendTo(meta);
+			} else {
+				$('<img src="" alt="" class="author-profile" />').attr('src', "{{asset('front-assets/profile/profile_default_small.png')}}").appendTo(meta);
+			}
 
 			var subjectMeta=$('<div class="subject-meta"></div>');
 			$('<strong></strong>').text(snaps[i].name).appendTo(subjectMeta);
