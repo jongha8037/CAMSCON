@@ -2,8 +2,8 @@
 
 class StreetSnap extends Eloquent {
 
-	protected $visible=array('id', 'name', 'affiliation', 'cached_total_likes', 'cached_total_comments', 'user', 'primary', 'meta', 'single_url', 'likes', 'has_liked');
-	protected $appends=array('single_url', 'has_liked');
+	protected $visible=array('id', 'name', 'affiliation', 'cached_total_likes', 'cached_total_comments', 'user', 'primary', 'meta', 'single_url', 'likes', 'liked');
+	protected $appends=array('single_url');
 	protected $category;
 	protected $slug;
 
@@ -56,8 +56,12 @@ class StreetSnap extends Eloquent {
 	}
 	*/
 
-	public function getHasLikedAtrribute() {
-		return 'liked!';
+	public function liked() {
+		if(Auth::check()) {
+			return $this->morphMany('UserLike', 'target')->where('user_id', '=', Auth::user()->id);
+		} else {
+			return $this->morphMany('UserLike', 'target')->where('user_id', '=', 0);
+		}
 	}
 
 	public function getSingleUrlAttribute() {

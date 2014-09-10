@@ -73,7 +73,7 @@ var ListView={
 			var inner=$('<div class="snap-inner"></div>');
 
 			var snap=$('<figure class="snap"></figure>');
-			$('<button type="button" class="like-btn">LIKE</button>').appendTo(snap);
+			$('<button type="button" data-type="" data-id="" class="like-btn">LIKE</button>').attr('data-type', 'StreetSnap').attr('data-id', snaps[i].id).appendTo(snap);
 			$('<span class="likes"></span>').text(snaps[i].cached_total_likes).appendTo(snap);
 			$('<button type="button" class="fb-share-btn">f</button>').appendTo(snap);
 			var link=$('<a href=""></a>').attr('href', snaps[i].single_url);
