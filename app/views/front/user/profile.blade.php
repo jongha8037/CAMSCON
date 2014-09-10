@@ -104,7 +104,11 @@ var ListView={
 			var inner=$('<div class="snap-inner"></div>');
 
 			var snap=$('<figure class="snap"></figure>');
-			$('<button type="button" class="like-btn">LIKE</button>').appendTo(snap);
+			var likeBtnClass=null;
+			if(snaps[i].liked.length>0) {
+				likeBtnClass='liked';
+			}
+			$('<button type="button" data-type="" data-id="" class="like-btn">LIKE</button>').attr('data-type', 'StreetSnap').attr('data-id', snaps[i].id).addClass(likeBtnClass).appendTo(snap);
 			$('<span class="likes"></span>').text(snaps[i].cached_total_likes).appendTo(snap);
 			$('<button type="button" class="fb-share-btn">f</button>').appendTo(snap);
 			var link=$('<a href=""></a>').attr('href', snaps[i].single_url);
@@ -168,6 +172,48 @@ $(document).ready(function() {
 
 $(window).resize(function() {
 	ListView.init();
+});
+
+var LikeButtons={
+	init:function() {
+		$(document).on('click', '.like-btn', null, function(e) {
+			LikeButtons.like($(this));
+		});
+	},
+	like:function(btn) {
+		btn.prop('disabled', true);
+
+		var data={
+			_token:"{{csrf_token()}}",
+			target_type:btn.attr('data-type'),
+			target_id:btn.attr('data-id')
+		}
+
+		$.post("{{action('LikeController@procLike')}}", data, function(response) {
+			//console.log(response);
+			if(response.proc=='liked') {
+				btn.addClass('liked');
+			} else if(response.proc=='canceled') {
+				btn.removeClass('liked');
+			}
+			if('total' in response) {
+				btn.siblings('span.likes').text(response.total);
+			}
+		}, 'json').fail(function(response) {
+			//console.log(response.status);
+			if(response.status==401) {
+				if(typeof LoginModal === 'object') {
+					LoginModal.launch();
+				}
+			}
+		}).always(function() {
+			btn.prop('disabled', false);
+		});
+	}
+};//LikeButtons{}
+
+$(document).ready(function() {
+	LikeButtons.init();
 });
 </script>
 @stop

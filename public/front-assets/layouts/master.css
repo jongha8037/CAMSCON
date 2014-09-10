@@ -227,6 +227,10 @@
 	font-weight: 700;
 }
 
+.snap-wrapper .like-btn.liked {
+	color:#56d8d1;
+}
+
 .snap-wrapper .likes {
 	position:absolute;
 	bottom:10px;

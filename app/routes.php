@@ -67,6 +67,10 @@ Route::group(array('before' => 'front'), function() {
 	Route::post('profile-edit/image', array('before'=>'auth|csrf', 'uses'=>'ProfileController@uploadProfile'));
 	Route::post('profile-edit/save', array('before'=>'auth|csrf', 'uses'=>'ProfileController@saveProfile'));
 
+
+	/*Like routes*/
+	Route::post('user/action/like', array('before'=>'auth', 'uses'=>'LikeController@procLike'));
+
 });//Front-end route group
 
 
@@ -156,4 +160,15 @@ Route::get('mockup/detail', function() {
 Route::get('test/liked', function() {
 	$s=StreetSnap::find(1);
 	dd($s->liked);
+});
+
+Route::get('test/transaction', function() {
+	try {
+		$proc=DB::transaction(function() {
+			throw new Exception("Error Processing Request", 1);
+		});
+	} catch(Exception $e) {
+		$proc=false;
+	}
+	dd($proc);
 });

@@ -12,14 +12,14 @@ class StreetSnapController extends BaseController {
 		switch($category) {
 			case 'all':
 				if($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->has('primary')
 						->where('status', '=', 'published')
 						->orderBy('cached_total_likes', 'DESC')
 						->orderBy('created_at', 'DESC')
 						->paginate(9);
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->has('primary')
 						->where('status', '=', 'published')
 						->orderBy('created_at', 'DESC')
@@ -30,14 +30,14 @@ class StreetSnapController extends BaseController {
 			case 'campus':
 				if($slug=='all') {
 					if($ordering=='hot') {
-						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
 							->paginate(9);
 					} else {
-						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
@@ -48,7 +48,7 @@ class StreetSnapController extends BaseController {
 					if(empty($meta)) {
 						App::abort(404);
 					} elseif($ordering=='hot') {
-						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 							->where('meta_type', '=', 'CampusMeta')
 							->where('meta_id', '=', $meta->id)
 							->has('primary')
@@ -57,7 +57,7 @@ class StreetSnapController extends BaseController {
 							->orderBy('created_at', 'DESC')
 							->paginate(9);
 					} else {
-						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 							->where('meta_type', '=', 'CampusMeta')
 							->where('meta_id', '=', $meta->id)
 							->has('primary')
@@ -73,7 +73,7 @@ class StreetSnapController extends BaseController {
 				if(empty($meta)) {
 					App::abort(404);
 				} elseif($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->where('meta_type', '=', 'StreetMeta')
 						->where('meta_id', '=', $meta->id)
 						->has('primary')
@@ -82,7 +82,7 @@ class StreetSnapController extends BaseController {
 						->orderBy('created_at', 'DESC')
 						->paginate(9);
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->where('meta_type', '=', 'StreetMeta')
 						->where('meta_id', '=', $meta->id)
 						->has('primary')
@@ -97,7 +97,7 @@ class StreetSnapController extends BaseController {
 				if(empty($brand)) {
 					App::abort(404);
 				} elseif($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->whereHas('pins', function($q) use($brand) {
 							$q->where('brand_id', '=', $brand->id);
 						})
@@ -107,7 +107,7 @@ class StreetSnapController extends BaseController {
 						->orderBy('created_at', 'DESC')
 						->paginate(9);
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->whereHas('pins', function($q) use($brand) {
 							$q->where('brand_id', '=', $brand->id);
 						})
@@ -123,7 +123,7 @@ class StreetSnapController extends BaseController {
 				if(empty($meta)) {
 					App::abort(404);
 				} elseif($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->where('meta_type', '=', 'FashionWeekMeta')
 						->where('meta_id', '=', $meta->id)
 						->has('primary')
@@ -132,7 +132,7 @@ class StreetSnapController extends BaseController {
 						->orderBy('created_at', 'DESC')
 						->paginate(9);
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->where('meta_type', '=', 'FashionWeekMeta')
 						->where('meta_id', '=', $meta->id)
 						->has('primary')
@@ -147,7 +147,7 @@ class StreetSnapController extends BaseController {
 				if(empty($meta)) {
 					App::abort(404);
 				} elseif($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->where('meta_type', '=', 'FestivalMeta')
 						->where('meta_id', '=', $meta->id)
 						->has('primary')
@@ -156,7 +156,7 @@ class StreetSnapController extends BaseController {
 						->orderBy('created_at', 'DESC')
 						->paginate(9);
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->where('meta_type', '=', 'FestivalMeta')
 						->where('meta_id', '=', $meta->id)
 						->has('primary')
@@ -171,7 +171,7 @@ class StreetSnapController extends BaseController {
 				if(empty($meta)) {
 					App::abort(404);
 				} elseif($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->where('meta_type', '=', 'ClubMeta')
 						->where('meta_id', '=', $meta->id)
 						->has('primary')
@@ -180,7 +180,7 @@ class StreetSnapController extends BaseController {
 						->orderBy('created_at', 'DESC')
 						->paginate(9);
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->where('meta_type', '=', 'ClubMeta')
 						->where('meta_id', '=', $meta->id)
 						->has('primary')
@@ -192,7 +192,7 @@ class StreetSnapController extends BaseController {
 
 				case 'men':
 				if($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->where('gender', '=', 'male')
 						->has('primary')
 						->where('status', '=', 'published')
@@ -200,7 +200,7 @@ class StreetSnapController extends BaseController {
 						->orderBy('created_at', 'DESC')
 						->paginate(9);
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->where('gender', '=', 'male')
 						->has('primary')
 						->where('status', '=', 'published')
@@ -211,7 +211,7 @@ class StreetSnapController extends BaseController {
 
 				case 'ladies':
 				if($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->where('gender', '=', 'female')
 						->has('primary')
 						->where('status', '=', 'published')
@@ -219,7 +219,7 @@ class StreetSnapController extends BaseController {
 						->orderBy('created_at', 'DESC')
 						->paginate(9);
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->where('gender', '=', 'female')
 						->has('primary')
 						->where('status', '=', 'published')
@@ -269,7 +269,7 @@ class StreetSnapController extends BaseController {
 			if($brand) {
 				$breadcrumbs[]=array('name'=>strtoupper($brand->name), 'url'=>action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$slug)));
 				
-				$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta')
+				$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta', 'liked')
 					->where('id', '=', $id)
 					->whereHas('pins', function($q) use($brand) {
 						$q->where('brand_id', '=', $brand->id);
@@ -293,7 +293,7 @@ class StreetSnapController extends BaseController {
 			}
 		} elseif( $category=='filter' && ($slug=='men' || $slug=='ladies') ) {
 			$termMapper=array('men'=>'male', 'ladies'=>'female');
-			$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta')
+			$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta', 'liked')
 				->where('id', '=', $id)
 				->where('gender', '=', $termMapper[$slug])
 				->first();
@@ -304,7 +304,7 @@ class StreetSnapController extends BaseController {
 				App::abort(404);
 			}
 		} else {
-			$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta')->find($id);
+			$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta', 'liked')->find($id);
 			if($snap && strtolower($snap->meta_type)==$category.'meta') {
 				$breadcrumbs[]=array('name'=>strtoupper($snap->meta->name), 'url'=>action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$slug)));
 				$prevSnap=StreetSnap::where('meta_type', '=', $snap->meta_type)->where('meta_id', '=', $snap->meta_id)->where('status', '=', 'published')->where('id', '<', $snap->id)->max('id');
