@@ -153,3 +153,7 @@ Route::get('mockup/detail', function() {
 
 
 /*Dev Routes*/
+Route::get('test/liked', function() {
+	$s=StreetSnap::find(1);
+	dd($s->liked);
+});
