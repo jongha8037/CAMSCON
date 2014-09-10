@@ -69,7 +69,7 @@ var ListView={
 		//Create array of snap nodes from data
 		var snapObjx=[];
 		var slen=snaps.length;for(var i=0;i<slen;i++) {
-			var wrapper=$('<div class="snap-wrapper"></div>');
+			var wrapper=$('<div class="snap-wrapper hidden"></div>');
 			var inner=$('<div class="snap-inner"></div>');
 
 			var snap=$('<figure class="snap"></figure>');
@@ -104,6 +104,9 @@ var ListView={
 
 		var wrapper=this.objx.wrapper;
 		wrapper.append(snapObjx).imagesLoaded(function() {
+			wrapper.find('.snap-wrapper').each(function() {
+				$(this).removeClass('hidden');
+			});
 			wrapper.isotope('appended', snapObjx);
 		});
 	},
