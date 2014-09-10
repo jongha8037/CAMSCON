@@ -28,26 +28,43 @@ class StreetSnapController extends BaseController {
 				break;
 
 			case 'campus':
-				$meta=CampusMeta::where('slug', '=', $slug)->first();
-				if(empty($meta)) {
-					App::abort(404);
-				} elseif($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
-						->where('meta_type', '=', 'CampusMeta')
-						->where('meta_id', '=', $meta->id)
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('cached_total_likes', 'DESC')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
+				if($slug=='all') {
+					if($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
-						->where('meta_type', '=', 'CampusMeta')
-						->where('meta_id', '=', $meta->id)
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
+					$meta=CampusMeta::where('slug', '=', $slug)->first();
+					if(empty($meta)) {
+						App::abort(404);
+					} elseif($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+							->where('meta_type', '=', 'CampusMeta')
+							->where('meta_id', '=', $meta->id)
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta')
+							->where('meta_type', '=', 'CampusMeta')
+							->where('meta_id', '=', $meta->id)
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
 				}
 				break;
 

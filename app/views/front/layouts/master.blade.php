@@ -37,8 +37,8 @@
 
 			<nav class="site-nav clearfix">
 				<ul>
-					<li><a href="">Hot</a></li>
-					<li><a href="">New</a></li>
+					<li><a href="{{action('StreetSnapController@getList', array('category'=>'all', 'slug'=>'order', 'ordering'=>'hot'))}}">Hot</a></li>
+					<li><a href="{{action('StreetSnapController@getList', array('category'=>'all', 'slug'=>'order', 'ordering'=>'new'))}}">New</a></li>
 					<li><a href="" class="deactivated">Editorial</a></li>
 					<li><a href="" class="deactivated">Inspirer</a></li>
 				</ul>
@@ -60,7 +60,7 @@
 			<nav class="category-nav">
 				<ul class="clearfix">
 					<li><a href="{{url('/')}}">All</a></li>
-					<li><a href="">Campus <span class="caret"></span></a></li>
+					<li><a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>'all', 'ordering'=>'new'))}}">Campus <span class="caret"></span></a></li>
 					<li><a href="" class="deactivated">Street <span class="caret"></span></a></li>
 					<li><a href="" class="deactivated">Brand <span class="caret"></span></a></li>
 					<li><a href="" class="deactivated">Fashion week <span class="caret"></span></a></li>
