@@ -314,51 +314,51 @@
 	padding-top:40px;
 }
 
-.data-col .icon-section {
+.single-container .data-col .icon-section {
 	padding-bottom: 20px;
 	border-bottom: 1px solid #000;
 	margin-bottom: 20px;
 }
 
-.data-col .icon-section h3 {
+.single-container .data-col .icon-section h3 {
 	margin:0px;
 }
 
-.data-col .icon-section h3.name {
+.single-container .data-col .icon-section h3.name {
 	font-weight: 700;
 }
 
-.data-col .icon-section h3.category {
+.single-container .data-col .icon-section h3.category {
 	margin-top:5px;
 }
 
-.data-col .notes-section {
+.single-container .data-col .notes-section {
 	padding-bottom: 20px;
 	border-bottom: 1px solid #000;
 	margin-bottom:20px;
 }
 
-.data-col .pin-list {
+.single-container .data-col .pin-list {
 	margin-bottom: 20px;
 }
 
-.data-col .photographer-section {
+.single-container .data-col .photographer-section {
 	border: 1px solid #20cfc5;
 	padding:15px;
 }
 
-.photographer-section .profile-img {
+.single-container .photographer-section .profile-img {
 	width: auto;
 	max-width: 100px;
 	height: auto;
 	float: left;
 }
 
-.photographer-section .profile-data {
+.single-container .photographer-section .profile-data {
 	padding-left: 115px;
 }
 
-.photographer-section .profile-data .name {
+.single-container .photographer-section .profile-data .name {
 	background-color: #000;
 	color: #fff;
 	padding: 8px 14px;
@@ -366,22 +366,22 @@
 	margin-bottom: 10px;
 }
 
-.photographer-section .profile-data p {
+.single-container .photographer-section .profile-data p {
 	margin-bottom:6px;
 	line-height: 1;
 }
 
-.photographer-section .profile-data a {
+.single-container .photographer-section .profile-data a {
 	color: #666;
 	word-break: break-all;
 }
 
-.photographer-section .profile-data a:hover {
+.single-container .photographer-section .profile-data a:hover {
 	color: #000;
 }
 
 
-.pin-container .pin {
+.single-container .pin-container .pin {
 	opacity: 0;
 	position: absolute;
 	background-color: #20cfc5;
@@ -400,28 +400,28 @@
 	margin-left: -10px;
 }
 
-.pin-container .pin.highlight, 
-.pinned:hover .pin-container .pin {
+.single-container .pin-container .pin.highlight, 
+.single-container .pinned:hover .pin-container .pin {
 	opacity: 1;
 }
 
-.pin-list {
+.single-container .pin-list {
 	list-style-type: none;
 	padding: 0px;
 	margin: 0px;
 }
 
-.pin-list li {
+.single-container .pin-list li {
 	line-height: 1.3;
 	cursor:pointer;
 	margin-bottom:20px;
 }
 
-.pin-list li .data-wrapper {
+.single-container .pin-list li .data-wrapper {
 	margin-left:25px;
 }
 
-.pin-list li .pin-numbering {
+.single-container .pin-list li .pin-numbering {
 	background-color: #000;
 	font-size: 13px;
 	color: #fff;
@@ -435,28 +435,28 @@
 	float:left;
 }
 
-.pin-list li .links {
+.single-container .pin-list li .links {
 	padding:0px;
 	margin:0px;
 	list-style-type: none;
 }
 
-.pin-list li .links li .link-name {
+.single-container .pin-list li .links li .link-name {
 	color:#707070;
 }
 
-.pin-list li .links li a {
+.single-container .pin-list li .links li a {
 	color:#aaa;
 	word-break:break-all;
 }
 
-.pin-list li.highlight .pin-numbering, 
-.pin-list li:hover .pin-numbering {
+.single-container .pin-list li.highlight .pin-numbering, 
+.single-container .pin-list li:hover .pin-numbering {
 	background-color: #20cfc5;
 }
 
-.pin-list li.highlight .meta, 
-.pin-list li:hover .meta {
+.single-container .pin-list li.highlight .meta, 
+.single-container .pin-list li:hover .meta {
 	color: #20cfc5;
 }
 
