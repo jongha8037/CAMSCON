@@ -279,12 +279,24 @@ var LoginModal={
 		this.jqo.find('.login-with-fb-btn').click(function() {
 			LoginModal.hideLoginError();
 			LoginModal.setLoginInfo('페이스북으로 로그인하는 중입니다...<br />처음 로그인하는 경우에는 다소 시간이 걸릴 수 있습니다.');
-			LoginModal.proc_login_fb();
+			//Start FB login
+			FB.login(function(response) {
+				if(response.authResponse) {
+					//Start backend login.
+					LoginModal.login_fb_backend();
+				} else {
+					LoginModal.setLoginError('페이스북 로그인이 취소됐습니다 :(');
+					LoginModal.hideLoginInfo();
+					LoginModal.enableBtns();
+				}
+			}, {scope:'email'});
+			//LoginModal.proc_login_fb();
 		});
 	}/*init()*/,
 	launch:function() {
 		this.jqo.modal('show');
 	}/*launch()*/,
+	/*Removed due to popup blocking
 	proc_login_fb:function() {
 		LoginModal.disableBtns();
 		FB.getLoginStatus(function(response) {
@@ -305,7 +317,8 @@ var LoginModal={
 				}, {scope:'email'});
 			}
 		});
-	}/*proc_login_fb()*/,
+	},
+	*/
 	login_fb_backend:function() {
 		var data={
 			_token:this.jqo.find('input[name="_token"]').val()
