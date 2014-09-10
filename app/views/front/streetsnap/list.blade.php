@@ -76,7 +76,7 @@ var ListView={
 			$('<span class="likes"></span>').text(snaps[i].cached_total_likes).appendTo(snap);
 			$('<button type="button" class="fb-share-btn">f</button>').appendTo(snap);
 			var link=$('<a href=""></a>').attr('href', snaps[i].single_url);
-			$('<img src="" alt="" class="snap-primary" />').attr('src', snaps[i].primary.url).appendTo(link);
+			$('<img src="" alt="" class="snap-primary" />').attr('src', snaps[i].primary.url).attr('width', snaps[i].primary.width).attr('height', snaps[i].primary.height).appendTo(link);
 			link.appendTo(snap);
 			snap.appendTo(inner);
 
