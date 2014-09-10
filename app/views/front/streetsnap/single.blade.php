@@ -148,7 +148,14 @@ var SingleView={
 		});
 	}/*init()*/,
 	render:function() {
-		this.scale=this.objects.pinContainer.outerWidth()/parseInt(this.objects.targetImg.attr('width'),10);
+		var maxWidth=$('#photoCol').innerWidth();
+		var imgWidth=parseInt(this.objects.targetImg.attr('width'),10);
+		if(imgWidth>maxWidth) {
+			this.scale=maxWidth/imgWidth;
+		} else {
+			this.scale=1;
+		}
+		
 		this.renderPins();
 	},
 	renderPins:function() {
