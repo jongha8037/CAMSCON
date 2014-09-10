@@ -2,7 +2,7 @@
 class ProfileController extends BaseController {
 
 	public function showProfile($id) {
-		if(strval(intval($id))==$id) {
+		if(strval(intval($id))===$id) {
 			//Get profile by id
 			$profile=User::with('profileImage', 'profileCover')->find($id);
 		} else {
@@ -35,7 +35,7 @@ class ProfileController extends BaseController {
 	}
 
 	public function showEditor() {
-		$profile=Auth::user()->with('profileImage', 'profileCover')->first();
+		$profile=User::with('profileImage', 'profileCover')->find(Auth::user()->id);
 		ViewData::add('profile', $profile);
 		return View::make('front.user.editor', ViewData::get());
 	}
