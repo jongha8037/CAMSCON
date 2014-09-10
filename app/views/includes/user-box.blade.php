@@ -3,6 +3,7 @@
 	<div class="user-nickname dropdown">
 		<a href="#" data-toggle="dropdown">{{Auth::user()->nickname}} <span class="caret"></span></a>
 		<ul class="dropdown-menu" role="menu">
+			<li><a href="{{action('ProfileController@showProfile', Auth::user()->id)}}">My Profile</a></li>
 			<li><a href="{{action('UserController@logoutUser')}}">Logout</a></li>
 		</ul>
 	</div>
