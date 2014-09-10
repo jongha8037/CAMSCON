@@ -3,7 +3,7 @@
 class FashionItemCategory extends Eloquent {
 
 	protected $table = 'fashion_item_categories';
-	protected $visible = array('id', 'name');
+	protected $visible = array('id', 'name', 'parent');
 	protected $appends = array('name');
 
 	//Accessor for name
@@ -52,6 +52,10 @@ class FashionItemCategory extends Eloquent {
 
 	public function pins() {
 		return $this->hasMany('PinTag', 'item_id');
+	}
+
+	public function parent() {
+		return $this->belongsTo('FashionItemCategory', 'parent_id');
 	}
 
 }

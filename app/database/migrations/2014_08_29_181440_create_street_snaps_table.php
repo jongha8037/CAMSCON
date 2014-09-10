@@ -17,7 +17,6 @@ class CreateStreetSnapsTable extends Migration {
 			$table->bigIncrements('id');
 			
 			/*Subject data*/
-			$table->bigInteger('subject_id')->unsigned()->nullable();
 			$table->string('name');
 			$table->enum('gender', array('male', 'female'));
 			$table->integer('birthyear')->unsigned()->nullable();

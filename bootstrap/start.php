@@ -62,6 +62,31 @@ require $framework.'/Illuminate/Foundation/start.php';
 
 /*
 |--------------------------------------------------------------------------
+| Autop helper function
+|--------------------------------------------------------------------------
+|
+| Temporary placement of the AutoP custom helper function
+|
+*/
+
+function autop($rawText) {
+	$brText=nl2br($rawText, true);
+	$pArray=explode('<br /><br />', $brText);
+	$output='';
+	foreach ($pArray as $p) {
+		$lines=explode('<br />', $p);
+		$cleanLines=array();
+		foreach ($lines as $line) {
+			$cleanLines[]=htmlentities($line, ENT_HTML5);
+		}
+		$cleanP=implode('<br />', $cleanLines);
+		$output.=sprintf('<p>%s</p>', $cleanP);
+	}
+	return $output;
+}
+
+/*
+|--------------------------------------------------------------------------
 | Return The Application
 |--------------------------------------------------------------------------
 |

@@ -11,20 +11,29 @@
 |
 */
 
-Route::get('/', array('uses'=>"StreetSnapController@getListAll"));
-
 /*Front-end StreetSnap Routes*/
-Route::get('{slug}/{ordering?}',
-	array('uses'=>"StreetSnapController@getListAll")
-)->where(array('slug'=>'all|campus|street|brand|fashion-week|festival|club|men|ladies', 'ordering'=>'new|hot'));
+//Single View for men/ladies
+/*
+Route::get('{category}/{id}',
+	array('uses'=>"StreetSnapController@getSingle")
+)->where(array('category'=>'men|ladies', 'id'=>'^[0-9]+$'));
+*/
 
-Route::get('campus/{slug}/{ordering?}', function() {
-	dd('Campus list!');
-})->where('ordering', 'new|hot');
+//List View
+Route::get('{category}/{slug?}/{ordering?}',
+	array('uses'=>"StreetSnapController@getList")
+)->where(array('category'=>'all|campus|street|brand|fashion-week|festival|club|men|ladies', 'ordering'=>'new|hot'));
 
-Route::get('campus/{slug}/{id}', function() {
-	dd('Campus single!');
-})->where('id', '[0-9]+');
+Route::get('/', array('uses'=>"StreetSnapController@getList"));
+
+//Single View for campus,street,brand,fashion-week,festival,club
+Route::get('{category}/{slug}/{id}',
+	array('uses'=>"StreetSnapController@getSingle")
+)->where(array('category'=>'filter|campus|street|brand|fashion-week|festival', 'id'=>'^[0-9]+$'));
+
+//Profile View
+Route::get('profile/{id}', array('uses'=>'ProfileController@showProfile'));
+
 
 /*Front-end Auth Routes*/
 Route::post('auth/user/login/email', array('before'=>'csrf', 'uses'=>'UserController@loginWithEmail'));
@@ -35,6 +44,7 @@ Route::get('auth/user/reset-password/{token}', array('uses'=>'RemindersControlle
 Route::post('auth/user/reset-password', array('before'=>'csrf', 'uses'=>'RemindersController@postReset'));
 Route::get('auth/user/logout', array('uses'=>'UserController@logoutUser'));
 Route::get('user/userbox', array('uses'=>'UserController@userBoxTemplate'));
+
 
 /*Style StreetSnap editor routes*/
 Route::get('post/street-snap/{id?}', array('before'=>'auth.active_photographers', 'uses'=>'StreetSnapEditController@showEditor'))->where('id','[0-9]+');

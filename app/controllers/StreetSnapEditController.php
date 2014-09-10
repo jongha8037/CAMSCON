@@ -17,7 +17,7 @@ class StreetSnapEditController extends BaseController {
 		}
 
 		//Get drafts
-		$drafts=Auth::user()->snaps()->where('status','=','draft')->orderBy('created_at', 'DESC')->get();
+		$drafts=Auth::user()->snaps()->with('pins')->where('status','=','draft')->orderBy('created_at', 'DESC')->get();
 		ViewData::add('drafts', $drafts);
 
 		//Get item categories
@@ -416,27 +416,31 @@ class StreetSnapEditController extends BaseController {
 		$validator=Validator::make($input,$validationRules,$messages);
 
 		if($validator->passes()) {
-			$snap=StreetSnap::find($input['streetsnap_id']);
-			$snap->name=$input['name'];
-			if(!empty($input['birth_year'])) {
-				$snap->birthyear=$input['birth_year'];
-			}
-			if(!empty($input['affiliation'])) {
-				$snap->affiliation=$input['affiliation'];
-			}
-			$snap->gender=$input['gender'];
-			$snap->subject_comment=$input['subject_comment'];
-			$snap->photographer_comment=$input['photographer_comment'];
-			$snap->season=$input['season'];
-			$snap->meta_type=$input['meta_type'];
-			$snap->meta_id=$input['meta_id'];
+			$snap=StreetSnap::with('primary')->find($input['streetsnap_id']);
+			if($snap->primary) {
+				$snap->name=$input['name'];
+				if(!empty($input['birth_year'])) {
+					$snap->birthyear=$input['birth_year'];
+				}
+				if(!empty($input['affiliation'])) {
+					$snap->affiliation=$input['affiliation'];
+				}
+				$snap->gender=$input['gender'];
+				$snap->subject_comment=$input['subject_comment'];
+				$snap->photographer_comment=$input['photographer_comment'];
+				$snap->season=$input['season'];
+				$snap->meta_type=$input['meta_type'];
+				$snap->meta_id=$input['meta_id'];
 
-			$snap->status='published';
+				$snap->status='published';
 
-			if($snap->save()) {
-				return Redirect::back()->with('proc_result', 'success');
+				if($snap->save()) {
+					return Redirect::back()->with('proc_result', 'success');
+				} else {
+					return Redirect::back()->with('proc_result', 'db_error');
+				}
 			} else {
-				return Redirect::back()->with('proc_result', 'db_error');
+				return Redirect::back()->with('proc_result', 'primary_missing');
 			}
 		} else {
 			return Redirect::back()->withErrors($validator);

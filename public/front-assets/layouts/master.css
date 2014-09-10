@@ -141,26 +141,32 @@
 
 /*Style Icon List
 ----------------------------------------------------------------------------*/
-.list-container {
+.snap-list {
 	padding-top: 30px;
 	padding-bottom: 30px;
+	margin:0px -15px;
 }
 
-.list-container .list-item {
-	border: 1px solid #c7c7c7;
+.snap-list .snap-wrapper {
 	margin-bottom:30px;
+	padding:0px 15px;
+	width:33.33%;
 }
 
-.list-item .img-container {
+.snap-list .snap-inner {
+	border: 1px solid #c7c7c7;
+}
+
+.snap-wrapper .snap {
 	position: relative;
 }
 
-.list-item .img-container img {
+.snap-wrapper .snap img {
 	max-width: 100%;
 	height:auto;
 }
 
-.list-item .like-btn {
+.snap-wrapper .like-btn {
 	position:absolute;
 	bottom:10px;
 	left:10px;
@@ -171,7 +177,7 @@
 	font-weight: 700;
 }
 
-.list-item .likes {
+.snap-wrapper .likes {
 	position:absolute;
 	bottom:10px;
 	left: 81px;
@@ -180,7 +186,7 @@
 	font-weight: 700;
 }
 
-.list-item .fb-share-btn {
+.snap-wrapper .fb-share-btn {
 	position: absolute;
 	bottom:10px;
 	right:10px;
@@ -192,29 +198,29 @@
 	font-weight: 700;
 }
 
-.list-item .meta-container {
+.snap-wrapper .meta-container {
 	padding: 10px;
 }
 
-.list-item .author-profile {
+.snap-wrapper .author-profile {
 	width: 50px;
 	height: auto;
 	border-radius: 50%;
 	float:left;
 }
 
-.list-item .icon-meta {
+.snap-wrapper .subject-meta {
 	margin-left:60px;
 	margin-top: 5px;
 }
 
-.list-item .icon-meta .category {
+.snap-wrapper .subject-meta .meta-category {
 	margin-left: 5px;
 	border-left: 2px solid #000;
 	padding-left: 5px;
 }
 
-.list-item .author-meta {
+.snap-wrapper .author-meta {
 	margin-left:60px;
 	color: #959595;
 }
@@ -227,6 +233,11 @@
 	margin: 20px 0px;
 }
 
+.breadcrumbs a {
+	color:inherit;
+	text-decoration: none;
+}
+
 .content-nav {
 	color: #000;
 	margin-bottom: 20px;
@@ -235,14 +246,19 @@
 .content-nav a {
 	color: inherit;
 	text-decoration: none;
+	background-repeat: no-repeat;
 }
 
 .content-nav .prev {
 	float: left;
+	background-position: 0% 50%;
+	padding-left:15px;
 }
 
 .content-nav .next {
 	float: right;
+	background-position: 100% 50%;
+	padding-right:15px;
 }
 
 .single-container .photo-col figure {
@@ -357,6 +373,7 @@
 
 .photographer-section .profile-data a {
 	color: #666;
+	word-break: break-all;
 }
 
 .photographer-section .profile-data a:hover {
@@ -364,25 +381,27 @@
 }
 
 
-.pin-container .pin-link {
+.pin-container .pin {
 	opacity: 0;
 	position: absolute;
-	background-color:#20cfc5;
-	font-size:14px;
-	color:#fff;
+	background-color: #20cfc5;
+	font-size: 13px;
+	color: #fff;
 	text-decoration: none;
-	padding:5px;
+	padding: 4px;
 	border-radius: 50%;
 	display: block;
-	width:23px;
-	height:23px;
+	width: 20px;
+	height: 20px;
 	line-height: 1;
 	text-align: center;
 	cursor: pointer;
+	margin-top: -10px;
+	margin-left: -10px;
 }
 
-.pin-container .pin-link.highlight, 
-.pinned:hover .pin-container .pin-link {
+.pin-container .pin.highlight, 
+.pinned:hover .pin-container .pin {
 	opacity: 1;
 }
 
@@ -393,36 +412,58 @@
 }
 
 .pin-list li {
-	line-height: 2.5;
+	line-height: 1.3;
+	cursor:pointer;
+	margin-bottom:20px;
 }
 
+.pin-list li .data-wrapper {
+	margin-left:25px;
+}
+
+/*
 .pin-list .commerce-link {
 	text-decoration: none;
 	color: #000;
 }
+*/
 
-.pin-list .commerce-link .pin-numbering {
+.pin-list li .pin-numbering {
 	background-color: #000;
 	font-size: 13px;
 	color: #fff;
 	text-decoration: none;
-	padding: 3px 5px;
+	padding: 3px;
 	border-radius: 50%;
-	display: inline-block;
-	width: 21px;
-	height: 21px;
+	width: 20px;
+	height: 20px;
 	line-height: 1;
 	text-align: center;
-	margin-right: 3px;
+	float:left;
 }
 
-.pin-list .commerce-link.highlight .pin-numbering, 
-.pin-list .commerce-link:hover .pin-numbering {
+.pin-list li .links {
+	padding:0px;
+	margin:0px;
+	list-style-type: none;
+}
+
+.pin-list li .links li .link-name {
+	color:#707070;
+}
+
+.pin-list li .links li a {
+	color:#aaa;
+	word-break:break-all;
+}
+
+.pin-list li.highlight .pin-numbering, 
+.pin-list li:hover .pin-numbering {
 	background-color: #20cfc5;
 }
 
-.pin-list .commerce-link.highlight, 
-.pin-list .commerce-link:hover {
+.pin-list li.highlight .meta, 
+.pin-list li:hover .meta {
 	color: #20cfc5;
 }
 

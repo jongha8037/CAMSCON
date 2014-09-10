@@ -27,6 +27,8 @@ Post
 	<div class="post-proc-msg alert alert-success"><strong>성공!</strong> 포스트가 저장되었습니다.</div>
 	@elseif(Session::get('proc_result')=='db_error')
 	<div class="post-proc-msg alert alert-danger"><strong>오류!</strong> 데이터베이스 에러가 발생했습니다.</div>
+	@elseif(Session::get('proc_result')=='primary_missing')
+	<div class="post-proc-msg alert alert-danger"><strong>오류!</strong> 메인사진이 없는 포스트는 공개할 수 없습니다.</div>
 	@endif
 @endif
 
