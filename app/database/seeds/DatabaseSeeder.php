@@ -473,7 +473,7 @@ class FashionBrandsTableSeeder extends Seeder {
 		FashionBrand::create(array('name_en'=>'MUTEGARMENT','slug'=>'mutegarment'));
 		FashionBrand::create(array('name_en'=>'MAN.G','slug'=>'man-g'));
 		FashionBrand::create(array('name_en'=>'PALLADIUM','slug'=>'palladium'));
-		FashionBrand::create(array('name_en'=>'IRONIC PORNO','slug'=>'ironic-porno'));
+		FashionBrand::create(array('name_en'=>'IRONY PORN(O)','slug'=>'irony-porn-o'));
 	}
 
 }
