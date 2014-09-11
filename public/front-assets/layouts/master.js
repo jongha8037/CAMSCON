@@ -44,6 +44,46 @@ var CategoryNavigation={
 	}
 };//CategoryNavigation{}
 
+var PrimarySlider={
+	slides:0,
+	timer:null,
+	position:1,
+	objx:{
+		slider:null,
+		inner:null
+	},
+	init:function(slides,selector) {
+		this.slides=slides;
+		this.objx.slider=$(selector);
+		this.objx.inner=this.objx.slider.find('.inner');
+		this.objx.inner.css({width:this.slides*100+'%'});
+		this.objx.slider.find('.slide').css({width:100/this.slides+'%'});
+
+		this.setTimer();
+	},
+	setTimer:function() {
+		var slider=this;
+		this.timer=setTimeout(function() {
+			slider.move();
+		}, 4000);
+	},
+	move:function() {
+		var slider=this;
+		this.objx.inner.animate({
+			left:(-1)*this.position*100+'%'
+		},
+		400,/*Duration*/
+		function() {
+			if(slider.position<(slider.slides-1)) {
+				slider.position++;
+			} else {
+				slider.position=0;
+			}			
+			slider.setTimer();
+		});
+	}
+}//PrimarySlider{}
+
 $(document).ready(function() {
 	//Login Btn
 	$('#camsconLoginBtn').click(function(e) {
@@ -53,5 +93,12 @@ $(document).ready(function() {
 		}
 	});
 
+	//CategoryNavigation
 	CategoryNavigation.init();
+
+	//PrimarySlider
+	var slides=$('.primary-slider .slide').length;
+	if(slides>0) {
+		PrimarySlider.init(slides, '.primary-slider');
+	}
 });//document.ready()

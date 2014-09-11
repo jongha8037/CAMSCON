@@ -8,6 +8,15 @@ Camscon
 @stop
 
 @section('content')
+<div class="primary-slider">
+	<div class="inner clearfix">
+		<figure class="slide"><img src="{{asset('assets/primary-slider/1.jpg')}}" /></figure>
+		<figure class="slide"><img src="{{asset('assets/primary-slider/2.jpg')}}" /></figure>
+		<figure class="slide"><img src="{{asset('assets/primary-slider/3.jpg')}}" /></figure>
+		<figure class="slide"><img src="{{asset('assets/primary-slider/4.jpg')}}" /></figure>
+	</div>
+</div>
+
 <div id="snapListWrapper" class="snap-list"></div>
 @stop
 

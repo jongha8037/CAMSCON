@@ -576,6 +576,27 @@
 }
 
 
+/*Primary slider
+----------------------------------------------------------------------------*/
+.primary-slider {
+	width:100%;
+	overflow-x:hidden;
+}
+
+.primary-slider .inner {
+	position: relative;
+}
+
+.primary-slider .slide {
+	float:left;
+}
+
+.primary-slider .slide img {
+	max-width:100%;
+	height:auto;
+}
+
+
 /*Helper classes
 ----------------------------------------------------------------------------*/
 .caret-right {
