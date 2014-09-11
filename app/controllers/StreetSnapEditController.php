@@ -2,6 +2,18 @@
 
 class StreetSnapEditController extends BaseController {
 
+	public function showStarter() {
+		//Get drafts
+		$drafts=Auth::user()->snaps()->where('status','=','draft')->orderBy('created_at', 'DESC')->get();
+		ViewData::add('drafts', $drafts);
+
+		//Get published
+		$published=Auth::user()->snaps()->with('meta')->where('status','=','published')->orderBy('created_at', 'DESC')->get();
+		ViewData::add('published', $published);
+
+		return View::make('front.streetsnap.starter', ViewData::get());
+	}
+
 	public function showEditor($id=null) {
 		$snap=null;
 		if($id) {
@@ -17,7 +29,7 @@ class StreetSnapEditController extends BaseController {
 		}
 
 		//Get drafts
-		$drafts=Auth::user()->snaps()->with('pins')->where('status','=','draft')->orderBy('created_at', 'DESC')->get();
+		$drafts=Auth::user()->snaps()->where('status','=','draft')->orderBy('created_at', 'DESC')->get();
 		ViewData::add('drafts', $drafts);
 
 		//Get item categories
@@ -435,7 +447,7 @@ class StreetSnapEditController extends BaseController {
 				$snap->status='published';
 
 				if($snap->save()) {
-					return Redirect::back()->with('proc_result', 'success');
+					return Redirect::to(action('StreetSnapEditController@showStarter'))->with('proc_result', 'success');
 				} else {
 					return Redirect::back()->with('proc_result', 'db_error');
 				}
@@ -483,7 +495,7 @@ class StreetSnapEditController extends BaseController {
 
 			$snap->delete();
 
-			return Redirect::to('/')->with('proc_error', 'no_post');
+			return Redirect::to(action('StreetSnapEditController@showStarter'))->with('proc_result', 'delete_success');
 		} else {
 			return Redirect::back()->with('proc_error', 'no_post');
 		}

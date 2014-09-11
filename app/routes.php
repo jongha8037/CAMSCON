@@ -49,6 +49,7 @@ Route::group(array('before' => 'front'), function() {
 
 
 	/*Style StreetSnap editor routes*/
+	Route::get('post/street-snap/starter', array('before'=>'auth.active_photographers', 'uses'=>'StreetSnapEditController@showStarter'));
 	Route::get('post/street-snap/{id?}', array('before'=>'auth.active_photographers', 'uses'=>'StreetSnapEditController@showEditor'))->where('id','[0-9]+');
 	Route::post('post/street-snap/upload/primary', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@uploadPrimary'));
 	Route::post('post/street-snap/upload/attachment', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@uploadAttachment'));

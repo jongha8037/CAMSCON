@@ -79,7 +79,7 @@
 							<li><a href="{{action('StreetSnapController@getList', array('category'=>'ladies'))}}">Ladies</a></li>
 						</ul>
 					</li>
-					<li><a href="{{action('StreetSnapEditController@showEditor')}}" class="post-btn"><span class="glyphicon glyphicon-camera"></span> Post</a></li>
+					<li><a href="{{action('StreetSnapEditController@showStarter')}}" class="post-btn"><span class="glyphicon glyphicon-camera"></span> Post</a></li>
 				</ul>
 			</nav>
 		</div>
