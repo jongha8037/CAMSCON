@@ -36,10 +36,10 @@ Post
 	<div id="photoCol" class="photo-col col-xs-7">
 
 		<div id="primaryPhotoEditor" class="primary-photo-editor">
-			<h4 class="section-title">Primary photo</h4>
+			<h4 class="section-title">Main photo</h4>
 
 			<div class="alert alert-info">
-				<strong><span class="glyphicon glyphicon-ok"></span> Tip!</strong> Primary Photo는 스타일 아이콘을 대표하는 사진입니다. 이 사진은 핀 태깅이 가능하며, 썸네일 및 대표 이미지로 사용됩니다. 최적의 이미지 크기는 가로 폭을 <strong>670px</strong>으로 맞춘 것이며, 세로 높이에는 제약이 없습니다.
+				<strong><span class="glyphicon glyphicon-ok"></span> Tip!</strong> Main photo는 당신이 올리는 데일리룩을 대표하는 사진입니다. 이 사진은 "핀 태깅"을 통해 아이템과 브랜드입력이 가능하며, 썸네일 및 대표이미지로 사용됩니다. 저희가 권장해 드리는 최적의 이미지는 가로폭이 <strong>670</strong>픽셀인 사진이며, 세로 높이에는 제한이 없습니다.
 			</div>
 
 			<figure class="primary-photo @if(empty($snap->primary)){{'dummy'}}@endif">
@@ -57,10 +57,10 @@ Post
 		</div><!--/#primaryPhotoEditor-->
 
 		<div id="attachmentEditor" class="attachment-editor">
-			<h4 class="section-title">Attachments</h4>
+			<h4 class="section-title">Detail photos</h4>
 
 			<div class="alert alert-info">
-				<strong><span class="glyphicon glyphicon-ok"></span> Tip!</strong> 여기에는 스타일 아이콘의 다른 사진들을 업로드 할 수 있습니다. Primary Photo와 마찬가지로 최적의 이미지 크기는 가로 폭을 <strong>670px</strong>으로 맞춘 것이며, 세로 높이에는 제약이 없습니다.
+				<strong><span class="glyphicon glyphicon-ok"></span> Tip!</strong> 메인사진 이외의 디테일 및 아이템사진, 자신의 블로그 홍보이미지 등을 업로드할 수 있습니다. Main Photo와 마찬가지로 최적의 이미지는 가로폭을 <strong>670px</strong>픽셀로 맞춘 사진이며, 세로 높이에는 제약이 없습니다. 디테일사진은 "핀 태깅"이 불가능합니다.
 			</div>
 
 			<div class="attachment-list">
@@ -89,24 +89,24 @@ Post
 			<h4 class="section-title">Pin tags</h4>
 
 			<div class="alert alert-info">
-				<strong><span class="glyphicon glyphicon-ok"></span> Tip!</strong> Primary Photo 하단의 <strong>핀으로 태깅하기</strong> 버튼을 이용하여 태깅 모드에서 새로운 핀을 생성할 수 있습니다. 브랜드 입력은 영어로 해야 하며, 자동완성에 입력하고자 하는 브랜드가 없는 경우 관리자에게 추가 요청을 하시기 바랍니다.
+				<strong><span class="glyphicon glyphicon-ok"></span> Tip!</strong> *Main photo 하단의 "핀으로 태깅하기" 버튼을 이용하여, 사진 속 아이템들의 브랜드와 구입처를 입력할 수 있습니다. "핀으로 태깅하기" 버튼 클릭 후, 입력하고자 하는 사진 속 아이템을 클릭해 보세요. 브랜드명은 영어로 입력해야하며, 브랜드입력 자동완성에 입력하고자 하는 브랜드가 없는 경우, 관리자에게 이메일을 통해 추가요청을 해주시면 감사하겠습니다. (devbot@camscon.kr)
 			</div>
 
 			<ol id="PinList" class="pin-data-container"></ol>
 		</div><!--/.pin-section-->
 
 		<div class="meta-section">
-			<h4 class="section-title">사진 정보</h4>
+			<h4 class="section-title">Photo information</h4>
 
 			<div class="alert alert-info">
-				<strong><span class="glyphicon glyphicon-ok"></span> Tip!</strong>  사진과 인물에 대한 정보를 입력하는 공간 입니다. 학교나 거리와 같은 메타 카테고리는 반드시 <strong>자동 완성</strong> 기능을 이용하여 입력해야 합니다. 자동완성에 입력하고자 하는 항목이 없는 경우 관리자에게 추가 요청을 하시기 바랍니다.
+				<strong><span class="glyphicon glyphicon-ok"></span> Tip!</strong> 사진 속 인물에 관한 정보를 입력하는 곳입니다. 학교나 거리와 같은 카테고리는 반드시 자동완성 기능을 이용하여 입력해야하며, 자동완성에 입력하고자 하는 항목이 없는 경우, 관리자에게 이메일(devbot@camscon.kr)을 통해 추가요청을 해주시면 감사하겠습니다. 자신의 패션블로그나 페이스북페이지를 홍보하고자 하는 분은, He/She says나 Inspirer's note를 활용해주시면 됩니다.
 			</div>
 
 			{{ Form::open(array('url'=>action('StreetSnapEditController@publishPost'), 'id'=>'streetSnapForm', 'class'=>'street-snap-form')) }}
 				<input type="hidden" name="streetsnap_id" value="{{$snap->id}}" />
 
 				<div class="form-group">
-					<label>이름</label>
+					<label>이름/별명/닉네임</label>
 					<input type="text" class="form-control" name="name" value="@if(Input::old('name')){{Input::old('name')}}@else{{$snap->name or ''}}@endif" />
 					@if($errors->has('name'))
 					<p class="text-danger">이름은 필수 항목 입니다!</p>
@@ -114,7 +114,7 @@ Post
 				</div>
 
 				<div class="form-group">
-					<label>나이 (태어난 연도)</label>
+					<label>나이(출생년도)</label>
 					<input type="text" class="form-control" name="birth_year" placeholder="YYYY" value="@if(Input::old('birth_year')){{Input::old('birth_year')}}@else{{$snap->birthyear or ''}}@endif" />
 					@if($errors->has('birth_year'))
 						@if($errors->first('birth_year')=='date_format')
@@ -163,7 +163,7 @@ Post
 				</div>
 
 				<div class="form-group">
-					<label>Photographer's note:</label>
+					<label>Inspirer's note:</label>
 					<textarea class="form-control comment-textbox" name="photographer_comment">@if(Input::old('photographer_comment')){{Input::old('photographer_comment')}}@else{{$snap->photographer_comment or ''}}@endif</textarea>
 				</div>
 
@@ -181,7 +181,7 @@ Post
 					</div>
 					@if($errors->has('season'))
 						@if($errors->first('season')=='required')
-						<p class="text-danger">시즌은 필수 항목 입니다!</p>
+						<p class="text-danger">계절은 필수 항목 입니다!</p>
 						@endif
 					@endif
 				</div>
