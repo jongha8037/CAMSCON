@@ -8,7 +8,20 @@ Camscon
 @stop
 
 @section('content')
-<div id="snapListWrapper" class="snap-list"></div>
+<div class="primary-slider">
+	<div class="inner clearfix">
+		<figure class="slide"><img src="{{asset('assets/primary-slider/1.jpg')}}" /></figure>
+		<figure class="slide"><img src="{{asset('assets/primary-slider/2.jpg')}}" /></figure>
+		<figure class="slide"><img src="{{asset('assets/primary-slider/3.jpg')}}" /></figure>
+		<figure class="slide"><img src="{{asset('assets/primary-slider/4.jpg')}}" /></figure>
+	</div>
+</div>
+
+<div id="snapListWrapper" class="snap-list">
+	@if(intval($snapCount)===0)
+	<h4 style="text-align:center;">아직 등록된 컨텐츠가 없습니다! :(</h4>
+	@endif
+</div>
 @stop
 
 @section('footer_scripts')
@@ -32,6 +45,7 @@ var ListView={
 	endpoints:{
 		loadMore:"{{$loadMore}}"
 	},
+	status:'idle',
 	init:function() {
 		//Set wrapper object
 		this.objx.wrapper=$('#snapListWrapper');
@@ -64,6 +78,14 @@ var ListView={
 
 		//Proc initial data
 		this.appendSnaps(this.snaps.data);
+
+		//Scroll event
+		$(window).on('scroll', null, null, function() {
+			if((document.body.scrollHeight-document.body.scrollTop < $.viewportH()+500) && (ListView.status=='idle')) {
+				ListView.status='loading';
+				ListView.requestMoreSnaps();
+			}
+		});
 	},
 	appendSnaps:function(snaps) {
 		//Create array of snap nodes from data
@@ -123,20 +145,24 @@ var ListView={
 		this.objx.wrapper.isotope('layout');
 	},
 	requestMoreSnaps:function() {
-		if(typeof this.endpoints.loadMore != 'undefined') {
+		if( (typeof this.endpoints.loadMore != 'undefined') && (this.endpoints.loadMore != '') ) {
 			$.get(this.endpoints.loadMore, null, function(response) {
 				if(typeof response==='object' && 'snaps' in response && 'more_url' in response) {
-					ListView.endpoints.loadMore=response.snaps.more_url;
+					ListView.endpoints.loadMore=response.more_url;
 					ListView.snaps.data.concat(response.snaps.data);
 					ListView.appendSnaps(response.snaps.data);
+					ListView.status='idle';
 				}
 			}, 'json');
+		} else {
+			this.status='end';
 		}
 	}
 };//ListView{}
 
 $(document).ready(function() {
 	ListView.init();
+	LikeButtons.init();
 });
 
 $(window).resize(function() {
@@ -180,9 +206,5 @@ var LikeButtons={
 		});
 	}
 };//LikeButtons{}
-
-$(document).ready(function() {
-	LikeButtons.init();
-});
 </script>
 @stop
