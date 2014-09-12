@@ -39,7 +39,7 @@ Camscon
 		<div class="my-collection tab active" data-filter="liked">My Collection</div><div class="my-posts tab" data-filter="mine">My Posts</div>
 	</div>
 	<div id="likedListWrapper" class="snap-list"></div>
-	<div id="myListWrapper" class="snap-list" style="display:none;"></div>
+	<div id="myListWrapper" class="snap-list"></div>
 </div><!--/.profile-wrapper-->
 @stop
 
@@ -82,6 +82,7 @@ var ProfileView={
 		//Proc initial data
 		this.appendSnaps('mine', this.snaps.mine.data);
 		this.appendSnaps('liked', this.snaps.liked.data);
+		this.objx.myList.css('display','none');
 
 		//Scroll event
 		$(window).on('scroll', null, null, function() {
