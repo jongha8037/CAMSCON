@@ -39,7 +39,7 @@ Camscon
 		<div class="my-collection tab active" data-filter="liked">My Collection</div><div class="my-posts tab" data-filter="mine">My Posts</div>
 	</div>
 	<div id="likedListWrapper" class="snap-list"></div>
-	<div id="myListWrapper" class="snap-list" style="visibility:none;"></div>
+	<div id="myListWrapper" class="snap-list" style="visibility:hidden;"></div>
 </div><!--/.profile-wrapper-->
 @stop
 
