@@ -22,6 +22,9 @@ class ProfileController extends BaseController {
 
 			//Get my snaps
 			$mySnaps=$profile->snaps()->with('user.profileImage', 'primary', 'meta', 'liked')->where('status', '=', 'published')->orderBy('created_at', 'DESC')->paginate(9);
+			$mySnaps->each(function($snap) {
+				$snap->setContext('profile');
+			});
 			//Set pagination endpoint
 			$nextPage=null;
 			$currentPage=$mySnaps->getCurrentPage();
@@ -34,6 +37,9 @@ class ProfileController extends BaseController {
 			$likedSnaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')->whereHas('likes', function($q) {
 				$q->where('user_id', '=', Auth::user()->id);
 			})->orderBy('created_at', 'DESC')->paginate(9);
+			$likedSnaps->each(function($snap) {
+				$snap->setContext('profile');
+			});
 			//Set pagination endpoint
 			$nextPage=null;
 			$currentPage=$likedSnaps->getCurrentPage();
@@ -63,6 +69,9 @@ class ProfileController extends BaseController {
 				$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')->whereHas('likes', function($q) {
 					$q->where('user_id', '=', Auth::user()->id);
 				})->orderBy('created_at', 'DESC')->paginate(9);
+				$snaps->each(function($snap) {
+					$snap->setContext('profile');
+				});
 				//Set pagination endpoint
 				$nextPage=null;
 				$currentPage=$snaps->getCurrentPage();
@@ -71,6 +80,9 @@ class ProfileController extends BaseController {
 				}	
 			} elseif($filter=='mine') {
 				$snaps=$profile->snaps()->with('user.profileImage', 'primary', 'meta', 'liked')->where('status', '=', 'published')->orderBy('created_at', 'DESC')->paginate(9);
+				$snaps->each(function($snap) {
+					$snap->setContext('profile');
+				});
 				//Set pagination endpoint
 				$nextPage=null;
 				$currentPage=$snaps->getCurrentPage();
