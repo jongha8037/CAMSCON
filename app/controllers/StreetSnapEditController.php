@@ -470,7 +470,7 @@ class StreetSnapEditController extends BaseController {
 		$validator=Validator::make($input, $validationRules);
 
 		if($validator->passes()) {
-			$snap=StreetSnap::with('primary', 'attachments', 'pins', 'pins.links')->find($input['id']);
+			$snap=StreetSnap::with('primary', 'attachments', 'pins', 'pins.links', 'likes')->find($input['id']);
 			
 			if($snap->primary) {
 				$snap->primary->delete();
@@ -490,6 +490,12 @@ class StreetSnapEditController extends BaseController {
 						});
 					}
 					$pin->delete();
+				});
+			}
+
+			if($snap->likes) {
+				$snap->likes->each(function($like) {
+					$like->delete();
 				});
 			}
 
