@@ -77,11 +77,9 @@ var ListView={
 
 		//Scroll event
 		$(window).on('scroll', null, null, function() {
-			if(document.body.scrollHeight-document.body.scrollTop < $.viewportH()+100) {
-				if(ListView.status=='idle') {
-					ListView.status=='loading';
-					ListView.requestMoreSnaps();
-				}
+			if((document.body.scrollHeight-document.body.scrollTop < $.viewportH()+100) && (ListView.status=='idle')) {
+				ListView.status=='loading';
+				ListView.requestMoreSnaps();
 			}
 		});
 	},
@@ -149,8 +147,8 @@ var ListView={
 					ListView.endpoints.loadMore=response.more_url;
 					ListView.snaps.data.concat(response.snaps.data);
 					ListView.appendSnaps(response.snaps.data);
+					ListView.status='idle';
 				}
-				ListView.status='idle';
 			}, 'json');
 		} else {
 			this.status='end';
