@@ -193,8 +193,8 @@ function PinObject(x, y) {
 		brand_name:'브랜드 미지정'
 	};
 	this.link=null;
-	this.x=x;
-	this.y=y;
+	this.x=Math.round(x * 100) / 100;
+	this.y=Math.round(y * 100) / 100;
 	
 	//Tag object
 	this.tag={
