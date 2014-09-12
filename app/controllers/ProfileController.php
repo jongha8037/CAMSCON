@@ -49,7 +49,41 @@ class ProfileController extends BaseController {
 		}
 	}
 
-	public function loadMoreSnaps($id, $filter) {}
+	public function loadMoreSnaps($id, $filter) {
+		if(strval(intval($id))===$id) {
+			//Get profile by id
+			$profile=User::with('profileImage', 'profileCover', 'likes')->find($id);
+		} else {
+			//Get profile by slug
+			$profile=User::with('profileImage', 'profileCover', 'likes')->where('slug', '=', $id)->first();
+		}
+
+		if($profile) {
+			if($filter=='liked') {
+				$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')->whereHas('likes', function($q) {
+					$q->where('user_id', '=', Auth::user()->id);
+				})->paginate(9);
+				//Set pagination endpoint
+				$nextPage=null;
+				$currentPage=$snaps->getCurrentPage();
+				if($currentPage<$snaps->getLastPage()) {
+					$nextPage=action('ProfileController@loadMoreSnaps', array('id'=>$id, 'filter'=>'liked', 'page'=>$currentPage+1));
+				}	
+			} elseif($filter=='mine') {
+				$snaps=$profile->snaps()->with('user.profileImage', 'primary', 'meta', 'liked')->where('status', '=', 'published')->paginate(9);
+				//Set pagination endpoint
+				$nextPage=null;
+				$currentPage=$snaps->getCurrentPage();
+				if($currentPage<$snaps->getLastPage()) {
+					$nextPage=action('ProfileController@loadMoreSnaps', array('id'=>$id, 'filter'=>'mine', 'page'=>$currentPage+1));
+				}
+			}
+			
+			return sprintf('{"snaps":%s,"more_url":"%s"}', $snaps->toJson(), $nextPage);
+		} else {
+			return Response::make('Not found', 404);
+		}
+	}
 
 	public function showEditor() {
 		$profile=User::with('profileImage', 'profileCover')->find(Auth::user()->id);
