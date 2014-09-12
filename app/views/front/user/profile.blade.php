@@ -36,10 +36,10 @@ Camscon
 	</div>
 
 	<div class="profile-filter-tabs">
-		<div class="my-collection tab">My Collection</div><div class="my-posts tab">My Posts</div>
+		<div class="my-collection tab active" data-filter="liked">My Collection</div><div class="my-posts tab" data-filter="mine">My Posts</div>
 	</div>
-	<div id="myListWrapper" class="snap-list"></div>
 	<div id="likedListWrapper" class="snap-list"></div>
+	<div id="myListWrapper" class="snap-list" style="visibility:none;"></div>
 </div><!--/.profile-wrapper-->
 @stop
 
@@ -48,9 +48,11 @@ Camscon
 <script type="text/javascript" src="{{asset('packages/imagesloaded/imagesloaded.pkgd.min.js')}}"></script>
 
 <script type="text/javascript">
-var ListView={
+var ProfileView={
 	objx:{
-		wrapper:null
+		myList:null,
+		likedList:null,
+		tabs:null
 	},
 	display:{
 		screenWidth:0,
@@ -60,17 +62,65 @@ var ListView={
 	isotope:{
 		status:'inactive'
 	},
-	snaps:{{$snaps}},
-	endpoints:{
-		loadMore:"{{$loadMore}}"
+	snaps:{
+		mine:{{$mySnaps}},
+		liked:{{$likedSnaps}}
 	},
+	endpoints:{
+		loadMine:"{{$loadMine}}",
+		loadLiked:"{{$loadLiked}}"
+	},
+	status:'idle',
+	filter:'liked',
 	init:function() {
-		//Set wrapper object
-		this.objx.wrapper=$('#snapListWrapper');
+		this.objx.myList=$('#myListWrapper');
+		this.objx.likedList=$('#likedListWrapper');
+		this.objx.tabs=$('.profile-filter-tabs');
 
+		this.initIsotope();
+
+		//Proc initial data
+		this.appendSnaps('mine', this.snaps.mine.data);
+		this.appendSnaps('liked', this.snaps.liked.data);
+
+		//Scroll event
+		$(window).on('scroll', null, null, function() {
+			if((document.body.scrollHeight-document.body.scrollTop < $.viewportH()+500) && (ProfileView.status=='idle')) {
+				ProfileView.status='loading';
+				ProfileView.requestMoreSnaps();
+			}
+		});
+
+		//Filter tabs
+		this.objx.tabs.on('click', '.tab', null, function() {
+			if(!$(this).hasClass('active')) {
+				var filter=$(this).attr('data-filter');
+				if(filter=='liked') {
+					$(this).addClass('active');
+					$(this).siblings('.my-posts').removeClass('active');
+					ProfileView.objx.likedList.css('display', 'block');
+					ProfileView.objx.myList.css('display', 'none');
+					ProfileView.filter='liked';
+				} else {
+					$(this).addClass('active');
+					$(this).siblings('.my-collection').removeClass('active');
+					ProfileView.objx.myList.css('display', 'block');
+					ProfileView.objx.likedList.css('display', 'none');
+					ProfileView.filter='mine';
+				}
+				//Relayout
+				ProfileView.refreshLayout();
+			}
+		});
+	},
+	initIsotope:function() {
 		//Set display dimensions
 		this.display.screenWidth=$.viewportW();
-		this.display.wrapperWidth=this.objx.wrapper.innerWidth();
+		if(this.filter=='liked') {
+			this.display.wrapperWidth=this.objx.likedList.innerWidth();
+		} else {
+			this.display.wrapperWidth=this.objx.myList.innerWidth();
+		}
 		if(this.display.screenWidth<768) {//Mobile
 			this.display.columnWidth=this.display.wrapperWidth;
 		} else if(this.display.screenWidth<992) {//Tablets
@@ -83,9 +133,17 @@ var ListView={
 
 		//Init isotope
 		if(this.isotope.status=='active') {
-			this.objx.wrapper.empty().isotope('destroy');
+			this.objx.myList.empty().isotope('destroy');
+			this.objx.likedList.empty().isotope('destroy');
 		}
-		this.objx.wrapper.isotope({
+		this.objx.myList.isotope({
+			itemSelector:'.snap-wrapper',
+			layoutMode:'masonry',
+			masonry:{
+				columnWidth:this.display.columnWidth
+			}
+		});
+		this.objx.likedList.isotope({
 			itemSelector:'.snap-wrapper',
 			layoutMode:'masonry',
 			masonry:{
@@ -93,11 +151,8 @@ var ListView={
 			}
 		});
 		this.isotope.status='active';
-
-		//Proc initial data
-		this.appendSnaps(this.snaps.data);
 	},
-	appendSnaps:function(snaps) {
+	appendSnaps:function(list,snaps) {
 		//Create array of snap nodes from data
 		var snapObjx=[];
 		var slen=snaps.length;for(var i=0;i<slen;i++) {
@@ -138,11 +193,13 @@ var ListView={
 
 			snapObjx.push(wrapper.get(0));
 		}
-		
-		//Append to isotope instance
-		//this.objx.wrapper.append(snapObjx).isotope('appended', snapObjx).isotope('layout');
 
-		var wrapper=this.objx.wrapper;
+		var wrapper=null;
+		if(list=='mine') {
+			wrapper=this.objx.myList;
+		} else {
+			wrapper=this.objx.likedList;
+		}
 		wrapper.append(snapObjx).imagesLoaded(function() {
 			wrapper.find('.snap-wrapper').each(function() {
 				$(this).removeClass('hidden');
@@ -151,28 +208,46 @@ var ListView={
 		});
 	},
 	refreshLayout:function() {
-		console.log(this.display);
-		this.objx.wrapper.isotope('layout');
+		if(this.filter=='liked') {
+			this.objx.likedList.isotope('layout');
+		} else {
+			this.objx.myList.isotope('layout');
+		}
 	},
 	requestMoreSnaps:function() {
-		if(this.endpoints.loadMore!='') {
-			$.get(this.endpoints.loadMore, null, function(response) {
+		var endpoint=null;
+		if(this.filter=='mine') {
+			endpoint=this.endpoints.loadMine;
+		} else if(this.filter=='liked') {
+			endpoint=this.endpoints.loadLiked;
+		}
+		if( (typeof endpoint != 'undefined') && (endpoint != '') ) {
+			$.get(endpoint, null, function(response) {
 				if(typeof response==='object' && 'snaps' in response && 'more_url' in response) {
-					ListView.endpoints.loadMore=response.snaps.more_url;
-					ListView.snaps.concat(response.snaps.data);
-					ListView.appendSnaps(response.snaps.data);
+					if(ProfileView.filter=='mine') {
+						ProfileView.endpoints.loadMine=response.more_url;
+						ProfileView.snaps.mine.data.concat(response.snaps.data);
+						ProfileView.appendSnaps('mine', response.snaps.data);
+					} else if(ProfileView.filter=='liked') {
+						ProfileView.endpoints.loadLiked=response.more_url;
+						ProfileView.snaps.liked.data.concat(response.snaps.data);
+						ProfileView.appendSnaps('liked', response.snaps.data);
+					}
+					ProfileView.status='idle';
 				}
 			}, 'json');
+		} else {
+			this.status='idle';
 		}
 	}
-};//ListView{}
+};//ProfileView{}
 
 $(document).ready(function() {
-	ListView.init();
+	ProfileView.init();
 });
 
 $(window).resize(function() {
-	ListView.init();
+	ProfileView.init();
 });
 
 var LikeButtons={

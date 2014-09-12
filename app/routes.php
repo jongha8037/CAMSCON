@@ -35,6 +35,7 @@ Route::group(array('before' => 'front'), function() {
 
 	//Profile View
 	Route::get('profile/{id}', array('uses'=>'ProfileController@showProfile'));
+	Route::get('profile/{id}/{filter}/more', array('uses'=>'ProfileController@loadMoreSnaps'));
 
 
 	/*Front-end Auth Routes*/

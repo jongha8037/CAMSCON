@@ -4,10 +4,10 @@ class ProfileController extends BaseController {
 	public function showProfile($id) {
 		if(strval(intval($id))===$id) {
 			//Get profile by id
-			$profile=User::with('profileImage', 'profileCover')->find($id);
+			$profile=User::with('profileImage', 'profileCover', 'likes')->find($id);
 		} else {
 			//Get profile by slug
-			$profile=User::with('profileImage', 'profileCover')->where('slug', '=', $id)->first();
+			$profile=User::with('profileImage', 'profileCover', 'likes')->where('slug', '=', $id)->first();
 		}
 
 		if($profile) {
@@ -16,30 +16,40 @@ class ProfileController extends BaseController {
 			//Get stats
 			$stats=new stdClass();
 			$stats->posts=$profile->snaps()->where('status', '=', 'published')->count();
-			$stats->likes=0;
+			$stats->likes=$profile->likes->count();
 			$stats->comments=0;
 			ViewData::add('stats', $stats);
 
-			//Get snaps
-			/*
-			$snaps=$profile->snaps()->with('user.profileImage', 'primary', 'meta', 'liked')->where('status', '=', 'published')->paginate(9);
+			//Get my snaps
 			$mySnaps=$profile->snaps()->with('user.profileImage', 'primary', 'meta', 'liked')->where('status', '=', 'published')->paginate(9);
+			//Set pagination endpoint
+			$nextPage=null;
+			$currentPage=$mySnaps->getCurrentPage();
+			if($currentPage<$mySnaps->getLastPage()) {
+				$nextPage=action('ProfileController@loadMoreSnaps', array('id'=>$id, 'filter'=>'mine', 'page'=>$currentPage+1));
+			}
+			ViewData::add('mySnaps', $mySnaps->toJson());
+			ViewData::add('loadMine', $nextPage);
+
 			$likedSnaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')->whereHas('likes', function($q) {
 				$q->where('user_id', '=', Auth::user()->id);
 			})->paginate(9);
-			ViewData::add('snaps', $snaps->toJson());
-			*/
-
-			//Load more url
-			$loadMine=null;
-			$loadLiked=null;
-			ViewData::add('loadMore', $loadMore);
+			//Set pagination endpoint
+			$nextPage=null;
+			$currentPage=$likedSnaps->getCurrentPage();
+			if($currentPage<$likedSnaps->getLastPage()) {
+				$nextPage=action('ProfileController@loadMoreSnaps', array('id'=>$id, 'filter'=>'liked', 'page'=>$currentPage+1));
+			}
+			ViewData::add('likedSnaps', $likedSnaps->toJson());
+			ViewData::add('loadLiked', $nextPage);
 
 			return View::make('front.user.profile', ViewData::get());
 		} else {
 			App::abort(404);
 		}
 	}
+
+	public function loadMoreSnaps($id, $filter) {}
 
 	public function showEditor() {
 		$profile=User::with('profileImage', 'profileCover')->find(Auth::user()->id);

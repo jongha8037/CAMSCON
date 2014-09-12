@@ -128,9 +128,6 @@ var ListView={
 
 			snapObjx.push(wrapper.get(0));
 		}
-		
-		//Append to isotope instance
-		//this.objx.wrapper.append(snapObjx).isotope('appended', snapObjx).isotope('layout');
 
 		var wrapper=this.objx.wrapper;
 		wrapper.append(snapObjx).imagesLoaded(function() {
@@ -141,7 +138,6 @@ var ListView={
 		});
 	},
 	refreshLayout:function() {
-		console.log(this.display);
 		this.objx.wrapper.isotope('layout');
 	},
 	requestMoreSnaps:function() {
