@@ -261,7 +261,7 @@ class StreetSnapController extends BaseController {
 		if($category=='filter') {
 			$breadcrumbs[]=array('name'=>strtoupper($slug), 'url'=>action('StreetSnapController@getList', array('category'=>$slug)));
 		} else {
-			$breadcrumbs[]=array('name'=>strtoupper($category), 'url'=>action('StreetSnapController@getList', array('category'=>$category)));
+			$breadcrumbs[]=array('name'=>strtoupper($category), 'url'=>action('StreetSnapController@getList', array('category'=>$category, 'slug'=>'all')));
 		}			
 
 		if( $category=='brand' ) {
