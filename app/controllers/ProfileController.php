@@ -21,11 +21,18 @@ class ProfileController extends BaseController {
 			ViewData::add('stats', $stats);
 
 			//Get snaps
-			$snaps=$profile->snaps()->with('user.profileImage', 'primary', 'meta')->where('status', '=', 'published')->paginate(9);
+			/*
+			$snaps=$profile->snaps()->with('user.profileImage', 'primary', 'meta', 'liked')->where('status', '=', 'published')->paginate(9);
+			$mySnaps=$profile->snaps()->with('user.profileImage', 'primary', 'meta', 'liked')->where('status', '=', 'published')->paginate(9);
+			$likedSnaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')->whereHas('likes', function($q) {
+				$q->where('user_id', '=', Auth::user()->id);
+			})->paginate(9);
 			ViewData::add('snaps', $snaps->toJson());
+			*/
 
 			//Load more url
-			$loadMore=null;
+			$loadMine=null;
+			$loadLiked=null;
 			ViewData::add('loadMore', $loadMore);
 
 			return View::make('front.user.profile', ViewData::get());
