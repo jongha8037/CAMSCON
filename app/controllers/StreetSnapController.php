@@ -231,6 +231,7 @@ class StreetSnapController extends BaseController {
 		$snaps->each(function($snap) use($category, $slug) {
 			$snap->setContext($category, $slug);
 		});
+		ViewData::add('snapCount', strval($snaps->count()));
 		ViewData::add('snaps', $snaps->toJson());
 
 		//Set pagination endpoint

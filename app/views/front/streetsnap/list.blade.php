@@ -17,7 +17,11 @@ Camscon
 	</div>
 </div>
 
-<div id="snapListWrapper" class="snap-list"></div>
+<div id="snapListWrapper" class="snap-list">
+	@if(intval($snapCount)===0)
+	<h4 style="text-align:center;">아직 등록된 컨텐츠가 없습니다! :(</h4>
+	@endif
+</div>
 @stop
 
 @section('footer_scripts')

@@ -209,6 +209,7 @@
 
 .snap-wrapper .snap {
 	position: relative;
+	text-align: center;
 }
 
 .snap-wrapper .snap img {
@@ -585,6 +586,7 @@
 .primary-slider {
 	width:100%;
 	overflow-x:hidden;
+	margin-top:25px;
 }
 
 .primary-slider .inner {
