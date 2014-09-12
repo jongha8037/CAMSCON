@@ -101,4 +101,13 @@ $(document).ready(function() {
 	if(slides>0) {
 		PrimarySlider.init(slides, '.primary-slider');
 	}
+
+	//FB Share btns
+	$(document).on('click', '.fb-share-btn', null, function() {
+		var url=$(this).attr('data-url');
+		FB.ui({
+			method: 'share',
+			href: url,
+		}, function(response){});
+	})
 });//document.ready()

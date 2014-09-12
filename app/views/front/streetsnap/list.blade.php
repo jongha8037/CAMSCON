@@ -97,7 +97,7 @@ var ListView={
 			}
 			$('<button type="button" data-type="" data-id="" class="like-btn">LIKE</button>').attr('data-type', 'StreetSnap').attr('data-id', snaps[i].id).addClass(likeBtnClass).appendTo(snap);
 			$('<span class="likes"></span>').text(snaps[i].cached_total_likes).appendTo(snap);
-			$('<button type="button" class="fb-share-btn">f</button>').appendTo(snap);
+			$('<button type="button" class="fb-share-btn" data-url="">f</button>').attr('data-url', snaps[i].single_url).appendTo(snap);
 			var link=$('<a href=""></a>').attr('href', snaps[i].single_url);
 			$('<img src="" alt="" class="snap-primary" />').attr('src', snaps[i].primary.url).attr('width', snaps[i].primary.width).attr('height', snaps[i].primary.height).appendTo(link);
 			link.appendTo(snap);
