@@ -6,6 +6,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@yield('head_title','CAMSCON')</title>
 
+	<meta property="og:title" content="캠퍼스 스타일 아이콘" />
+	<meta property="og:site_name" content="CAMSCON" />
+	<meta property="og:url" content="http://camscon.kr" />
+	<meta property="og:image" content="{{asset('front-assets/layouts/fb_og.jpg')}}" />
+	<meta property="fb:app_id" content="562009567255774" />
+	<meta property="og:locale" content="ko_KR" />
+
 	<!--jQuery UI-->
 	<!-- <link href="{{asset('packages/jquery-ui-1.11.0-hot-sneaks-full/jquery-ui.min.css')}}" rel="stylesheet" /> -->
 
