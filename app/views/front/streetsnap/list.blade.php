@@ -81,7 +81,7 @@ var ListView={
 
 		//Scroll event
 		$(window).on('scroll', null, null, function() {
-			if((document.body.scrollHeight-document.body.scrollTop < $.viewportH()+500) && (ListView.status=='idle')) {
+			if((document.body.scrollHeight-$(window).scrollTop() < $.viewportH()+500) && (ListView.status=='idle')) {
 				ListView.status='loading';
 				ListView.requestMoreSnaps();
 			}

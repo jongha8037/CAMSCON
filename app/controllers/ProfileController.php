@@ -21,7 +21,7 @@ class ProfileController extends BaseController {
 			ViewData::add('stats', $stats);
 
 			//Get my snaps
-			$mySnaps=$profile->snaps()->with('user.profileImage', 'primary', 'meta', 'liked')->where('status', '=', 'published')->paginate(9);
+			$mySnaps=$profile->snaps()->with('user.profileImage', 'primary', 'meta', 'liked')->where('status', '=', 'published')->orderBy('created_at', 'DESC')->paginate(9);
 			//Set pagination endpoint
 			$nextPage=null;
 			$currentPage=$mySnaps->getCurrentPage();
@@ -33,7 +33,7 @@ class ProfileController extends BaseController {
 
 			$likedSnaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')->whereHas('likes', function($q) {
 				$q->where('user_id', '=', Auth::user()->id);
-			})->paginate(9);
+			})->orderBy('created_at', 'DESC')->paginate(9);
 			//Set pagination endpoint
 			$nextPage=null;
 			$currentPage=$likedSnaps->getCurrentPage();
@@ -62,7 +62,7 @@ class ProfileController extends BaseController {
 			if($filter=='liked') {
 				$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')->whereHas('likes', function($q) {
 					$q->where('user_id', '=', Auth::user()->id);
-				})->paginate(9);
+				})->orderBy('created_at', 'DESC')->paginate(9);
 				//Set pagination endpoint
 				$nextPage=null;
 				$currentPage=$snaps->getCurrentPage();
@@ -70,7 +70,7 @@ class ProfileController extends BaseController {
 					$nextPage=action('ProfileController@loadMoreSnaps', array('id'=>$id, 'filter'=>'liked', 'page'=>$currentPage+1));
 				}	
 			} elseif($filter=='mine') {
-				$snaps=$profile->snaps()->with('user.profileImage', 'primary', 'meta', 'liked')->where('status', '=', 'published')->paginate(9);
+				$snaps=$profile->snaps()->with('user.profileImage', 'primary', 'meta', 'liked')->where('status', '=', 'published')->orderBy('created_at', 'DESC')->paginate(9);
 				//Set pagination endpoint
 				$nextPage=null;
 				$currentPage=$snaps->getCurrentPage();

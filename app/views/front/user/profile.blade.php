@@ -85,7 +85,7 @@ var ProfileView={
 
 		//Scroll event
 		$(window).on('scroll', null, null, function() {
-			if((document.body.scrollHeight-document.body.scrollTop < $.viewportH()+500) && (ProfileView.status=='idle')) {
+			if((document.body.scrollHeight-$(window).scrollTop() < $.viewportH()+500) && (ListView.status=='idle')) {
 				ProfileView.status='loading';
 				ProfileView.requestMoreSnaps();
 			}
