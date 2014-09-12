@@ -41,6 +41,7 @@ var ListView={
 	endpoints:{
 		loadMore:"{{$loadMore}}"
 	},
+	status:'idle',
 	init:function() {
 		//Set wrapper object
 		this.objx.wrapper=$('#snapListWrapper');
@@ -73,6 +74,16 @@ var ListView={
 
 		//Proc initial data
 		this.appendSnaps(this.snaps.data);
+
+		//Scroll event
+		$(window).on('scroll', null, null, function() {
+			if(document.body.scrollHeight-document.body.scrollTop < $.viewportH()+100) {
+				if(ListView.status=='idle') {
+					ListView.status=='loading';
+					ListView.requestMoreSnaps();
+				}
+			}
+		});
 	},
 	appendSnaps:function(snaps) {
 		//Create array of snap nodes from data
@@ -139,7 +150,10 @@ var ListView={
 					ListView.snaps.data.concat(response.snaps.data);
 					ListView.appendSnaps(response.snaps.data);
 				}
+				ListView.status='idle';
 			}, 'json');
+		} else {
+			this.status='end';
 		}
 	}
 };//ListView{}
