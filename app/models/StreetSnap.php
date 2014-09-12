@@ -65,7 +65,7 @@ class StreetSnap extends Eloquent {
 	}
 
 	public function getSingleUrlAttribute() {
-		if($this->category=='all' || $this->category=='profile') {
+		if($this->category=='all' || $this->category=='profile' || $this->category=='single') {
 			$metaCategory=array(
 				'CampusMeta'=>'campus',
 				'ClubMeta'=>'club',

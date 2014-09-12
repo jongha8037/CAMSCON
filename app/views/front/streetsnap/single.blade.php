@@ -1,6 +1,17 @@
 @extends('front.layouts.master')
 
 @section('head_styles')
+<!--FB Open Graph tags-->
+@if($snap->affiliation)
+<meta property="og:title" content="{{{$snap->meta->name}}} {{{$snap->affiliation}}} {{{$snap->name}}}" />
+@else
+<meta property="og:title" content="{{{$snap->meta->name}}} {{{$snap->name}}}" />
+@endif
+<meta property="og:site_name" content="CAMSCON" />
+<meta property="og:url" content="{{$snap->single_url}}" />
+<meta property="og:image" content="{{$snap->primary->url}}" />
+<meta property="fb:app_id" content="562009567255774" />
+<meta property="og:locale" content="ko_KR" />
 @stop
 
 @section('content')
@@ -45,7 +56,11 @@
 	<div id="dataCol" class="data-col col-xs-12 col-sm-5">
 		<div class="icon-section">
 			<h3 class="name">{{{$snap->name}}}</h3>
+			@if($snap->affiliation)
+			<h3 class="category">{{{$snap->meta->name}}} / {{{$snap->affiliation}}} @if(Auth::check() && $snap->user->id===Auth::user()->id){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			@else
 			<h3 class="category">{{{trim($snap->meta_type, 'Meta')}}} / {{{$snap->meta->name}}} @if(Auth::check() && $snap->user->id===Auth::user()->id){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			@endif
 		</div>
 
 		<div class="notes-section">

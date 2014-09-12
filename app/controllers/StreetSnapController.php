@@ -278,6 +278,8 @@ class StreetSnapController extends BaseController {
 					->first();
 
 				if($snap) {
+					$snap->setContext('single');
+
 					$prevSnap=StreetSnap::whereHas('pins', function($q) use($brand) {
 						$q->where('brand_id', '=', $brand->id);
 					})->where('status', '=', 'published')->where('id', '<', $snap->id)->max('id');
