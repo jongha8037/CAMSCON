@@ -30,7 +30,7 @@ Route::group(array('before' => 'front'), function() {
 
 	//Single View for campus,street,brand,fashion-week,festival,club
 	Route::get('{category}/{slug}/{id}',
-		array('uses'=>"StreetSnapController@getSingle")
+		array('before'=>'restricted-page', 'uses'=>"StreetSnapController@getSingle")
 	)->where(array('category'=>'filter|campus|street|brand|fashion-week|festival', 'id'=>'^[0-9]+$'));
 
 	//Profile View
