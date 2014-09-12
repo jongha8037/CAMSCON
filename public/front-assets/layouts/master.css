@@ -305,15 +305,15 @@
 }
 
 .content-nav .prev {
-	float: left;
-	background-position: 0% 50%;
-	padding-left:15px;
-}
-
-.content-nav .next {
 	float: right;
 	background-position: 100% 50%;
 	padding-right:15px;
+}
+
+.content-nav .next {
+	float: left;
+	background-position: 0% 50%;
+	padding-left:15px;
 }
 
 .single-container .photo-col figure {

@@ -27,11 +27,12 @@
 <div class="single-container row">
 	<div id="photoCol" class="photo-col col-xs-12 col-sm-7">
 		<nav class="content-nav clearfix">
-			@if($prevSnap)
-			<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$prevSnap))}}" alt="" class="prev" style="background-image:url('{{asset('front-assets/layouts/content_nav_prev.png')}}');">Prev</a>
-			@endif
 			@if($nextSnap)
 			<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$nextSnap))}}" alt="" class="next" style="background-image:url('{{asset('front-assets/layouts/content_nav_next.png')}}');">Next</a>
+			@endif
+
+			@if($prevSnap)
+			<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$prevSnap))}}" alt="" class="prev" style="background-image:url('{{asset('front-assets/layouts/content_nav_prev.png')}}');">Prev</a>
 			@endif
 		</nav>
 
