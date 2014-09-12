@@ -1,7 +1,6 @@
 @extends('front.layouts.master')
 
 @section('head_title')
-Camscon
 @stop
 
 @section('head_styles')
