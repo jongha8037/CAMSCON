@@ -1,8 +1,5 @@
 @extends('front.layouts.master')
 
-@section('head_title')
-@stop
-
 @section('head_styles')
 @stop
 
