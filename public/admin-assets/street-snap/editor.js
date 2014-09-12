@@ -619,7 +619,7 @@ var AttachmentEditor={
 			}, null);
 		});
 
-		this.objects.list.find('figure').on('click', '.delete-btn', null, function() {
+		this.objects.list.on('click', '.delete-btn', null, function() {
 			AttachmentEditor.delete($(this));
 		});
 	}/*init()*/,
@@ -677,9 +677,9 @@ var AttachmentEditor={
 		});
 	}/*upload()*/,
 	addPhoto:function(img) {
-		var attachment=$('<figure class="attachment"></figure>').prop('data-id', img.id);
-		$('<button type="button" class="delete-btn btn btn-warning">삭제</button>').prop('data-id', img.id).appendTo(attachment);
-		$('<img src="" />').prop('src', img.url).prop('width', img.width).prop('height', img.height).appendTo(attachment);
+		var attachment=$('<figure class="attachment"></figure>').attr('data-id', img.id);
+		$('<button type="button" class="delete-btn btn btn-warning">삭제</button>').attr('data-id', img.id).appendTo(attachment);
+		$('<img src="" />').attr('src', img.url).attr('width', img.width).attr('height', img.height).appendTo(attachment);
 		this.objects.list.append(attachment);
 	},
 	delete:function(btn) {console.log(btn);
