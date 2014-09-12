@@ -158,6 +158,7 @@ var ListView={
 
 $(document).ready(function() {
 	ListView.init();
+	LikeButtons.init();
 });
 
 $(window).resize(function() {
@@ -201,9 +202,5 @@ var LikeButtons={
 		});
 	}
 };//LikeButtons{}
-
-$(document).ready(function() {
-	LikeButtons.init();
-});
 </script>
 @stop

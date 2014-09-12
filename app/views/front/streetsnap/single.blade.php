@@ -29,7 +29,11 @@ Camscon
 		</nav>
 
 		<figure id="snapPrimary" class="primary-photo pinned">
-			<button type="button" class="like-btn">LIKE</button>
+			@if($snap->liked->count()>0)
+			<button type="button" class="like-btn liked" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
+			@else
+			<button type="button" class="like-btn" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
+			@endif
 			<span class="likes">{{$snap->cached_total_likes}}</span>
 			<button type="button" class="fb-share-btn">f</button>
 			<div class="pin-container"></div>
@@ -196,8 +200,47 @@ var SingleView={
 	}/*createListItem()*/
 };//SingleView{}
 
+var LikeButtons={
+	init:function() {
+		$(document).on('click', '.like-btn', null, function(e) {
+			LikeButtons.like($(this));
+		});
+	},
+	like:function(btn) {
+		btn.prop('disabled', true);
+
+		var data={
+			_token:"{{csrf_token()}}",
+			target_type:btn.attr('data-type'),
+			target_id:btn.attr('data-id')
+		}
+
+		$.post("{{action('LikeController@procLike')}}", data, function(response) {
+			//console.log(response);
+			if(response.proc=='liked') {
+				btn.addClass('liked');
+			} else if(response.proc=='canceled') {
+				btn.removeClass('liked');
+			}
+			if('total' in response) {
+				btn.siblings('span.likes').text(response.total);
+			}
+		}, 'json').fail(function(response) {
+			//console.log(response.status);
+			if(response.status==401) {
+				if(typeof LoginModal === 'object') {
+					LoginModal.launch();
+				}
+			}
+		}).always(function() {
+			btn.prop('disabled', false);
+		});
+	}
+};//LikeButtons{}
+
 $(document).ready(function() {
 	SingleView.init();
+	LikeButtons.init();
 });
 
 $(window).resize(function() {
