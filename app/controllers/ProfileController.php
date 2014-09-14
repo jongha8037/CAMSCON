@@ -34,7 +34,7 @@ class ProfileController extends BaseController {
 			ViewData::add('mySnaps', $mySnaps->toJson());
 			ViewData::add('loadMine', $nextPage);
 
-			$likedSnaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')->whereHas('likes', function($q) {
+			$likedSnaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')->whereHas('likes', function($q) use($profile) {
 				$q->where('user_id', '=', $profile->id);
 			})->orderBy('created_at', 'DESC')->paginate(9);
 			$likedSnaps->each(function($snap) {
