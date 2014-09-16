@@ -248,7 +248,10 @@ $(document).ready(function() {
 });
 
 $(window).resize(function() {
-	ProfileView.init();
+	var newScreenWidth=$.viewportW();
+	if(newScreenWidth!=ProfileView.display.screenWidth) {
+		ProfileView.init();
+	}
 });
 
 var LikeButtons={

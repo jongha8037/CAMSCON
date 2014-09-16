@@ -158,7 +158,10 @@ $(document).ready(function() {
 });
 
 $(window).resize(function() {
-	ListView.init();
+	var newScreenWidth=$.viewportW();
+	if(newScreenWidth!=ListView.display.screenWidth) {
+		ListView.init();
+	}
 });
 
 var LikeButtons={
