@@ -268,41 +268,41 @@ class StreetSnapController extends BaseController {
 				}
 				break;
 
-				case 'men':
-				if($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->where('gender', '=', 'male')
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('cached_total_likes', 'DESC')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
-				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->where('gender', '=', 'male')
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
-				}
-				break;
-
-				case 'ladies':
-				if($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->where('gender', '=', 'female')
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('cached_total_likes', 'DESC')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
-				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->where('gender', '=', 'female')
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
+				case 'filter':
+				if($slug=='men') {
+					if($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('gender', '=', 'male')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('gender', '=', 'male')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
+				} elseif($slug=='ladies') {
+					if($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('gender', '=', 'female')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('gender', '=', 'female')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
 				}
 		}//Switch()
 		//Add context to snaps
