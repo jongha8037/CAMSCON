@@ -39,6 +39,7 @@
 	</head>
 <body>
 @include('includes.facebook-sdk')
+@include('includes.google-analytics')
 	<header class="layout-header">
 		<div class="top-row container">
 			<div class="site-logo">
