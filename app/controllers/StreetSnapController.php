@@ -31,6 +31,7 @@ class StreetSnapController extends BaseController {
 				if($slug=='all') {
 					if($ordering=='hot') {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'CampusMeta')
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
@@ -38,6 +39,7 @@ class StreetSnapController extends BaseController {
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'CampusMeta')
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
@@ -69,26 +71,45 @@ class StreetSnapController extends BaseController {
 				break;
 
 			case 'street':
-				$meta=StreetMeta::where('slug', '=', $slug)->first();
-				if(empty($meta)) {
-					App::abort(404);
-				} elseif($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->where('meta_type', '=', 'StreetMeta')
-						->where('meta_id', '=', $meta->id)
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('cached_total_likes', 'DESC')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
+				if($slug=='all') {
+					if($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'StreetMeta')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'StreetMeta')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->where('meta_type', '=', 'StreetMeta')
-						->where('meta_id', '=', $meta->id)
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
+					$meta=StreetMeta::where('slug', '=', $slug)->first();
+					if(empty($meta)) {
+						App::abort(404);
+					} elseif($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'StreetMeta')
+							->where('meta_id', '=', $meta->id)
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'StreetMeta')
+							->where('meta_id', '=', $meta->id)
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
 				}
 				break;
 
@@ -119,74 +140,131 @@ class StreetSnapController extends BaseController {
 				break;
 
 				case 'fashion-week':
-				$meta=FashionWeekMeta::where('slug', '=', $slug)->first();
-				if(empty($meta)) {
-					App::abort(404);
-				} elseif($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->where('meta_type', '=', 'FashionWeekMeta')
-						->where('meta_id', '=', $meta->id)
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('cached_total_likes', 'DESC')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
+				if($slug=='all') {
+					if($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'FashionWeekMeta')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'FashionWeekMeta')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->where('meta_type', '=', 'FashionWeekMeta')
-						->where('meta_id', '=', $meta->id)
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
+					$meta=FashionWeekMeta::where('slug', '=', $slug)->first();
+					if(empty($meta)) {
+						App::abort(404);
+					} elseif($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'FashionWeekMeta')
+							->where('meta_id', '=', $meta->id)
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'FashionWeekMeta')
+							->where('meta_id', '=', $meta->id)
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
 				}
 				break;
 
 				case 'festival':
-				$meta=FestivalMeta::where('slug', '=', $slug)->first();
-				if(empty($meta)) {
-					App::abort(404);
-				} elseif($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->where('meta_type', '=', 'FestivalMeta')
-						->where('meta_id', '=', $meta->id)
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('cached_total_likes', 'DESC')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
+				if($slug=='all') {
+					if($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'FestivalMeta')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'FestivalMeta')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->where('meta_type', '=', 'FestivalMeta')
-						->where('meta_id', '=', $meta->id)
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
+					$meta=FestivalMeta::where('slug', '=', $slug)->first();
+					if(empty($meta)) {
+						App::abort(404);
+					} elseif($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'FestivalMeta')
+							->where('meta_id', '=', $meta->id)
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'FestivalMeta')
+							->where('meta_id', '=', $meta->id)
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
 				}
 				break;
 
 				case 'club':
-				$meta=ClubMeta::where('slug', '=', $slug)->first();
-				if(empty($meta)) {
-					App::abort(404);
-				} elseif($ordering=='hot') {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->where('meta_type', '=', 'ClubMeta')
-						->where('meta_id', '=', $meta->id)
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('cached_total_likes', 'DESC')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
+				if($slug=='all') {
+					if($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'ClubMeta')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'ClubMeta')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
 				} else {
-					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->where('meta_type', '=', 'ClubMeta')
-						->where('meta_id', '=', $meta->id)
-						->has('primary')
-						->where('status', '=', 'published')
-						->orderBy('created_at', 'DESC')
-						->paginate(9);
+					$meta=ClubMeta::where('slug', '=', $slug)->first();
+					if(empty($meta)) {
+						App::abort(404);
+					} elseif($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'ClubMeta')
+							->where('meta_id', '=', $meta->id)
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'ClubMeta')
+							->where('meta_id', '=', $meta->id)
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
 				}
 				break;
 
