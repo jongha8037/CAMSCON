@@ -306,7 +306,7 @@ class StreetSnapController extends BaseController {
 			}
 		} else {
 			$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta', 'liked')->find($id);
-			if($snap && strtolower($snap->meta_type)==$category.'meta') {
+			if($snap && strtolower($snap->meta_type)==str_replace('-', '', $category).'meta') {
 				$breadcrumbs[]=array('name'=>strtoupper($snap->meta->name), 'url'=>action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$slug)));
 				$prevSnap=StreetSnap::where('meta_type', '=', $snap->meta_type)->where('meta_id', '=', $snap->meta_id)->where('status', '=', 'published')->where('id', '<', $snap->id)->max('id');
 				$nextSnap=StreetSnap::where('meta_type', '=', $snap->meta_type)->where('meta_id', '=', $snap->meta_id)->where('status', '=', 'published')->where('id', '>', $snap->id)->min('id');
