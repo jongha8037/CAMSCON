@@ -85,8 +85,8 @@
 					<li class="gender-menu">
 						<a href="" style="border-right: 1px solid #7f7f7f;">Men/Ladies <span class="caret"></span></a>
 						<ul class="gender-sub-menu sub-menu row">
-							<li><a href="{{action('StreetSnapController@getList', array('category'=>'men'))}}">Men</a></li>
-							<li><a href="{{action('StreetSnapController@getList', array('category'=>'ladies'))}}">Ladies</a></li>
+							<li><a href="{{action('StreetSnapController@getList', array('category'=>'filter', 'slug'=>'men'))}}">Men</a></li>
+							<li><a href="{{action('StreetSnapController@getList', array('category'=>'filter', 'slug'=>'ladies'))}}">Ladies</a></li>
 						</ul>
 					</li>
 					<li><a href="{{action('StreetSnapEditController@showStarter')}}" class="post-btn"><span class="glyphicon glyphicon-camera"></span> Post</a></li>

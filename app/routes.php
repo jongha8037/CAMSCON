@@ -24,7 +24,7 @@ Route::group(array('before' => 'front'), function() {
 	//List View
 	Route::get('{category}/{slug?}/{ordering?}',
 		array('uses'=>"StreetSnapController@getList")
-	)->where(array('category'=>'all|campus|street|brand|fashion-week|festival|club|men|ladies', 'ordering'=>'new|hot'));
+	)->where(array('category'=>'all|campus|street|brand|fashion-week|festival|club|filter', 'ordering'=>'new|hot'));
 
 	Route::get('/', array('uses'=>"StreetSnapController@getList"));
 
