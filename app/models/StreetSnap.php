@@ -71,7 +71,7 @@ class StreetSnap extends Eloquent {
 				'ClubMeta'=>'club',
 				'FashionWeekMeta'=>'fashion-week',
 				'FestivalMeta'=>'festival',
-				'StreetMeat'=>'street'
+				'StreetMeta'=>'street'
 			);
 
 			return action('StreetSnapController@getSingle', array('category'=>$metaCategory[$this->meta_type], 'slug'=>$this->meta->slug, 'id'=>$this->id));
