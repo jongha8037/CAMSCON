@@ -64,6 +64,10 @@
 			@endif
 		</div>
 
+		<div class="pins-section">
+			<ul id="pinList" class="pin-list"></ul>
+		</div>
+
 		<div class="notes-section">
 			@if(!empty($snap->subject_comment))
 			@if($snap->gender=='female')
@@ -83,10 +87,6 @@
 			</div>
 			@endif
 		</div><!--/.notes-section-->
-
-		<div class="pins-section">
-			<ul id="pinList" class="pin-list"></ul>
-		</div>
 
 		<div class="photographer-section">
 			@if($snap->user->profileImage)
