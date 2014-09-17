@@ -39,12 +39,12 @@ var CategoryNavigation={
 		this.subMenus.push(subMenu);
 		var index=this.subMenus.length-1;
 
-		this.objects.nav.on('mouseover', '.'+key+'-menu', {subMenu:this.subMenus[index], index:index}, function(e) {console.log('mouseover');
+		this.objects.nav.on('mouseover', '.'+key+'-menu', {subMenu:this.subMenus[index], index:index}, function(e) {
 			CategoryNavigation.hideAll(e.data.index);
 			if(!e.data.subMenu.obj.hasClass('active')) {
 				e.data.subMenu.obj.addClass('active');
 			}
-		}).on('mouseout', '.'+key+'-menu', {subMenu:this.subMenus[index], index:index}, function(e) {console.log('mouseout');
+		}).on('mouseout', '.'+key+'-menu', {subMenu:this.subMenus[index], index:index}, function(e) {
 			var self=e.data.subMenu;
 			self.timer=setTimeout(function() {
 				self.obj.removeClass('active');
