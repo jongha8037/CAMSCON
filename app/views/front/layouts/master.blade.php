@@ -43,7 +43,7 @@
 	<header class="layout-header">
 		<div class="top-row container">
 			<div class="site-logo">
-				<a href="{{url('/')}}"><img src="{{asset('front-assets/layouts/logo.png')}}" alt="Camscon" /></a>
+				<a href="{{url('/')}}"><img src="http://cdn.camscon.kr/front-assets/layouts/logo.png" alt="Camscon" /></a>
 			</div>
 
 			<nav class="site-nav clearfix">
