@@ -338,7 +338,7 @@ class StreetSnapController extends BaseController {
 		$breadcrumbs=array();
 		$breadcrumbs[]=array('name'=>'전체보기(View all)', 'url'=>url('/'));
 		if($category=='filter') {
-			$breadcrumbs[]=array('name'=>strtoupper($slug), 'url'=>action('StreetSnapController@getList', array('category'=>$slug)));
+			$breadcrumbs[]=array('name'=>strtoupper($slug), 'url'=>action('StreetSnapController@getList', array('category'=>'filter', 'slug'=>$slug)));
 		} else {
 			$breadcrumbs[]=array('name'=>strtoupper($category), 'url'=>action('StreetSnapController@getList', array('category'=>$category, 'slug'=>'all')));
 		}			
@@ -385,7 +385,7 @@ class StreetSnapController extends BaseController {
 		} else {
 			$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta', 'liked')->find($id);
 			if($snap && strtolower($snap->meta_type)==str_replace('-', '', $category).'meta') {
-				$breadcrumbs[]=array('name'=>strtoupper($snap->meta->name), 'url'=>action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$slug)));
+				$breadcrumbs[]=array('name'=>strtoupper($snap->meta->name), 'url'=>action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$snap->meta->slug)));
 				$prevSnap=StreetSnap::where('meta_type', '=', $snap->meta_type)->where('meta_id', '=', $snap->meta_id)->where('status', '=', 'published')->where('id', '<', $snap->id)->max('id');
 				$nextSnap=StreetSnap::where('meta_type', '=', $snap->meta_type)->where('meta_id', '=', $snap->meta_id)->where('status', '=', 'published')->where('id', '>', $snap->id)->min('id');
 			} else {

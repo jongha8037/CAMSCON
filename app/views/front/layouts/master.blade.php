@@ -79,10 +79,37 @@
 							@endforeach
 						</ul>
 					</li>
-					<li><a href="" class="deactivated">Street <span class="caret"></span></a></li>
+					<li class="street-menu">
+						<a href="{{action('StreetSnapController@getList', array('category'=>'street', 'slug'=>'all', 'ordering'=>'new'))}}">Street <span class="caret"></span></a>
+						<ul class="street-sub-menu sub-menu">
+							@foreach($CatNav->street as $street)
+							<li class="">
+								<a href="{{action('StreetSnapController@getList', array('category'=>'street', 'slug'=>$street->slug, 'ordering'=>'new'))}}">{{$street->name}}</a>
+							</li>
+							@endforeach
+						</ul>
+					</li>
 					<li><a href="" class="deactivated">Brand <span class="caret"></span></a></li>
-					<li><a href="" class="deactivated">Fashion week <span class="caret"></span></a></li>
-					<li><a href="" class="deactivated">Festival/Club <span class="caret"></span></a></li>
+					<li class="fashionweek-menu">
+						<a href="{{action('StreetSnapController@getList', array('category'=>'fashion-week', 'slug'=>'all', 'ordering'=>'new'))}}">Fashion week <span class="caret"></span></a>
+						<ul class="fashionweek-sub-menu sub-menu">
+							@foreach($CatNav->fashionweek as $fashionweek)
+							<li class="">
+								<a href="{{action('StreetSnapController@getList', array('category'=>'fashion-week', 'slug'=>$fashionweek->slug, 'ordering'=>'new'))}}">{{$fashionweek->name}}</a>
+							</li>
+							@endforeach
+						</ul>
+					</li>
+					<li class="festival-menu">
+						<a href="{{action('StreetSnapController@getList', array('category'=>'festival', 'slug'=>'all', 'ordering'=>'new'))}}">Festival/Club <span class="caret"></span></a>
+						<ul class="festival-sub-menu sub-menu">
+							@foreach($CatNav->festival as $festival)
+							<li class="">
+								<a href="{{action('StreetSnapController@getList', array('category'=>'festival', 'slug'=>$festival->slug, 'ordering'=>'new'))}}">{{$festival->name}}</a>
+							</li>
+							@endforeach
+						</ul>
+					</li>
 					<li class="gender-menu">
 						<a href="" style="border-right: 1px solid #7f7f7f;">Men/Ladies <span class="caret"></span></a>
 						<ul class="gender-sub-menu sub-menu row">

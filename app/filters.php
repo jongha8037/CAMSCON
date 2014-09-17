@@ -171,12 +171,45 @@ Route::filter('front', function() {
 	//Build Street menu
 	$catNav->street=array();
 	$streetMeta=StreetMeta::orderBy('name_ko', 'ASC')->get();
-	foreach ($campusMeta as $meta) {
+	foreach ($streetMeta as $meta) {
 		$street=new stdClass();
 		$street->id=$meta->id;
 		$street->name=$meta->name;
 		$street->slug=$meta->slug;
 		$catNav->street[]=$street;
+	}
+
+	//Build Festival menu
+	$catNav->festival=array();
+	$festivalMeta=FestivalMeta::orderBy('name_ko', 'ASC')->get();
+	foreach ($festivalMeta as $meta) {
+		$festival=new stdClass();
+		$festival->id=$meta->id;
+		$festival->name=$meta->name;
+		$festival->slug=$meta->slug;
+		$catNav->festival[]=$festival;
+	}
+
+	//Build Club menu
+	$catNav->club=array();
+	$clubMeta=ClubMeta::orderBy('name_ko', 'ASC')->get();
+	foreach ($clubMeta as $meta) {
+		$club=new stdClass();
+		$club->id=$meta->id;
+		$club->name=$meta->name;
+		$club->slug=$meta->slug;
+		$catNav->club[]=$club;
+	}
+
+	//Build Club menu
+	$catNav->fashionweek=array();
+	$fashionweekMeta=FashionWeekMeta::orderBy('name_ko', 'ASC')->get();
+	foreach ($fashionweekMeta as $meta) {
+		$fashionweek=new stdClass();
+		$fashionweek->id=$meta->id;
+		$fashionweek->name=$meta->name;
+		$fashionweek->slug=$meta->slug;
+		$catNav->fashionweek[]=$fashionweek;
 	}
 
 	ViewData::add('CatNav', $catNav);

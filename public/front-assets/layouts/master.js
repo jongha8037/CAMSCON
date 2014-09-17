@@ -8,6 +8,15 @@ var CategoryNavigation={
 
 		//Campus
 		this.addSubmenu('campus');
+
+		//Street
+		this.addSubmenu('street');
+
+		//Fashion week
+		this.addSubmenu('fashionweek');
+
+		//Festival
+		this.addSubmenu('festival');
 		
 		//Gender
 		this.addSubmenu('gender');
@@ -30,12 +39,12 @@ var CategoryNavigation={
 		this.subMenus.push(subMenu);
 		var index=this.subMenus.length-1;
 
-		this.objects.nav.on('mouseover', '.'+key+'-menu', {subMenu:this.subMenus[index], index:index}, function(e) {
+		this.objects.nav.on('mouseover', '.'+key+'-menu', {subMenu:this.subMenus[index], index:index}, function(e) {console.log('mouseover');
 			CategoryNavigation.hideAll(e.data.index);
 			if(!e.data.subMenu.obj.hasClass('active')) {
 				e.data.subMenu.obj.addClass('active');
 			}
-		}).on('mouseout', '.'+key+'-menu', {subMenu:this.subMenus[index], index:index}, function(e) {
+		}).on('mouseout', '.'+key+'-menu', {subMenu:this.subMenus[index], index:index}, function(e) {console.log('mouseout');
 			var self=e.data.subMenu;
 			self.timer=setTimeout(function() {
 				self.obj.removeClass('active');
