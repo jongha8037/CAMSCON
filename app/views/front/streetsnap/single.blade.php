@@ -60,7 +60,7 @@
 			@if($snap->affiliation)
 			<h3 class="category">{{{$snap->meta->name}}} / {{{$snap->affiliation}}} @if(Auth::check() && $snap->user->id===Auth::user()->id){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@else
-			<h3 class="category">{{{trim($snap->meta_type, 'Meta')}}} / {{{$snap->meta->name}}} @if(Auth::check() && $snap->user->id===Auth::user()->id){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			<h3 class="category">{{{preg_replace('/Meta$/', '', $snap->meta_type)}}} / {{{$snap->meta->name}}} @if(Auth::check() && $snap->user->id===Auth::user()->id){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@endif
 		</div>
 
