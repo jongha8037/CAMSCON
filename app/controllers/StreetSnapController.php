@@ -15,6 +15,7 @@ class StreetSnapController extends BaseController {
 					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->has('primary')
 						->where('status', '=', 'published')
+						->where('created_at', '>=' ,date('Y-m-d H:i:s', time()-259200))
 						->orderBy('cached_total_likes', 'DESC')
 						->orderBy('created_at', 'DESC')
 						->paginate(9);
