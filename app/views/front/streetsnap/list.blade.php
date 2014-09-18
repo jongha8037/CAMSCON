@@ -131,6 +131,7 @@ var ListView={
 				$(this).removeClass('hidden');
 			});
 			wrapper.isotope('appended', snapObjx);
+			ListView.status='idle';
 		});
 	},
 	refreshLayout:function() {
@@ -143,7 +144,6 @@ var ListView={
 					ListView.endpoints.loadMore=response.more_url;
 					ListView.snaps.data.concat(response.snaps.data);
 					ListView.appendSnaps(response.snaps.data);
-					ListView.status='idle';
 				}
 			}, 'json');
 		} else {
