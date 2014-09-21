@@ -111,7 +111,7 @@
 						</ul>
 					</li>
 					<li class="gender-menu">
-						<a href="" style="border-right: 1px solid #7f7f7f;">Men/Ladies <span class="caret"></span></a>
+						<a href="">Men/Ladies <span class="caret"></span></a>
 						<ul class="gender-sub-menu sub-menu row">
 							<li><a href="{{action('StreetSnapController@getList', array('category'=>'filter', 'slug'=>'men'))}}">Men</a></li>
 							<li><a href="{{action('StreetSnapController@getList', array('category'=>'filter', 'slug'=>'ladies'))}}">Ladies</a></li>

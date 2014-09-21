@@ -163,6 +163,10 @@
 	position: relative;
 }
 
+.layout-header .category-nav .gender-menu > a {
+	border-right: 1px solid #7f7f7f;
+}
+
 .layout-header .category-nav .sub-menu.active {
 	display:block;
 }
@@ -321,7 +325,21 @@
 		padding:0px 15px;
 	}
 	
-}
+}/*mobile*/
+
+@media (min-width:768px) and (max-width:991px) {
+	.layout-header .category-nav > ul > li:last-child {
+		display: none;
+	}
+
+	.layout-header .category-nav .gender-menu > a {
+		border-right: 0;
+	}
+
+	.layout-header .category-nav > ul > li {
+		width:14.28%;
+	}
+}/*tablet*/
 
 
 /*List View
