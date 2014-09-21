@@ -9,6 +9,7 @@
 @endif
 <meta property="og:site_name" content="CAMSCON" />
 <meta property="og:url" content="{{$snap->single_url}}" />
+<meta property="og:description" content="<?php strip_tags(preg_replace("/\r\n|\r|\n/", ' ', $snap->photographer_comment)); ?>" />
 <meta property="og:image" content="{{$snap->primary->url}}" />
 <meta property="fb:app_id" content="562009567255774" />
 <meta property="og:locale" content="ko_KR" />
