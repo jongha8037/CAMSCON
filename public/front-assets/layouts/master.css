@@ -576,8 +576,10 @@
 	margin-bottom: 20px;
 }
 
-.single-container .data-col .notes-section {
-	margin-bottom:20px;
+.single-container .data-col .notes-section .icon-comment, 
+.single-container .data-col .notes-section .photographers-note {
+	margin-bottom:30px;
+	border-bottom: 1px solid #eee;
 }
 
 .single-container .data-col .pin-list {
@@ -622,6 +624,52 @@
 	color: #000;
 }
 
+@media (max-width:767px) {
+	.breadcrumbs {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.single-container .primary-photo .like-btn {
+		padding: 9px;
+	}
+
+	.single-container .primary-photo .likes {
+		padding: 9px;
+		left:62px;
+	}
+
+	.single-container .primary-photo .fb-share-btn {
+		font-size: 25px;
+		padding: 1px 19px;
+		top: 53px;
+	}
+
+	.single-container .data-col {
+		margin-bottom:40px;
+		padding-top:0px;
+	}
+
+	.single-container .data-col .photographer-section {
+		padding:10px;
+	}
+
+	.single-container .photographer-section .profile-img {
+		max-width: 80px;
+	}
+
+	.single-container .photographer-section .profile-data {
+		padding-left: 90px;
+	}
+
+	.single-container .photographer-section .profile-data a {
+		display: block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
 
 .single-container .pin-container .pin {
 	opacity: 0;
