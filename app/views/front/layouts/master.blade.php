@@ -75,7 +75,7 @@
 						<a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>'all', 'ordering'=>'new'))}}">Campus <span class="caret"></span></a>
 						<ul class="campus-sub-menu sub-menu row">
 							@foreach($CatNav->campus as $campus)
-							<li class="col-xs-4 col-sm-2"><a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>$campus->slug, 'ordering'=>'new'))}}">{{$campus->name}}</a></li>
+							<li class="col-xs-4 col-sm-3 col-md-2"><a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>$campus->slug, 'ordering'=>'new'))}}">{{$campus->name}}</a></li>
 							@endforeach
 						</ul>
 					</li>

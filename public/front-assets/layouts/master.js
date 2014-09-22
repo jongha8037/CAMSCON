@@ -20,6 +20,51 @@ var CategoryNavigation={
 		
 		//Gender
 		this.addSubmenu('gender');
+
+		var vpw=$.viewportW();
+		if(vpw<768) {
+			this.forMobile();
+		} else if(vpw<992){
+			this.forTablet();
+		} else if(vpw<1200) {
+			this.forDesktop();
+		} else {
+			this.forDesktop();
+		}
+	},
+	forMobile:function() {},
+	forTablet:function() {
+		var mlen=this.subMenus.length;
+		for(var i=0;i<mlen;i++) {
+			this.subMenus[i].obj.siblings('a').click(function(e) {e.preventDefault();});
+			this.objects.nav.on('click', '.'+this.subMenus[i].key+'-menu', {subMenu:this.subMenus[i], index:i}, function(e) {
+				var subMenu=e.data.subMenu.obj;
+				if(subMenu.hasClass('active')) {
+					subMenu.removeClass('active');
+				} else {
+					CategoryNavigation.hideAll(e.data.index);
+					if(!e.data.subMenu.obj.hasClass('active')) {
+						e.data.subMenu.obj.addClass('active');
+					}
+				}
+			});
+		}
+	},
+	forDesktop:function() {
+		var mlen=this.subMenus.length;
+		for(var i=0;i<mlen;i++) {
+			this.objects.nav.on('mouseover', '.'+this.subMenus[i].key+'-menu', {subMenu:this.subMenus[i], index:i}, function(e) {
+				CategoryNavigation.hideAll(e.data.index);
+				if(!e.data.subMenu.obj.hasClass('active')) {
+					e.data.subMenu.obj.addClass('active');
+				}
+			}).on('mouseout', '.'+this.subMenus[i].key+'-menu', {subMenu:this.subMenus[i], index:i}, function(e) {
+				var self=e.data.subMenu;
+				self.timer=setTimeout(function() {
+					self.obj.removeClass('active');
+				}, 500);
+			});
+		}
 	},
 	hideAll:function(exception) {
 		var mlen=this.subMenus.length;
@@ -33,23 +78,12 @@ var CategoryNavigation={
 	addSubmenu:function(key) {
 		var subMenu={
 			obj:null,
+			key:null,
 			timer:null
 		}
-		subMenu.obj=this.objects.nav.find('.'+key+'-sub-menu')
+		subMenu.obj=this.objects.nav.find('.'+key+'-sub-menu');
+		subMenu.key=key;
 		this.subMenus.push(subMenu);
-		var index=this.subMenus.length-1;
-
-		this.objects.nav.on('mouseover', '.'+key+'-menu', {subMenu:this.subMenus[index], index:index}, function(e) {
-			CategoryNavigation.hideAll(e.data.index);
-			if(!e.data.subMenu.obj.hasClass('active')) {
-				e.data.subMenu.obj.addClass('active');
-			}
-		}).on('mouseout', '.'+key+'-menu', {subMenu:this.subMenus[index], index:index}, function(e) {
-			var self=e.data.subMenu;
-			self.timer=setTimeout(function() {
-				self.obj.removeClass('active');
-			}, 500);
-		});
 	}
 };//CategoryNavigation{}
 
