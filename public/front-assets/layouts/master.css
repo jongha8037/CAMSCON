@@ -433,6 +433,22 @@
 	}
 }
 
+@media (min-width:768px) and (max-width:991px) {
+	.snap-wrapper .like-btn {
+		padding: 9px;
+	}
+
+	.snap-wrapper .likes {
+		padding: 9px;
+		left:62px;
+	}
+
+	.snap-wrapper .fb-share-btn {
+		font-size: 24px;
+		padding: 2px 16px;
+	}
+}
+
 .snap-wrapper .meta-container {
 	padding: 10px;
 }
@@ -671,6 +687,41 @@
 	}
 }
 
+@media (min-width:768px) and (max-width:991px) {
+	.single-container .primary-photo .like-btn {
+		padding: 13px;
+	}
+
+	.single-container .primary-photo .likes {
+		padding: 13px;
+		left:70px;
+	}
+
+	.single-container .primary-photo .fb-share-btn {
+		font-size: 30px;
+		top: 60px;
+	}
+
+	.single-container .data-col .photographer-section {
+		padding:10px;
+	}
+
+	.single-container .photographer-section .profile-img {
+		max-width: 80px;
+	}
+
+	.single-container .photographer-section .profile-data {
+		padding-left: 90px;
+	}
+
+	.single-container .photographer-section .profile-data a {
+		display: block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
 .single-container .pin-container .pin {
 	opacity: 0;
 	position: absolute;
@@ -842,6 +893,19 @@
 		padding:8px 0px;
 		text-align: center;
 		width:50%;
+	}
+}
+
+@media (min-width:768px) and (max-width:991px) {
+	.profile-wrapper .profile-data .details a {
+		display: block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.profile-wrapper .profile-data .details a:last-child {
+		display: inline;
 	}
 }
 
