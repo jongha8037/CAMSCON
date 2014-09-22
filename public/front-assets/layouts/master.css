@@ -328,6 +328,10 @@
 }/*mobile*/
 
 @media (min-width:768px) and (max-width:991px) {
+	.layout-header .category-nav > ul > li > a:first-child {
+		border-left:0;
+	}
+
 	.layout-header .category-nav > ul > li:last-child {
 		display: none;
 	}
