@@ -16,7 +16,6 @@ class StreetSnapController extends BaseController {
 						->has('primary')
 						->where('status', '=', 'published')
 						->where('created_at', '>=' ,date('Y-m-d H:i:s', time()-259200))
-						->orderBy('cached_total_likes', 'DESC')
 						->orderBy('created_at', 'DESC')
 						->remember(60)
 						->paginate(9);
