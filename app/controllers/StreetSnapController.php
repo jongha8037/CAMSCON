@@ -18,12 +18,14 @@ class StreetSnapController extends BaseController {
 						->where('created_at', '>=' ,date('Y-m-d H:i:s', time()-259200))
 						->orderBy('cached_total_likes', 'DESC')
 						->orderBy('created_at', 'DESC')
+						->remember(60)
 						->paginate(9);
 				} else {
 					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 						->has('primary')
 						->where('status', '=', 'published')
 						->orderBy('created_at', 'DESC')
+						->remember(60)
 						->paginate(9);
 				}
 				break;
@@ -37,6 +39,7 @@ class StreetSnapController extends BaseController {
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -44,6 +47,7 @@ class StreetSnapController extends BaseController {
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					}
 				} else {
@@ -58,6 +62,7 @@ class StreetSnapController extends BaseController {
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -66,6 +71,7 @@ class StreetSnapController extends BaseController {
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					}
 				}
@@ -80,6 +86,7 @@ class StreetSnapController extends BaseController {
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -87,6 +94,7 @@ class StreetSnapController extends BaseController {
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					}
 				} else {
@@ -101,6 +109,7 @@ class StreetSnapController extends BaseController {
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -109,6 +118,7 @@ class StreetSnapController extends BaseController {
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					}
 				}
@@ -127,6 +137,7 @@ class StreetSnapController extends BaseController {
 						->where('status', '=', 'published')
 						->orderBy('cached_total_likes', 'DESC')
 						->orderBy('created_at', 'DESC')
+						->remember(60)
 						->paginate(9);
 				} else {
 					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -136,6 +147,7 @@ class StreetSnapController extends BaseController {
 						->has('primary')
 						->where('status', '=', 'published')
 						->orderBy('created_at', 'DESC')
+						->remember(60)
 						->paginate(9);
 				}
 				break;
@@ -149,6 +161,7 @@ class StreetSnapController extends BaseController {
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -156,6 +169,7 @@ class StreetSnapController extends BaseController {
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					}
 				} else {
@@ -170,6 +184,7 @@ class StreetSnapController extends BaseController {
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -178,6 +193,7 @@ class StreetSnapController extends BaseController {
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					}
 				}
@@ -192,6 +208,7 @@ class StreetSnapController extends BaseController {
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -199,6 +216,7 @@ class StreetSnapController extends BaseController {
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					}
 				} else {
@@ -213,6 +231,7 @@ class StreetSnapController extends BaseController {
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -221,6 +240,7 @@ class StreetSnapController extends BaseController {
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					}
 				}
@@ -235,6 +255,7 @@ class StreetSnapController extends BaseController {
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -242,6 +263,7 @@ class StreetSnapController extends BaseController {
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					}
 				} else {
@@ -256,6 +278,7 @@ class StreetSnapController extends BaseController {
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -264,6 +287,7 @@ class StreetSnapController extends BaseController {
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					}
 				}
@@ -278,6 +302,7 @@ class StreetSnapController extends BaseController {
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -285,6 +310,7 @@ class StreetSnapController extends BaseController {
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					}
 				} elseif($slug=='ladies') {
@@ -295,6 +321,7 @@ class StreetSnapController extends BaseController {
 							->where('status', '=', 'published')
 							->orderBy('cached_total_likes', 'DESC')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					} else {
 						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
@@ -302,6 +329,7 @@ class StreetSnapController extends BaseController {
 							->has('primary')
 							->where('status', '=', 'published')
 							->orderBy('created_at', 'DESC')
+							->remember(60)
 							->paginate(9);
 					}
 				}
