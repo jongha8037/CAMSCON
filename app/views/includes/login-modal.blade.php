@@ -46,7 +46,7 @@
 	}
 
 	#LoginModal .modal-body {
-		background-image: url("{{asset('front-assets/login-modal/login_bg.png')}}");
+		background-image: url("http://cdn.camscon.kr/front-assets/login-modal/login_bg.png");
 		background-position: 50% 0%;
 		background-repeat: no-repeat;
 		background-color: #000;
