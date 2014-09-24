@@ -55,6 +55,12 @@
 				</ul>
 			</nav>
 
+			<div class="mobile-nav-btn">
+				<span class="bar"></span>
+				<span class="bar"></span>
+				<span class="bar"></span>				
+			</div>
+
 			<div id="UserBox" class="site-user">
 				@if(Auth::check())
 				@include('includes.user-box')
@@ -69,7 +75,8 @@
 		</div>
 		<div class="bottom-row container">
 			<nav class="category-nav">
-				<ul class="clearfix">
+				<a href="#" class="mobile-cat-btn">Fashion Inspiration <span class="caret"></span></a>
+				<ul class="category-list clearfix">
 					<li><a href="{{url('/')}}">All</a></li>
 					<li class="campus-menu">
 						<a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>'all', 'ordering'=>'new'))}}">Campus <span class="caret"></span></a>
@@ -120,6 +127,8 @@
 					<li><a href="{{action('StreetSnapEditController@showStarter')}}" class="post-btn"><span class="glyphicon glyphicon-camera"></span> Post</a></li>
 				</ul>
 			</nav>
+			<div class="mobile-hot-btn"><a href="{{action('StreetSnapController@getList', array('category'=>'all', 'slug'=>'order', 'ordering'=>'hot'))}}">Hot</a></div>
+			<div class="mobile-new-btn"><a href="{{action('StreetSnapController@getList', array('category'=>'all', 'slug'=>'order', 'ordering'=>'new'))}}">New</a></div>
 		</div>
 	</header><!--/.layout-header-->
 

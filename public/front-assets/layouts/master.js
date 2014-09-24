@@ -32,7 +32,18 @@ var CategoryNavigation={
 			this.forDesktop();
 		}
 	},
-	forMobile:function() {},
+	forMobile:function() {
+		this.objects.nav.on('click', '.mobile-cat-btn', null, function(e) {
+			e.preventDefault();
+			var catList=$(this).siblings('.category-list');
+
+			if(catList.hasClass('active')) {
+				catList.removeClass('active');
+			} else {
+				catList.addClass('active');
+			}
+		});
+	},
 	forTablet:function() {
 		var mlen=this.subMenus.length;
 		for(var i=0;i<mlen;i++) {
