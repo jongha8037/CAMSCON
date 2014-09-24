@@ -278,9 +278,14 @@
 		width:100%;
 	}
 
+	.layout-header .mobile-cat-btn {
+		display: inline;
+	}
+
 	.layout-header .category-nav, 
 	.layout-header .mobile-hot-btn, 
 	.layout-header .mobile-new-btn {
+		display:block;
 		float:left;
 		padding:6px 0px;
 	}
