@@ -12,7 +12,7 @@
 	<meta property="og:site_name" content="CAMSCON" />
 	<meta property="og:url" content="http://camscon.kr" />
 	<meta property="og:image" content="http://cdn.camscon.kr/front-assets/layouts/fb_og.jpg" />
-	<meta property="ob:description" content="Share your inspiration!" />
+	<meta property="og:description" content="Share your inspiration!" />
 	<meta property="fb:app_id" content="562009567255774" />
 	<meta property="og:locale" content="ko_KR" />
 	@endif
