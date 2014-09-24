@@ -93,6 +93,12 @@
 	border-bottom: 1px solid #7f7f7f;
 }
 
+.layout-header .mobile-cat-btn, 
+.layout-header .mobile-hot-btn, 
+.layout-header .mobile-new-btn {
+	display: none;
+}
+
 .layout-header .category-nav {
 	padding: 6px 0px;
 	position:relative;
