@@ -33,14 +33,40 @@ var CategoryNavigation={
 		}
 	},
 	forMobile:function() {
+		//Trigger 2nd depth
 		this.objects.nav.on('click', '.mobile-cat-btn', null, function(e) {
 			e.preventDefault();
 			var catList=$(this).siblings('.category-list');
+
+			catList.css('height', $.viewportH()-106);
 
 			if(catList.hasClass('active')) {
 				catList.removeClass('active');
 			} else {
 				catList.addClass('active');
+			}
+		});
+
+		//Trigger 3rd depths
+		var mlen=this.subMenus.length;
+		for(var i=0;i<mlen;i++) {
+			this.subMenus[i].obj.siblings('a').click(function(e) {e.preventDefault();});
+
+			this.objects.nav.on('click', '.'+this.subMenus[i].key+'-menu', null, function(e) {
+				$(this).find('.sub-menu').css('height', $.viewportH()-53);
+
+				if(!$(this).hasClass('active')) {
+					$(this).addClass('active');
+				}
+			});
+		}
+
+		//Close 3rd depths
+		this.objects.nav.on('click', '.close-btn', null, function(e) {
+			e.stopPropagation();
+			var parent=$(this).parent('.active');
+			if(parent.hasClass('active')) {
+				parent.removeClass('active');
 			}
 		});
 	},
