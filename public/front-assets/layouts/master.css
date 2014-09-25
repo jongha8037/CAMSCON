@@ -286,18 +286,23 @@
 	.layout-header .mobile-hot-btn, 
 	.layout-header .mobile-new-btn {
 		display:block;
-		float:left;
-		padding:6px 0px;
+		/* padding:16px 0px; */
+		padding:16px 0px;
 	}
 
 	.layout-header .category-nav {
 		position: static;
+		float:left;
 		margin-left: 15px;
 	}
 
 	.layout-header .mobile-hot-btn, 
 	.layout-header .mobile-new-btn {
-		margin-left:30px;
+		float:right;
+	}
+
+	.layout-header .mobile-new-btn {
+		margin:0px 15px 0px 30px;
 	}
 
 	.layout-header .category-nav a, 
