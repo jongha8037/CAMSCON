@@ -212,7 +212,6 @@ class ImageAttachment extends Eloquent {
 		//Check dir writable
 		if(!is_writable($absolute_path)) {
 			//absolute_path is not writable
-			Log::error('Path not writable!');
 			return false;
 		}
 
@@ -271,7 +270,7 @@ class ImageAttachment extends Eloquent {
 							}
 
 							$originalImg=null;
-							switch($attachment->original_extension) {
+							switch(strtolower($attachment->original_extension)) {
 								case 'jpeg':
 									$originalImg=imagecreatefromjpeg($attachment->uploaded_file->getRealPath());
 									break;
@@ -307,7 +306,6 @@ class ImageAttachment extends Eloquent {
 
 							if( $saveResult===false ) {
 								//Failed to store file
-								Log::error('Failed to store file.');
 								return false;
 							} else {
 								//File has been stored!!!
@@ -321,7 +319,6 @@ class ImageAttachment extends Eloquent {
 								$attachment->uploaded_file->move($absolute_path, $filename.'.'.$attachment->original_extension);
 							} catch(FileException $e) {
 								//Failed to move file
-								Log::error('Failed to move file.');
 								return false;
 							}
 						}
@@ -330,12 +327,10 @@ class ImageAttachment extends Eloquent {
 						$attachment->filename=$filename;
 					} else {
 						//Path generation failed
-						Log::error('Path generation failed.');
 						return false;
 					}
 				} else {
 					//uploaded_file is not an instance of UploadedFile
-					Log::error('Not an instance of UploadedFile.');
 					return false;
 				}
 			} elseif($attachment->source_type=='remote') {
@@ -410,7 +405,6 @@ class ImageAttachment extends Eloquent {
 
 		static::deleting(function($attachment) {
 			$file=public_path().'/'.$attachment->dir_path.'/'.$attachment->filename.'.'.$attachment->original_extension;
-			Log::info($file);
 			if(File::exists($file)) {
 				return File::delete($file);
 			}
