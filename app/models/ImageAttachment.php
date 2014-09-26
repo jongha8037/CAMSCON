@@ -81,7 +81,7 @@ class ImageAttachment extends Eloquent {
 		if($file->isValid()) {
 			//Set basic file information
 			$this->original_name=$file->getClientOriginalName();
-			$this->original_extension=$file->getClientOriginalExtension();
+			$this->original_extension=strtolower($file->getClientOriginalExtension());
 			$this->mime_type=$file->getMimeType();
 			$this->size=$file->getSize();
 
@@ -270,7 +270,7 @@ class ImageAttachment extends Eloquent {
 							}
 
 							$originalImg=null;
-							switch(strtolower($attachment->original_extension)) {
+							switch($attachment->original_extension) {
 								case 'jpeg':
 									$originalImg=imagecreatefromjpeg($attachment->uploaded_file->getRealPath());
 									break;
