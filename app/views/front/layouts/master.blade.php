@@ -66,7 +66,7 @@
 				@if(Auth::check())
 				@include('includes.user-box')
 				@else
-				<a href="#" id="camsconLoginBtn" class="login-btn">Login or Sign up</a>
+				<a href="#" id="camsconLoginBtn" class="login-btn">Login / Sign up</a>
 				@endif
 			</div>
 
