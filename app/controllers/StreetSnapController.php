@@ -387,11 +387,11 @@ class StreetSnapController extends BaseController {
 				if($snap) {
 					$prevSnap=StreetSnap::whereHas('pins', function($q) use($brand) {
 						$q->where('brand_id', '=', $brand->id);
-					})->where('status', '=', 'published')->where('id', '<', $snap->id)->max('id');
+					})->where('status', '=', 'published')->where('created_at', '<', $snap->created_at)->orderBy('created_at', 'DESC')->first();
 
 					$nextSnap=StreetSnap::whereHas('pins', function($q) use($brand) {
 						$q->where('brand_id', '=', $brand->id);
-					})->where('status', '=', 'published')->where('id', '>', $snap->id)->min('id');
+					})->where('status', '=', 'published')->where('created_at', '>', $snap->created_at)->orderBy('created_at', 'ASC')->first();
 				} else {
 					App::abort(404);
 				}
@@ -406,8 +406,8 @@ class StreetSnapController extends BaseController {
 				->where('gender', '=', $termMapper[$slug])
 				->first();
 			if($snap) {
-				$prevSnap=StreetSnap::where('gender', '=', $termMapper[$slug])->where('status', '=', 'published')->where('id', '<', $snap->id)->max('id');
-				$nextSnap=StreetSnap::where('gender', '=', $termMapper[$slug])->where('status', '=', 'published')->where('id', '>', $snap->id)->min('id');
+				$prevSnap=StreetSnap::where('gender', '=', $termMapper[$slug])->where('status', '=', 'published')->where('created_at', '<', $snap->created_at)->orderBy('created_at', 'DESC')->first();
+				$nextSnap=StreetSnap::where('gender', '=', $termMapper[$slug])->where('status', '=', 'published')->where('created_at', '>', $snap->created_at)->orderBy('created_at', 'ASC')->first();
 			} else {
 				App::abort(404);
 			}
@@ -415,8 +415,8 @@ class StreetSnapController extends BaseController {
 			$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta', 'liked')->find($id);
 			if($snap && strtolower($snap->meta_type)==str_replace('-', '', $category).'meta') {
 				$breadcrumbs[]=array('name'=>strtoupper($snap->meta->name), 'url'=>action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$snap->meta->slug)));
-				$prevSnap=StreetSnap::where('meta_type', '=', $snap->meta_type)->where('meta_id', '=', $snap->meta_id)->where('status', '=', 'published')->where('id', '<', $snap->id)->max('id');
-				$nextSnap=StreetSnap::where('meta_type', '=', $snap->meta_type)->where('meta_id', '=', $snap->meta_id)->where('status', '=', 'published')->where('id', '>', $snap->id)->min('id');
+				$prevSnap=StreetSnap::where('meta_type', '=', $snap->meta_type)->where('meta_id', '=', $snap->meta_id)->where('status', '=', 'published')->where('created_at', '<', $snap->created_at)->orderBy('created_at', 'DESC')->first();
+				$nextSnap=StreetSnap::where('meta_type', '=', $snap->meta_type)->where('meta_id', '=', $snap->meta_id)->where('status', '=', 'published')->where('created_at', '>', $snap->created_at)->orderBy('created_at', 'ASC')->first();
 			} else {
 				App::abort(404);
 			}
