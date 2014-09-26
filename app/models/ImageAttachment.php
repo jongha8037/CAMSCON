@@ -306,7 +306,7 @@ class ImageAttachment extends Eloquent {
 
 							if( $saveResult===false ) {
 								//Failed to store file
-								Log::error('Failed to store resized image.');
+								Log::error('Failed to store resized image.', array('resizedImg'=>$resizedImg, 'path'=>$absolute_path.'/'.$filename.'.'.$attachment->original_extension));
 								return false;
 							} else {
 								//File has been stored!!!
