@@ -306,6 +306,7 @@ class ImageAttachment extends Eloquent {
 
 							if( $saveResult===false ) {
 								//Failed to store file
+								Log::error('Failed to store resized image.');
 								return false;
 							} else {
 								//File has been stored!!!
@@ -319,6 +320,7 @@ class ImageAttachment extends Eloquent {
 								$attachment->uploaded_file->move($absolute_path, $filename.'.'.$attachment->original_extension);
 							} catch(FileException $e) {
 								//Failed to move file
+								Log::error('Failed to move file.');
 								return false;
 							}
 						}
@@ -327,10 +329,12 @@ class ImageAttachment extends Eloquent {
 						$attachment->filename=$filename;
 					} else {
 						//Path generation failed
+						Log::error('Path generation failed.');
 						return false;
 					}
 				} else {
 					//uploaded_file is not an instance of UploadedFile
+					Log::error('Uploaded_file is not an instance of UploadedFile.');
 					return false;
 				}
 			} elseif($attachment->source_type=='remote') {
