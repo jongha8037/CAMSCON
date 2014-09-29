@@ -146,7 +146,8 @@
 }
 
 .layout-header .category-nav .sub-menu {
-	display:none;
+	visibility:hidden;
+	opacity:0.0;
 	width: 100%;
 	position: absolute;
 	top: 53px;
@@ -155,6 +156,11 @@
 	list-style-type: none;
 	padding:0px;
 	margin:0px;
+
+	-webkit-transition: opacity 250ms ease-out;
+    -moz-transition: opacity 250ms ease-out;
+    -o-transition: opacity 250ms ease-out;
+    transition: opacity 250ms ease-out;
 }
 
 .layout-header .category-nav .sub-menu.campus-sub-menu {
@@ -178,7 +184,8 @@
 }
 
 .layout-header .category-nav .sub-menu.active {
-	display:block;
+	visibility:visible;
+	opacity:1.0;
 }
 
 .layout-header .category-nav .sub-menu li {
@@ -264,18 +271,24 @@
 	}
 
 	.layout-header .category-nav > ul {
-		display: none;
+		visibility: hidden;
+		opacity: 0.0;
 		position:absolute;
 		z-index: 999999;
 		background-color: rgba(255,255,255,0.8);
 		width:100%;
 		left: 0px;
-		/*top: 33px;*/
 		top:53px;
+
+		-webkit-transition: opacity 250ms ease-out;
+	    -moz-transition: opacity 250ms ease-out;
+	    -o-transition: opacity 250ms ease-out;
+	    transition: opacity 250ms ease-out;
 	}
 
 	.layout-header .category-nav > ul.active {
-		display: block;
+		visibility: visible;
+		opacity: 1.0;
 	}
 
 	.layout-header .category-nav > ul > li {
@@ -377,7 +390,8 @@
 	}
 
 	.layout-header .category-nav > ul > li.active ul.sub-menu {
-		display: block;
+		visibility: visible;
+		opacity: 1.0;
 		width:100%;
 		top: 54px;
 		left:0px;
