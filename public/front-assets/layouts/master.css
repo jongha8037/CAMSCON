@@ -192,6 +192,10 @@
 	padding:0px;
 }
 
+.layout-header .category-nav .sub-menu li.mobile-all {
+	display:none;
+}
+
 .layout-header .category-nav .sub-menu li a {
 	padding: 5px 10px;
 	display: block;
@@ -396,6 +400,10 @@
 		top: 54px;
 		left:0px;
 		overflow-y: scroll;
+	}
+
+	.layout-header .category-nav > ul > li.active ul.sub-menu li.mobile-all {
+		display: block;
 	}
 
 	.layout-header .category-nav > ul > li.active ul.sub-menu li a {

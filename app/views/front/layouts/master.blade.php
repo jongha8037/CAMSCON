@@ -83,6 +83,7 @@
 						<a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>'all', 'ordering'=>'new'))}}" class="parent">Campus <span class="caret"></span></a>
 						<span class="close-btn glyphicon glyphicon-remove"></span>
 						<ul class="campus-sub-menu sub-menu row">
+							<li class="col-xs-12 col-sm-3 col-md-2 mobile-all"><a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>'all', 'ordering'=>'new'))}}">All</a></li>
 							@foreach($CatNav->campus as $campus)
 							<li class="col-xs-12 col-sm-3 col-md-2"><a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>$campus->slug, 'ordering'=>'new'))}}">{{$campus->name}}</a></li>
 							@endforeach
@@ -92,6 +93,7 @@
 						<a href="{{action('StreetSnapController@getList', array('category'=>'street', 'slug'=>'all', 'ordering'=>'new'))}}" class="parent">Street <span class="caret"></span></a>
 						<span class="close-btn glyphicon glyphicon-remove"></span>
 						<ul class="street-sub-menu sub-menu">
+							<li class="mobile-all"><a href="{{action('StreetSnapController@getList', array('category'=>'street', 'slug'=>'all', 'ordering'=>'new'))}}">All</a></li>
 							@foreach($CatNav->street as $street)
 							<li class="">
 								<a href="{{action('StreetSnapController@getList', array('category'=>'street', 'slug'=>$street->slug, 'ordering'=>'new'))}}">{{$street->name}}</a>
@@ -104,6 +106,7 @@
 						<a href="{{action('StreetSnapController@getList', array('category'=>'fashion-week', 'slug'=>'all', 'ordering'=>'new'))}}" class="parent">Fashion week <span class="caret"></span></a>
 						<span class="close-btn glyphicon glyphicon-remove"></span>
 						<ul class="fashionweek-sub-menu sub-menu">
+							<li class="mobile-all"><a href="{{action('StreetSnapController@getList', array('category'=>'fashion-week', 'slug'=>'all', 'ordering'=>'new'))}}">All</a></li>
 							@foreach($CatNav->fashionweek as $fashionweek)
 							<li class="">
 								<a href="{{action('StreetSnapController@getList', array('category'=>'fashion-week', 'slug'=>$fashionweek->slug, 'ordering'=>'new'))}}">{{$fashionweek->name}}</a>
@@ -115,6 +118,7 @@
 						<a href="{{action('StreetSnapController@getList', array('category'=>'festival', 'slug'=>'all', 'ordering'=>'new'))}}" class="parent">Festival/Club <span class="caret"></span></a>
 						<span class="close-btn glyphicon glyphicon-remove"></span>
 						<ul class="festival-sub-menu sub-menu">
+							<li class="mobile-all"><a href="{{action('StreetSnapController@getList', array('category'=>'festival', 'slug'=>'all', 'ordering'=>'new'))}}">All</a></li>
 							@foreach($CatNav->festival as $festival)
 							<li class="">
 								<a href="{{action('StreetSnapController@getList', array('category'=>'festival', 'slug'=>$festival->slug, 'ordering'=>'new'))}}">{{$festival->name}}</a>
