@@ -887,7 +887,10 @@
 
 .single-container .pin-list li .links li a {
 	color:#aaa;
-	word-break:break-all;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
 }
 
 .single-container .pin-list li.highlight .pin-numbering, 

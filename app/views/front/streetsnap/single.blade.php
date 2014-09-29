@@ -86,7 +86,7 @@
 			@endif
 
 			@if(!empty($snap->photographer_comment))
-			<h4>Photographer's note:</h4>
+			<h4>Inspirer's note:</h4>
 			<div class="photographers-note">
 				{{autop($snap->photographer_comment)}}
 			</div>
@@ -195,12 +195,11 @@ var SingleView={
 		return newPin;
 	}/*createPin()*/,
 	createListItem:function(pin,number) {
-		var newItem=$('<li data-pin-no=""><span class="pin-numbering"></span><div class="data-wrapper"><div class="meta"><strong class="item-name"></strong> by <span class="vendor"></span> in <span class="category"></span></div><ul class="links"></div></ul></li>');
+		var newItem=$('<li data-pin-no=""><span class="pin-numbering"></span><div class="data-wrapper"><div class="meta"><strong class="item-name"></strong> by <span class="vendor"></span></div><ul class="links"></div></ul></li>');
 		newItem.attr('data-pin-no', pin.id);
 		newItem.find('span.pin-numbering').text(number);
 		newItem.find('strong.item-name').text(pin.item_category.name);
 		newItem.find('span.vendor').text(pin.brand.name);
-		newItem.find('span.category').text(pin.item_category.parent.name);
 
 		var linkList=newItem.find('ul.links');
 		var linkLen=pin.links.length;
