@@ -78,6 +78,7 @@ var ListView={
 		//Scroll event
 		$(window).on('scroll', null, null, function() {
 			if((document.body.scrollHeight-$(window).scrollTop() < $.viewportH()+500) && (ListView.status=='idle')) {
+				ListView.objx.wrapper.addClass('loading');
 				ListView.status='loading';
 				ListView.requestMoreSnaps();
 			}
@@ -131,6 +132,7 @@ var ListView={
 				$(this).removeClass('hidden');
 			});
 			wrapper.isotope('appended', snapObjx);
+			ListView.objx.wrapper.removeClass('loading');
 			ListView.status='idle';
 		});
 	},
@@ -147,6 +149,7 @@ var ListView={
 				}
 			}, 'json');
 		} else {
+			ListView.objx.wrapper.removeClass('loading');
 			this.status='end';
 		}
 	}

@@ -418,8 +418,14 @@
 ----------------------------------------------------------------------------*/
 .snap-list {
 	padding-top: 30px;
-	padding-bottom: 30px;
+	padding-bottom: 68px;
 	margin:0px -15px;
+}
+
+.snap-list.loading {
+	background-image:url('http://cdn.camscon.kr/front-assets/list-view/loading.gif');
+	background-position: 50% 100%;
+	background-repeat: no-repeat;
 }
 
 .snap-list .snap-wrapper {
