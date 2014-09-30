@@ -34,6 +34,10 @@
 	padding:12px 15px;
 }
 
+.layout-header .site-nav ul li a.active {
+	color:#56d8d1;
+}
+
 .layout-header .site-nav ul li a:hover {
 	background-color: #56d8d1;
 	color:#fff;

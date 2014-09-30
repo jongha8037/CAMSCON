@@ -49,8 +49,16 @@
 
 			<nav class="site-nav clearfix">
 				<ul>
+					@if(isset($RouteParams) && $RouteParams->category=='all' && $RouteParams->slug=='order' && $RouteParams->ordering=='hot')
+					<li><a href="{{action('StreetSnapController@getList', array('category'=>'all', 'slug'=>'order', 'ordering'=>'hot'))}}" class="active">Hot</a></li>
+					@else
 					<li><a href="{{action('StreetSnapController@getList', array('category'=>'all', 'slug'=>'order', 'ordering'=>'hot'))}}">Hot</a></li>
+					@endif
+					@if(isset($RouteParams) && $RouteParams->category=='all' && $RouteParams->slug=='order' && $RouteParams->ordering=='new')
+					<li><a href="{{action('StreetSnapController@getList', array('category'=>'all', 'slug'=>'order', 'ordering'=>'new'))}}" class="active">New</a></li>
+					@else
 					<li><a href="{{action('StreetSnapController@getList', array('category'=>'all', 'slug'=>'order', 'ordering'=>'new'))}}">New</a></li>
+					@endif
 					<li><a href="" class="deactivated">Editorial</a></li>
 					<li><a href="" class="deactivated">Inspirer</a></li>
 				</ul>

@@ -4,9 +4,18 @@ class StreetSnapController extends BaseController {
 
 	//TODO: Cache queries for front-end
 	public function getList($category='all', $slug=null, $ordering='new') {
+		//Set params for root
 		if(Route::current()->uri()=='/') {
+			$slug='order';
 			$ordering='hot';
 		}
+
+		//Pass route parameters as view data
+		$routeParams=new stdClass();
+		$routeParams->category=$category;
+		$routeParams->slug=$slug;
+		$routeParams->ordering=$ordering;
+		ViewData::add('RouteParams', $routeParams);
 
 		//Get street snaps
 		switch($category) {
