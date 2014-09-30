@@ -73,6 +73,11 @@ Route::group(array('before' => 'front'), function() {
 	/*Like routes*/
 	Route::post('user/action/like', array('before'=>'auth', 'uses'=>'LikeController@procLike'));
 
+	/*Legal Documents*/
+	Route::get('legal/terms-of-use', function() {
+		return View::make('legal/terms-of-use', ViewData::get());
+	});
+
 });//Front-end route group
 
 
