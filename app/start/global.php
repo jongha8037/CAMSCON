@@ -64,7 +64,7 @@ App::error(function(Exception $exception, $code)
 
 App::down(function()
 {
-	return Response::make("Be right back!", 503);
+	return Response::make("서버 이전이 진행되고 있습니다. 잠시만 기다려 주시기 바랍니다 :)", 503);
 });
 
 /*
