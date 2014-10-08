@@ -104,6 +104,35 @@ Route::filter('auth.admin', function() {
 	}
 });
 
+Route::filter('auth.superuser', function() {
+	if(Auth::check()) {
+		//User is logged in check groups
+		$groups=Auth::user()->groups;
+		$authGroup=array(6);
+		$auth=false;
+		foreach($groups as $group) {
+			if( in_array(intval($group->id), $authGroup) ) {
+				$auth=true;
+				break;
+			}
+		}
+
+		if(!$auth) {
+			if (Request::ajax()) {
+				return Response::make('Unauthorized', 401);
+			} else {
+				return View::make('error-pages.not-authorized', ViewData::get());
+			}
+		}
+	} else {
+		//User is not logged in
+		if (Request::ajax()) {
+			return Response::make('Unauthorized', 401);
+		} else {
+			return Redirect::to('error/login-required')->with('intended',Request::url());
+		}
+	}
+});
 
 Route::filter('auth.basic', function()
 {

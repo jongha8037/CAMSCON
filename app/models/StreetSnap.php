@@ -82,4 +82,8 @@ class StreetSnap extends Eloquent {
 		}
 	}
 
+	public function getPrettyDraftTitleAttribute() {
+		//
+	}
+
 }

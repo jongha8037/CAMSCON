@@ -63,6 +63,11 @@ Route::group(array('before' => 'front'), function() {
 	Route::get('post/street-snap/data/meta/{query?}', array('uses'=>'StreetSnapEditController@getMetaJson'));
 
 
+	/*New Snap Editor Development Routes*/
+	Route::get('neweditor/starter', array('before'=>'auth.superuser', 'uses'=>'StreetSnapEditor@showStarter'));
+	Route::get('neweditor/editor/{id?}', array('before'=>'auth.superuser', 'uses'=>'StreetSnapEditor@showEditor'));
+
+
 	/*Profile Edit routes*/
 	Route::get('profile-edit', array('before'=>'auth', 'uses'=>'ProfileController@showEditor'));
 	Route::post('profile-edit/cover', array('before'=>'auth|csrf', 'uses'=>'ProfileController@uploadCover'));
@@ -108,7 +113,7 @@ Route::group(array('prefix' => 'admin', 'before'=>'auth.admin'), function() {
 
 });
 
-/*Admin User Routes*/
+/*Admin Auth Routes*/
 Route::get('auth/admin/login', array('before'=>'login-wall','uses'=>'AdminController@showLogin'));
 Route::post('auth/admin/login/fb', array('before'=>'csrf','uses'=>'AdminController@loginWithFB'));
 Route::post('auth/admin/login/email', array('before'=>'csrf','uses'=>'AdminController@loginWithEmail'));
