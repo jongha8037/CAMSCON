@@ -172,6 +172,8 @@ class UserController extends BaseController {
 								$profileImage->save();
 							}
 
+							DB::commit();
+
 							Auth::login($user);
 							$response->type='success';
 							$response->msg=$this->userBoxTemplate();
@@ -181,8 +183,6 @@ class UserController extends BaseController {
 							$response->type='error';
 							$response->msg='db_error';
 						}
-
-						DB::commit();
 					} else {
 						$response->type='error';
 						$response->msg='db_error';
