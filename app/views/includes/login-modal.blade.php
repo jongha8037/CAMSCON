@@ -277,6 +277,7 @@ var LoginModal={
 
 		//Attach Login with FB btn handler
 		this.jqo.find('.login-with-fb-btn').click(function() {
+			LoginModal.disableBtns();
 			LoginModal.hideLoginError();
 			LoginModal.setLoginInfo('페이스북으로 로그인하는 중입니다...<br />처음 로그인하는 경우에는 다소 시간이 걸릴 수 있습니다.');
 			//Start FB login
@@ -364,7 +365,6 @@ var LoginModal={
 		LoginModal.disableBtns();
 		var data=loginForm.serialize();
 		$.post(this.endpoints.email, data, function(response) {
-			LoginModal.enableBtns();
 			if(typeof response === 'object' && 'type' in response) {
 				if(response.type=='success') {
 					if(LoginModal.intended==null) {
@@ -376,9 +376,11 @@ var LoginModal={
 					}
 				} else {
 					LoginModal.setLoginError('이메일 또는 비밀번호가 일치하지 않습니다! :(');
+					LoginModal.enableBtns();
 				}
 			} else {
 				LoginModal.setLoginError('서버로부터 적절한 응답을 받지 못했습니다! :(');
+				LoginModal.enableBtns();
 			}
 		}, 'json');
 	}/*proc_login_email()*/,
