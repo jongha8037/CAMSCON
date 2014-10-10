@@ -392,7 +392,6 @@ var LoginModal={
 	proc_signup:function(signupForm) {
 		var data=signupForm.serialize();
 		$.post(this.endpoints.signup, data, function(response) {
-			LoginModal.enableBtns();
 			if(typeof response === 'object' && 'type' in response) {
 				if(response.type=='success') {
 					if(LoginModal.intended==null) {
@@ -442,9 +441,11 @@ var LoginModal={
 							msg='알 수 없는 오류가 발생했습니다 :(';
 					}
 					LoginModal.setSignupError(msg);
+					LoginModal.enableBtns();
 				}
 			} else {
 				LoginModal.setLoginError('서버로부터 적절한 응답을 받지 못했습니다! :(');
+				LoginModal.enableBtns();
 			}
 		}, 'json');
 	}/*proc_signup()*/,
