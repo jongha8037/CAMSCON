@@ -327,7 +327,6 @@ var LoginModal={
 		$.post(this.endpoints.fb, data, function(response) {
 			if(typeof response === 'object' && 'type' in response) {
 				LoginModal.hideLoginInfo();
-				LoginModal.enableBtns();
 				if(response.type=='success') {
 					if(LoginModal.intended==null) {
 						LoginModal.login_status=true;
@@ -353,8 +352,10 @@ var LoginModal={
 						default:
 							LoginModal.setLoginError('알 수 없는 오류가 발생했습니다 :(');
 					}
+					LoginModal.enableBtns();
 				} else {
 					LoginModal.setLoginError('알 수 없는 오류가 발생했습니다 :(');
+					LoginModal.enableBtns();
 				}
 			}
 		}, 'json');
