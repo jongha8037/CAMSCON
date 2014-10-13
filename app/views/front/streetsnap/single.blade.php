@@ -69,9 +69,11 @@
 			@endif
 		</div>
 
+		@if($snap->pins->count())
 		<div class="pins-section">
 			<ul id="pinList" class="pin-list"></ul>
 		</div>
+		@endif
 
 		<div class="notes-section">
 			@if(!empty($snap->subject_comment))
