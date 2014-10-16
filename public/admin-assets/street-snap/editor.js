@@ -152,6 +152,9 @@ function PinEngine() {
 							case 'permission_error':
 								msg='권한이 없습니다!';
 								break;
+							case 'no_snap':
+								msg='존재하지 사진 입니다!';
+								break;
 							case 'invalid_request':
 								msg='잘못된 요청 입니다!';
 								break;

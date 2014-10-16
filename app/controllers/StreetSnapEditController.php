@@ -169,7 +169,7 @@ class StreetSnapEditController extends BaseController {
 
 		$validationRules=array(
 			'id'=>array('required', 'exists:pin_tags,id'),
-			'streetsnap_id'=>array('required', 'exists:street_snaps,id,user_id,'.Auth::user()->id),
+			'streetsnap_id'=>array('required', 'exists:street_snaps,id'),
 		);
 
 		$messages=array(
@@ -182,36 +182,41 @@ class StreetSnapEditController extends BaseController {
 		$response=new stdClass();
 
 		if($validator->passes()) {
+			$snap=StreetSnap::find($input['streetsnap_id']);
+			if($snap->user_id===Auth::user()->id || Session::get('is_admin', false)) {
+				DB::beginTransaction();
+				try {
+					$pin=PinTag::find($input['id']);
+					$pin_id=$pin->id;
 
-			DB::beginTransaction();
-			try {
-				$pin=PinTag::find($input['id']);
-				$pin_id=$pin->id;
+					if($pin->links()->delete()===false) {
+						throw new Exception("Error deleting pin links");
+					}
 
-				if($pin->links()->delete()===false) {
-					throw new Exception("Error deleting pin links");
+					if($pin->delete()===false) {
+						throw new Exception("Error deleting pin");
+					}
+
+					DB::commit();
+
+					$response->type='success';
+					$response->data=$pin_id;
+				} catch(Exception $e) {
+					DB::rollback();
+					Log::error($e);
+					$response->type='error';
+					$response->data='db_error';
 				}
-
-				if($pin->delete()===false) {
-					throw new Exception("Error deleting pin");
-				}
-
-				DB::commit();
-
-				$response->type='success';
-				$response->data=$pin_id;
-			} catch(Exception $e) {
-				DB::rollback();
-				Log::error($e);
+			} else {
 				$response->type='error';
-				$response->data='db_error';
+				$response->data='permission_error';
 			}
 		} else {
 			$msgs=$validator->messages();
 
 			if($msgs->has('streetsnap_id') && $msgs->first('streetsnap_id')=='exists') {
 				$response->type='error';
-				$response->data='permission_error';
+				$response->data='no_snap';
 			} elseif($msgs->has('id') && $msgs->first('id')=='exists') {
 				$response->type='error';
 				$response->data='no_pin';
