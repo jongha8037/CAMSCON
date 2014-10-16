@@ -112,6 +112,10 @@
 				<p>Instagram @if(!empty($snap->user->instagram))<a href="http://instagram.com/{{$snap->user->instagram}}" target="_blank">{{'@'.$snap->user->instagram}}</a>@else{{'-'}}@endif</p>
 			</div>
 		</div>
+
+		<div class="ad-section">
+			<a href="http://store-c.kr/" target="_blank"><img src="http://cdn.camscon.kr/tmp/ads/sbanner_0{{rand(1,3)}}.jpg" /></a>
+		</div>
 	</div>
 </div><!--/.single-container-->
 @stop

@@ -708,6 +708,7 @@
 .single-container .data-col .photographer-section {
 	border: 1px solid #20cfc5;
 	padding:15px;
+	margin-bottom:30px;
 }
 
 .single-container .photographer-section .profile-img {
@@ -741,6 +742,15 @@
 
 .single-container .photographer-section .profile-data a:hover {
 	color: #000;
+}
+
+.single-container .ad-section {
+	margin-bottom:15px;
+}
+
+.single-container .ad-section img {
+	max-width:100%;
+	height:auto;
 }
 
 @media (max-width:767px) {
