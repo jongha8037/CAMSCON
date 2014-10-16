@@ -887,6 +887,8 @@
 
 .single-container .pin-list li .links li .link-name {
 	color:#707070;
+	/*Temp*/
+	display:none;
 }
 
 .single-container .pin-list li .links li a {
