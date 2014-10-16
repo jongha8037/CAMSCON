@@ -185,9 +185,10 @@ var SingleView={
 		}
 	}/*renderPins()*/,
 	createPin:function(pin,number) {
-		var newPin=$('<a href="" data-id="" class="pin" target="_blank"></a>').text(number);
+		var newPin=$('<a href="" data-id="" class="pin"></a>').text(number);
 		if(pin.links.length>0) {
 			newPin.attr('href', pin.links[0].url);
+			newPin.attr('target', '_blank');
 		}
 		newPin.attr('data-id', pin.id);
 		newPin.css({
