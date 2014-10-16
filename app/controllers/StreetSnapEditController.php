@@ -72,7 +72,8 @@ class StreetSnapEditController extends BaseController {
 
 		$validationRules=array(
 			'id'=>array('sometimes', 'exists:pin_tags,id'),
-			'streetsnap_id'=>array('required', 'exists:street_snaps,id,user_id,'.Auth::user()->id),
+			//'streetsnap_id'=>array('required', 'exists:street_snaps,id,user_id,'.Auth::user()->id),
+			'streetsnap_id'=>array('required', 'exists:street_snaps,id'),
 			'item_id'=>array('required', 'exists:fashion_item_categories,id'),
 			'brand_id'=>array('required', 'exists:fashion_brands,id'),
 			'link'=>array('sometimes', 'url'),
@@ -93,56 +94,61 @@ class StreetSnapEditController extends BaseController {
 
 		if($validator->passes()) {
 			$snap=StreetSnap::find($input['streetsnap_id']);
-			
-			if(!empty($input['id'])) {
-				$pin=PinTag::find($input['id']);
+
+			if($snap->user_id===Auth::user()->id || Session::get('is_admin', false)) {
+				if(!empty($input['id'])) {
+					$pin=PinTag::find($input['id']);
+				} else {
+					$pin=new PinTag;
+				}
+				$pin->top=$input['top'];
+				$pin->left=$input['left'];
+				$pin->brand_id=$input['brand_id'];
+				$pin->item_id=$input['item_id'];
+
+				if(!empty($input['link'])) {
+					$link=new PinLink;
+					$link->pin_link_type='user';
+					$link->title='사용자 입력 링크';
+					$link->url=$input['link'];
+				}
+
+				DB::beginTransaction();
+				try {
+					if($snap->pins()->save($pin)===false) {
+						throw new Exception("Error saving pin");
+					}
+
+					if(isset($link)) {
+						if($pin->links()->delete()===false) {
+							throw new Exception("Error deleting old pin link");
+						}
+
+						if($pin->links()->save($link)===false) {
+							throw new Exception("Error saving pin link");
+						}
+					}
+
+					DB::commit();
+
+					$response->type='success';
+					$response->data=$pin->id;
+				} catch(Exception $e) {
+					DB::rollback();
+					Log::error($e);
+					$response->type='error';
+					$response->data='db_error';
+				}	
 			} else {
-				$pin=new PinTag;
-			}
-			$pin->top=$input['top'];
-			$pin->left=$input['left'];
-			$pin->brand_id=$input['brand_id'];
-			$pin->item_id=$input['item_id'];
-
-			if(!empty($input['link'])) {
-				$link=new PinLink;
-				$link->pin_link_type='user';
-				$link->title='사용자 입력 링크';
-				$link->url=$input['link'];
-			}
-
-			DB::beginTransaction();
-			try {
-				if($snap->pins()->save($pin)===false) {
-					throw new Exception("Error saving pin");
-				}
-
-				if(isset($link)) {
-					if($pin->links()->delete()===false) {
-						throw new Exception("Error deleting old pin link");
-					}
-
-					if($pin->links()->save($link)===false) {
-						throw new Exception("Error saving pin link");
-					}
-				}
-
-				DB::commit();
-
-				$response->type='success';
-				$response->data=$pin->id;
-			} catch(Exception $e) {
-				DB::rollback();
-				Log::error($e);
 				$response->type='error';
-				$response->data='db_error';
+				$response->data='permission_error';
 			}
 		} else {
 			$msgs=$validator->messages();
 
 			if($msgs->has('streetsnap_id') && $msgs->first('streetsnap_id')=='exists') {
 				$response->type='error';
-				$response->data='permission_error';
+				$response->data='no_pin';
 			} elseif($msgs->has('link') && $msgs->first('link')=='url') {
 				$response->type='error';
 				$response->data='url_error';
@@ -510,7 +516,7 @@ class StreetSnapEditController extends BaseController {
 	private function loadStreetSnap($id=0) {
 		$snap=StreetSnap::with('user', 'primary', 'attachments', 'pins', 'pins.brand', 'pins.itemCategory', 'pins.links', 'meta')->find(intval($id));
 		if($snap) {
-			if(is_object($snap->user) && (intval($snap->user->id)===intval(Auth::user()->id))) {
+			if(is_object($snap->user) && (intval($snap->user->id)===intval(Auth::user()->id) || Session::get('is_admin', false))) {
 				return $snap;
 			} else {
 				return false;

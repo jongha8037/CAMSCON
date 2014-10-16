@@ -96,6 +96,9 @@ function PinEngine() {
 					pin.listItem.enable();
 				} else if(response.type='error') {
 					switch(response.data) {
+						case 'no_pin':
+							msg='존재하지 않는 핀 입니다!';
+							break;
 						case 'permission_error':
 							msg='권한이 없습니다!';
 							break;
@@ -365,19 +368,27 @@ var PinEditor={
 			e.data.editor.jqo.modal('hide');
 		});
 	}/*init()*/,
-	launch:function(pin,callback) {
+	launch:function(pin,callback) {console.log(pin);
 		//Setup callback
 		this.pin=pin;
 		this.callback=callback;
 
-		//Clear data
-		this.data.brand={brand_id:null,brand_name:null};
-		this.data.item={item_id:null,item_name:null};
-		this.data.link=null;
+		//Set data
+		this.data.brand=this.pin.brand;
+		this.data.item=this.pin.item;
+		this.data.link=this.pin.link;
 
-		//Clear fields
-		this.jqo.find('input[name="brand"]').typeahead('val', '');
-		this.jqo.find('input[name="item"]').val(null);
+		//Set fields
+		this.jqo.find('input[name="brand"]').typeahead('val', this.pin.brand.brand_name);
+		var itemId=this.pin.item.item_id;
+		var itemSelect=this.jqo.find('select[name="item"]');
+		itemSelect.find('option:selected').prop('selected', false);
+		itemSelect.find('option').filter(function() {
+			if($(this).val()==itemId) {
+				return $(this);
+			}
+		}).prop('selected', true);
+		this.jqo.find('input[name="link"]').val(this.data.link);
 
 		//Launch modal
 		this.jqo.modal('show');

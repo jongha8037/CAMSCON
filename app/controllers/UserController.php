@@ -109,6 +109,10 @@ class UserController extends BaseController {
 			if($user) {
 				//User account associated with the fb user id exists. Login user.
 				Auth::login($user);
+
+				//Check is_admin
+				$this->checkAdminAuth(Auth::user());
+
 				$response->type='success';
 				$response->msg=$this->userBoxTemplate();
 			} else {
@@ -175,6 +179,10 @@ class UserController extends BaseController {
 							DB::commit();
 
 							Auth::login($user);
+
+							//Check is_admin
+							$this->checkAdminAuth(Auth::user());
+
 							$response->type='success';
 							$response->msg=$this->userBoxTemplate();
 						} catch(Exception $e) {//Log::info('transaction failed');
@@ -218,6 +226,10 @@ class UserController extends BaseController {
 		$response=new \stdClass();
 
 		if (Auth::attempt($creds, $remember)) {
+
+			//Check is_admin
+			$this->checkAdminAuth(Auth::user());
+
 			$response->type='success';
 			$response->msg=$this->userBoxTemplate();
 		} else {
@@ -236,5 +248,19 @@ class UserController extends BaseController {
 		$userBox=View::make('includes.user-box')->render();
 		return $userBox;
 	}//userBoxTemplate()
+
+	private function checkAdminAuth($user) {
+		$groups=$user->groups;
+		$isAdmin=false;
+		foreach($groups as $group) {
+			if(intval($group->id)===5 || intval($group->id)===6) {
+				$isAdmin=true;
+				break;
+			}
+		}
+		if($isAdmin) {
+			Session::put('is_admin',true);
+		}
+	}
 
 }
