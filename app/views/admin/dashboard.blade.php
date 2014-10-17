@@ -9,7 +9,17 @@ Admin Dashboard
 
 @section('content')
 <div class="col-xs-12">
-Admin Dashboard
+<h1>Dashboard</h1>
+<dl>
+	<dt>총 가입자</dt>
+	<dd>{{$user_total}}</dd>
+	<dt>오늘 가입자</dt>
+	<dd>{{$user_today_total or 0}}</dd>
+	<dt>총 스냅 수</dt>
+	<dd>{{$snap_total}}</dd>
+	<dt>오늘 업로드된 스냅 수</dt>
+	<dd>{{$snap_today_total or 0}}</dd>
+</dl>
 </div>
 @stop
 

@@ -8,7 +8,19 @@ use Facebook\FacebookAuthorizationException;
 class AdminController extends BaseController {
 
 	public function showDashboard() {
-		return View::make('admin.dashboard');
+		ViewData::add('user_total', User::count());
+		$userTodayTotal=User::whereBetween('created_at', array(date('Y-m-d').' 00:00:00', date('Y-m-d H:i:s')))->count();
+		if($userTodayTotal>0) {
+			ViewData::add('user_today_total', $userTodayTotal);
+		}
+
+		ViewData::add('snap_total', StreetSnap::count());
+		$snapTodayTotal=StreetSnap::whereBetween('created_at', array(date('Y-m-d').' 00:00:00', date('Y-m-d H:i:s')))->where('status', '=', 'published')->count();
+		if($snapTodayTotal>0) {
+			ViewData::add('snap_today_total', $snapTodayTotal);
+		}
+
+		return View::make('admin.dashboard', ViewData::get());
 	}
 
 	public function showLogin() {
