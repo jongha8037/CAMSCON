@@ -279,6 +279,24 @@ $(document).ready(function() {
 	$('#singleBannerLink').on('click', function() {
 		ga('send', 'event', 'Banner', 'click', 'single-view-banner');
 	});
+
+	//Track breadcrumb and prev/next usage
+	var vpw=$.viewportW();
+	if(vpw<768) {
+		$('.breadcrumbs').on('click', 'a', null, function() {
+			ga('send', 'event', 'Breadcrumbs', 'click', 'breadcrumbs-mobile');
+		});
+		$('.content-nav').on('click', 'a', null, function() {
+			ga('send', 'event', 'ContentNav', 'click', 'content-nav-mobile');
+		});
+	} else {
+		$('.breadcrumbs').on('click', 'a', null, function() {
+			ga('send', 'event', 'Breadcrumbs', 'click', 'breadcrumbs-desktop');
+		});
+		$('.content-nav').on('click', 'a', null, function() {
+			ga('send', 'event', 'ContentNav', 'click', 'content-nav-desktop');
+		});
+	}
 });
 
 $(window).resize(function() {
