@@ -10,7 +10,7 @@ Admin Dashboard
 @section('content')
 <div class="col-xs-12">
 <h1>Dashboard</h1>
-<dl>
+<dl class="dl-horizontal">
 	<dt>총 가입자</dt>
 	<dd>{{$user_total}}</dd>
 	<dt>오늘 가입자</dt>
