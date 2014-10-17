@@ -169,6 +169,15 @@ var SingleView={
 			var pin_id=$(this).attr('data-id');
 			e.data.pinList.find('li[data-pin-no="'+pin_id+'"]').removeClass('highlight');
 		});
+
+		//Track pin link clicks with Google Analytics
+		this.objecs.pinContainer.on('click', 'a', null, function() {
+			ga('send', 'click', 'Pin', 'click', 'snap-pin');
+		});
+
+		this.objecs.pinList.on('click', 'a', null, function() {
+			ga('send', 'click', 'Pin', 'click', 'snap-pin-link');
+		});
 	}/*init()*/,
 	render:function() {
 		var maxWidth=$('#photoCol').innerWidth();
