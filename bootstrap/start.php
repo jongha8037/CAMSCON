@@ -70,7 +70,8 @@ require $framework.'/Illuminate/Foundation/start.php';
 */
 
 function autop($rawText) {
-	$brText=nl2br($rawText, true);
+	$utfVal=iconv('UTF-8', 'UTF-8//IGNORE', $rawText);
+	$brText=nl2br($utfVal, true);
 	$pArray=explode('<br /><br />', $brText);
 	$output='';
 	foreach ($pArray as $p) {
