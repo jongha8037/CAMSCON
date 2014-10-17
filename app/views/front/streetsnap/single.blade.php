@@ -172,11 +172,11 @@ var SingleView={
 
 		//Track pin link clicks with Google Analytics
 		this.objects.pinContainer.on('click', 'a', null, function() {
-			ga('send', 'click', 'Pin', 'click', 'snap-pin');
+			ga('send', 'event', 'Pin', 'click', 'snap-pin');
 		});
 
 		this.objects.pinList.on('click', 'a', null, function() {
-			ga('send', 'click', 'Pin', 'click', 'snap-pin-link');
+			ga('send', 'event', 'Pin', 'click', 'snap-pin-link');
 		});
 	}/*init()*/,
 	render:function() {
@@ -276,7 +276,7 @@ $(document).ready(function() {
 
 	//Track banner clicks with Google Analytics
 	$('#singleBannerLink').on('click', function() {
-		ga('send', 'click', 'Banner', 'click', 'single-view-banner');
+		ga('send', 'event', 'Banner', 'click', 'single-view-banner');
 	});
 });
 
