@@ -114,7 +114,7 @@
 		</div>
 
 		<div class="ad-section">
-			<a href="http://store-c.kr/" target="_blank"><img src="http://cdn.camscon.kr/tmp/ads/sbanner_0{{rand(1,3)}}.jpg" /></a>
+			<a id="singleBannerLink" href="http://store-c.kr/" target="_blank"><img src="http://cdn.camscon.kr/tmp/ads/sbanner_0{{rand(1,3)}}.jpg" /></a>
 		</div>
 	</div>
 </div><!--/.single-container-->
@@ -264,6 +264,11 @@ var LikeButtons={
 $(document).ready(function() {
 	SingleView.init();
 	LikeButtons.init();
+
+	//Track banner clicks with Google Analytics
+	$('#singleBannerLink').on('click', function() {
+		ga('send', 'click', 'Banner', 'click', 'single-view-banner');
+	});
 });
 
 $(window).resize(function() {
