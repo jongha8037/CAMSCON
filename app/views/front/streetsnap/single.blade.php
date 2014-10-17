@@ -171,11 +171,11 @@ var SingleView={
 		});
 
 		//Track pin link clicks with Google Analytics
-		this.objecs.pinContainer.on('click', 'a', null, function() {
+		this.objects.pinContainer.on('click', 'a', null, function() {
 			ga('send', 'click', 'Pin', 'click', 'snap-pin');
 		});
 
-		this.objecs.pinList.on('click', 'a', null, function() {
+		this.objects.pinList.on('click', 'a', null, function() {
 			ga('send', 'click', 'Pin', 'click', 'snap-pin-link');
 		});
 	}/*init()*/,
