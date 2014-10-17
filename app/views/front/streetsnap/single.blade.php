@@ -280,9 +280,18 @@ $(document).ready(function() {
 		ga('send', 'event', 'Banner', 'click', 'single-view-banner');
 	});
 
-	//Track breadcrumb and prev/next usage
+	//Track category navigation, breadcrumbs and prev/next usage
 	var vpw=$.viewportW();
 	if(vpw<768) {
+		$('.site-logo').on('click', 'a', null, function() {
+			ga('send', 'event', 'LogoClick', 'click', 'logo-mobile');
+		});
+		$('.site-nav').on('click', 'a', null, function() {
+			ga('send', 'event', 'SiteNav', 'click', 'site-nav-mobile');
+		});
+		$('.category-nav').on('click', 'a', null, function() {
+			ga('send', 'event', 'CategoryNav', 'click', 'category-nav-mobile');
+		});
 		$('.breadcrumbs').on('click', 'a', null, function() {
 			ga('send', 'event', 'Breadcrumbs', 'click', 'breadcrumbs-mobile');
 		});
@@ -290,6 +299,15 @@ $(document).ready(function() {
 			ga('send', 'event', 'ContentNav', 'click', 'content-nav-mobile');
 		});
 	} else {
+		$('.site-logo').on('click', 'a', null, function() {
+			ga('send', 'event', 'LogoClick', 'click', 'logo-desktop');
+		});
+		$('.site-nav').on('click', 'a', null, function() {
+			ga('send', 'event', 'SiteNav', 'click', 'site-nav-desktop');
+		});
+		$('.category-nav').on('click', 'a', null, function() {
+			ga('send', 'event', 'CategoryNav', 'click', 'category-nav-desktop');
+		});
 		$('.breadcrumbs').on('click', 'a', null, function() {
 			ga('send', 'event', 'Breadcrumbs', 'click', 'breadcrumbs-desktop');
 		});
