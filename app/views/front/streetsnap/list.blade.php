@@ -186,6 +186,7 @@ var LikeButtons={
 			//console.log(response);
 			if(response.proc=='liked') {
 				btn.addClass('liked');
+				ga('send', 'event', 'Like', 'click', 'snap-like-list');
 			} else if(response.proc=='canceled') {
 				btn.removeClass('liked');
 			}
