@@ -83,6 +83,10 @@ Route::group(array('before' => 'front'), function() {
 		return View::make('legal/terms-of-use', ViewData::get());
 	});
 
+	Route::get('legal/privacy-policy', function() {
+		return View::make('legal/terms-of-use', ViewData::get());
+	});
+
 });//Front-end route group
 
 
