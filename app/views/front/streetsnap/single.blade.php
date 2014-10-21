@@ -118,11 +118,21 @@
 		<div class="ad-section">
 			<a id="singleBannerLink" href="http://store-c.kr/" target="_blank"><img src="http://cdn.camscon.kr/tmp/ads/sbanner_0{{rand(1,3)}}.jpg" /></a>
 		</div>
+
+		<div id="commentsSection" class="comments-section">
+			<div id="primaryCommentEditor" class="primary-comment-editor">
+				<textarea></textarea>
+				<button type="submit" class="comment-submit-btn">Post Comment</button>
+			</div>
+		</div>
 	</div>
 </div><!--/.single-container-->
 @stop
 
 @section('footer_scripts')
+<script type="text/javascript" src="{{asset('packages/jquery-ui-custom/jquery-ui-core-widget.1.11.2.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('packages/jquery-autoresize/jquery.autoresize.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('packages/jquery-autoresize/autoresize.css')}}" />
 <script type="text/javascript">
 var SingleView={
 	snap:{

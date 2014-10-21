@@ -1,0 +1,10 @@
+.textarea-autoresize {
+	overflow:hidden;
+}
+
+.textarea-autoresize-hidden {
+	display:none;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	min-height: 50px;
+}

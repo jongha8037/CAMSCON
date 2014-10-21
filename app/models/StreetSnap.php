@@ -37,24 +37,9 @@ class StreetSnap extends Eloquent {
 		return $this->morphMany('UserLike', 'target');
 	}
 
-	/*
-	public function liked() {
-		$liked=UserLike::where('target_type', '=', 'StreetSnap')->where('target_id', '=', $this->id)->where('user_id', '=', Auth::user()->id)->first();
-		return $liked;
+	public function comments() {
+		return $this->morphMany('UserComment', 'target');
 	}
-	*/
-
-	/*
-	public function myLike() {
-		return $this->hasOne('Like', '');
-	}
-	*/
-
-	/*
-	public function pinlinks() {
-		return $this->hasManyThrough('PinLink', 'PinTag', null, 'pin_id');
-	}
-	*/
 
 	public function liked() {
 		if(Auth::check()) {
