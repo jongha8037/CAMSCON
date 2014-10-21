@@ -84,7 +84,7 @@ Route::group(array('before' => 'front'), function() {
 	});
 
 	Route::get('legal/privacy-policy', function() {
-		return View::make('legal/terms-of-use', ViewData::get());
+		return View::make('legal/privacy-policy', ViewData::get());
 	});
 
 });//Front-end route group
