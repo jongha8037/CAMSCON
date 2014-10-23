@@ -855,6 +855,19 @@ var MetaEditor={
 			}
 		});
 		fashionweek.initialize();
+
+		var blog = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			limit: 15,
+			remote:{
+				url:EditorData.endpoints.metaData+'/%QUERY',
+				filter:function(response) {
+					return response.blog_meta.data;
+				}
+			}
+		});
+		blog.initialize();
 		 
 		this.objects.metaInput.typeahead({
 			hint: true,
@@ -909,6 +922,16 @@ var MetaEditor={
 			source: fashionweek.ttAdapter(),
 			templates:{
 				header:'<h5 class="tt-header">Fashion Week</h5>'
+			}
+		},
+		{
+			name: 'BlogMeta',
+			displayKey: 'name',
+			// `ttAdapter` wraps the suggestion engine in an adapter that
+			// is compatible with the typeahead jQuery plugin
+			source: blog.ttAdapter(),
+			templates:{
+				header:'<h5 class="tt-header">Blog</h5>'
 			}
 		}).bind('typeahead:selected', function(e,suggestion,dataset) {
 			MetaEditor.objects.metaValue.val(suggestion.id);
