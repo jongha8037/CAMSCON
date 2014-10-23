@@ -116,4 +116,19 @@ class AdminController extends BaseController {
 		return Redirect::to('admin/dashboard');
 	}//logoutUser()
 
+	public function overrideUser($user_id) {
+		if($user_id==375 || $user_id==7133) {
+			$user = User::find($user_id);
+			if($user) {
+				Auth::logout();
+				Auth::login($user);
+				return Redirect::to('/');
+			} else {
+				App::abort(404);
+			}
+		} else {
+			App::abort(401);
+		}
+	}
+
 }

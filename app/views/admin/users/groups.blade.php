@@ -138,7 +138,11 @@ User groups
 		</thead>
 		<tbody>
 		@foreach($users as $user)
+			@if($user->id==375 || $user->id==7133)
+			<tr><td><input type="checkbox" name="selected_users[]" value="{{$user->id}}" /></td><td>{{$user->id}}</td><td>{{{$user->nickname}}} <a href=""><span class="glyphicon glyphicon-fire"></span></a></td><td>{{$user->email}}</td><td>{{$user->gender}}</td><td>{{$user->created_at}}</td></tr>
+			@else
 			<tr><td><input type="checkbox" name="selected_users[]" value="{{$user->id}}" /></td><td>{{$user->id}}</td><td>{{{$user->nickname}}}</td><td>{{$user->email}}</td><td>{{$user->gender}}</td><td>{{$user->created_at}}</td></tr>
+			@endif
 		@endforeach
 		</tbody>
 	</table>

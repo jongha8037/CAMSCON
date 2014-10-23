@@ -115,6 +115,8 @@ Route::group(array('prefix' => 'admin', 'before'=>'auth.admin'), function() {
 	Route::post('user-groups/copy-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@copyUsers'));
 	Route::post('user-groups/move-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@moveUsers'));
 
+	/*Override user*/
+	Route::get('override/{user_id}', array('uses'=>'AdminController@overrideUser'));
 });
 
 /*Admin Auth Routes*/
