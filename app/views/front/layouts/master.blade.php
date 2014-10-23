@@ -145,8 +145,16 @@
 					<li><a href="{{action('StreetSnapEditController@showStarter')}}" class="post-btn"><span class="glyphicon glyphicon-camera"></span> Post</a></li>
 				</ul>
 			</nav>
+			@if(isset($RouteParams) && $RouteParams->category=='all' && $RouteParams->slug=='order' && $RouteParams->ordering=='new')
+			<div class="mobile-new-btn"><a href="{{action('StreetSnapController@getList', array('category'=>'all', 'slug'=>'order', 'ordering'=>'new'))}}" class="active">New</a></div>
+			@else
 			<div class="mobile-new-btn"><a href="{{action('StreetSnapController@getList', array('category'=>'all', 'slug'=>'order', 'ordering'=>'new'))}}">New</a></div>
+			@endif
+			@if(isset($RouteParams) && $RouteParams->category=='all' && $RouteParams->slug=='order' && $RouteParams->ordering=='hot')
+			<div class="mobile-hot-btn"><a href="{{action('StreetSnapController@getList', array('category'=>'all', 'slug'=>'order', 'ordering'=>'hot'))}}" class="active">Hot</a></div>
+			@else
 			<div class="mobile-hot-btn"><a href="{{action('StreetSnapController@getList', array('category'=>'all', 'slug'=>'order', 'ordering'=>'hot'))}}">Hot</a></div>
+			@endif
 		</div>
 	</header><!--/.layout-header-->
 

@@ -316,6 +316,11 @@
 		padding:16px 0px;
 	}
 
+	.layout-header .mobile-hot-btn a.active, 
+	.layout-header .mobile-new-btn a.active {
+		border-bottom: 2px solid #56d8d1;
+	}
+
 	.layout-header .category-nav {
 		position: static;
 		float:left;
