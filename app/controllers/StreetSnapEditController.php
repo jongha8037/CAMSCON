@@ -559,6 +559,10 @@ class StreetSnapEditController extends BaseController {
 			$response->blog_meta=new stdClass();
 			$response->blog_meta->matches=true;
 			$response->blog_meta->data=BlogMeta::where('name', 'LIKE', '%'.$query.'%')->get(array('id','name'));
+		} else {
+			$response->blog_meta=new stdClass();
+			$response->blog_meta->matches=false;
+			$response->blog_meta->data='[]';
 		}
 		
 		return Response::json($response);
