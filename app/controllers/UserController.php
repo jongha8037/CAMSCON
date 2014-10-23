@@ -111,7 +111,7 @@ class UserController extends BaseController {
 				Auth::login($user);
 
 				//Check is_admin
-				$this->checkAdminAuth(Auth::user());
+				$this->setAuthGroupSession(Auth::user());
 
 				$response->type='success';
 				$response->msg=$this->userBoxTemplate();
@@ -181,7 +181,7 @@ class UserController extends BaseController {
 							Auth::login($user);
 
 							//Check is_admin
-							$this->checkAdminAuth(Auth::user());
+							$this->setAuthGroupSession(Auth::user());
 
 							$response->type='success';
 							$response->msg=$this->userBoxTemplate();
@@ -228,7 +228,7 @@ class UserController extends BaseController {
 		if (Auth::attempt($creds, $remember)) {
 
 			//Check is_admin
-			$this->checkAdminAuth(Auth::user());
+			$this->setAuthGroupSession(Auth::user());
 
 			$response->type='success';
 			$response->msg=$this->userBoxTemplate();
@@ -249,18 +249,33 @@ class UserController extends BaseController {
 		return $userBox;
 	}//userBoxTemplate()
 
-	private function checkAdminAuth($user) {
+	private function setAuthGroupSession($user) {
 		$groups=$user->groups;
 		$isAdmin=false;
 		foreach($groups as $group) {
-			if(intval($group->id)===5 || intval($group->id)===6) {
-				$isAdmin=true;
-				break;
-			}
-		}
-		if($isAdmin) {
-			Session::put('is_admin',true);
-		}
-	}
+			switch(intval($group->id)) {
+				case 1:
+					Session::put('is_activeCamto',true);
+					break;
+				case 2:
+					Session::put('is_retiredCamto',true);
+					break;
+				case 3:
+					Session::put('is_blogger',true);
+					break;
+				case 4:
+					Session::put('is_staff',true);
+					break;
+				case 5:
+					Session::put('is_manager',true);
+					break;
+				case 6:
+					Session::put('is_su',true);
+					break;
+				case 7:
+					Session::put('is_blacklisted',true);
+			}//switch()
+		}//foreach()
+	}//setAuthGroupSession()
 
 }
