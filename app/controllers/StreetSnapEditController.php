@@ -555,14 +555,11 @@ class StreetSnapEditController extends BaseController {
 		$response->fashionweek_meta->data=FashionWeekMeta::where('name_ko', 'LIKE', '%'.$query.'%')->orWhere('name_en', 'LIKE', '%'.$query.'%')->get(array('id','name_en','name_ko'));
 
 		//Blog meta (Requires permission check)
-		if(Session::get('is_blogger', false) || Session::get('is_manager', false) || Session::get('is_su', false)) {//Return data only if user is admin
-			$response->blog_meta=new stdClass();
-			$response->blog_meta->matches=true;
+		$response->blog_meta=new stdClass();
+		$response->blog_meta->matches=true;
+		$response->blog_meta->data=array();
+		if(Session::get('is_blogger', false) || Session::get('is_manager', false) || Session::get('is_su', false)) {
 			$response->blog_meta->data=BlogMeta::where('name', 'LIKE', '%'.$query.'%')->get(array('id','name'));
-		} else {
-			$response->blog_meta=new stdClass();
-			$response->blog_meta->matches=true;
-			$response->blog_meta->data=array();
 		}
 		
 		return Response::json($response);
