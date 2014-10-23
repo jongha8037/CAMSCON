@@ -232,7 +232,6 @@ var ProfileEditor={
 				//console.log(response);
 				if(typeof response==='object' && 'type' in response && 'data' in response) {
 					if(response.type=='success') {
-						ProfileEditor.
 						ProfileEditor.objx.coverFigure.empty().removeClass('empty').append('<img src="'+response.data.url+'" alt="" /><button type="button" id="uploadCoverBtn" class="upload-cover-btn btn btn-primary">커버사진 업로드</button>');
 					} else if(response.type=='error') {
 						switch(response.data) {
