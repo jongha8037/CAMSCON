@@ -113,8 +113,13 @@ var ListView={
 			}
 
 			var subjectMeta=$('<div class="subject-meta"></div>');
-			$('<strong></strong>').text(snaps[i].name).appendTo(subjectMeta);
-			$('<strong class="meta-category"></strong>').text(snaps[i].meta.name).appendTo(subjectMeta);
+			if(snaps[i].meta_type=='BlogMeta') {
+				$('<strong></strong>').text(snaps[i].meta.name).appendTo(subjectMeta);
+				$('<strong class="meta-category"></strong>').text(snaps[i].meta.country).appendTo(subjectMeta);
+			} else {
+				$('<strong></strong>').text(snaps[i].name).appendTo(subjectMeta);
+				$('<strong class="meta-category"></strong>').text(snaps[i].meta.name).appendTo(subjectMeta);
+			}
 			subjectMeta.appendTo(meta);
 
 			var authorMeta=$('<div class="author-meta">Photo by </div>').append(snaps[i].user.nickname).appendTo(meta);

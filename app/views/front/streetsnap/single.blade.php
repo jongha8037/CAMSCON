@@ -63,7 +63,7 @@
 		<div class="icon-section">
 			<h3 class="name">{{{$snap->name}}}</h3>
 			@if($snap->meta_type=='BlogMeta')
-			<h3 class="category">{{{$snap->meta->name}}} / {{trans('countries.'.$snap->meta->country_code)}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_admin', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			<h3 class="category">{{{$snap->meta->name}}} / {{$snap->meta->country}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_admin', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@elseif($snap->affiliation)
 			<h3 class="category">{{{$snap->meta->name}}} / {{{$snap->affiliation}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_admin', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@else

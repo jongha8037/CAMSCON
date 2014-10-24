@@ -2,7 +2,7 @@
 
 class StreetSnap extends Eloquent {
 
-	protected $visible=array('id', 'name', 'affiliation', 'cached_total_likes', 'cached_total_comments', 'user', 'primary', 'meta', 'single_url', 'likes', 'liked');
+	protected $visible=array('id', 'name', 'affiliation', 'meta_type', 'cached_total_likes', 'cached_total_comments', 'user', 'primary', 'meta', 'single_url', 'likes', 'liked');
 	protected $appends=array('single_url');
 	protected $category;
 	protected $slug;
