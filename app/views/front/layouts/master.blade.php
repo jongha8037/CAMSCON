@@ -86,7 +86,6 @@
 			<nav class="category-nav">
 				<a href="#" class="mobile-cat-btn">Fashion Inspiration <span class="caret"></span></a>
 				<ul class="category-list clearfix">
-					<li><a href="{{url('/')}}">All</a></li>
 					<li class="campus-menu">
 						<a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>'all', 'ordering'=>'new'))}}" class="parent">Campus <span class="caret"></span></a>
 						<span class="close-btn glyphicon glyphicon-remove"></span>
@@ -109,6 +108,7 @@
 							@endforeach
 						</ul>
 					</li>
+					<li><a href="{{action('StreetSnapController@getList', array('category'=>'blog', 'slug'=>'all', 'ordering'=>'new'))}}">Fashion People</a></li>
 					<li><a href="" class="deactivated">Brand <span class="caret"></span></a></li>
 					<li class="fashionweek-menu">
 						<a href="{{action('StreetSnapController@getList', array('category'=>'fashion-week', 'slug'=>'all', 'ordering'=>'new'))}}" class="parent">Fashion week <span class="caret"></span></a>
