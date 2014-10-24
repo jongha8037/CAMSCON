@@ -28,10 +28,10 @@ Route::group(array('before' => 'front'), function() {
 
 	Route::get('/', array('uses'=>"StreetSnapController@getList"));
 
-	//Single View for campus,street,brand,fashion-week,festival,club
+	//Single View for campus,street,brand,fashion-week,festival,club,blog
 	Route::get('{category}/{slug}/{id}',
 		array('before'=>'restricted-page', 'uses'=>"StreetSnapController@getSingle")
-	)->where(array('category'=>'filter|campus|street|brand|fashion-week|festival', 'id'=>'^[0-9]+$'));
+	)->where(array('category'=>'filter|campus|street|brand|fashion-week|festival|blog', 'id'=>'^[0-9]+$'));
 
 	//Profile View
 	Route::get('profile/{id}', array('uses'=>'ProfileController@showProfile'));
