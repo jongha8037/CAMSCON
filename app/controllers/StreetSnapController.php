@@ -316,6 +316,49 @@ class StreetSnapController extends BaseController {
 							->paginate(9);
 					}
 				}
+				break;
+
+				case 'blog':
+				if($slug=='all') {
+					if($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'BlogMeta')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'BlogMeta')
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
+				} else {
+					$meta=BlogMeta::where('slug', '=', $slug)->first();
+					if(empty($meta)) {
+						App::abort(404);
+					} elseif($ordering=='hot') {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'BlogMeta')
+							->where('meta_id', '=', $meta->id)
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('cached_total_likes', 'DESC')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					} else {
+						$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+							->where('meta_type', '=', 'BlogMeta')
+							->where('meta_id', '=', $meta->id)
+							->has('primary')
+							->where('status', '=', 'published')
+							->orderBy('created_at', 'DESC')
+							->paginate(9);
+					}
+				}
 		}//Switch()
 		//Add context to snaps
 		$snaps->each(function($snap) use($category, $slug) {
