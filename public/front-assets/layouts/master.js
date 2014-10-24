@@ -12,6 +12,9 @@ var CategoryNavigation={
 		//Street
 		this.addSubmenu('street');
 
+		//Blog (Fashion people)
+		this.addSubmenu('blog');
+
 		//Fashion week
 		this.addSubmenu('fashionweek');
 

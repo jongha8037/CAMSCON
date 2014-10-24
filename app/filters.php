@@ -208,6 +208,17 @@ Route::filter('front', function() {
 		$catNav->street[]=$street;
 	}
 
+	//Build Street menu
+	$catNav->blog=array();
+	$blogMeta=BlogMeta::orderBy('name', 'ASC')->get();
+	foreach ($blogMeta as $meta) {
+		$blog=new stdClass();
+		$blog->id=$meta->id;
+		$blog->name=$meta->name;
+		$blog->slug=$meta->slug;
+		$catNav->blog[]=$blog;
+	}
+
 	//Build Festival menu
 	$catNav->festival=array();
 	$festivalMeta=FestivalMeta::orderBy('name_ko', 'ASC')->get();
