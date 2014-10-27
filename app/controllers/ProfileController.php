@@ -233,7 +233,7 @@ class ProfileController extends BaseController {
 			$input['password']=Input::get('password');
 			$input['password_confirmation']=Input::get('password_confirmation');
 			$validationRules['password']=array('required', 'min:8', 'confirmed');
-			$user->password=$input['password'];
+			$user->password=Hash::make($input['password']);
 		}
 		
 		if(Input::has('slug')) {
