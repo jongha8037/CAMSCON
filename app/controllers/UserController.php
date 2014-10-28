@@ -74,6 +74,7 @@ class UserController extends BaseController {
 	public function loginWithFB() {
 		if(Auth::check()) {
 			Auth::logout();
+			$this->unsetAuthGroupSession();
 		}
 
 		//Setup response obj
@@ -208,6 +209,7 @@ class UserController extends BaseController {
 	public function loginWithEmail() {
 		if(Auth::check()) {
 			Auth::logout();
+			$this->unsetAuthGroupSession();
 		}
 
 		$input=Input::only('email','password','remember');
@@ -241,6 +243,7 @@ class UserController extends BaseController {
 
 	public function logoutUser() {
 		Auth::logout();
+		$this->unsetAuthGroupSession();
 		return Redirect::back();
 	}//logoutUser()
 
@@ -277,5 +280,9 @@ class UserController extends BaseController {
 			}//switch()
 		}//foreach()
 	}//setAuthGroupSession()
+
+	private function unsetAuthGroupSession() {
+		Session::flush();
+	}
 
 }

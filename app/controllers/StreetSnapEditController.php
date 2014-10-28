@@ -95,7 +95,7 @@ class StreetSnapEditController extends BaseController {
 		if($validator->passes()) {
 			$snap=StreetSnap::find($input['streetsnap_id']);
 
-			if($snap->user_id===Auth::user()->id || Session::get('is_manager', false) || Session::get('is_su', false)) {
+			if($snap->user_id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false)) {
 				if(!empty($input['id'])) {
 					$pin=PinTag::find($input['id']);
 				} else {
@@ -183,7 +183,7 @@ class StreetSnapEditController extends BaseController {
 
 		if($validator->passes()) {
 			$snap=StreetSnap::find($input['streetsnap_id']);
-			if($snap->user_id===Auth::user()->id || Session::get('is_manager', false) || Session::get('is_su', false)) {
+			if($snap->user_id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false)) {
 				DB::beginTransaction();
 				try {
 					$pin=PinTag::find($input['id']);
@@ -524,7 +524,7 @@ class StreetSnapEditController extends BaseController {
 	private function loadStreetSnap($id=0) {
 		$snap=StreetSnap::with('user', 'primary', 'attachments', 'pins', 'pins.brand', 'pins.itemCategory', 'pins.links', 'meta')->find(intval($id));
 		if($snap) {
-			if(is_object($snap->user) && (intval($snap->user->id)===intval(Auth::user()->id) || Session::get('is_manager', false) || Session::get('is_su', false))) {
+			if(is_object($snap->user) && (intval($snap->user->id)===intval(Auth::user()->id) || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))) {
 				return $snap;
 			} else {
 				return false;
@@ -561,7 +561,7 @@ class StreetSnapEditController extends BaseController {
 		$response->blog_meta=new stdClass();
 		$response->blog_meta->matches=true;
 		$response->blog_meta->data=array();
-		if(Session::get('is_blogger', false) || Session::get('is_manager', false) || Session::get('is_su', false)) {
+		if(Session::get('is_blogger', false) || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false)) {
 			$response->blog_meta->data=BlogMeta::where('name', 'LIKE', '%'.$query.'%')->get(array('id','name'));
 		}
 		
