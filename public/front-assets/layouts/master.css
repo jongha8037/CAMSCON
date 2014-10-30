@@ -172,13 +172,17 @@
 	top: 59px;
 }
 
+.layout-header .category-nav .sub-menu.blog-sub-menu {
+	left: 0px;
+	top: 59px;
+}
+
 .layout-header .category-nav .sub-menu.fashionweek-sub-menu {
 	width:180px;
 }
 
 .layout-header .category-nav .gender-menu, 
 .layout-header .category-nav .street-menu,
-.layout-header .category-nav .blog-menu,
 .layout-header .category-nav .fashionweek-menu, 
 .layout-header .category-nav .festival-menu {
 	position: relative;
