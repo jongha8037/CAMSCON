@@ -181,6 +181,10 @@
 	width:180px;
 }
 
+.layout-header .category-nav .sub-menu.festival-sub-menu {
+	width:215px;
+}
+
 .layout-header .category-nav .gender-menu, 
 .layout-header .category-nav .street-menu,
 .layout-header .category-nav .fashionweek-menu, 
