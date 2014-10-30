@@ -111,9 +111,9 @@
 					<li class="blog-menu">
 						<a href="{{action('StreetSnapController@getList', array('category'=>'blog', 'slug'=>'all', 'ordering'=>'new'))}}">Fashion People <span class="caret"></span></a>
 						<ul class="blog-sub-menu sub-menu">
-							<li class="mobile-all"><a href="{{action('StreetSnapController@getList', array('category'=>'blog', 'slug'=>'all', 'ordering'=>'new'))}}">All</a></li>
+							<li class="col-xs-12 col-sm-3 col-md-2 mobile-all"><a href="{{action('StreetSnapController@getList', array('category'=>'blog', 'slug'=>'all', 'ordering'=>'new'))}}">All</a></li>
 							@foreach($CatNav->blog as $blog)
-							<li class="">
+							<li class="col-xs-12 col-sm-3 col-md-2">
 								<a href="{{action('StreetSnapController@getList', array('category'=>'blog', 'slug'=>$blog->slug, 'ordering'=>'new'))}}">{{$blog->name}}</a>
 							</li>
 							@endforeach
