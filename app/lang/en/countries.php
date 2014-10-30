@@ -13,6 +13,8 @@ return array(
 
 	'AU'=>'Australia',
 	'AT'=>'Austria',
+	'CN'=>'China',
+	'SE'=>'Sweden',
 	'SG'=>'Singapore',
 	'KR'=>'Korea',
 	
