@@ -119,12 +119,7 @@
 			<a id="singleBannerLink" href="http://store-c.kr/" target="_blank"><img src="http://cdn.camscon.kr/tmp/ads/sbanner_0{{rand(1,3)}}.jpg" /></a>
 		</div>
 
-		<div id="commentsSection" class="comments-section">
-			<div id="primaryCommentEditor" class="primary-comment-editor">
-				<textarea></textarea>
-				<button type="submit" class="comment-submit-btn">Post Comment</button>
-			</div>
-		</div>
+		
 	</div>
 </div><!--/.single-container-->
 @stop
