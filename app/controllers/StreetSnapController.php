@@ -22,7 +22,6 @@ class StreetSnapController extends BaseController {
 			case 'all':
 				if($ordering=='hot') {
 					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->whereNotIn('meta_type', array('BlogMeta'))
 						->has('primary')
 						->where('status', '=', 'published')
 						->where('created_at', '>=' ,date('Y-m-d', time()-259200).' 00:00:00')
@@ -31,7 +30,6 @@ class StreetSnapController extends BaseController {
 						->paginate(9);
 				} else {
 					$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
-						->whereNotIn('meta_type', array('BlogMeta'))
 						->has('primary')
 						->where('status', '=', 'published')
 						->orderBy('created_at', 'DESC')
