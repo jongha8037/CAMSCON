@@ -119,7 +119,9 @@
 			<a id="singleBannerLink" href="http://store-c.kr/" target="_blank"><img src="http://cdn.camscon.kr/tmp/ads/sbanner_0{{rand(1,3)}}.jpg" /></a>
 		</div>
 
-		
+		<div id="commentsSection" class="comments-section">
+			@include('includes.comments', array('comments'=>$snap->comments, 'target_type'=>'StreetSnap', 'target_id'=>$snap->id))
+		</div>
 	</div>
 </div><!--/.single-container-->
 @stop
@@ -277,10 +279,10 @@ var LikeButtons={
 		});
 	}
 };//LikeButtons{}
-
 $(document).ready(function() {
 	SingleView.init();
 	LikeButtons.init();
+	CommentsModule.init($('#commentsSection'));
 
 	//Track banner clicks with Google Analytics
 	$('#singleBannerLink').on('click', function() {

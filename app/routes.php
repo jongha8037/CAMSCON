@@ -190,3 +190,22 @@ Route::get('test/transaction', function() {
 	}
 	dd($proc);
 });
+
+Route::get('test/query', function() {
+	$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+		->from(DB::raw("(select * from street_snaps where created_at>='2014-10-15 00:00:00' and status='published') as T1"))
+		->orderBy('cached_total_likes', 'DESC')
+		->orderBy('created_at', 'DESC')
+		->paginate(9);
+
+	//dd(count($snaps));
+
+	/*
+	foreach($snaps as $snap) {
+		var_dump($snap->primary);
+	}
+	*/
+	//echo $snaps->toJson();
+
+	dd(DB::getQueryLog());
+});

@@ -238,6 +238,7 @@ var LoginModal={
 		email:"{{action('UserController@loginWithEmail')}}",
 		signup:"{{action('UserController@signupUser')}}"
 	},
+	callbacks:[],
 	init:function() {
 		//Set modal jquery object
 		this.jqo=$('#LoginModal');
@@ -297,6 +298,19 @@ var LoginModal={
 	launch:function() {
 		this.jqo.modal('show');
 	}/*launch()*/,
+	bindCallback:function(callback) {
+		if(typeof callback==='function') {
+			this.callbacks.push(callback);
+		} else {
+			console.error('Injected callback is not a function!');
+		}
+	}/*bindCallback()*/,
+	runCallbacks:function(user) {
+		var qlen=this.callbacks.length;
+		for(var i=0;i<qlen;i++) {
+			this.callbacks[i](user);
+		}
+	}/*runCallbacks()*/,
 	/*Removed due to popup blocking
 	proc_login_fb:function() {
 		LoginModal.disableBtns();
@@ -333,6 +347,9 @@ var LoginModal={
 						LoginModal.login_status=true;
 						$('#UserBox').html(response.msg);
 						LoginModal.jqo.modal('hide');
+
+						//Run callback
+						LoginModal.runCallbacks($.parseJSON(response.json));
 					} else {
 						window.location.href=LoginModal.intended;
 					}
@@ -371,6 +388,9 @@ var LoginModal={
 						LoginModal.login_status=true;
 						$('#UserBox').html(response.msg);
 						LoginModal.jqo.modal('hide');
+
+						//Run callback
+						LoginModal.runCallbacks($.parseJSON(response.json));
 					} else {
 						window.location.href=LoginModal.intended;
 					}
@@ -400,6 +420,9 @@ var LoginModal={
 						LoginModal.login_status=true;
 						$('#UserBox').html(response.msg);
 						LoginModal.jqo.modal('hide');
+
+						//Run callback
+						LoginModal.runCallbacks($.parseJSON(response.json));
 					} else {
 						window.location.href=LoginModal.intended;
 					}

@@ -55,6 +55,7 @@ class UserController extends BaseController {
 				if(Auth::attempt($creds, $remember)) {
 					$response->type='success';
 					$response->msg=$this->userBoxTemplate();
+					$response->json=$user->toJson();
 				} else {
 					$response->type='error';
 					$response->msg='hash_error';
@@ -116,6 +117,7 @@ class UserController extends BaseController {
 
 				$response->type='success';
 				$response->msg=$this->userBoxTemplate();
+				$response->json=$user->toJson();
 			} else {
 				//The fb user does not have an account.
 				//Create user with fb account
@@ -186,6 +188,7 @@ class UserController extends BaseController {
 
 							$response->type='success';
 							$response->msg=$this->userBoxTemplate();
+							$response->json=$user->toJson();
 						} catch(Exception $e) {//Log::info('transaction failed');
 							DB::rollback();
 							$user->forceDelete();
@@ -234,6 +237,7 @@ class UserController extends BaseController {
 
 			$response->type='success';
 			$response->msg=$this->userBoxTemplate();
+			$response->json=Auth::user()->toJson();
 		} else {
 			$response->type='error';
 		}

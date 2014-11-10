@@ -15,7 +15,7 @@ class UserComment extends Eloquent {
 	}
 
 	public function parent() {
-		return $this->belongsTo('UserComment')
+		return $this->belongsTo('UserComment');
 	}
 
 }
