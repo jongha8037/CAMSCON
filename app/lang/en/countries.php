@@ -14,8 +14,10 @@ return array(
 	'AU'=>'Australia',
 	'AT'=>'Austria',
 	'CN'=>'China',
+	'PL'=>'Poland',
 	'SE'=>'Sweden',
 	'SG'=>'Singapore',
 	'KR'=>'Korea',
+	'RU'=>'Russia',
 	
 );
