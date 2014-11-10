@@ -39,6 +39,10 @@
 	display: none;
 }
 
+.posting .primary-comment-editor {
+	opacity: 0.5;
+}
+
 .comment-editable {
 	display:inline-block;
 	width:100%;
@@ -84,6 +88,11 @@ var CommentsModule={
 		type:"{{$target_type}}",
 		id:"{{$target_id}}"
 	},
+	ajax:{
+		csrf_token:"{{csrf_token()}}",
+		save_url:"{{action('CommentController@saveComment')}}",
+		delete_url:"{{action('CommentController@deleteComment')}}"
+	},
 	init:function(rootJQO) {
 		//Set objects
 		this.objx.root=rootJQO;
@@ -127,12 +136,53 @@ var CommentsModule={
 	}/*loginCallback()*/,
 	primaryPost:function() {
 		//Disable primary editor
-		this.objx.root.addClass('posting');
-		var editable=this.objx.primaryEditor.find('.comment-editable');
-		console.log(editable.html());
+		this.disablePrimary();
+
+		var data={
+			_token:this.ajax.csrf_token,
+			target_type:this.target.type,
+			target_id:this.target.id,
+			content:this.objx.primaryEditor.find('.comment-editable').html()
+		};
+
+		//POST
+		var cm=this;
+		$.post(this.ajax.save_url, data, function(response) {
+			cm.primaryPostResponse.bind(cm, response);
+		}, 'json').error(function(jqXHR) {
+			var ajaxFailure=cm.ajaxFailure.bind(cm, jqXHR);
+			ajaxFailure();
+		});
 	}/*primaryPost()*/,
-	disablePrimary:function() {}/*disablePrimary()*/,
-	enablePrimary:function() {}/*enablePrimary()*/,
-	primaryPostResponse:function(response) {}/*primaryPostResponse()*/
+	disablePrimary:function() {
+		this.objx.root.addClass('posting');
+		this.objx.primaryEditor.find('.comment-editable').prop('contenteditable', false);
+		this.objx.primaryEditor.find('.comment-submit-btn').prop('disabled', true);
+	}/*disablePrimary()*/,
+	enablePrimary:function() {
+		this.objx.root.addClass('posting');
+		this.objx.primaryEditor.find('.comment-editable').prop('contenteditable', false);
+		this.objx.primaryEditor.find('.comment-submit-btn').prop('disabled', true);
+	}/*enablePrimary()*/,
+	primaryPostResponse:function(response) {}/*primaryPostResponse()*/,
+	ajaxFailure:function(jqXHR) {
+		console.log(jqXHR);
+		var msg=null;
+		switch(jqXHR.status) {
+			case 401:
+				msg='';
+				break;
+			case 500:
+				msg='';
+				break;
+			default:
+				msg='';
+		}
+
+		//Maybe show error msg
+
+		//Enable primary editor
+		this.enablePrimary();
+	}
 };//CommentsModule{}
 </script>
