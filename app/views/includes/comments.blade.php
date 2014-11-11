@@ -1,4 +1,4 @@
-<h4>Comments ({{count($comments)}})</h4>
+<h4>Comments (<span id="commentCount">{{count($comments)}}</span>)</h4>
 
 <div id="commentListWrapper" class="comment-list-wrapper">
 	<ul id="commentList" class="comment-list">
@@ -49,7 +49,8 @@ var CommentsModule={
 		commentListWrapper:null,
 		commentList:null,
 		primaryEditor:null,
-		primaryEditable:null
+		primaryEditable:null,
+		commentCount:null
 	},
 	login_status:@if(Auth::check()){{'true'}}@else{{'false'}}@endif,
 	user_id:@if(Auth::check()){{Auth::user()->id}}@else{{'null'}}@endif,
@@ -78,6 +79,7 @@ var CommentsModule={
 		this.objx.commentList=rootJQO.find('#commentList');
 		this.objx.primaryEditor=$('#primaryCommentEditor');
 		this.objx.primaryEditable=this.objx.primaryEditor.find('.comment-editable');
+		this.objx.commentCount=$('#commentCount');
 
 		//Compile handlebar templates
 		this.templates.commentDefault=Handlebars.compile($('#commentTemplate').html());
@@ -265,6 +267,9 @@ var CommentsModule={
 		}
 
 		this.objx.commentListWrapper.append(this.objx.commentList);
+
+		//Update commentCount
+		this.objx.commentCount.text(clen);
 
 		/*Removed scroll bar
 		if(scrollToBottom) {
