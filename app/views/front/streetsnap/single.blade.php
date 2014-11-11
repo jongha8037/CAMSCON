@@ -119,15 +119,31 @@
 			<a id="singleBannerLink" href="http://store-c.kr/" target="_blank"><img src="http://cdn.camscon.kr/tmp/ads/sbanner_0{{rand(1,3)}}.jpg" /></a>
 		</div>
 
-		
+		<div id="commentsSection" class="comments-section">
+			@include(
+				'includes.comments', 
+				array(
+					'comments'=>$snap->comments()->with(
+						'user', 
+						'user.profileImage', 
+						'children', 
+						'children.user', 
+						'children.user.profileImage'
+					)->get(), 
+					'target_type'=>'StreetSnap', 
+					'target_id'=>$snap->id
+				)
+			)
+		</div>
 	</div>
 </div><!--/.single-container-->
 @stop
 
 @section('footer_scripts')
 <script type="text/javascript" src="{{asset('packages/jquery-ui-custom/jquery-ui-core-widget.1.11.2.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('packages/jquery-autoresize/jquery.autoresize.js')}}"></script>
-<link rel="stylesheet" type="text/css" href="{{asset('packages/jquery-autoresize/autoresize.css')}}" />
+<!-- <script type="text/javascript" src="{{asset('packages/jquery-autoresize/jquery.autoresize.js')}}"></script> -->
+<script type="text/javascript" src="{{asset('packages/handlebars/handlebars-v2.0.0.js')}}"></script>
+<!-- <link rel="stylesheet" type="text/css" href="{{asset('packages/jquery-autoresize/autoresize.css')}}" /> -->
 <script type="text/javascript">
 var SingleView={
 	snap:{
@@ -277,10 +293,10 @@ var LikeButtons={
 		});
 	}
 };//LikeButtons{}
-
 $(document).ready(function() {
 	SingleView.init();
 	LikeButtons.init();
+	CommentsModule.init($('#commentsSection'));
 
 	//Track banner clicks with Google Analytics
 	$('#singleBannerLink').on('click', function() {

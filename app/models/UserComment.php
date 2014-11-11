@@ -1,6 +1,11 @@
 <?php
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class UserComment extends Eloquent {
+
+	use SoftDeletingTrait;
+
+	protected $dates = ['deleted_at'];
 
 	public function target() {
 		return $this->morphTo();
@@ -15,7 +20,7 @@ class UserComment extends Eloquent {
 	}
 
 	public function parent() {
-		return $this->belongsTo('UserComment')
+		return $this->belongsTo('UserComment');
 	}
 
 }

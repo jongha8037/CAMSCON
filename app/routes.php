@@ -78,6 +78,11 @@ Route::group(array('before' => 'front'), function() {
 	/*Like routes*/
 	Route::post('user/action/like', array('before'=>'auth', 'uses'=>'LikeController@procLike'));
 
+	/*Comment routes*/
+	Route::get('user/action/comment/get', array('uses'=>'CommentController@getComments'));
+	Route::post('user/action/comment/save', array('before'=>'auth|csrf', 'uses'=>'CommentController@saveComment'));
+	Route::post('user/action/comment/delete', array('before'=>'auth|csrf', 'uses'=>'CommentController@deleteComment'));
+
 	/*Legal Documents*/
 	Route::get('legal/terms-of-use', function() {
 		return View::make('legal/terms-of-use', ViewData::get());
@@ -189,4 +194,23 @@ Route::get('test/transaction', function() {
 		$proc=false;
 	}
 	dd($proc);
+});
+
+Route::get('test/query', function() {
+	$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
+		->from(DB::raw("(select * from street_snaps where created_at>='2014-10-15 00:00:00' and status='published') as T1"))
+		->orderBy('cached_total_likes', 'DESC')
+		->orderBy('created_at', 'DESC')
+		->paginate(9);
+
+	//dd(count($snaps));
+
+	/*
+	foreach($snaps as $snap) {
+		var_dump($snap->primary);
+	}
+	*/
+	//echo $snaps->toJson();
+
+	dd(DB::getQueryLog());
 });
