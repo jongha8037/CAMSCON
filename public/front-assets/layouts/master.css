@@ -1072,6 +1072,120 @@
 }
 
 
+/*Comment Module
+----------------------------------------------------------------------------*/
+.comment-list-wrapper {
+	border:1px solid #e0e0e0;
+	margin-bottom:15px;
+}
+
+.comment-list {
+	margin:0px;
+	padding:0px;
+	list-style-type: none;
+}
+
+/*Primary comment editor*/
+.comments-login-btn {
+	width:100%;
+	font-size: 16px;
+	font-weight: 700;
+	display: none;
+}
+
+.login-false .comments-login-btn {
+	display: block;
+}
+
+.primary-comment-editor .comment-editable {
+	min-height: 52px;
+}
+
+.login-false .primary-comment-editor {
+	display: none;
+}
+
+.posting .primary-comment-editor {
+	opacity: 0.5;
+}
+
+/*Comment editables*/
+.comment-editable {
+	display:inline-block;
+	width:100%;
+	overflow: hidden;
+}
+
+.comment-editable[contenteditable="true"] {
+	padding:5px;
+	border: 1px solid #afafaf;
+}
+
+.comment-editable:focus {
+	outline:none;
+}
+
+.primary-comment-editable {
+	margin-bottom:5px;
+}
+
+.primary-comment-editor .primary-submit-btn {
+	background-color:#1b1b1b;
+	border: 0;
+	color: #fff;
+	width: 100%;
+	padding: 7px 0px;
+	font-size: 16px;
+}
+
+/*Comment list*/
+.comment-list .comment-item {
+	padding:5px;
+	min-height:60px;
+	border-bottom:1px dashed #e0e0e0;
+}
+
+.comment-list .comment-item:last-child {
+	border-bottom:0;
+}
+
+.comment-list .comment-item .profile-image {
+	float:left;
+	width:50px;
+	height:auto;
+}
+
+.comment-list .comment-item .comment-wrapper {
+	padding-left:60px;
+}
+
+.comment-list .comment-item .author-nickname {
+	font-weight:700;
+}
+
+.comment-list .comment-item .edit-btn, 
+.comment-list .comment-item .delete-btn {
+	float:right;
+	margin-left:5px;
+	font-size:13px;
+	text-decoration: none;
+}
+
+.comment-list .comment-item .comment-body {
+	font-size:13px;
+	line-height:1.2;
+}
+
+.comment-list .comment-item .editable-controls {
+	display: none;
+	text-align: right;
+}
+
+.comment-list .comment-item.edit-mode .editable-controls {
+	display: block;
+}
+
+
 /*Helper classes
 ----------------------------------------------------------------------------*/
 .caret-right {

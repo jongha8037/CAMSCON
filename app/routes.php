@@ -79,8 +79,9 @@ Route::group(array('before' => 'front'), function() {
 	Route::post('user/action/like', array('before'=>'auth', 'uses'=>'LikeController@procLike'));
 
 	/*Comment routes*/
-	Route::post('user/action/comment/save', array('before'=>'auth', 'uses'=>'CommentController@saveComment'));
-	Route::post('user/action/comment/delete', array('before'=>'auth', 'uses'=>'CommentController@deleteComment'));
+	Route::get('user/action/comment/get', array('uses'=>'CommentController@getComments'));
+	Route::post('user/action/comment/save', array('before'=>'auth|csrf', 'uses'=>'CommentController@saveComment'));
+	Route::post('user/action/comment/delete', array('before'=>'auth|csrf', 'uses'=>'CommentController@deleteComment'));
 
 	/*Legal Documents*/
 	Route::get('legal/terms-of-use', function() {
