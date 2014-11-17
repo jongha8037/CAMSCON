@@ -175,7 +175,7 @@ class CommentController extends BaseController {
 		//Strip tags
 		$procArray=array();
 		foreach($split as $line) {
-			$procArray[]=strip_tags($line);
+			$procArray[]=htmlentities($line, ENT_HTML5, 'UTF-8', false);
 		}
 
 		//Build clean string
