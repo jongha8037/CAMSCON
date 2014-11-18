@@ -43,6 +43,7 @@ Route::group(array('before' => 'front'), function() {
 	Route::post('auth/user/login/fb', array('before'=>'csrf', 'uses'=>'UserController@loginWithFB'));
 	Route::get('user/signup', array('uses'=>'UserController@showSignup'));
 	Route::post('user/signup', array('before'=>'csrf', 'uses'=>'UserController@signupUser'));
+	Route::get('auth/user/forgot-password', array('uses'=>'RemindersController@getRemind'));
 	Route::get('auth/user/reset-password/{token}', array('uses'=>'RemindersController@getReset'));
 	Route::post('auth/user/reset-password', array('before'=>'csrf', 'uses'=>'RemindersController@postReset'));
 	Route::get('auth/user/logout', array('uses'=>'UserController@logoutUser'));

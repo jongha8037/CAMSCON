@@ -8,7 +8,7 @@ class RemindersController extends Controller {
 	 * @return Response
 	 */
 	public function getRemind() {
-		return View::make('password.remind');
+		return View::make('front.auth.forgot-password', ViewData::get());
 	}
 
 	public function getAdminRemind() {
