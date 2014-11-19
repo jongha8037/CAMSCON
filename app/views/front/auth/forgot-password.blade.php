@@ -30,19 +30,13 @@
 	</div>
 	@endif
 
-	<form action="{{action('RemindersController@postRemind')}}" method="POST" role="form">
+	{{ Form::open(array('url'=>action('RemindersController@postRemind'), 'method'=>'POST')) }}
 		<div class="form-group">
-			<label for="recoveryEmail">가입할 때 사용한 이메일 주소</label>
+			<label for="recoveryEmail">가입할 때 입력한 이메일 주소</label>
 			<input type="email" class="form-control" id="recoveryEmail" name="email" placeholder="">
 		</div>
 
 		<button type="submit" class="btn btn-primary">비밀번호 재설정 링크 보내기</button>
-	</form>
+	{{ Form::close() }}
 </div><!--/.pswd-recovery-->
-@stop
-
-@section('footer_scripts')
-<script type="text/javascript">
-
-</script>
 @stop

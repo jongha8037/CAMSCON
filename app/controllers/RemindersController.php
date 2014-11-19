@@ -43,7 +43,7 @@ class RemindersController extends Controller {
 	public function getReset($token = null) {
 		if (is_null($token)) App::abort(404);
 
-		return View::make('front.auth.reset-password')->with('token', $token);
+		return View::make('front.auth.reset-password', ViewData::get())->with('token', $token);
 	}
 
 	/**
@@ -56,6 +56,10 @@ class RemindersController extends Controller {
 		$credentials = Input::only(
 			'email', 'password', 'password_confirmation', 'token'
 		);
+
+		Password::validator(function($credentials) {
+			return strlen($credentials['password']) >= 8;
+		});
 
 		$response = Password::reset($credentials, function($user, $password)
 		{

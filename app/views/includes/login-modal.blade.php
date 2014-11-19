@@ -395,7 +395,7 @@ var LoginModal={
 						window.location.href=LoginModal.intended;
 					}
 				} else {
-					LoginModal.setLoginError('이메일 또는 비밀번호가 일치하지 않습니다! :(');
+					LoginModal.setLoginError('이메일 또는 비밀번호가 일치하지 않습니다! :( <br /><a href="{{action("RemindersController@getRemind")}}">비밀번호 재설정하기</a>');
 					LoginModal.enableBtns();
 				}
 			} else {
