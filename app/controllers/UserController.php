@@ -7,8 +7,11 @@ use Facebook\FacebookRequestException;
 
 class UserController extends BaseController {
 
-	public function showSignup() {
-		return View::make('front.user.signup');
+	public function showLoginRequired() {
+		if(!Session::has('intended')) {
+			Session::put('intended', url('/'));
+		}
+		return View::make('front.auth.login-required', ViewData::get());
 	}//showSignupPage()
 
 	public function signupUser() {

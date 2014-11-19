@@ -46,13 +46,16 @@ Route::group(array('before' => 'front'), function() {
 	Route::get('user/userbox', array('uses'=>'UserController@userBoxTemplate'));
 
 	//Signup
-	Route::get('user/signup', array('uses'=>'UserController@showSignup'));
+	//Route::get('user/signup', array('uses'=>'UserController@showSignup'));
 	Route::post('user/signup', array('before'=>'csrf', 'uses'=>'UserController@signupUser'));
 
 	//Password reset
 	Route::get('auth/user/forgot-password', array('uses'=>'RemindersController@getRemind'));
 	Route::get('auth/user/reset-password/{token}', array('uses'=>'RemindersController@getReset'));
 	Route::post('auth/user/reset-password', array('before'=>'csrf', 'uses'=>'RemindersController@postReset'));
+
+	//Login wall
+	Route::get('auth/login-required', array('uses'=>'UserController@showLoginRequired'));
 
 
 	/*Style StreetSnap editor routes*/
