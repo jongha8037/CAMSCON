@@ -149,8 +149,9 @@ var SingleView={
 	snap:{
 		id:"{{$snap->id}}"
 	},
+	login_status:@if(Auth::check()){{'true'}}@else{{'false'}}@endif,
 	endpoints:{
-		/**/
+		get_current_user_likes:{{action('LikeController@getCurrentUserSnapLikes')}}
 	},
 	token:"{{csrf_token()}}",
 	pins:@if($snap->pins->count()){{$snap->pins->toJson()}}@else{{'[]'}}@endif,
@@ -201,6 +202,11 @@ var SingleView={
 		this.objects.pinList.on('click', 'a', null, function() {
 			ga('send', 'event', 'Pin', 'click', 'snap-pin-link');
 		});
+
+		//Register callback action to LoginModal if user is not logged in
+		if(this.login_status===false) {
+			//
+		}
 	}/*init()*/,
 	render:function() {
 		var maxWidth=$('#photoCol').innerWidth();
