@@ -58,7 +58,7 @@ class LikeController extends BaseController {
 
 		//Get input
 		$input=Input::only('targets');
-		$targets=json_decode($input['targets']);
+		$targets=$input['targets'];
 
 		if(is_array($targets)) {//Validate input
 			if(Auth::check()) {//Check user auth status

@@ -86,6 +86,7 @@ Route::group(array('before' => 'front'), function() {
 
 	/*Like routes*/
 	Route::post('user/action/like', array('before'=>'auth', 'uses'=>'LikeController@procLike'));
+	Route::post('like/get/snaps', array('before'=>'auth|csrf', 'uses'=>'LikeController@getCurrentUserSnapLikes'));
 
 	/*Comment routes*/
 	Route::get('user/action/comment/get', array('uses'=>'CommentController@getComments'));

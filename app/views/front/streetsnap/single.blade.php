@@ -150,9 +150,6 @@ var SingleView={
 		id:"{{$snap->id}}"
 	},
 	login_status:@if(Auth::check()){{'true'}}@else{{'false'}}@endif,
-	endpoints:{
-		get_current_user_likes:{{action('LikeController@getCurrentUserSnapLikes')}}
-	},
 	token:"{{csrf_token()}}",
 	pins:@if($snap->pins->count()){{$snap->pins->toJson()}}@else{{'[]'}}@endif,
 	scale:1,
@@ -262,10 +259,21 @@ var SingleView={
 };//SingleView{}
 
 var LikeButtons={
+	login_status:@if(Auth::check()){{'true'}}@else{{'false'}}@endif,
+	endpoints:{
+		get_current_user_likes:"{{action('LikeController@getCurrentUserSnapLikes')}}"
+	},
+	token:"{{csrf_token()}}",
 	init:function() {
+		//Bind event handlers to like buttons
 		$(document).on('click', '.like-btn', null, function(e) {
 			LikeButtons.like($(this));
 		});
+
+		//Bind callback to LoginModal{}
+		if(this.login_status===false) {
+			LoginModal.bindCallback(this.loginCallback.bind(this));
+		}
 	},
 	like:function(btn) {
 		btn.prop('disabled', true);
@@ -297,8 +305,42 @@ var LikeButtons={
 		}).always(function() {
 			btn.prop('disabled', false);
 		});
+	},
+	loginCallback:function() {
+		var data={
+			_token:this.token,
+			targets:[]
+		};
+
+		$('button.like-btn').each(function() {
+			data.targets.push($(this).attr('data-id'));
+		});
+
+		var updateLikes=this.updateLikes.bind(this);
+		$.post(this.endpoints.get_current_user_likes, data, function(response) {
+			//Validate response
+			if(typeof(response)==='object' && 'type' in response && 'msg' in response && 'data' in response) {
+				if(response.type==='success') {
+					updateLikes(response.data);
+				} else {
+					console.error(response.msg);
+				}
+			} else {
+				console.error('Invalid response');
+			}
+		}, 'json');
+	},
+	updateLikes:function(data) {
+		if(data.constructor===Array) {
+			var btns=$('button.like-btn');
+			var dLen=data.length;
+			for(var i=0;i<dLen;i++) {
+				btns.filter('[data-id="'+data[i]+'"]').addClass('liked');
+			}
+		}
 	}
 };//LikeButtons{}
+
 $(document).ready(function() {
 	SingleView.init();
 	LikeButtons.init();
