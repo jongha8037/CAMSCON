@@ -115,10 +115,6 @@
 			</div>
 		</div>
 
-		<div class="ad-section">
-			<a id="singleBannerLink" href="http://store-c.kr/" target="_blank"><img src="http://cdn.camscon.kr/tmp/ads/sbanner_0{{rand(1,3)}}.jpg" /></a>
-		</div>
-
 		<div id="commentsSection" class="comments-section">
 			@include(
 				'includes.comments', 
