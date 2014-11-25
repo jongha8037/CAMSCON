@@ -1,7 +1,7 @@
 @extends('front.layouts.master')
 
 @section('head_title')
-Post
+스트리트 스냅 에디터
 @stop
 
 @section('head_styles')

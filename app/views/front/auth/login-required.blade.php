@@ -1,7 +1,7 @@
 @extends('front.layouts.master')
 
 @section('head_title')
-Sign up
+권한 없음
 @stop
 
 @section('head_styles')

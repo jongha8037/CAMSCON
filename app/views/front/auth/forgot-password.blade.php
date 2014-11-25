@@ -1,5 +1,9 @@
 @extends('front.layouts.master')
 
+@section('head_title')
+비밀번호 재설정 메일 보내기
+@stop
+
 @section('head_styles')
 <style type="text/css">
 .pswd-recovery {

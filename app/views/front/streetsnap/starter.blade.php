@@ -1,7 +1,7 @@
 @extends('front.layouts.master')
 
 @section('head_title')
-Starter
+스트리트 스냅 에디터 시작하기
 @stop
 
 @section('head_styles')

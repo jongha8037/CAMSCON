@@ -1,7 +1,7 @@
 @extends('front.layouts.master')
 
 @section('head_title')
-Not Found
+CAMSCON - 존재하지 않는 페이지 입니다
 @stop
 
 @section('content')

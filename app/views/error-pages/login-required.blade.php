@@ -1,7 +1,7 @@
 @extends('front.layouts.master')
 
 @section('head_title')
-Not Authorized
+CAMSCON - 로그인을 해야 합니다
 @stop
 
 @section('content')
