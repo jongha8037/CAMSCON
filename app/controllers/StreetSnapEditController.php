@@ -420,7 +420,7 @@ class StreetSnapEditController extends BaseController {
 		);
 
 		$validationRules=array(
-			'streetsnap_id'=>array('required', 'exists:street_snaps,id,user_id,'.Auth::user()->id),
+			'streetsnap_id'=>array('required', 'exists:street_snaps,id'),
 			'name'=>array('required'),
 			'birth_year'=>array('sometimes', 'date_format:Y'),
 			'meta_type'=>array('required', 'in:CampusMeta,StreetMeta,FestivalMeta,ClubMeta,FashionWeekMeta,BlogMeta'),
@@ -442,31 +442,37 @@ class StreetSnapEditController extends BaseController {
 		$validator=Validator::make($input,$validationRules,$messages);
 
 		if($validator->passes()) {
-			$snap=StreetSnap::with('primary')->find($input['streetsnap_id']);
-			if($snap->primary) {
-				$snap->name=$input['name'];
-				if(!empty($input['birth_year'])) {
-					$snap->birthyear=$input['birth_year'];
-				}
-				if(!empty($input['affiliation'])) {
-					$snap->affiliation=$input['affiliation'];
-				}
-				$snap->gender=$input['gender'];
-				$snap->subject_comment=$input['subject_comment'];
-				$snap->photographer_comment=$input['photographer_comment'];
-				$snap->season=$input['season'];
-				$snap->meta_type=$input['meta_type'];
-				$snap->meta_id=$input['meta_id'];
+			$snap=StreetSnap::with('primary', 'user')->find($input['streetsnap_id']);
 
-				$snap->status='published';
+			//Check ownership or authorization
+			if($snap->user->id===Auth::user()->id || Session::get('is_su', false)) {
+				if($snap->primary) {
+					$snap->name=$input['name'];
+					if(!empty($input['birth_year'])) {
+						$snap->birthyear=$input['birth_year'];
+					}
+					if(!empty($input['affiliation'])) {
+						$snap->affiliation=$input['affiliation'];
+					}
+					$snap->gender=$input['gender'];
+					$snap->subject_comment=$input['subject_comment'];
+					$snap->photographer_comment=$input['photographer_comment'];
+					$snap->season=$input['season'];
+					$snap->meta_type=$input['meta_type'];
+					$snap->meta_id=$input['meta_id'];
 
-				if($snap->save()) {
-					return Redirect::to(action('StreetSnapEditController@showStarter'))->with('proc_result', 'success');
+					$snap->status='published';
+
+					if($snap->save()) {
+						return Redirect::to(action('StreetSnapEditController@showStarter'))->with('proc_result', 'success');
+					} else {
+						return Redirect::back()->with('proc_result', 'db_error');
+					}
 				} else {
-					return Redirect::back()->with('proc_result', 'db_error');
+					return Redirect::back()->with('proc_result', 'primary_missing');
 				}
 			} else {
-				return Redirect::back()->with('proc_result', 'primary_missing');
+				return Redirect::back()->with('proc_result', 'auth_error');
 			}
 		} else {
 			return Redirect::back()->withErrors($validator);
