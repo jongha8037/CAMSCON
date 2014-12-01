@@ -217,5 +217,10 @@ $(document).ready(function() {
 			method: 'share',
 			href: url,
 		}, function(response){});
-	})
+	});
+
+	//Scroll to top btn
+	$('#scrollTopBtn').on('click', null, null, function() {
+		$('body').animate({scrollTop:0}, 400);
+	});
 });//document.ready()

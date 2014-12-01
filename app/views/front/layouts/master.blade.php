@@ -173,6 +173,8 @@
 	</main><!--/.layout-body-->
 
 	<footer class="layout-footer container">
+		<div id="scrollTopBtn" class="scroll-top-btn"></div>
+
 		<div class="layout-footer-content">
 		</div>
 	</footer><!--/.layout-footer-->

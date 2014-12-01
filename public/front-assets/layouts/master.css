@@ -229,6 +229,46 @@
 	padding:0px;
 }
 
+.scroll-top-btn {
+	position: fixed;
+	bottom:0px;
+	right:15px;
+	width:95px;
+	height:38px;
+	background-image: url(http://cdn.camscon.kr/front-assets/layouts/top_btn.png);
+	background-repeat: no-repeat;
+	opacity: 0.75;
+	cursor:pointer;
+
+	-webkit-transition: opacity 200ms ease-out;
+	-moz-transition: opacity 200ms ease-out;
+	-o-transition: opacity 200ms ease-out;
+	transition: opacity 200ms ease-out;
+}
+
+.scroll-top-btn:hover {
+	opacity:1.0;
+}
+
+@media (min-width:768px) {
+	.scroll-top-btn {
+		margin-left:280px;
+		left:50%;
+	}
+}
+
+@media (min-width:992px) {
+	.scroll-top-btn {
+		margin-left:390px;
+	}
+}
+
+@media (min-width:1200px) {
+	.scroll-top-btn {
+		margin-left:490px;
+	}
+}
+
 
 @media (max-width:767px) {
 	.layout-header .top-row {
