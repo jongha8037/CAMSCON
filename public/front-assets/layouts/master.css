@@ -233,12 +233,13 @@
 	position: fixed;
 	bottom:0px;
 	right:15px;
-	width:95px;
+	width:94px;
 	line-height: 36px;
 	text-align: center;
 	font-weight: 700;
 	letter-spacing: 2px;
 	color: #353533;
+	background-color:#fff;
 	border: 1px solid #dddcdb;
 	opacity: 0.75;
 	cursor:pointer;
