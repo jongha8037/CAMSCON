@@ -234,9 +234,12 @@
 	bottom:0px;
 	right:15px;
 	width:95px;
-	height:38px;
-	background-image: url(http://cdn.camscon.kr/front-assets/layouts/top_btn.png);
-	background-repeat: no-repeat;
+	line-height: 36px;
+	text-align: center;
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: #353533;
+	border: 1px solid #dddcdb;
 	opacity: 0.75;
 	cursor:pointer;
 
