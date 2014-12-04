@@ -48,7 +48,7 @@ Inspirer Signup - CAMSCON
 	}
 
 	.instructions-wrapper .instructions {
-		background-color:rgba(255,255,255,0.65);
+		background-color:rgba(255,255,255,0.6);
 	}
 
 	.instructions-wrapper .instructions {
@@ -72,7 +72,7 @@ Inspirer Signup - CAMSCON
 	.form-wrapper {
 		float:right;
 		width:460px;
-		background-color:rgba(255,255,255,0.65);
+		background-color:rgba(255,255,255,0.6);
 		padding: 35px 15px 44px 25px;
 	}
 
