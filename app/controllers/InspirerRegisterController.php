@@ -18,12 +18,28 @@ class InspirerRegisterController extends BaseController {
 			'website'=>'sometimes|url',
 			'blog'=>'sometimes|url',
 			'facebook'=>'sometimes|url',
-		);/*Note: Maybe it would be a good idea to validate the camscon field*/
+			'camscon'=>'required'
+		);/*Note: Maybe it would be a good idea to apply strict validation to the camscon field*/
 
 		$validator=Validator::make($input, $validationRules);
 
 		if($validator->passes()) {
-			//
+			$form=new InspirerRegistrationForm;
+			$form->name=$input['name'];
+			$form->nickname=$input['nickname'];
+			$form->mobile=$input['mobile'];
+			$form->email=$input['email'];
+			$form->website=$input['website'];
+			$form->blog=$input['blog'];
+			$form->facebook=$input['facebook'];
+			$form->instagram=$input['instagram'];
+			$form->camscon=$input['camscon_id'];
+
+			if($form->save()) {
+				return Redirect::back()->with('proc_result', 'success');
+			} else {
+				return Redirect::back()->with('proc_result', 'db_error');
+			}
 		} else {
 			return Redirect::back()->withErrors($validator);
 		}

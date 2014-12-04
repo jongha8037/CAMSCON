@@ -78,8 +78,15 @@ Inspirer Signup - CAMSCON
 
 	.form-wrapper .alert {
 		background-color: rgba(0,0,0,0.7);
-		color: #f56545;
 		border: none;
+	}
+
+	.form-wrapper .alert-danger {
+		color: #f56545;
+	}
+
+	.form-wrapper .alert-success {
+		color: #BBF75E;
 	}
 
 	.register-form .left-col, 
@@ -194,9 +201,21 @@ Inspirer Signup - CAMSCON
 	</div>
 	<div class="form-wrapper">
 
-		@if(count($errors)>0)
+		@if(Session::has('proc_result'))
+			@if(Session::get('proc_result')=='db_error')
+			<div class="alert alert-danger"><strong>실패!</strong> 데이터베이스 오류가 발생했습니다 :( 잠시 후에 다시 시도해 주세요.</div>
+			@elseif(Session::get('proc_result')=='success')
+			<div class="alert alert-success"><strong>성공!</strong> 안내 글</div>
+			@endif
+		@elseif(count($errors)>0)
 		<div class="alert alert-danger"><strong>실패!</strong> 입력값이 잘못된 항목이 있습니다 :(</div>
 		@endif
+
+		<!--Temporary-->
+		<div class="alert alert-danger"><strong>실패!</strong> 데이터베이스 오류가 발생했습니다 :( 잠시 후에 다시 시도해 주세요.</div>
+		<div class="alert alert-success"><strong>성공!</strong> 안내 글</div>
+		<div class="alert alert-danger"><strong>실패!</strong> 입력값이 잘못된 항목이 있습니다 :(</div>
+		<!--//Temporary-->
 
 		{{ Form::open(array('url'=>action('InspirerRegisterController@postRegister'), 'id'=>'inspirerRegisterForm', 'class'=>'register-form', 'role'=>'form')) }}
 			<div class="left-col">
@@ -284,7 +303,11 @@ Inspirer Signup - CAMSCON
 
 			<div class="form-footer">
 				<!--CAMSCON account nickname or email-->
+				@if($errors->has('camscon'))
+				<div class="field-item has-error">
+				@else
 				<div class="field-item">
+				@endif
 					<label for="inspirerCamscon" class="required">캠스콘 온라인닉네임 혹은 이메일</label>
 					<p class="label-description">(가입 후 My Page에서 입력한 것을 기입해주세요)</p>
 					<input type="text" id="inspirerCamscon" name="camscon" @if(Input::old('camscon'))value="{{Input::old('camscon')}}"@endif />
