@@ -93,6 +93,10 @@ Route::group(array('before' => 'front'), function() {
 	Route::post('user/action/comment/save', array('before'=>'auth|csrf', 'uses'=>'CommentController@saveComment'));
 	Route::post('user/action/comment/delete', array('before'=>'auth|csrf', 'uses'=>'CommentController@deleteComment'));
 
+	/*Inspirer Register feature*/
+	Route::get('forms/inspirer-register', array('uses'=>'InspirerRegisterController@showRegister'));
+	Route::post('forms/inspirer-register', array('before'=>'csrf', 'uses'=>'InspirerRegisterController@postRegister'));
+
 	/*Legal Documents*/
 	Route::get('legal/terms-of-use', function() {
 		return View::make('legal/terms-of-use', ViewData::get());
