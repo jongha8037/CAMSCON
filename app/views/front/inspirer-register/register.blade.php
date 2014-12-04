@@ -203,7 +203,7 @@ Inspirer Signup - CAMSCON
 
 		@if(Session::has('proc_result'))
 			@if(Session::get('proc_result')=='db_error')
-			<div class="alert alert-danger"><strong>실패!</strong> 데이터베이스 오류가 발생했습니다 :( 잠시 후에 다시 시도해 주세요.</div>
+			<div class="alert alert-danger"><strong>실패!</strong> 서버 오류가 발생했습니다 :( 잠시 후에 다시 시도해 주세요.</div>
 			@elseif(Session::get('proc_result')=='success')
 			<div class="alert alert-success"><strong>성공!</strong> 안내 글</div>
 			@endif
