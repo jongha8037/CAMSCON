@@ -48,10 +48,11 @@
 			</li>
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-					회원 체계 관리 <span class="caret"></span>
+					사용자 <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu" role="menu">
 					<li><a href="{{action('GroupsController@showUsers')}}">회원 조회 및 그룹 관리</a></li>
+					<li><a href="{{action('InspirerRegisterController@showAdmin')}}">Inspirer Registration 관리</a></li>
 				</ul>
 			</li>
 		</ul>
