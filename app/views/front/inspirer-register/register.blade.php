@@ -14,176 +14,7 @@ Inspirer Signup - CAMSCON
 <meta property="fb:app_id" content="562009567255774" />
 <meta property="og:locale" content="ko_KR" />
 
-<style type="text/css">
-.unsupported-media {
-	max-width:420px;
-	margin:20px auto;
-}
-
-.inspirer-register {
-	display: none;
-}
-
-@media (min-width: 992px) {
-	.unsupported-media {
-		display: none;
-	}
-
-	.inspirer-register {
-		display: block;
-		min-height: 777px;
-		margin:25px 0px;
-		padding:60px 15px;
-		color:#3e3e3e;
-
-		background-image:url("{{asset('/front-assets/inspirer-register/bg-img.jpg')}}");
-		background-repeat: no-repeat;
-		background-position: 0px 0px;
-		background-size: 100% auto;
-	}
-
-	.instructions-wrapper {
-		float:left;
-		width:460px;
-	}
-
-	.instructions-wrapper .instructions {
-		background-color:rgba(255,255,255,0.6);
-	}
-
-	.instructions-wrapper .instructions {
-		padding: 60px 15px;
-	}
-
-	.instructions-wrapper .instructions h1 {
-		font-weight: 700;
-		text-align: center;
-		font-size: 22px;
-		margin:0px 0px 60px 0px;
-	}
-
-	.instructions-wrapper h4.footer {
-		color:#fff;
-		text-align: right;
-		font-size: 16px;
-		font-weight: 700;
-	}
-
-	.form-wrapper {
-		float:right;
-		width:460px;
-		background-color:rgba(255,255,255,0.6);
-		padding: 35px 15px 44px 25px;
-	}
-
-	.form-wrapper .alert {
-		background-color: rgba(0,0,0,0.7);
-		border: none;
-	}
-
-	.form-wrapper .alert-danger {
-		color: #f56545;
-	}
-
-	.form-wrapper .alert-success {
-		color: #BBF75E;
-	}
-
-	.register-form .left-col, 
-	.register-form .right-col {
-		width:50%;
-		float:left;
-	}
-
-	.register-form .left-col {
-		padding-top: 10px;
-		padding-right:30px;
-	}
-
-	.register-form .right-col-outline {
-		padding:10px;
-		border: 1px solid #f56545;
-	}
-
-	.register-form .right-col-instructions {
-		color:#f56545;
-		font-size:10px;
-		text-align: right;
-	}
-
-	.register-form .form-footer {
-		clear:both;
-		padding-top:30px;
-	}
-
-	.register-form .field-item {
-		margin-bottom:15px;
-		border-color: #3e3e3e;
-	}
-
-	.register-form .field-item.has-error {
-		color: #f56545;
-		border-color: #f56545;
-	}
-
-	.register-form input:focus {
-		outline: 0;
-	}
-
-	.register-form input {
-		width:100%;
-		background:0;
-		border:0;
-		border-bottom:1px solid #3e3e3e;
-		border-color: inherit;
-	}
-
-	.register-form label {
-		margin-bottom:0px;
-	}
-
-	.register-form label.required:after {
-		content:' *';
-		color:#f56545;
-	}
-
-	.register-form .label-description {
-		color: #777;
-		font-size: 13px;
-		margin-bottom: 5px;
-	}
-
-	.register-form .register-submit {
-		width: 100%;
-		font-size: 17px;
-		font-weight: 700;
-		padding: 8px 0px;
-
-	}
-}
-
-@media (min-width: 1200px) {
-	.inspirer-register {
-		padding:60px 49px;
-	}
-
-	.instructions-wrapper {
-		width:496px;
-	}
-
-	.instructions-wrapper .instructions h1 {
-		margin:0px 0px 75px 0px;
-	}
-
-	.instructions-wrapper .instructions h1 br {
-		display: none;
-	}
-
-	.form-wrapper {
-		width:556px;
-	}
-}
-</style>
+<link rel="stylesheet" type="text/css" href="http://cdn.camscon.kr/front-assets/inspirer-register/form.css">
 @stop
 
 @section('content')
@@ -203,19 +34,13 @@ Inspirer Signup - CAMSCON
 
 		@if(Session::has('proc_result'))
 			@if(Session::get('proc_result')=='db_error')
-			<div class="alert alert-danger"><strong>실패!</strong> 서버 오류가 발생했습니다 :( 잠시 후에 다시 시도해 주세요.</div>
+			<div class="alert alert-danger"><strong><span class="glyphicon glyphicon-exclamation-sign"></span> 실패!</strong> 서버 오류가 발생했습니다 :( 잠시 후에 다시 시도해 주세요.</div>
 			@elseif(Session::get('proc_result')=='success')
-			<div class="alert alert-success"><strong>성공!</strong> 안내 글</div>
+			<div class="alert alert-success"><strong><span class="glyphicon glyphicon-ok"></span> 성공!</strong> 신청이 완료되었습니다. 이른 시일 내에 전화 혹은 이메일로 연락드릴게요! :)</div>
 			@endif
 		@elseif(count($errors)>0)
-		<div class="alert alert-danger"><strong>실패!</strong> 입력값이 잘못된 항목이 있습니다 :(</div>
+		<div class="alert alert-danger"><strong><span class="glyphicon glyphicon-exclamation-sign"></span> 실패!</strong> 입력값이 잘못된 항목이 있습니다 :(</div>
 		@endif
-
-		<!--Temporary-->
-		<div class="alert alert-danger"><strong>실패!</strong> 데이터베이스 오류가 발생했습니다 :( 잠시 후에 다시 시도해 주세요.</div>
-		<div class="alert alert-success"><strong>성공!</strong> 안내 글</div>
-		<div class="alert alert-danger"><strong>실패!</strong> 입력값이 잘못된 항목이 있습니다 :(</div>
-		<!--//Temporary-->
 
 		{{ Form::open(array('url'=>action('InspirerRegisterController@postRegister'), 'id'=>'inspirerRegisterForm', 'class'=>'register-form', 'role'=>'form')) }}
 			<div class="left-col">
@@ -332,44 +157,5 @@ Inspirer Signup - CAMSCON
 @stop
 
 @section('footer_scripts')
-<script type="text/javascript" src="{{asset('packages/jquery-ui-custom/jquery-ui-core-widget.1.11.2.min.js')}}"></script>
-<!-- <script type="text/javascript" src="{{asset('packages/jquery-autoresize/jquery.autoresize.js')}}"></script> -->
-<script type="text/javascript" src="{{asset('packages/handlebars/handlebars-v2.0.0.js')}}"></script>
-<!-- <link rel="stylesheet" type="text/css" href="{{asset('packages/jquery-autoresize/autoresize.css')}}" /> -->
-
-<script type="text/javascript">
-(function(window, document, $, module, undefined) {
-	$(document).ready(function() {
-		$('#inspirerRegisterForm').on('submit', null, {handler:module.submitHandler.bind(module)}, function(e) {
-			e.data.handler($(this));
-		});
-	});
-})(window, document, jQuery, {
-	/*Inspirer Register Module*/
-	validationPatterns:{
-		protocol:/^(http:\/\/|https:\/\/)/i
-	},
-	submitHandler:function(form) {
-		var website=form.find('#inspirerWebsite');
-		website.val( this._urlFilter(website.val()) );
-
-		var blog=form.find('#inspirerBlog');
-		blog.val( this._urlFilter(blog.val()) );
-
-		var facebook=form.find('#inspirerFacebook');
-		facebook.val( this._urlFilter(facebook.val()) );
-	},
-	_urlFilter:function(rawUrl) {
-		var filterResult=null;
-		if(rawUrl.length>0) {
-			if( this.validationPatterns.protocol.test(rawUrl)!==true ) {
-				filterResult='http://'+rawUrl;
-			} else {
-				filterResult=rawUrl;
-			}
-		}
-		return filterResult;
-	}
-});
-</script>
+<script type="text/javascript" src="http://cdn.camscon.kr/front-assets/inspirer-register/form.js"></script>
 @stop

@@ -1,0 +1,172 @@
+.unsupported-media {
+	max-width:420px;
+	margin:20px auto;
+}
+
+.inspirer-register {
+	display: none;
+}
+
+@media (min-width: 992px) {
+	.unsupported-media {
+		display: none;
+	}
+
+	.inspirer-register {
+		display: block;
+		min-height: 777px;
+		margin:25px 0px;
+		padding:60px 15px;
+		color:#3e3e3e;
+
+		background-image:url("http://cdn.camscon.kr/front-assets/inspirer-register/bg-img.jpg");
+		background-repeat: no-repeat;
+		background-position: 0px 0px;
+		background-size: 100% auto;
+	}
+
+	.instructions-wrapper {
+		float:left;
+		width:460px;
+	}
+
+	.instructions-wrapper .instructions {
+		background-color:rgba(255,255,255,0.6);
+	}
+
+	.instructions-wrapper .instructions {
+		padding: 60px 15px;
+	}
+
+	.instructions-wrapper .instructions h1 {
+		font-weight: 700;
+		text-align: center;
+		font-size: 22px;
+		margin:0px 0px 60px 0px;
+	}
+
+	.instructions-wrapper h4.footer {
+		color:#fff;
+		text-align: right;
+		font-size: 16px;
+		font-weight: 700;
+	}
+
+	.form-wrapper {
+		float:right;
+		width:460px;
+		background-color:rgba(255,255,255,0.6);
+		padding: 35px 15px 44px 25px;
+	}
+
+	.form-wrapper .alert {
+		background-color: rgba(0,0,0,0.7);
+		border: none;
+	}
+
+	.form-wrapper .alert-danger {
+		color: #f56545;
+	}
+
+	.form-wrapper .alert-success {
+		color: #BBF75E;
+	}
+
+	.form-wrapper .alert-danger .glyphicon-exclamation-sign {
+		top:3px;
+	}
+
+	.register-form .left-col, 
+	.register-form .right-col {
+		width:50%;
+		float:left;
+	}
+
+	.register-form .left-col {
+		padding-top: 10px;
+		padding-right:30px;
+	}
+
+	.register-form .right-col-outline {
+		padding:10px;
+		border: 1px solid #f56545;
+	}
+
+	.register-form .right-col-instructions {
+		color:#f56545;
+		font-size:10px;
+		text-align: right;
+	}
+
+	.register-form .form-footer {
+		clear:both;
+		padding-top:30px;
+	}
+
+	.register-form .field-item {
+		margin-bottom:15px;
+		border-color: #3e3e3e;
+	}
+
+	.register-form .field-item.has-error {
+		color: #f56545;
+		border-color: #f56545;
+	}
+
+	.register-form input:focus {
+		outline: 0;
+	}
+
+	.register-form input {
+		width:100%;
+		background:0;
+		border:0;
+		border-bottom:1px solid #3e3e3e;
+		border-color: inherit;
+	}
+
+	.register-form label {
+		margin-bottom:0px;
+	}
+
+	.register-form label.required:after {
+		content:' *';
+		color:#f56545;
+	}
+
+	.register-form .label-description {
+		color: #777;
+		font-size: 13px;
+		margin-bottom: 5px;
+	}
+
+	.register-form .register-submit {
+		width: 100%;
+		font-size: 17px;
+		font-weight: 700;
+		padding: 8px 0px;
+
+	}
+}
+
+@media (min-width: 1200px) {
+	.inspirer-register {
+		padding:60px 49px;
+	}
+
+	.instructions-wrapper {
+		width:496px;
+	}
+
+	.instructions-wrapper .instructions h1 {
+		margin:0px 0px 75px 0px;
+	}
+
+	.instructions-wrapper .instructions h1 br {
+		display: none;
+	}
+
+	.form-wrapper {
+		width:556px;
+	}
+}
