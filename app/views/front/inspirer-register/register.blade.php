@@ -256,7 +256,7 @@ Inspirer Signup - CAMSCON
 				<div class="field-item">
 				@endif
 					<label for="inspirerEmail" class="required">E-mail</label>
-					<input type="text" id="inspirerEmail" name="email" @if(Input::old('email'))value="{{Input::old('email')}}"@endif />
+					<input type="email" id="inspirerEmail" name="email" @if(Input::old('email'))value="{{Input::old('email')}}"@endif />
 				</div>
 			</div><!--/.left-col-->
 
