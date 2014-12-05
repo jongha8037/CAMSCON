@@ -93,6 +93,9 @@ Route::group(array('before' => 'front'), function() {
 	Route::post('user/action/comment/save', array('before'=>'auth|csrf', 'uses'=>'CommentController@saveComment'));
 	Route::post('user/action/comment/delete', array('before'=>'auth|csrf', 'uses'=>'CommentController@deleteComment'));
 
+	/*Contact Form*/
+	Route::get('user-feedback', array('uses'=>'UserFeedbackController@showForm'));
+
 	/*Legal Documents*/
 	Route::get('legal/terms-of-use', function() {
 		return View::make('legal/terms-of-use', ViewData::get());
