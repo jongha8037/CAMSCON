@@ -6,10 +6,10 @@
 @section('content')
 <div class="primary-slider">
 	<div class="inner clearfix">
-		<figure class="slide"><img src="http://cdn.camscon.kr/assets/primary-slider/1.jpg" /></figure>
-		<figure class="slide"><img src="http://cdn.camscon.kr/assets/primary-slider/2.jpg" /></figure>
-		<figure class="slide"><img src="http://cdn.camscon.kr/assets/primary-slider/3.jpg" /></figure>
-		<figure class="slide"><img src="http://cdn.camscon.kr/assets/primary-slider/4.jpg" /></figure>
+		<!-- <figure class="slide"><img src="http://cdn.camscon.kr/assets/primary-slider/1.jpg" /></figure> -->
+		<figure class="slide">
+			<a href="{{action('InspirerRegisterController@showRegister')}}"><img src="http://cdn.camscon.kr/assets/primary-slider/inspirer-register.png" /></a>
+		</figure>
 	</div>
 </div>
 

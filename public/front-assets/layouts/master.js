@@ -206,7 +206,7 @@ $(document).ready(function() {
 
 	//PrimarySlider
 	var slides=$('.primary-slider .slide').length;
-	if(slides>0) {
+	if(slides>1) {
 		PrimarySlider.init(slides, '.primary-slider');
 	}
 

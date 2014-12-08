@@ -802,6 +802,16 @@
 	color: #000;
 }
 
+.single-container .banner-section {
+	margin-bottom:30px;
+	text-align: center;
+}
+
+.single-container .banner-section img {
+	max-width: 100%;
+	height:auto;
+}
+
 @media (max-width:767px) {
 	.breadcrumbs {
 		white-space: nowrap;
@@ -1091,6 +1101,7 @@
 
 .primary-slider .slide {
 	float:left;
+	width:100%;
 }
 
 .primary-slider .slide img {
@@ -1100,6 +1111,7 @@
 
 @media (max-width:767px) {
 	.primary-slider {
+		display:none;
 		margin-top:15px;
 	}
 }
@@ -1107,6 +1119,10 @@
 
 /*Comment Module
 ----------------------------------------------------------------------------*/
+.comments-section {
+	margin-bottom:30px;
+}
+
 .comment-list-wrapper {
 	border:1px solid #e0e0e0;
 	margin-bottom:15px;

@@ -131,6 +131,10 @@
 				)
 			)
 		</div>
+
+		<div id="bannerSection" class="banner-section">
+			<a href="{{action('InspirerRegisterController@showRegister')}}"><img src="http://camscon.dev/assets/single-banners/inspirer-register.png" /></a>
+		</div>
 	</div>
 </div><!--/.single-container-->
 @stop
