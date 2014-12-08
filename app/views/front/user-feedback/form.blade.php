@@ -17,14 +17,14 @@ Feedback form - CAMSCON
 
 @section('content')
 <div class="feedback-wrapper">
-	<form>
+	{{ Form::open(array( 'url'=>action('UserFeedbackController@postFeedback') )) }}
 		<h1>CAMSCON을 이용하시는 데에 <strong>불편하신 점</strong>을 모두 말씀해주세요</h1>
-		<textarea></textarea>
+		<textarea name="feedback"></textarea>
 		<div class="submit-bar">
 			<button type="submit">제출하기</button>
 		</div>
 		<p>조금이라도 불편하시거나, 오류가 발생할 때, CAMSCON에 건의하거나 제안해주고 싶은 사항이 있으시다면 아래에 내용을 입력해 제출해주세요 :) 바로 반영하여 수정하거나 리뉴얼 시, 꼭 반영하도록 하겠습니다.</p>
-	</form>
+	{{ Form::close() }}
 </div><!--/.feedback-wrapper-->
 @stop
 

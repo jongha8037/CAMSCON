@@ -95,6 +95,7 @@ Route::group(array('before' => 'front'), function() {
 
 	/*Contact Form*/
 	Route::get('user-feedback', array('uses'=>'UserFeedbackController@showForm'));
+	Route::post('user-feedback/post', array('before'=>'csrf', 'uses'=>'UserFeedbackController@postFeedback'));
 
 	/*Legal Documents*/
 	Route::get('legal/terms-of-use', function() {
@@ -135,6 +136,10 @@ Route::group(array('prefix' => 'admin', 'before'=>'auth.admin'), function() {
 
 	/*Override user*/
 	Route::get('override/{user_id}', array('uses'=>'AdminController@overrideUser'));
+
+	/*User Feedback*/
+	Route::get('user-feedback', array('uses'=>'UserFeedbackController@showAdmin'));
+	Route::post('user-feedback/delete', array('before'=>'csrf', 'uses'=>'UserFeedbackController@deleteFeedback'));
 });
 
 /*Admin Auth Routes*/
