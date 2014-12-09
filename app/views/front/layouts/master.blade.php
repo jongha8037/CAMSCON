@@ -110,7 +110,9 @@
 					</li>
 					<li class="blog-menu">
 						<a href="{{action('StreetSnapController@getList', array('category'=>'blog', 'slug'=>'all', 'ordering'=>'new'))}}">Fashion People <span class="caret"></span></a>
+						<span class="close-btn glyphicon glyphicon-remove"></span>
 						<ul class="blog-sub-menu sub-menu">
+							<li class="col-xs-hide col-sm-hide col-md-12 inspirer-register-menu"><a href="{{action('InspirerRegisterController@showRegister')}}">Register as a fashion Inspirer!</a></li>
 							<li class="col-xs-12 col-sm-3 col-md-2 mobile-all"><a href="{{action('StreetSnapController@getList', array('category'=>'blog', 'slug'=>'all', 'ordering'=>'new'))}}">All</a></li>
 							@foreach($CatNav->blog as $blog)
 							<li class="col-xs-12 col-sm-3 col-md-2">
