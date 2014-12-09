@@ -34,7 +34,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css' />
 
 	<!--Admin Layout styles-->
-	<link href="{{asset('front-assets/layouts/master.css')}}" rel="stylesheet" />
+	<link href="{{asset('front-assets/layouts/master.css')}}?version=1.0.0" rel="stylesheet" />
 
 	@yield('head_styles')
 	</head>
@@ -203,7 +203,7 @@
 	</script>
 
 	<!--Admin Layout-->
-	<script src="{{asset('front-assets/layouts/master.js')}}"></script>
+	<script src="{{asset('front-assets/layouts/master.js')}}?version=1.0.0"></script>
 	@yield('footer_scripts')
 </body>
 </html>
