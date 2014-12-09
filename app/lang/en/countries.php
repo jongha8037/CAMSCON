@@ -20,5 +20,6 @@ return array(
 	'SG'=>'Singapore',
 	'KR'=>'Korea',
 	'RU'=>'Russia',
+	'US'=>'U.S.A',
 	
 );
