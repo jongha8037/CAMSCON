@@ -94,8 +94,8 @@ Route::group(array('before' => 'front'), function() {
 	Route::post('user/action/comment/delete', array('before'=>'auth|csrf', 'uses'=>'CommentController@deleteComment'));
 
 	/*Contact Form*/
-	Route::get('user-feedback', array('uses'=>'UserFeedbackController@showForm'));
-	Route::post('user-feedback/post', array('before'=>'csrf', 'uses'=>'UserFeedbackController@postFeedback'));
+	Route::get('forms/user-feedback', array('uses'=>'UserFeedbackController@showForm'));
+	Route::post('forms/user-feedback/post', array('before'=>'csrf', 'uses'=>'UserFeedbackController@postFeedback'));
 
 	/*Legal Documents*/
 	Route::get('legal/terms-of-use', function() {
