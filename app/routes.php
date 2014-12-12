@@ -141,16 +141,14 @@ Route::group(array('prefix' => 'admin', 'before'=>'auth.admin'), function() {
 	/*Override user*/
 	Route::get('override/{user_id}', array('uses'=>'AdminController@overrideUser'));
 
-<<<<<<< HEAD
 	/*Inspirer Register Admin*/
 	Route::get('inspirer-register', array('uses'=>'InspirerRegisterController@showAdmin'));
 	Route::post('inspirer-register/change-status/{status}', array('filter'=>'csrf', 'uses'=>'InspirerRegisterController@changeStatus'));
 	Route::post('inspirer-register/delete', array('filter'=>'csrf', 'uses'=>'InspirerRegisterController@deleteForms'));
-=======
+	
 	/*User Feedback*/
 	Route::get('user-feedback', array('uses'=>'UserFeedbackController@showAdmin'));
 	Route::post('user-feedback/delete', array('before'=>'csrf', 'uses'=>'UserFeedbackController@deleteFeedback'));
->>>>>>> contact
 });
 
 /*Admin Auth Routes*/
