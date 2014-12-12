@@ -97,6 +97,10 @@ Route::group(array('before' => 'front'), function() {
 	Route::get('forms/inspirer-register', array('uses'=>'InspirerRegisterController@showRegister'));
 	Route::post('forms/inspirer-register', array('before'=>'csrf', 'uses'=>'InspirerRegisterController@postRegister'));
 
+	/*Contact Form*/
+	Route::get('forms/user-feedback', array('uses'=>'UserFeedbackController@showForm'));
+	Route::post('forms/user-feedback/post', array('before'=>'csrf', 'uses'=>'UserFeedbackController@postFeedback'));
+
 	/*Legal Documents*/
 	Route::get('legal/terms-of-use', function() {
 		return View::make('legal/terms-of-use', ViewData::get());
@@ -137,10 +141,16 @@ Route::group(array('prefix' => 'admin', 'before'=>'auth.admin'), function() {
 	/*Override user*/
 	Route::get('override/{user_id}', array('uses'=>'AdminController@overrideUser'));
 
+<<<<<<< HEAD
 	/*Inspirer Register Admin*/
 	Route::get('inspirer-register', array('uses'=>'InspirerRegisterController@showAdmin'));
 	Route::post('inspirer-register/change-status/{status}', array('filter'=>'csrf', 'uses'=>'InspirerRegisterController@changeStatus'));
 	Route::post('inspirer-register/delete', array('filter'=>'csrf', 'uses'=>'InspirerRegisterController@deleteForms'));
+=======
+	/*User Feedback*/
+	Route::get('user-feedback', array('uses'=>'UserFeedbackController@showAdmin'));
+	Route::post('user-feedback/delete', array('before'=>'csrf', 'uses'=>'UserFeedbackController@deleteFeedback'));
+>>>>>>> contact
 });
 
 /*Admin Auth Routes*/

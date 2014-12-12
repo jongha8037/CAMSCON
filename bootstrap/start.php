@@ -78,7 +78,7 @@ function autop($rawText) {
 		$lines=explode('<br />', $p);
 		$cleanLines=array();
 		foreach ($lines as $line) {
-			$cleanLines[]=htmlentities($line, ENT_HTML5);
+			$cleanLines[]=htmlentities($line, ENT_HTML5, 'UTF-8', false);
 		}
 		$cleanP=implode('<br />', $cleanLines);
 		$output.=sprintf('<p>%s</p>', $cleanP);
