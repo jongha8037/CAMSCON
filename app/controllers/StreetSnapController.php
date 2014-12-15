@@ -365,31 +365,35 @@ class StreetSnapController extends BaseController {
 					}
 				}
 		}//Switch()
-		//Add context to snaps
-		$snaps->each(function($snap) use($category, $slug) {
-			$snap->setContext($category, $slug);
-		});
-		ViewData::add('snapCount', strval($snaps->count()));
-		ViewData::add('snaps', $snaps->toJson());
+		if($snaps) {
+			//Add context to snaps
+			$snaps->each(function($snap) use($category, $slug) {
+				$snap->setContext($category, $slug);
+			});
+			ViewData::add('snapCount', strval($snaps->count()));
+			ViewData::add('snaps', $snaps->toJson());
 
-		//Set pagination endpoint
-		$nextPage=null;
-		$currentPage=$snaps->getCurrentPage();
-		if($currentPage<$snaps->getLastPage()) {
-			if($category=='all') {
-				$nextPage=action('StreetSnapController@getList', array('category'=>$category, 'slug'=>'order', 'ordering'=>$ordering, 'page'=>$currentPage+1));
-			} else {
-				$nextPage=action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$slug, 'ordering'=>$ordering, 'page'=>$currentPage+1));
+			//Set pagination endpoint
+			$nextPage=null;
+			$currentPage=$snaps->getCurrentPage();
+			if($currentPage<$snaps->getLastPage()) {
+				if($category=='all') {
+					$nextPage=action('StreetSnapController@getList', array('category'=>$category, 'slug'=>'order', 'ordering'=>$ordering, 'page'=>$currentPage+1));
+				} else {
+					$nextPage=action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$slug, 'ordering'=>$ordering, 'page'=>$currentPage+1));
+				}
 			}
-		}
-		ViewData::add('loadMore', $nextPage);
+			ViewData::add('loadMore', $nextPage);
 
-		//Return response
-		if(Request::ajax()) {
-			//return '{"snaps":'.$snaps->toJson().',"more_url":"'.$nextPage.'"}';
-			return sprintf('{"snaps":%s,"more_url":"%s"}', $snaps->toJson(), $nextPage);
+			//Return response
+			if(Request::ajax()) {
+				//return '{"snaps":'.$snaps->toJson().',"more_url":"'.$nextPage.'"}';
+				return sprintf('{"snaps":%s,"more_url":"%s"}', $snaps->toJson(), $nextPage);
+			} else {
+				return View::make('front.streetsnap.list', ViewData::get());
+			}
 		} else {
-			return View::make('front.streetsnap.list', ViewData::get());
+			App::abort(404);
 		}
 	}//getList()
 
