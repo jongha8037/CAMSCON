@@ -66,7 +66,7 @@ class ProfileController extends BaseController {
 
 		if($profile) {
 			if($filter=='liked') {
-				$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')->whereHas('likes', function($q) {
+				$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')->whereHas('likes', function($q) use($profile) {
 					$q->where('user_id', '=', $profile->id);
 				})->orderBy('created_at', 'DESC')->paginate(9);
 				$snaps->each(function($snap) {
