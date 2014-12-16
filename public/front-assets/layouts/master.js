@@ -64,14 +64,14 @@ var CategoryNavigation={
 		//Trigger 2nd depth
 		this.objects.nav.on('click', '.mobile-cat-btn', null, function(e) {
 			e.preventDefault();
-			var catList=$(this).siblings('.category-list');
+			var catListWrapper=$(this).siblings('.category-list-wrapper');
 
-			catList.css('height', $.viewportH()-106);
+			catListWrapper.css('height', $.viewportH()-106);
 
-			if(catList.hasClass('active')) {
-				catList.removeClass('active');
+			if(catListWrapper.hasClass('active')) {
+				catListWrapper.removeClass('active');
 			} else {
-				catList.addClass('active');
+				catListWrapper.addClass('active');
 			}
 		});
 
@@ -92,7 +92,7 @@ var CategoryNavigation={
 		//Close 3rd depths
 		this.objects.nav.on('click', '.close-btn', null, function(e) {
 			e.stopPropagation();
-			var parent=$(this).parent('.active');
+			var parent=$(this).parents('.active');
 			if(parent.hasClass('active')) {
 				parent.removeClass('active');
 			}
