@@ -34,7 +34,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css' />
 
 	<!--Admin Layout styles-->
-	<link href="{{asset('front-assets/layouts/master.css')}}?version=1.0.0" rel="stylesheet" />
+	<link href="{{asset('front-assets/layouts/master.css')}}" rel="stylesheet" />
 
 	@yield('head_styles')
 	</head>
@@ -181,10 +181,14 @@
 		@yield('content')
 	</main><!--/.layout-body-->
 
-	<footer class="layout-footer container">
-		<div id="scrollTopBtn" class="scroll-top-btn">TOP▲</div>
-
-		<div class="layout-footer-content">
+	<footer id="layoutFooter" class="layout-footer">
+		<div class="top-btn-wrapper container">
+			<div id="scrollTopBtn" class="scroll-top-btn">TOP▲</div>
+		</div>
+		<div class="footer-content container">
+			<span><a href="{{action('UserFeedbackController@showForm')}}">Feedback</a></span>
+			<span><a href="{{url('legal/privacy-policy')}}">개인정보취급방침</a></span>
+			<span><a href="{{url('legal/terms-of-use')}}">이용약관</a></span>
 		</div>
 	</footer><!--/.layout-footer-->
 

@@ -78,6 +78,11 @@ var ListView={
 		//Scroll event
 		$(window).on('scroll', null, null, function() {
 			if((document.body.scrollHeight-$(window).scrollTop() < $.viewportH()+500) && (ListView.status=='idle')) {
+				
+				/*Show Bottom Fixed Bar*/
+				var BottomFixedBarAction=BottomFixedBar.move.bind(BottomFixedBar);
+				BottomFixedBarAction('show');
+				
 				ListView.objx.wrapper.addClass('loading');
 				ListView.status='loading';
 				ListView.requestMoreSnaps();

@@ -23,6 +23,7 @@ if (!Function.prototype.bind) {
   };
 }
 
+//Category Navigation Module
 var CategoryNavigation={
 	objects:{
 		nav:null
@@ -152,6 +153,7 @@ var CategoryNavigation={
 	}
 };//CategoryNavigation{}
 
+//Primary Slider Module
 var PrimarySlider={
 	slides:0,
 	timer:null,
@@ -190,7 +192,53 @@ var PrimarySlider={
 			slider.setTimer();
 		});
 	}
-}//PrimarySlider{}
+};//PrimarySlider{}
+
+//Bottom Fixed Bar module
+var BottomFixedBar={
+	initStatus:false,
+	objx:{
+		layoutFooter:null
+	},
+	animLength:33,
+	status:'visible',/*visible, hidden, in_motion*/
+	timer:null,
+	init:function(layoutFooterObj) {
+		if($.viewportW()>=768) {
+			/*layoutFooterObj must be a jQuery object*/
+			this.objx.layoutFooter=layoutFooterObj;
+
+			//Hide on scroll
+			$(window).on('scroll', null, {moveAction:this.move.bind(this)}, function(e) {
+				e.data.moveAction('hide');
+			});
+
+			this.initStatus=true;
+		}
+	},
+	move:function(targetState) {
+		if(this.initStatus===true) {
+			var targetPos=null;
+			if(targetState=='hide' && this.status=='visible') {
+				targetPos=(-1)*this.animLength;
+			} else if(targetState=='show' && this.status=='hidden') {
+				targetPos=0;
+			}
+
+			if(targetPos!==null) {
+				self=this;
+				self.status='in_motion';
+				this.objx.layoutFooter.animate({bottom:targetPos}, 320, function() {
+					if(targetState=='hide') {
+						self.status='hidden';
+					} else if(targetState=='show') {
+						self.status='visible';
+					}
+				});
+			}
+		}
+	}
+};//BottomFixedBar{}
 
 $(document).ready(function() {
 	//Login Btn
@@ -223,4 +271,7 @@ $(document).ready(function() {
 	$('#scrollTopBtn').on('click', null, null, function() {
 		$('body').animate({scrollTop:0}, 400);
 	});
+
+	//Init Bottom Fixed Bar module
+	BottomFixedBar.init($('#layoutFooter'));
 });//document.ready()
