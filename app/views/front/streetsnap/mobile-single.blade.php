@@ -206,11 +206,8 @@ var SingleView={
 		}
 	}/*init()*/,
 	render:function() {
-		var maxWidth=$('#photoCol').innerWidth();
+		var maxWidth=$('#photoCol').width();
 		var imgWidth=parseInt(this.objects.targetImg.attr('width'),10);
-
-		//print maxWidth and imgWidth
-		$('body').append($('<p>document.ready maxWidth:'+maxWidth+'imgWidth:'+imgWidth+'</p>'));
 
 		if(imgWidth>maxWidth) {
 			this.scale=maxWidth/imgWidth;
@@ -394,13 +391,6 @@ $(document).ready(function() {
 
 $(window).resize(function() {
 	SingleView.render();
-});
-
-$(window).load(function() {
-	//print maxWidth and imgWidth
-	var maxWidth=$('#photoCol').innerWidth();
-	var imgWidth=parseInt(SingleView.objects.targetImg.attr('width'),10);
-	$('body').append($('<p>window.load maxWidth:'+maxWidth+'imgWidth:'+imgWidth+'</p>'));
 });
 </script>
 @stop

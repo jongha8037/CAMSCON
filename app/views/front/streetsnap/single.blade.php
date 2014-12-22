@@ -206,7 +206,7 @@ var SingleView={
 		}
 	}/*init()*/,
 	render:function() {
-		var maxWidth=$('#photoCol').innerWidth();
+		var maxWidth=$('#photoCol').width();
 		var imgWidth=parseInt(this.objects.targetImg.attr('width'),10);
 		if(imgWidth>maxWidth) {
 			this.scale=maxWidth/imgWidth;
