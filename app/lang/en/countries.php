@@ -11,15 +11,17 @@ return array(
 	|
 	*/
 
-	'AU'=>'Australia',
 	'AT'=>'Austria',
+	'AU'=>'Australia',
 	'CN'=>'China',
+	'FR'=>'France',
 	'GB'=>'United Kingdom',
+	'KR'=>'Korea',
+	'NL'=>'Netherlands',
 	'PL'=>'Poland',
+	'RU'=>'Russia',
 	'SE'=>'Sweden',
 	'SG'=>'Singapore',
-	'KR'=>'Korea',
-	'RU'=>'Russia',
 	'US'=>'U.S.A',
 	
 );
