@@ -29,17 +29,29 @@
 	@endforeach
 </div>
 
-<div class="single-container row">
-	<div id="photoCol" class="photo-col col-xs-12 col-sm-7">
-		<nav class="content-nav clearfix">
-			@if($nextSnap)
-			<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$nextSnap->id))}}" alt="" class="next" style="background-image:url('{{asset('front-assets/layouts/content_nav_next.png')}}');">Next</a>
-			@endif
+<div class="single-container xs-mode row">
+	<nav class="content-nav clearfix">
+		@if($nextSnap)
+		<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$nextSnap->id))}}" alt="" class="next" style="background-image:url('{{asset('front-assets/layouts/content_nav_next.png')}}');">Next</a>
+		@endif
 
-			@if($prevSnap)
-			<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$prevSnap->id))}}" alt="" class="prev" style="background-image:url('{{asset('front-assets/layouts/content_nav_prev.png')}}');">Prev</a>
-			@endif
-		</nav>
+		@if($prevSnap)
+		<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$prevSnap->id))}}" alt="" class="prev" style="background-image:url('{{asset('front-assets/layouts/content_nav_prev.png')}}');">Prev</a>
+		@endif
+	</nav>
+
+	<div class="icon-section">
+		<h3 class="name">{{{$snap->name}}}</h3>
+		@if($snap->meta_type=='BlogMeta')
+		<h3 class="category">{{{$snap->meta->name}}} | {{$snap->meta->country}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+		@elseif($snap->affiliation)
+		<h3 class="category">{{{$snap->meta->name}}} | {{{$snap->affiliation}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+		@else
+		<h3 class="category">{{{preg_replace('/Meta$/', '', $snap->meta_type)}}} | {{{$snap->meta->name}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+		@endif
+	</div>
+
+	<div id="photoCol" class="photo-col col-xs-12 col-sm-7">
 
 		<figure id="snapPrimary" class="primary-photo pinned">
 			@if($snap->liked->count()>0)
@@ -53,23 +65,7 @@
 			<img src="{{$snap->primary->url}}" alt="" width="{{$snap->primary->width}}" height="{{$snap->primary->height}}" />
 		</figure><!--/.primary-photo-->
 
-		@foreach($snap->attachments as $attachment)
-		<figure>
-			<img src="{{$attachment->url}}" alt="" width="{{$attachment->width}}" height="{{$attachment->height}}" />
-		</figure>
-		@endforeach
-	</div><!--/#photoCol-->
-	<div id="dataCol" class="data-col col-xs-12 col-sm-5">
-		<div class="icon-section">
-			<h3 class="name">{{{$snap->name}}}</h3>
-			@if($snap->meta_type=='BlogMeta')
-			<h3 class="category">{{{$snap->meta->name}}} / {{$snap->meta->country}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
-			@elseif($snap->affiliation)
-			<h3 class="category">{{{$snap->meta->name}}} / {{{$snap->affiliation}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
-			@else
-			<h3 class="category">{{{preg_replace('/Meta$/', '', $snap->meta_type)}}} / {{{$snap->meta->name}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
-			@endif
-		</div>
+		<div class="snap-stats">댓글 <strong>12</strong> | 좋아요 <strong>60</strong></div>
 
 		@if($snap->pins->count())
 		<div class="pins-section">
@@ -77,6 +73,13 @@
 		</div>
 		@endif
 
+		@foreach($snap->attachments as $attachment)
+		<figure>
+			<img src="{{$attachment->url}}" alt="" width="{{$attachment->width}}" height="{{$attachment->height}}" />
+		</figure>
+		@endforeach
+	</div><!--/#photoCol-->
+	<div id="dataCol" class="data-col col-xs-12 col-sm-5">
 		<div class="notes-section">
 			@if(!empty($snap->subject_comment))
 			@if($snap->gender=='female')
