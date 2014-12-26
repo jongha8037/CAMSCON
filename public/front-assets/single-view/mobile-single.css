@@ -7,6 +7,10 @@
 	margin:0px -15px;
 	padding:16px 15px;
 	border-bottom:1px solid #7f7f7f;
+
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .breadcrumbs a {
@@ -18,14 +22,13 @@
 	font-weight: 700;
 }
 
+
+/*Content Navigation*/
 .content-nav {
 	color: #000;
 	margin:21px 0px;
-	padding:0px 15px;
 }
 
-
-/*Content Navigation*/
 .content-nav a {
 	color: inherit;
 	text-decoration: none;
@@ -48,7 +51,7 @@
 /*General styles for figure and img elements*/
 .single-container figure {
 	display: table;
-	margin:0px auto 30px auto;
+	margin:0px auto 10px auto;
 	max-width: 100%;
 }
 
@@ -59,66 +62,23 @@
 }
 
 
-/*Primary photo*/
-.single-container .primary-photo {
-	position: relative;
-}
-
-.single-container .primary-photo .like-btn {
-	position:absolute;
-	top:10px;
-	left:10px;
-	border:0;
-	background-color:#000;
-	color:#fff;
-	padding: 18px;
-	font-weight: 700;
-
-}
-
-.single-container .primary-photo .like-btn.liked {
-	color:#56d8d1;
-}
-
-.single-container .primary-photo .likes {
-	position:absolute;
-	top:10px;
-	left: 83px;
-	padding: 18px;
-	background-color: #fff;
-	font-weight: 700;
-}
-
-.single-container .primary-photo .fb-share-btn {
-	position: absolute;
-	top:71px;
-	left:10px;
-	border: 0;
-	background-color:#5696d8;
-	color: #fff;
-	font-size: 37px;
-	padding: 2px 22px;
-	font-weight: 700;
-}
-
-
-
-.icon-section {
+/*Icon Section*/
+.single-container .icon-section {
 	margin:33px 0px 13px 0px;
-	padding:0px 15px;
 	border-bottom:0;
 }
 
-.icon-section h3 {
+.single-container .icon-section h3 {
+	margin:0px;
 	display: inline;
 	vertical-align: middle;
 }
 
-.icon-section h3.name {
+.single-container .icon-section h3.name {
 	font-size:19px;
 	font-weight: 700;
 	color:#3d3c3b;
-	margin-right:8px;
+	margin-right:4px;
 }
 
 .icon-section h3.category {
@@ -132,6 +92,50 @@
 	display: none;
 }
 
+
+/*Primary photo*/
+.single-container .primary-photo {
+	position: relative;
+	margin-bottom:0px;
+}
+
+.single-container .primary-photo .like-btn {
+	position:absolute;
+	top:10px;
+	left:10px;
+	border:0;
+	background-color:#000;
+	color:#fff;
+	padding: 9px;
+	font-weight: 700;
+
+}
+
+.single-container .primary-photo .like-btn.liked {
+	color:#56d8d1;
+}
+
+.single-container .primary-photo .likes {
+	position:absolute;
+	top:10px;
+	left: 62px;
+	padding: 9px;
+	background-color: #fff;
+	font-weight: 700;
+}
+
+.single-container .primary-photo .fb-share-btn {
+	position: absolute;
+	top:53px;
+	left:10px;
+	border: 0;
+	background-color:#5696d8;
+	color: #fff;
+	font-size: 25px;
+	padding: 1px 19px;
+	font-weight: 700;
+}
+
 .single-container .snap-stats {
 	text-align: right;
 	font-size: 12px;
@@ -139,6 +143,8 @@
 	border-bottom:1px solid #e5e1dc;
 }
 
+
+/*Pins Section*/
 .single-container .pins-section {
 	padding:20px 0px;
 	margin-bottom:30px;
@@ -147,4 +153,165 @@
 
 .single-container .pins-section .pin-list li:last-child {
 	margin-bottom:0px;
+}
+
+
+/*Attachments*/
+.single-container .attachments {
+	padding-bottom:20px;
+	border-bottom:1px solid #e5e1dc;
+}
+
+
+/*Icon Comment*/
+.single-container .icon-comment {
+	margin-bottom:40px;
+}
+
+
+/*Inspirer's Note*/
+
+
+.single-container .photographer-section .profile-img {
+	width: auto;
+	max-width: 80px;
+	height: auto;
+	float: left;
+}
+
+.single-container .photographer-section .profile-data {
+	padding-left: 90px;
+}
+
+.single-container .photographer-section .profile-data .name {
+	background-color: #000;
+	color: #fff;
+	padding: 8px 14px;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+.single-container .photographer-section .profile-data p {
+	margin-bottom:6px;
+	line-height: 1;
+}
+
+.single-container .photographer-section .profile-data a {
+	color: #666;
+	word-break: break-all;
+
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.single-container .photographer-section .profile-data a:hover {
+	color: #000;
+}
+
+.single-container .banner-section {
+	margin-bottom:30px;
+	text-align: center;
+}
+
+.single-container .banner-section img {
+	max-width: 100%;
+	height:auto;
+
+	-webkit-transition: opacity 200ms ease-out;
+	-moz-transition: opacity 200ms ease-out;
+	-o-transition: opacity 200ms ease-out;
+	transition: opacity 200ms ease-out;
+}
+
+.single-container .banner-section img:hover {
+	opacity: 0.8;
+}
+
+
+
+
+.single-container .pin-container .pin {
+	opacity: 0;
+	position: absolute;
+	background-color: #20cfc5;
+	font-size: 13px;
+	color: #fff;
+	text-decoration: none;
+	padding: 4px;
+	border-radius: 50%;
+	display: block;
+	width: 20px;
+	height: 20px;
+	line-height: 1;
+	text-align: center;
+	cursor: pointer;
+	margin-top: -10px;
+	margin-left: -10px;
+}
+
+.single-container .pin-container .pin.highlight, 
+.single-container .pinned:hover .pin-container .pin {
+	opacity: 1;
+}
+
+.single-container .pin-list {
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.single-container .pin-list li {
+	line-height: 1.3;
+	cursor:pointer;
+	margin-bottom:20px;
+}
+
+.single-container .pin-list li .data-wrapper {
+	margin-left:25px;
+}
+
+.single-container .pin-list li .pin-numbering {
+	background-color: #000;
+	font-size: 13px;
+	color: #fff;
+	text-decoration: none;
+	padding: 3px;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	line-height: 1;
+	text-align: center;
+	float:left;
+}
+
+.single-container .pin-list li .links {
+	padding:0px;
+	margin:0px;
+	list-style-type: none;
+}
+
+.single-container .pin-list li .links li .link-name {
+	color:#707070;
+	/*Temp*/
+	display:none;
+}
+
+.single-container .pin-list li .links li a {
+	color:#aaa;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+}
+
+.single-container .pin-list li.highlight .pin-numbering, 
+.single-container .pin-list li:hover .pin-numbering {
+	background-color: #20cfc5;
+}
+
+.single-container .pin-list li.highlight .meta, 
+.single-container .pin-list li:hover .meta {
+	color: #20cfc5;
 }

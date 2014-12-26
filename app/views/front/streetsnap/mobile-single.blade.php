@@ -32,7 +32,7 @@
 	@endforeach
 </div>
 
-<div class="single-container row">
+<div class="single-container">
 	<nav class="content-nav clearfix">
 		@if($nextSnap)
 		<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$nextSnap->id))}}" alt="" class="next" style="background-image:url('{{asset('front-assets/layouts/content_nav_next.png')}}');">Next</a>
@@ -54,8 +54,8 @@
 		@endif
 	</div>
 
-	<div id="photoCol" class="photo-col col-xs-12 col-sm-7">
-
+	
+	<div id="photoCol">
 		<figure id="snapPrimary" class="primary-photo pinned">
 			@if($snap->liked->count()>0)
 			<button type="button" class="like-btn liked" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
@@ -67,80 +67,79 @@
 			<div class="pin-container"></div>
 			<img src="{{$snap->primary->url}}" alt="" width="{{$snap->primary->width}}" height="{{$snap->primary->height}}" />
 		</figure><!--/.primary-photo-->
+	</div>
 
-		<div class="snap-stats">댓글 <strong>12</strong> | 좋아요 <strong>60</strong></div>
+	<div class="snap-stats">댓글 <strong>12</strong> | 좋아요 <strong>60</strong></div>
 
-		@if($snap->pins->count())
-		<div class="pins-section">
-			<ul id="pinList" class="pin-list"></ul>
-		</div>
+	@if($snap->pins->count())
+	<div class="pins-section">
+		<ul id="pinList" class="pin-list"></ul>
+	</div>
+	@endif
+
+	@if(!empty($snap->subject_comment))
+		<div class="icon-comment">
+		@if($snap->gender=='female')
+		<h4>She says:</h4>
+		@else
+		<h4>He says:</h4>
 		@endif
+			{{autop($snap->subject_comment)}}
+		</div>
+	@endif
 
+	<div class="attachments">
 		@foreach($snap->attachments as $attachment)
 		<figure>
 			<img src="{{$attachment->url}}" alt="" width="{{$attachment->width}}" height="{{$attachment->height}}" />
 		</figure>
 		@endforeach
-	</div><!--/#photoCol-->
-	<div id="dataCol" class="data-col col-xs-12 col-sm-5">
-		<div class="notes-section">
-			@if(!empty($snap->subject_comment))
-			@if($snap->gender=='female')
-			<h4>She says:</h4>
-			@else
-			<h4>He says:</h4>
-			@endif
-			<div class="icon-comment">
-				{{autop($snap->subject_comment)}}
-			</div>
-			@endif
-
-			@if(!empty($snap->photographer_comment))
-			<h4>Inspirer's note:</h4>
-			<div class="photographers-note">
-				{{autop($snap->photographer_comment)}}
-			</div>
-			@endif
-		</div><!--/.notes-section-->
-
-		<div class="photographer-section">
-			@if($snap->user->profileImage)
-			<img src="{{$snap->user->profileImage->url}}" alt="" class="profile-img" />
-			@else
-			<img src="{{asset('front-assets/profile/profile_default_big.png')}}" alt="" class="profile-img" />
-			@endif
-			<div class="profile-data">
-				<strong class="name">{{{$snap->user->nickname}}}</strong>
-				@if(!empty($snap->user->slug))
-				<p>MY PAGE <a href="{{action('ProfileController@showProfile', $snap->user->slug)}}">{{action('ProfileController@showProfile', $snap->user->slug)}}</a></p>
-				@else
-				<p>MY PAGE <a href="{{action('ProfileController@showProfile', $snap->user->id)}}">{{action('ProfileController@showProfile', $snap->user->id)}}</a></p>
-				@endif
-				<p>Blog @if(!empty($snap->user->blog))<a href="{{$snap->user->blog}}" target="_blank">{{$snap->user->blog}}</a>@else{{'-'}}@endif</p>
-				<p>Instagram @if(!empty($snap->user->instagram))<a href="http://instagram.com/{{$snap->user->instagram}}" target="_blank">{{'@'.$snap->user->instagram}}</a>@else{{'-'}}@endif</p>
-			</div>
+	</div>
+		
+	@if(!empty($snap->photographer_comment))
+		<div class="photographers-note">
+		<h4>Inspirer's note:</h4>
+			{{autop($snap->photographer_comment)}}
 		</div>
+	@endif
 
-		<div id="commentsSection" class="comments-section">
-			@include(
-				'includes.comments', 
-				array(
-					'comments'=>$snap->comments()->with(
-						'user', 
-						'user.profileImage', 
-						'children', 
-						'children.user', 
-						'children.user.profileImage'
-					)->get(), 
-					'target_type'=>'StreetSnap', 
-					'target_id'=>$snap->id
-				)
+	<div class="photographer-section">
+		@if($snap->user->profileImage)
+		<img src="{{$snap->user->profileImage->url}}" alt="" class="profile-img" />
+		@else
+		<img src="{{asset('front-assets/profile/profile_default_big.png')}}" alt="" class="profile-img" />
+		@endif
+		<div class="profile-data">
+			<strong class="name">{{{$snap->user->nickname}}}</strong>
+			@if(!empty($snap->user->slug))
+			<p>MY PAGE <a href="{{action('ProfileController@showProfile', $snap->user->slug)}}">{{action('ProfileController@showProfile', $snap->user->slug)}}</a></p>
+			@else
+			<p>MY PAGE <a href="{{action('ProfileController@showProfile', $snap->user->id)}}">{{action('ProfileController@showProfile', $snap->user->id)}}</a></p>
+			@endif
+			<p>Blog @if(!empty($snap->user->blog))<a href="{{$snap->user->blog}}" target="_blank">{{$snap->user->blog}}</a>@else{{'-'}}@endif</p>
+			<p>Instagram @if(!empty($snap->user->instagram))<a href="http://instagram.com/{{$snap->user->instagram}}" target="_blank">{{'@'.$snap->user->instagram}}</a>@else{{'-'}}@endif</p>
+		</div>
+	</div>
+
+	<div id="commentsSection" class="comments-section">
+		@include(
+			'includes.comments', 
+			array(
+				'comments'=>$snap->comments()->with(
+					'user', 
+					'user.profileImage', 
+					'children', 
+					'children.user', 
+					'children.user.profileImage'
+				)->get(), 
+				'target_type'=>'StreetSnap', 
+				'target_id'=>$snap->id
 			)
-		</div>
+		)
+	</div>
 
-		<div id="bannerSection" class="banner-section">
-			<a href="{{action('InspirerRegisterController@showRegister')}}"><img src="http://cdn.camscon.kr/front-assets/single-banners/inspirer-register-banner.png" /></a>
-		</div>
+	<div id="bannerSection" class="banner-section">
+		<a href="{{action('InspirerRegisterController@showRegister')}}"><img src="http://cdn.camscon.kr/front-assets/single-banners/inspirer-register-banner.png" /></a>
 	</div>
 </div><!--/.single-container-->
 @stop
