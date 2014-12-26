@@ -17,6 +17,9 @@
 <meta property="og:image" content="{{$snap->primary->url}}" />
 <meta property="fb:app_id" content="562009567255774" />
 <meta property="og:locale" content="ko_KR" />
+
+<!--Single View styles-->
+<link href="{{asset('front-assets/single-view/single.css')}}" rel="stylesheet" />
 @stop
 
 @section('content')

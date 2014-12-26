@@ -17,6 +17,9 @@
 <meta property="og:image" content="{{$snap->primary->url}}" />
 <meta property="fb:app_id" content="562009567255774" />
 <meta property="og:locale" content="ko_KR" />
+
+<!--Single View styles-->
+<link href="{{asset('front-assets/single-view/mobile-single.css')}}" rel="stylesheet" />
 @stop
 
 @section('content')
@@ -29,7 +32,7 @@
 	@endforeach
 </div>
 
-<div class="single-container xs-mode row">
+<div class="single-container row">
 	<nav class="content-nav clearfix">
 		@if($nextSnap)
 		<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$nextSnap->id))}}" alt="" class="next" style="background-image:url('{{asset('front-assets/layouts/content_nav_next.png')}}');">Next</a>

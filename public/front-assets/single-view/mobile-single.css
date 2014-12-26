@@ -1,0 +1,150 @@
+/*Mobile optimized single view*/
+
+
+/*Breadcrumbs*/
+.breadcrumbs {
+	color: #737373;
+	margin:0px -15px;
+	padding:16px 15px;
+	border-bottom:1px solid #7f7f7f;
+}
+
+.breadcrumbs a {
+	color:inherit;
+	text-decoration: none;
+}
+
+.breadcrumbs a:last-child {
+	font-weight: 700;
+}
+
+.content-nav {
+	color: #000;
+	margin:21px 0px;
+	padding:0px 15px;
+}
+
+
+/*Content Navigation*/
+.content-nav a {
+	color: inherit;
+	text-decoration: none;
+	background-repeat: no-repeat;
+}
+
+.content-nav .prev {
+	float: right;
+	background-position: 100% 50%;
+	padding-right:15px;
+}
+
+.content-nav .next {
+	float: left;
+	background-position: 0% 50%;
+	padding-left:15px;
+}
+
+
+/*General styles for figure and img elements*/
+.single-container figure {
+	display: table;
+	margin:0px auto 30px auto;
+	max-width: 100%;
+}
+
+.single-container img {
+	width: auto;
+	max-width: 100%;
+	height: auto;
+}
+
+
+/*Primary photo*/
+.single-container .primary-photo {
+	position: relative;
+}
+
+.single-container .primary-photo .like-btn {
+	position:absolute;
+	top:10px;
+	left:10px;
+	border:0;
+	background-color:#000;
+	color:#fff;
+	padding: 18px;
+	font-weight: 700;
+
+}
+
+.single-container .primary-photo .like-btn.liked {
+	color:#56d8d1;
+}
+
+.single-container .primary-photo .likes {
+	position:absolute;
+	top:10px;
+	left: 83px;
+	padding: 18px;
+	background-color: #fff;
+	font-weight: 700;
+}
+
+.single-container .primary-photo .fb-share-btn {
+	position: absolute;
+	top:71px;
+	left:10px;
+	border: 0;
+	background-color:#5696d8;
+	color: #fff;
+	font-size: 37px;
+	padding: 2px 22px;
+	font-weight: 700;
+}
+
+
+
+.icon-section {
+	margin:33px 0px 13px 0px;
+	padding:0px 15px;
+	border-bottom:0;
+}
+
+.icon-section h3 {
+	display: inline;
+	vertical-align: middle;
+}
+
+.icon-section h3.name {
+	font-size:19px;
+	font-weight: 700;
+	color:#3d3c3b;
+	margin-right:8px;
+}
+
+.icon-section h3.category {
+	font-size:13px;
+	color:#808080;
+	position: relative;
+	top:1px;
+}
+
+.single-container .icon-section h3.category a {
+	display: none;
+}
+
+.single-container .snap-stats {
+	text-align: right;
+	font-size: 12px;
+	padding:4px 2px;
+	border-bottom:1px solid #e5e1dc;
+}
+
+.single-container .pins-section {
+	padding:20px 0px;
+	margin-bottom:30px;
+	border-bottom:1px solid #e5e1dc;
+}
+
+.single-container .pins-section .pin-list li:last-child {
+	margin-bottom:0px;
+}
