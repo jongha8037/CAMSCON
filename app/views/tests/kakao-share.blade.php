@@ -27,7 +27,7 @@
       },
       webButton: {
         text: '카카오 디벨로퍼스',
-        url: 'https://dev.kakao.com/docs/js' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+        url: 'http://staging.camscon.kr/test/kakao' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
       }
     });
     </script>
