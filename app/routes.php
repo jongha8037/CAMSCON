@@ -212,11 +212,20 @@ Route::get('mockup/detail', function() {
 
 
 /*Dev Routes*/
+
+/*Kakao sharing*/
+Route::get('test/kakao', function() {
+	return View::make('tests.kakao-share');
+});
+
+/*Query liked
 Route::get('test/liked', function() {
 	$s=StreetSnap::find(1);
 	dd($s->liked);
 });
+*/
 
+/*Transaction error handling
 Route::get('test/transaction', function() {
 	try {
 		$proc=DB::transaction(function() {
@@ -227,7 +236,9 @@ Route::get('test/transaction', function() {
 	}
 	dd($proc);
 });
+*/
 
+/*HOT query optimization
 Route::get('test/query', function() {
 	$snaps=StreetSnap::with('user.profileImage', 'primary', 'meta', 'liked')
 		->from(DB::raw("(select * from street_snaps where created_at>='2014-10-15 00:00:00' and status='published') as T1"))
@@ -235,14 +246,6 @@ Route::get('test/query', function() {
 		->orderBy('created_at', 'DESC')
 		->paginate(9);
 
-	//dd(count($snaps));
-
-	/*
-	foreach($snaps as $snap) {
-		var_dump($snap->primary);
-	}
-	*/
-	//echo $snaps->toJson();
-
 	dd(DB::getQueryLog());
 });
+*/
