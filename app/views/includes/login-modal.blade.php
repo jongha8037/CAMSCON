@@ -209,7 +209,7 @@
 							</div>
 							<div class="checkbox">
 								<label>
-									<input type="checkbox" name="remember"> 기억하기
+									<input type="checkbox" name="remember" checked="checked"> 기억하기
 								</label>
 							</div>
 							<button type="submit" class="btn btn-primary">가입하기</button>
