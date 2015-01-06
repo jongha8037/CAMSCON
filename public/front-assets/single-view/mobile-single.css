@@ -136,11 +136,24 @@
 	font-weight: 700;
 }
 
-.single-container .snap-stats {
-	text-align: right;
-	font-size: 12px;
-	padding:4px 2px;
+.single-container .primary-footer {
 	border-bottom:1px solid #e5e1dc;
+	padding:5px 0px;
+}
+
+.primary-footer .pin-toggle {
+	float:left;
+	font-size: 20px;
+}
+
+.primary-footer .pin-toggle.status-on {
+	/*Color*/
+}
+
+.primary-footer .snap-stats {
+	float:right;
+	font-size: 14px;
+	line-height: 28px;
 }
 
 

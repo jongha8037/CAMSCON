@@ -67,9 +67,12 @@
 			<div class="pin-container"></div>
 			<img src="{{$snap->primary->url}}" alt="" width="{{$snap->primary->width}}" height="{{$snap->primary->height}}" />
 		</figure><!--/.primary-photo-->
-	</div>
 
-	<div class="snap-stats">댓글 <strong>12</strong> | 좋아요 <strong>60</strong></div>
+		<div class="primary-footer clearfix">
+			<div class="pin-toggle">PIN <span class="icon-toggle-on"></span></div>
+			<div class="snap-stats">댓글 <strong>12</strong> | 좋아요 <strong>60</strong></div>
+		</div>
+	</div><!--/#photoCol-->
 
 	@if($snap->pins->count())
 	<div class="pins-section">
