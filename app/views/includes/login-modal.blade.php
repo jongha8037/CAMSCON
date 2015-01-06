@@ -442,7 +442,7 @@ var LoginModal={
 							msg='닉네임이 입력되지 않았습니다! :(';
 							break;
 						case 'nickname_min':
-							msg='닉네임은 3글자 이상이어야 합니다! :(';
+							msg='닉네임은 2글자 이상이어야 합니다! :(';
 							break;
 						case 'nickname_unique':
 							msg='사용할 수 없는 닉네임 입니다! :(';
