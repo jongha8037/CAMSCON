@@ -165,7 +165,7 @@
 							</div>
 							<div class="checkbox">
 								<label>
-									<input type="checkbox" name="remember"> 기억하기
+									<input type="checkbox" name="remember" checked="checked"> 기억하기
 								</label>
 							</div>
 							<button type="submit" class="login-with-email-btn btn btn-primary">Log in</button>
