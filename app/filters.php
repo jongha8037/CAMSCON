@@ -186,7 +186,7 @@ Route::filter('front', function() {
 
 	//Build Campus menu
 	$catNav->campus=array();
-	$campusMeta=CampusMeta::orderBy('name_ko', 'ASC')->get();
+	$campusMeta=CampusMeta::orderBy('name_ko', 'ASC')->remember(60)->get();
 	foreach ($campusMeta as $meta) {
 		$campus=new stdClass();
 		$campus->id=$meta->id;
@@ -197,7 +197,7 @@ Route::filter('front', function() {
 
 	//Build Street menu
 	$catNav->street=array();
-	$streetMeta=StreetMeta::orderBy('name_ko', 'ASC')->get();
+	$streetMeta=StreetMeta::orderBy('name_ko', 'ASC')->remember(60)->get();
 	foreach ($streetMeta as $meta) {
 		$street=new stdClass();
 		$street->id=$meta->id;
@@ -208,7 +208,7 @@ Route::filter('front', function() {
 
 	//Build Street menu
 	$catNav->blog=array();
-	$blogMeta=BlogMeta::orderBy('name', 'ASC')->get();
+	$blogMeta=BlogMeta::orderBy('name', 'ASC')->remember(60)->get();
 	foreach ($blogMeta as $meta) {
 		$blog=new stdClass();
 		$blog->id=$meta->id;
@@ -219,7 +219,7 @@ Route::filter('front', function() {
 
 	//Build Festival menu
 	$catNav->festival=array();
-	$festivalMeta=FestivalMeta::orderBy('name_ko', 'ASC')->get();
+	$festivalMeta=FestivalMeta::orderBy('name_ko', 'ASC')->remember(60)->get();
 	foreach ($festivalMeta as $meta) {
 		$festival=new stdClass();
 		$festival->id=$meta->id;
@@ -230,7 +230,7 @@ Route::filter('front', function() {
 
 	//Build Club menu
 	$catNav->club=array();
-	$clubMeta=ClubMeta::orderBy('name_ko', 'ASC')->get();
+	$clubMeta=ClubMeta::orderBy('name_ko', 'ASC')->remember(60)->get();
 	foreach ($clubMeta as $meta) {
 		$club=new stdClass();
 		$club->id=$meta->id;
@@ -241,7 +241,7 @@ Route::filter('front', function() {
 
 	//Build Club menu
 	$catNav->fashionweek=array();
-	$fashionweekMeta=FashionWeekMeta::orderBy('name_ko', 'ASC')->get();
+	$fashionweekMeta=FashionWeekMeta::orderBy('name_ko', 'ASC')->remember(60)->get();
 	foreach ($fashionweekMeta as $meta) {
 		$fashionweek=new stdClass();
 		$fashionweek->id=$meta->id;

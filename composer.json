@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"facebook/php-sdk-v4" : "4.0.*",
-		"doctrine/dbal" : "v2.4.2"
+		"doctrine/dbal" : "v2.4.2",
+		"mobiledetect/mobiledetectlib": "2.8.11"
 	},
 	"autoload": {
 		"classmap": [
