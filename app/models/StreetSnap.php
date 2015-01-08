@@ -2,8 +2,8 @@
 
 class StreetSnap extends Eloquent {
 
-	protected $visible=array('id', 'name', 'affiliation', 'meta_type', 'cached_total_likes', 'cached_total_comments', 'user', 'primary', 'meta', 'single_url', 'likes', 'liked');
-	protected $appends=array('single_url');
+	protected $visible=array('id', 'name', 'affiliation', 'meta_type', 'cached_total_likes', 'cached_total_comments', 'user', 'primary', 'meta', 'single_url', 'snap_title', 'likes', 'liked');
+	protected $appends=array('single_url', 'snap_title');
 	protected $category;
 	protected $slug;
 
@@ -68,9 +68,35 @@ class StreetSnap extends Eloquent {
 		}
 	}
 
-	public function getTitleAttribute() {}
+	public function getSnapTitleAttribute() {
+		$title=null;
+		if($this->meta_type=='CampusMeta') {
+			/* {CampusName} {Major?} {IconName} */
+			$title.=' '.$this->meta->name;
+			if($this->affiliation) {
+				$title.=' '.$this->affiliation;
+			}
+			$title.=' '.$this->name;
+		} else {
+			/* {IconName} {Professison?} @{MetaName} */
+			$title.=' '.$this->name;
+			if($this->affiliation) {
+				$title.=' '.$this->affiliation;
+			}
+			$title.=' @'.$this->meta->name;
+		}
 
-	public function getDescriptionAttribute() {}
+		return $title;
+	}
+
+	public function getDescriptionAttribute() {
+		$description=null;//Set default value
+		if($this->photographer_comment) {
+			$description=$this->photographer_comment;
+		}
+
+		return $description;
+	}
 
 	public function getPrettyDraftTitleAttribute() {
 		//
