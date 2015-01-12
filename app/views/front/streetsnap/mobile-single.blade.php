@@ -55,22 +55,22 @@
 	</div>
 
 	
-	<div id="photoCol">
+	<div id="photoCol" class="pin-on">
 		<figure id="snapPrimary" class="primary-photo pinned">
 			@if($snap->liked->count()>0)
 			<button type="button" class="like-btn liked" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
 			@else
 			<button type="button" class="like-btn" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
 			@endif
-			<span class="likes">{{$snap->cached_total_likes}}</span>
 			<button type="button" class="fb-share-btn" data-url="{{$snap->single_url}}">f</button>
+			<button type="button" class="kakao-share-btn" data-url="{{$snap->single_url}}">Kakao talk</button>
 			<div class="pin-container"></div>
 			<img src="{{$snap->primary->url}}" alt="" width="{{$snap->primary->width}}" height="{{$snap->primary->height}}" />
 		</figure><!--/.primary-photo-->
 
 		<div class="primary-footer clearfix">
-			<div class="pin-toggle">PIN <span class="icon-toggle-on"></span></div>
-			<div class="snap-stats">댓글 <strong>12</strong> | 좋아요 <strong>60</strong></div>
+			<div class="pin-toggle-btn">PIN <span class="icon-toggle-on"></span></div>
+			<div class="snap-stats">댓글 <strong>12</strong> | 좋아요 <strong>{{$snap->cached_total_likes}}</strong></div>
 		</div>
 	</div><!--/#photoCol-->
 
@@ -350,10 +350,83 @@ var LikeButtons={
 	}
 };//LikeButtons{}
 
+var PinToggleBtn={
+	objx:{},
+	objxBase:function() {
+		this.photoCol=null;
+		this.primaryPhoto=null;
+		this.toggleBtn=null;
+		this.statusIndicator=null;
+	},
+	status:null,
+	init:function(objx) {
+		var validation=true;
+		if(objx instanceof this.objxBase) {
+			for(var prop in objx) {
+				if(prop instanceof jQuery) {
+					validation=false;
+					break;
+				}
+			}
+		} else {
+			validation=false;
+		}
+
+		//Exit if objx is invalid
+		if(validation===false) {
+			return false;
+		}
+
+		//Set objx
+		this.objx=objx;
+
+		//Set status
+		if( this.objx.photoCol.hasClass('pin-on') ) {
+			this.status='on';
+		} else if( this.objx.photoCol.hasClass('pin-off') ) {
+			this.status='off';
+		} else {
+			this.objx.photoCol.addClass('pin-on');
+			this.status='on';
+		}
+
+		//Add event handler for the Toggle Btn
+		this.objx.toggleBtn.on('click', null, {toggleAction:this.toggle.bind(this)}, function(e) {
+			e.data.toggleAction();
+		});
+
+		//Add event handler for the Primary Photo
+		this.objx.primaryPhoto.on('click', null, {toggleAction:this.toggle.bind(this)}, function(e) {
+			if( $(e.target).is('img') ) {
+				e.data.toggleAction();
+			}
+		});
+	},
+	toggle:function() {
+		if(this.status=='on') {
+			this.objx.photoCol.removeClass('pin-on').addClass('pin-off');
+			this.objx.statusIndicator.removeClass('icon-toggle-on').addClass('icon-toggle-off');
+			this.status='off';
+		} else {
+			this.objx.photoCol.removeClass('pin-off').addClass('pin-on');
+			this.objx.statusIndicator.removeClass('icon-toggle-off').addClass('icon-toggle-on');
+			this.status='on';
+		}
+	}
+};//PinToggleBtn{}
+
 $(document).ready(function() {
 	SingleView.init();
 	LikeButtons.init();
 	CommentsModule.init($('#commentsSection'));
+
+	/*Init PinToggleBtn*/
+	var ptbObjx=new PinToggleBtn.objxBase();
+	ptbObjx.photoCol=$('#photoCol');
+	ptbObjx.primaryPhoto=ptbObjx.photoCol.find('.primary-photo img');
+	ptbObjx.toggleBtn=ptbObjx.photoCol.find('.pin-toggle-btn');
+	ptbObjx.statusIndicator=ptbObjx.photoCol.find('.pin-toggle-btn span');
+	PinToggleBtn.init(ptbObjx);
 
 	//Track banner clicks with Google Analytics
 	$('#singleBannerLink').on('click', function() {

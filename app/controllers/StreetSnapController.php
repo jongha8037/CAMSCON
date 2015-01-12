@@ -412,7 +412,7 @@ class StreetSnapController extends BaseController {
 			if($brand) {
 				$breadcrumbs[]=array('name'=>strtoupper($brand->name), 'url'=>action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$slug)));
 				
-				$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta', 'liked')
+				$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta', 'liked', 'comments')
 					->where('id', '=', $id)
 					->whereHas('pins', function($q) use($brand) {
 						$q->where('brand_id', '=', $brand->id);
@@ -436,7 +436,7 @@ class StreetSnapController extends BaseController {
 			}
 		} elseif( $category=='filter' && ($slug=='men' || $slug=='ladies') ) {
 			$termMapper=array('men'=>'male', 'ladies'=>'female');
-			$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta', 'liked')
+			$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta', 'liked', 'comments')
 				->where('id', '=', $id)
 				->where('gender', '=', $termMapper[$slug])
 				->first();
@@ -447,7 +447,7 @@ class StreetSnapController extends BaseController {
 				App::abort(404);
 			}
 		} else {
-			$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta', 'liked')->find($id);
+			$snap=StreetSnap::with('user', 'user.profileImage', 'primary', 'attachments', 'pins', 'pins.links', 'pins.brand', 'pins.itemCategory', 'pins.itemCategory.parent', 'meta', 'liked', 'comments')->find($id);
 			if($snap && strtolower($snap->meta_type)==str_replace('-', '', $category).'meta') {
 				$breadcrumbs[]=array('name'=>strtoupper($snap->meta->name), 'url'=>action('StreetSnapController@getList', array('category'=>$category, 'slug'=>$snap->meta->slug)));
 				$prevSnap=StreetSnap::where('meta_type', '=', $snap->meta_type)->where('meta_id', '=', $snap->meta_id)->where('status', '=', 'published')->where('created_at', '<', $snap->created_at)->orderBy('created_at', 'DESC')->first();

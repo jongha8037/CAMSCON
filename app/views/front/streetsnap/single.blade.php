@@ -50,7 +50,6 @@
 			@else
 			<button type="button" class="like-btn" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
 			@endif
-			<span class="likes">{{$snap->cached_total_likes}}</span>
 			<button type="button" class="fb-share-btn" data-url="{{$snap->single_url}}">f</button>
 			<div class="pin-container"></div>
 			<img src="{{$snap->primary->url}}" alt="" width="{{$snap->primary->width}}" height="{{$snap->primary->height}}" />
