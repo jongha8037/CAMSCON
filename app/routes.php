@@ -33,11 +33,6 @@ Route::group(array('before' => 'front'), function() {
 		array('before'=>'restricted-page', 'uses'=>"StreetSnapController@getSingle")
 	)->where(array('category'=>'filter|campus|street|brand|fashion-week|festival|blog', 'id'=>'^[0-9]+$'));
 
-	//Mobile Single View dev routes
-	Route::get('mobile/{category}/{slug}/{id}',
-		array('before'=>'restricted-page', 'uses'=>"StreetSnapController@getMobileSingle")
-	)->where(array('category'=>'filter|campus|street|brand|fashion-week|festival|blog', 'id'=>'^[0-9]+$'));
-
 	//Profile View
 	Route::get('profile/{id}', array('uses'=>'ProfileController@showProfile'));
 	Route::get('profile/{id}/{filter}/more', array('uses'=>'ProfileController@loadMoreSnaps'));
@@ -212,11 +207,6 @@ Route::get('mockup/detail', function() {
 
 
 /*Dev Routes*/
-
-/*Kakao sharing*/
-Route::get('test/kakao', function() {
-	return View::make('tests.kakao-share');
-});
 
 /*Query liked
 Route::get('test/liked', function() {

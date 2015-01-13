@@ -17,6 +17,9 @@
 <meta property="og:image" content="{{$snap->primary->url}}" />
 <meta property="fb:app_id" content="562009567255774" />
 <meta property="og:locale" content="ko_KR" />
+
+<!--Single View styles-->
+<link href="{{asset('front-assets/single-view/mobile-single.css')}}" rel="stylesheet" />
 @stop
 
 @section('content')
@@ -29,122 +32,129 @@
 	@endforeach
 </div>
 
-<div class="single-container row">
-	<div id="photoCol" class="photo-col col-xs-12 col-sm-7">
-		<nav class="content-nav clearfix">
-			@if($nextSnap)
-			<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$nextSnap->id))}}" alt="" class="next" style="background-image:url('{{asset('front-assets/layouts/content_nav_next.png')}}');">Next</a>
-			@endif
+<div class="single-container">
+	<nav class="content-nav clearfix">
+		@if($nextSnap)
+		<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$nextSnap->id))}}" alt="" class="next" style="background-image:url('{{asset('front-assets/layouts/content_nav_next.png')}}');">Next</a>
+		@endif
 
-			@if($prevSnap)
-			<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$prevSnap->id))}}" alt="" class="prev" style="background-image:url('{{asset('front-assets/layouts/content_nav_prev.png')}}');">Prev</a>
-			@endif
-		</nav>
+		@if($prevSnap)
+		<a href="{{action('StreetSnapController@getSingle', array('category'=>$category, 'slug'=>$slug, 'id'=>$prevSnap->id))}}" alt="" class="prev" style="background-image:url('{{asset('front-assets/layouts/content_nav_prev.png')}}');">Prev</a>
+		@endif
+	</nav>
 
+	<div class="icon-section">
+		<h3 class="name">{{{$snap->name}}}</h3>
+		@if($snap->meta_type=='BlogMeta')
+		<h3 class="category">{{{$snap->meta->name}}} | {{$snap->meta->country}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+		@elseif($snap->affiliation)
+		<h3 class="category">{{{$snap->meta->name}}} | {{{$snap->affiliation}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+		@else
+		<h3 class="category">{{{preg_replace('/Meta$/', '', $snap->meta_type)}}} | {{{$snap->meta->name}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+		@endif
+	</div>
+
+	
+	<div id="photoCol" class="pin-on">
 		<figure id="snapPrimary" class="primary-photo pinned">
 			@if($snap->liked->count()>0)
 			<button type="button" class="like-btn liked" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
 			@else
 			<button type="button" class="like-btn" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
 			@endif
-			<span class="likes">{{$snap->cached_total_likes}}</span>
 			<button type="button" class="fb-share-btn" data-url="{{$snap->single_url}}">f</button>
+			<button type="button" class="kakao-share-btn" data-url="{{$snap->single_url}}">Kakao talk</button>
 			<div class="pin-container"></div>
 			<img src="{{$snap->primary->url}}" alt="" width="{{$snap->primary->width}}" height="{{$snap->primary->height}}" />
 		</figure><!--/.primary-photo-->
 
+		<div class="primary-footer clearfix">
+			<div class="pin-toggle-btn">PIN <span class="icon-toggle-on"></span></div>
+			<div class="snap-stats">댓글 <strong>{{$total_comments}}</strong> | 좋아요 <strong class="total-likes" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{$snap->cached_total_likes}}</strong></div>
+		</div>
+	</div><!--/#photoCol-->
+
+	@if($snap->pins->count())
+	<div class="pins-section">
+		<ul id="pinList" class="pin-list"></ul>
+	</div>
+	@endif
+
+	@if(!empty($snap->subject_comment))
+		<div class="icon-comment">
+		@if($snap->gender=='female')
+		<h4>She says:</h4>
+		@else
+		<h4>He says:</h4>
+		@endif
+			{{autop($snap->subject_comment)}}
+		</div>
+	@endif
+
+	<div class="attachments">
 		@foreach($snap->attachments as $attachment)
 		<figure>
 			<img src="{{$attachment->url}}" alt="" width="{{$attachment->width}}" height="{{$attachment->height}}" />
 		</figure>
 		@endforeach
-	</div><!--/#photoCol-->
-	<div id="dataCol" class="data-col col-xs-12 col-sm-5">
-		<div class="icon-section">
-			<h3 class="name">{{{$snap->name}}}</h3>
-			@if($snap->meta_type=='BlogMeta')
-			<h3 class="category">{{{$snap->meta->name}}} / {{$snap->meta->country}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
-			@elseif($snap->affiliation)
-			<h3 class="category">{{{$snap->meta->name}}} / {{{$snap->affiliation}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
-			@else
-			<h3 class="category">{{{preg_replace('/Meta$/', '', $snap->meta_type)}}} / {{{$snap->meta->name}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
-			@endif
+	</div>
+		
+	@if(!empty($snap->photographer_comment))
+		<div class="photographers-note">
+		<h4>Inspirer's note:</h4>
+			{{autop($snap->photographer_comment)}}
 		</div>
+	@endif
 
-		@if($snap->pins->count())
-		<div class="pins-section">
-			<ul id="pinList" class="pin-list"></ul>
-		</div>
+	<div class="photographer-section">
+		@if($snap->user->profileImage)
+		<img src="{{$snap->user->profileImage->url}}" alt="" class="profile-img" />
+		@else
+		<img src="{{asset('front-assets/profile/profile_default_big.png')}}" alt="" class="profile-img" />
 		@endif
-
-		<div class="notes-section">
-			@if(!empty($snap->subject_comment))
-			@if($snap->gender=='female')
-			<h4>She says:</h4>
+		<div class="profile-data">
+			<strong class="name">{{{$snap->user->nickname}}}</strong>
+			@if(!empty($snap->user->slug))
+			<p>MY PAGE <a href="{{action('ProfileController@showProfile', $snap->user->slug)}}">{{action('ProfileController@showProfile', $snap->user->slug)}}</a></p>
 			@else
-			<h4>He says:</h4>
+			<p>MY PAGE <a href="{{action('ProfileController@showProfile', $snap->user->id)}}">{{action('ProfileController@showProfile', $snap->user->id)}}</a></p>
 			@endif
-			<div class="icon-comment">
-				{{autop($snap->subject_comment)}}
-			</div>
-			@endif
-
-			@if(!empty($snap->photographer_comment))
-			<h4>Inspirer's note:</h4>
-			<div class="photographers-note">
-				{{autop($snap->photographer_comment)}}
-			</div>
-			@endif
-		</div><!--/.notes-section-->
-
-		<div class="photographer-section">
-			@if($snap->user->profileImage)
-			<img src="{{$snap->user->profileImage->url}}" alt="" class="profile-img" />
-			@else
-			<img src="{{asset('front-assets/profile/profile_default_big.png')}}" alt="" class="profile-img" />
-			@endif
-			<div class="profile-data">
-				<strong class="name">{{{$snap->user->nickname}}}</strong>
-				@if(!empty($snap->user->slug))
-				<p>MY PAGE <a href="{{action('ProfileController@showProfile', $snap->user->slug)}}">{{action('ProfileController@showProfile', $snap->user->slug)}}</a></p>
-				@else
-				<p>MY PAGE <a href="{{action('ProfileController@showProfile', $snap->user->id)}}">{{action('ProfileController@showProfile', $snap->user->id)}}</a></p>
-				@endif
-				<p>Blog @if(!empty($snap->user->blog))<a href="{{$snap->user->blog}}" target="_blank">{{$snap->user->blog}}</a>@else{{'-'}}@endif</p>
-				<p>Instagram @if(!empty($snap->user->instagram))<a href="http://instagram.com/{{$snap->user->instagram}}" target="_blank">{{'@'.$snap->user->instagram}}</a>@else{{'-'}}@endif</p>
-			</div>
+			<p>Blog @if(!empty($snap->user->blog))<a href="{{$snap->user->blog}}" target="_blank">{{$snap->user->blog}}</a>@else{{'-'}}@endif</p>
+			<p>Instagram @if(!empty($snap->user->instagram))<a href="http://instagram.com/{{$snap->user->instagram}}" target="_blank">{{'@'.$snap->user->instagram}}</a>@else{{'-'}}@endif</p>
 		</div>
+	</div>
 
-		<div id="commentsSection" class="comments-section">
-			@include(
-				'includes.comments', 
-				array(
-					'comments'=>$snap->comments()->with(
-						'user', 
-						'user.profileImage', 
-						'children', 
-						'children.user', 
-						'children.user.profileImage'
-					)->get(), 
-					'target_type'=>'StreetSnap', 
-					'target_id'=>$snap->id
-				)
+	<div id="commentsSection" class="comments-section">
+		@include(
+			'includes.comments', 
+			array(
+				'comments'=>$snap->comments()->with(
+					'user', 
+					'user.profileImage', 
+					'children', 
+					'children.user', 
+					'children.user.profileImage'
+				)->get(), 
+				'target_type'=>'StreetSnap', 
+				'target_id'=>$snap->id
 			)
-		</div>
+		)
+	</div>
 
-		<div id="bannerSection" class="banner-section">
-			<a href="{{action('InspirerRegisterController@showRegister')}}"><img src="http://cdn.camscon.kr/front-assets/single-banners/inspirer-register-banner.png" /></a>
-		</div>
+	<div id="bannerSection" class="banner-section">
+		<a href="{{action('InspirerRegisterController@showRegister')}}"><img src="http://cdn.camscon.kr/front-assets/single-banners/inspirer-register-banner.png" /></a>
 	</div>
 </div><!--/.single-container-->
 @stop
 
 @section('footer_scripts')
 <script type="text/javascript" src="{{asset('packages/jquery-ui-custom/jquery-ui-core-widget.1.11.2.min.js')}}"></script>
-<!-- <script type="text/javascript" src="{{asset('packages/jquery-autoresize/jquery.autoresize.js')}}"></script> -->
 <script type="text/javascript" src="{{asset('packages/handlebars/handlebars-v2.0.0.js')}}"></script>
-<!-- <link rel="stylesheet" type="text/css" href="{{asset('packages/jquery-autoresize/autoresize.css')}}" /> -->
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
+/*Init Kakao SDK*/
+Kakao.init("{{Config::get('services.kakao.js_key')}}");
+
 var SingleView={
 	snap:{
 		id:"{{$snap->id}}"
@@ -204,6 +214,21 @@ var SingleView={
 		if(this.login_status===false) {
 			//
 		}
+
+		//Kakao Link Btns
+		Kakao.Link.createTalkLinkButton({
+			container: '.kakao-share-btn',
+			label: "{{{$snap->snap_title}}}",
+			image: {
+				src: "{{$snap->primary->url}}",
+				width: "{{$snap->primary->width}}",
+				height: "{{$snap->primary->height}}"
+			},
+			webButton: {
+				text: 'CAMSCON',
+				url: "{{$snap->single_url}}"
+			}
+		});
 	}/*init()*/,
 	render:function() {
 		var maxWidth=$('#photoCol').width();
@@ -278,6 +303,7 @@ var LikeButtons={
 	},
 	like:function(btn) {
 		btn.prop('disabled', true);
+		var module=this;
 
 		var data={
 			_token:"{{csrf_token()}}",
@@ -293,8 +319,10 @@ var LikeButtons={
 			} else if(response.proc=='canceled') {
 				btn.removeClass('liked');
 			}
+
 			if('total' in response) {
-				btn.siblings('span.likes').text(response.total);
+				var totalLikesDisplay=module.findTotalLikesDisplay(response.target_type, response.target_id);
+				totalLikesDisplay.text(response.total);
 			}
 		}, 'json').fail(function(response) {
 			//console.log(response.status);
@@ -306,6 +334,9 @@ var LikeButtons={
 		}).always(function() {
 			btn.prop('disabled', false);
 		});
+	},
+	findTotalLikesDisplay:function(targetType, targetId) {
+		return $('.total-likes[data-target-type="'+targetType+'"][data-target-id="'+targetId+'"]');
 	},
 	loginCallback:function() {
 		var data={
@@ -342,10 +373,83 @@ var LikeButtons={
 	}
 };//LikeButtons{}
 
+var PinToggleBtn={
+	objx:{},
+	objxBase:function() {
+		this.photoCol=null;
+		this.primaryPhoto=null;
+		this.toggleBtn=null;
+		this.statusIndicator=null;
+	},
+	status:null,
+	init:function(objx) {
+		var validation=true;
+		if(objx instanceof this.objxBase) {
+			for(var prop in objx) {
+				if(prop instanceof jQuery) {
+					validation=false;
+					break;
+				}
+			}
+		} else {
+			validation=false;
+		}
+
+		//Exit if objx is invalid
+		if(validation===false) {
+			return false;
+		}
+
+		//Set objx
+		this.objx=objx;
+
+		//Set status
+		if( this.objx.photoCol.hasClass('pin-on') ) {
+			this.status='on';
+		} else if( this.objx.photoCol.hasClass('pin-off') ) {
+			this.status='off';
+		} else {
+			this.objx.photoCol.addClass('pin-on');
+			this.status='on';
+		}
+
+		//Add event handler for the Toggle Btn
+		this.objx.toggleBtn.on('click', null, {toggleAction:this.toggle.bind(this)}, function(e) {
+			e.data.toggleAction();
+		});
+
+		//Add event handler for the Primary Photo
+		this.objx.primaryPhoto.on('click', null, {toggleAction:this.toggle.bind(this)}, function(e) {
+			if( $(e.target).is('img') ) {
+				e.data.toggleAction();
+			}
+		});
+	},
+	toggle:function() {
+		if(this.status=='on') {
+			this.objx.photoCol.removeClass('pin-on').addClass('pin-off');
+			this.objx.statusIndicator.removeClass('icon-toggle-on').addClass('icon-toggle-off');
+			this.status='off';
+		} else {
+			this.objx.photoCol.removeClass('pin-off').addClass('pin-on');
+			this.objx.statusIndicator.removeClass('icon-toggle-off').addClass('icon-toggle-on');
+			this.status='on';
+		}
+	}
+};//PinToggleBtn{}
+
 $(document).ready(function() {
 	SingleView.init();
 	LikeButtons.init();
 	CommentsModule.init($('#commentsSection'));
+
+	/*Init PinToggleBtn*/
+	var ptbObjx=new PinToggleBtn.objxBase();
+	ptbObjx.photoCol=$('#photoCol');
+	ptbObjx.primaryPhoto=ptbObjx.photoCol.find('.primary-photo img');
+	ptbObjx.toggleBtn=ptbObjx.photoCol.find('.pin-toggle-btn');
+	ptbObjx.statusIndicator=ptbObjx.photoCol.find('.pin-toggle-btn span');
+	PinToggleBtn.init(ptbObjx);
 
 	//Track banner clicks with Google Analytics
 	$('#singleBannerLink').on('click', function() {
