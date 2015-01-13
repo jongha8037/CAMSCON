@@ -70,7 +70,7 @@
 
 		<div class="primary-footer clearfix">
 			<div class="pin-toggle-btn">PIN <span class="icon-toggle-on"></span></div>
-			<div class="snap-stats">댓글 <strong>{{$total_comments}}</strong> | 좋아요 <strong class="total-likes" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{$snap->cached_total_likes}}</strong></div>
+			<div class="snap-stats">댓글 <strong>{{count($snap->comments)}}</strong> | 좋아요 <strong class="total-likes" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{$snap->cached_total_likes}}</strong></div>
 		</div>
 	</div><!--/#photoCol-->
 
@@ -128,13 +128,7 @@
 		@include(
 			'includes.comments', 
 			array(
-				'comments'=>$snap->comments()->with(
-					'user', 
-					'user.profileImage', 
-					'children', 
-					'children.user', 
-					'children.user.profileImage'
-				)->get(), 
+				'comments'=>$snap->comments, 
 				'target_type'=>'StreetSnap', 
 				'target_id'=>$snap->id
 			)

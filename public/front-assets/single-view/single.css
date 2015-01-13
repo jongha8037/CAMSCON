@@ -65,15 +65,6 @@
 	color:#56d8d1;
 }
 
-.single-container .primary-photo .likes {
-	position:absolute;
-	top:10px;
-	left: 83px;
-	padding: 18px;
-	background-color: #fff;
-	font-weight: 700;
-}
-
 .single-container .primary-photo .fb-share-btn {
 	position: absolute;
 	top:71px;

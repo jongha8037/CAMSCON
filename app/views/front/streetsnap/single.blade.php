@@ -121,13 +121,7 @@
 			@include(
 				'includes.comments', 
 				array(
-					'comments'=>$snap->comments()->with(
-						'user', 
-						'user.profileImage', 
-						'children', 
-						'children.user', 
-						'children.user.profileImage'
-					)->get(), 
+					'comments'=>$snap->comments, 
 					'target_type'=>'StreetSnap', 
 					'target_id'=>$snap->id
 				)
