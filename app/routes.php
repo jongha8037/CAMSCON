@@ -208,11 +208,6 @@ Route::get('mockup/detail', function() {
 
 /*Dev Routes*/
 
-/*Kakao sharing*/
-Route::get('test/kakao', function() {
-	return View::make('tests.kakao-share');
-});
-
 /*Query liked
 Route::get('test/liked', function() {
 	$s=StreetSnap::find(1);

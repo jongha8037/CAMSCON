@@ -279,6 +279,7 @@ var LikeButtons={
 	},
 	like:function(btn) {
 		btn.prop('disabled', true);
+		var module=this;
 
 		var data={
 			_token:"{{csrf_token()}}",
@@ -294,8 +295,10 @@ var LikeButtons={
 			} else if(response.proc=='canceled') {
 				btn.removeClass('liked');
 			}
+
 			if('total' in response) {
-				btn.siblings('span.likes').text(response.total);
+				var totalLikesDisplay=module.findTotalLikesDisplay(response.target_type, response.target_id);
+				totalLikesDisplay.text(response.total);
 			}
 		}, 'json').fail(function(response) {
 			//console.log(response.status);
@@ -307,6 +310,9 @@ var LikeButtons={
 		}).always(function() {
 			btn.prop('disabled', false);
 		});
+	},
+	findTotalLikesDisplay:function(targetType, targetId) {
+		return $('.total-likes[data-target-type="'+targetType+'"][data-target-id="'+targetId+'"]');
 	},
 	loginCallback:function() {
 		var data={

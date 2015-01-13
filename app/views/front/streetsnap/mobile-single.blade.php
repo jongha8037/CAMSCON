@@ -70,7 +70,7 @@
 
 		<div class="primary-footer clearfix">
 			<div class="pin-toggle-btn">PIN <span class="icon-toggle-on"></span></div>
-			<div class="snap-stats">댓글 <strong>12</strong> | 좋아요 <strong>{{$snap->cached_total_likes}}</strong></div>
+			<div class="snap-stats">댓글 <strong>{{$total_comments}}</strong> | 좋아요 <strong class="total-likes" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{$snap->cached_total_likes}}</strong></div>
 		</div>
 	</div><!--/#photoCol-->
 
@@ -149,10 +149,12 @@
 
 @section('footer_scripts')
 <script type="text/javascript" src="{{asset('packages/jquery-ui-custom/jquery-ui-core-widget.1.11.2.min.js')}}"></script>
-<!-- <script type="text/javascript" src="{{asset('packages/jquery-autoresize/jquery.autoresize.js')}}"></script> -->
 <script type="text/javascript" src="{{asset('packages/handlebars/handlebars-v2.0.0.js')}}"></script>
-<!-- <link rel="stylesheet" type="text/css" href="{{asset('packages/jquery-autoresize/autoresize.css')}}" /> -->
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
+/*Init Kakao SDK*/
+Kakao.init("{{Config::get('services.kakao.js_key')}}");
+
 var SingleView={
 	snap:{
 		id:"{{$snap->id}}"
@@ -212,6 +214,21 @@ var SingleView={
 		if(this.login_status===false) {
 			//
 		}
+
+		//Kakao Link Btns
+		Kakao.Link.createTalkLinkButton({
+			container: '.kakao-share-btn',
+			label: "{{{$snap->snap_title}}}",
+			image: {
+				src: "{{$snap->primary->url}}",
+				width: "{{$snap->primary->width}}",
+				height: "{{$snap->primary->height}}"
+			},
+			webButton: {
+				text: 'CAMSCON',
+				url: "{{$snap->single_url}}"
+			}
+		});
 	}/*init()*/,
 	render:function() {
 		var maxWidth=$('#photoCol').width();
@@ -286,6 +303,7 @@ var LikeButtons={
 	},
 	like:function(btn) {
 		btn.prop('disabled', true);
+		var module=this;
 
 		var data={
 			_token:"{{csrf_token()}}",
@@ -301,8 +319,10 @@ var LikeButtons={
 			} else if(response.proc=='canceled') {
 				btn.removeClass('liked');
 			}
+
 			if('total' in response) {
-				btn.siblings('span.likes').text(response.total);
+				var totalLikesDisplay=module.findTotalLikesDisplay(response.target_type, response.target_id);
+				totalLikesDisplay.text(response.total);
 			}
 		}, 'json').fail(function(response) {
 			//console.log(response.status);
@@ -314,6 +334,9 @@ var LikeButtons={
 		}).always(function() {
 			btn.prop('disabled', false);
 		});
+	},
+	findTotalLikesDisplay:function(targetType, targetId) {
+		return $('.total-likes[data-target-type="'+targetType+'"][data-target-id="'+targetId+'"]');
 	},
 	loginCallback:function() {
 		var data={

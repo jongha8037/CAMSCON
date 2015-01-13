@@ -78,7 +78,7 @@ class StreetSnap extends Eloquent {
 			}
 			$title.=' '.$this->name;
 		} else {
-			/* {IconName} {Professison?} @{MetaName} */
+			/* {IconName} {Profession?} @{MetaName} */
 			$title.=' '.$this->name;
 			if($this->affiliation) {
 				$title.=' '.$this->affiliation;

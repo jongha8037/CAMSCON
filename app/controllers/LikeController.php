@@ -15,6 +15,8 @@ class LikeController extends BaseController {
 		$response=new stdClass();
 
 		if($target) {
+			$response->target_type=$input['target_type'];
+			$response->target_id=$input['target_id'];
 			if($target->liked->count()>0) {
 				//Cancel like
 				$target->liked->each(function($like) {

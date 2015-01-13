@@ -463,6 +463,7 @@ class StreetSnapController extends BaseController {
 		ViewData::add('slug', $slug);
 		ViewData::add('prevSnap', $prevSnap);
 		ViewData::add('nextSnap', $nextSnap);
+		ViewData::add('total_comments', $snap->comments()->count());
 
 		/*Detect Device type*/
 		$detector=new Mobile_Detect;
