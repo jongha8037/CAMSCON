@@ -134,14 +134,31 @@ User groups
 				<th>이메일</th>
 				<th>성별</th>
 				<th>가입 일자</th>
+				<th>기여</th>
 			</tr>
 		</thead>
 		<tbody>
 		@foreach($users as $user)
 			@if($user->id==375 || $user->id==7133)
-			<tr><td><input type="checkbox" name="selected_users[]" value="{{$user->id}}" /></td><td>{{$user->id}}</td><td>{{{$user->nickname}}} <a href="{{action('AdminController@overrideUser', $user->id)}}"><span class="glyphicon glyphicon-fire"></span></a></td><td>{{$user->email}}</td><td>{{$user->gender}}</td><td>{{$user->created_at}}</td></tr>
+			<tr>
+				<td><input type="checkbox" name="selected_users[]" value="{{$user->id}}" /></td>
+				<td>{{$user->id}}</td>
+				<td>{{{$user->nickname}}} <a href="{{action('AdminController@overrideUser', $user->id)}}"><span class="glyphicon glyphicon-fire"></span></a></td>
+				<td>{{$user->email}}</td>
+				<td>{{$user->gender}}</td>
+				<td>{{$user->created_at}}</td>
+				<td>{{count($user->snaps)}}</td>
+			</tr>
 			@else
-			<tr><td><input type="checkbox" name="selected_users[]" value="{{$user->id}}" /></td><td>{{$user->id}}</td><td>{{{$user->nickname}}}</td><td>{{$user->email}}</td><td>{{$user->gender}}</td><td>{{$user->created_at}}</td></tr>
+			<tr>
+				<td><input type="checkbox" name="selected_users[]" value="{{$user->id}}" /></td>
+				<td>{{$user->id}}</td>
+				<td>{{{$user->nickname}}}</td>
+				<td>{{$user->email}}</td>
+				<td>{{$user->gender}}</td>
+				<td>{{$user->created_at}}</td>
+				<td>{{count($user->snaps)}}</td>
+			</tr>
 			@endif
 		@endforeach
 		</tbody>

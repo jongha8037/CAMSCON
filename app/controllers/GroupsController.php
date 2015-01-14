@@ -29,7 +29,7 @@ class GroupsController extends BaseController {
 				}
 			}
 			if($queryGroup) {
-				$users=User::whereHas('groups', function($q) use($queryGroup) {
+				$users=User::with('snaps')->whereHas('groups', function($q) use($queryGroup) {
 					$q->where('groups.id', '=', $queryGroup->id);
 				})->paginate(30);
 			}
@@ -39,7 +39,7 @@ class GroupsController extends BaseController {
 			$queryDescription=sprintf('그룹 보기: %s', $queryGroup->name);
 		} elseif( $queryType=='search' && in_array( $_GET['field'], array('email', 'nickname') ) ) {
 			if(!empty($_GET['query'])) {
-				$users=User::where($_GET['field'], 'LIKE', '%'.$_GET['query'].'%')->paginate(30);
+				$users=User::with('snaps')->where($_GET['field'], 'LIKE', '%'.$_GET['query'].'%')->paginate(30);
 			}
 
 			if($_GET['field']=='email') {
