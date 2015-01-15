@@ -70,7 +70,11 @@
 
 		<div class="primary-footer clearfix">
 			<div class="pin-toggle-btn">PIN <span class="icon-toggle-on"></span></div>
-			<div class="snap-stats">댓글 <strong>{{count($snap->comments)}}</strong> | 좋아요 <strong class="total-likes" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{$snap->cached_total_likes}}</strong></div>
+			<div class="snap-stats">
+				댓글 <strong class="total-comments" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{count($snap->comments)}}</strong>
+				 | 
+				좋아요 <strong class="total-likes" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{$snap->cached_total_likes}}</strong>
+			</div>
 		</div>
 	</div><!--/#photoCol-->
 
