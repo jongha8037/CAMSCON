@@ -126,25 +126,25 @@
 .single-container .primary-photo .like-btn {
 	bottom:10px;
 
-	background-image:url('/front-assets/common/like-btn.png');
+	background-image:url('http://cdn.camscon.kr/front-assets/common/like-btn.png');
 	background-size: 37.41px 15.07px;
 }
 
 .single-container .primary-photo .like-btn.liked {
-	background-image:url('/front-assets/common/like-btn-active.png');
+	background-image:url('http://cdn.camscon.kr/front-assets/common/like-btn-active.png');
 }
 
 .single-container .primary-photo .fb-share-btn {
 	bottom:56px;
 
-	background-image:url('/front-assets/common/facebook-share.png');
+	background-image:url('http://cdn.camscon.kr/front-assets/common/facebook-share.png');
 	background-size: 12.34px 28.53px;
 }
 
 .single-container .primary-photo .kakao-share-btn {
 	bottom:102px;
 
-	background-image:url('/front-assets/common/kakao-share.png');
+	background-image:url('http://cdn.camscon.kr/front-assets/common/kakao-share.png');
 	background-size: 32.28px 28.53px;
 }
 
@@ -181,6 +181,7 @@
 .single-container .attachments {
 	padding-bottom:20px;
 	border-bottom:1px solid #e5e1dc;
+	margin-bottom: 30px;
 }
 
 
@@ -189,11 +190,25 @@
 	margin-bottom:40px;
 }
 
+.single-container .icon-comment h4 {
+	margin:0px 0px 20px 0px;
+	font-size:19px;
+}
 
 /*Inspirer's Note*/
+.single-container .photographers-note {
+	margin-bottom: 30px;
+}
+
+.single-container .photographers-note h4 {
+	margin:0px 0px 20px 0px;
+	font-size:19px;
+}
+
 .single-container .photographer-section {
 	padding: 10px;
-	border: 1px solid #20cfc5;
+	border: 1px solid #dedcdb;
+	margin-bottom:30px;
 }
 
 .single-container .photographer-section .profile-img {
@@ -208,7 +223,7 @@
 }
 
 .single-container .photographer-section .profile-data .name {
-	background-color: #000;
+	background-color: #383838;
 	color: #fff;
 	padding: 8px 14px;
 	display: inline-block;

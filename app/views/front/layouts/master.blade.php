@@ -24,7 +24,7 @@
 	<link href="{{asset('packages/bootstrap-3.2.0/css/bootstrap.min.css')}}" rel="stylesheet" />
 
 	<!--Fontello-->
-	<link href="{{asset('packages/fontello-40b72f1a/css/fontello.css')}}" rel="stylesheet" />
+	<link href="{{asset('packages/fontello-045573dd/css/fontello.css')}}" rel="stylesheet" />
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

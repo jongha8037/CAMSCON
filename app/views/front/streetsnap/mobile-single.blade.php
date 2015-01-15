@@ -87,9 +87,9 @@
 	@if(!empty($snap->subject_comment))
 		<div class="icon-comment">
 		@if($snap->gender=='female')
-		<h4>She says:</h4>
+		<h4><span class="icon-chat-empty"></span> SHE SAYS</h4>
 		@else
-		<h4>He says:</h4>
+		<h4><span class="icon-chat-empty"></span> HE SAYS</h4>
 		@endif
 			{{autop($snap->subject_comment)}}
 		</div>
@@ -105,7 +105,7 @@
 		
 	@if(!empty($snap->photographer_comment))
 		<div class="photographers-note">
-		<h4>Inspirer's note:</h4>
+		<h4><span class="icon-edit"></span> INSPIRER'S NOTE</h4>
 			{{autop($snap->photographer_comment)}}
 		</div>
 	@endif
