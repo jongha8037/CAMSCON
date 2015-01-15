@@ -26,7 +26,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $visible=array('id', 'nickname', 'profileImage');
 
 	public function groups() {
-		return $this->belongsToMany('Group', 'groupings');
+		return $this->belongsTo('Group');
 	}
 
 	public function fbAccount() {
