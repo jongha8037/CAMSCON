@@ -45,36 +45,61 @@
 	height: auto;
 }
 
+
+/*Primary Photo*/
 .single-container .primary-photo {
 	position: relative;
 }
 
-.single-container .primary-photo .like-btn {
+.single-container .primary-photo .like-btn, 
+.single-container .primary-photo .fb-share-btn, 
+.single-container .primary-photo .kakao-share-btn {
 	position:absolute;
-	top:10px;
-	left:10px;
-	border:0;
-	background-color:#000;
-	color:#fff;
-	padding: 18px;
-	font-weight: 700;
+	right:10px;
 
+	/*btn size for md, lg*/
+	/*
+	width:33.86px;
+	height:29.41px;
+	*/
+	width:47.79px;
+	height:41.51px;
+
+	border:2px solid #fff;
+	background-color:transparent;
+	color:rgba(255,255,255,0);
+
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box; /* Firefox, other Gecko */
+	box-sizing: border-box;
+
+	-webkit-border-radius: 4px; /* Safari 3-4, iOS 1-3.2, Android 1.6- */
+	-moz-border-radius: 4px; /* Firefox 1-3.6 */
+	border-radius: 4px; /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
+}
+
+.single-container .primary-photo .like-btn {
+	bottom:10px;
+
+	/*background-image:url('http://cdn.camscon.kr/front-assets/common/like-btn.png');*/
+	background-image:url('/front-assets/common/like-btn.png');
+	background-size: 26.45px 10.65px;
 }
 
 .single-container .primary-photo .like-btn.liked {
-	color:#56d8d1;
+	/*background-image:url('http://cdn.camscon.kr/front-assets/common/like-btn-active.png');*/
+	background-image:url('/front-assets/common/like-btn-active.png');
 }
 
 .single-container .primary-photo .fb-share-btn {
-	position: absolute;
-	top:71px;
-	left:10px;
-	border: 0;
-	background-color:#5696d8;
-	color: #fff;
-	font-size: 37px;
-	padding: 2px 22px;
-	font-weight: 700;
+	bottom:56px;
+
+	/*background-image:url('http://cdn.camscon.kr/front-assets/common/facebook-share.png');*/
+	background-image:url('/front-assets/common/facebook-share.png');
+	background-size: 8.75px 20.19px;
 }
 
 .single-container .data-col {
