@@ -14,6 +14,7 @@ return array(
 	'AT'=>'Austria',
 	'AU'=>'Australia',
 	'CN'=>'China',
+	'DE'=>'Germany',
 	'FR'=>'France',
 	'GB'=>'United Kingdom',
 	'KR'=>'Korea',
