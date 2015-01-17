@@ -78,7 +78,6 @@ class UserController extends BaseController {
 	public function loginWithFB() {
 		if(Auth::check()) {
 			Auth::logout();
-			$this->unsetAuthGroupSession();
 		}
 
 		//Setup response obj
@@ -114,9 +113,6 @@ class UserController extends BaseController {
 			if($user) {
 				//User account associated with the fb user id exists. Login user.
 				Auth::login($user);
-
-				//Check is_admin
-				$this->setAuthGroupSession(Auth::user());
 
 				$response->type='success';
 				$response->msg=$this->userBoxTemplate();
@@ -186,9 +182,6 @@ class UserController extends BaseController {
 
 							Auth::login($user);
 
-							//Check is_admin
-							$this->setAuthGroupSession(Auth::user());
-
 							$response->type='success';
 							$response->msg=$this->userBoxTemplate();
 							$response->json=$user->toJson();
@@ -215,7 +208,6 @@ class UserController extends BaseController {
 	public function loginWithEmail() {
 		if(Auth::check()) {
 			Auth::logout();
-			$this->unsetAuthGroupSession();
 		}
 
 		$input=Input::only('email','password','remember');
@@ -234,10 +226,6 @@ class UserController extends BaseController {
 		$response=new \stdClass();
 
 		if (Auth::attempt($creds, $remember)) {
-
-			//Check is_admin
-			$this->setAuthGroupSession(Auth::user());
-
 			$response->type='success';
 			$response->msg=$this->userBoxTemplate();
 			$response->json=Auth::user()->toJson();
@@ -250,7 +238,6 @@ class UserController extends BaseController {
 
 	public function logoutUser() {
 		Auth::logout();
-		$this->unsetAuthGroupSession();
 		return Redirect::back();
 	}//logoutUser()
 
@@ -258,38 +245,5 @@ class UserController extends BaseController {
 		$userBox=View::make('includes.user-box')->render();
 		return $userBox;
 	}//userBoxTemplate()
-
-	private function setAuthGroupSession($user) {
-		$groups=$user->groups;
-		$isAdmin=false;
-		foreach($groups as $group) {
-			switch(intval($group->id)) {
-				case 1:
-					Session::put('is_activeCamto',true);
-					break;
-				case 2:
-					Session::put('is_retiredCamto',true);
-					break;
-				case 3:
-					Session::put('is_blogger',true);
-					break;
-				case 4:
-					Session::put('is_staff',true);
-					break;
-				case 5:
-					Session::put('is_manager',true);
-					break;
-				case 6:
-					Session::put('is_su',true);
-					break;
-				case 7:
-					Session::put('is_blacklisted',true);
-			}//switch()
-		}//foreach()
-	}//setAuthGroupSession()
-
-	private function unsetAuthGroupSession() {
-		Session::flush();
-	}
 
 }
