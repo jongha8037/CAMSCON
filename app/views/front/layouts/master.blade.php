@@ -96,7 +96,7 @@
 							<ul class="campus-sub-menu sub-menu row">
 								<li class="col-xs-12 col-sm-3 col-md-2 mobile-all"><a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>'all', 'ordering'=>'new'))}}">All</a></li>
 								@foreach($CatNav->campus as $campus)
-								<li class="col-xs-12 col-sm-3 col-md-2"><a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>$campus->slug, 'ordering'=>'new'))}}">{{$campus->name}}</a></li>
+								<li class="col-xs-6 col-sm-3 col-md-2"><a href="{{action('StreetSnapController@getList', array('category'=>'campus', 'slug'=>$campus->slug, 'ordering'=>'new'))}}">{{$campus->name}}</a></li>
 								@endforeach
 							</ul>
 						</li>
