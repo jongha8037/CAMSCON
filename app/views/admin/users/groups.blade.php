@@ -80,9 +80,10 @@ User groups
 
 	<div class="user-groups">
 		<ul class="group-list">
-		@foreach($groups as $group)
-		<li><a href="{{action('GroupsController@showUsers', array('group', $group->id))}}">{{$group->name}}</a> <span class="badge">{{$userCount[$group->id]}}</span></li>
-		@endforeach
+			<li><a href="{{action('GroupsController@showUsers', array('group', 0))}}">일반 사용자</a> <span class="badge">{{$userCount[0]}}</span></li>
+			@foreach($groups as $group)
+			<li><a href="{{action('GroupsController@showUsers', array('group', $group->id))}}">{{$group->name}}</a> <span class="badge">{{$userCount[$group->id]}}</span></li>
+			@endforeach
 		</ul>
 	</div>
 </div>

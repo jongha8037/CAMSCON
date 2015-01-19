@@ -10,6 +10,7 @@ class StreetSnapEditController extends BaseController {
 		//Get published
 		$published=Auth::user()->snaps()->with('meta')->where('status','=','published')->orderBy('created_at', 'DESC')->get();
 		ViewData::add('published', $published);
+		dd('asdf');
 
 		return View::make('front.streetsnap.starter', ViewData::get());
 	}
