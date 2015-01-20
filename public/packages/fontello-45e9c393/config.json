@@ -13,6 +13,18 @@
       "src": "fontawesome"
     },
     {
+      "uid": "12f4ece88e46abd864e40b35e05b11cd",
+      "css": "ok",
+      "code": 59404,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "e15f0d620a7897e2035c18c80142f6d9",
+      "css": "link-ext",
+      "code": 59405,
+      "src": "fontawesome"
+    },
+    {
       "uid": "d35a1d35efeb784d1dc9ac18b9b6c2b6",
       "css": "pencil",
       "code": 59393,
@@ -22,6 +34,12 @@
       "uid": "41087bc74d4b20b55059c60a33bf4008",
       "css": "edit",
       "code": 59394,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "31951fbb9820ed0690f675b3d495c8da",
+      "css": "chat-empty",
+      "code": 59401,
       "src": "fontawesome"
     },
     {
@@ -55,10 +73,22 @@
       "src": "fontawesome"
     },
     {
+      "uid": "8e04c98c8f5ca0a035776e3001ad2638",
+      "css": "facebook",
+      "code": 59402,
+      "src": "fontawesome"
+    },
+    {
       "uid": "4c1ef492f1d2c39a2250ae457cee2a6e",
       "css": "instagramm",
       "code": 59396,
       "src": "fontawesome"
+    },
+    {
+      "uid": "004882ab2d5c418c5b2060e80596279b",
+      "css": "right-open-big",
+      "code": 59403,
+      "src": "entypo"
     }
   ]
 }

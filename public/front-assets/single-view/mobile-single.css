@@ -103,9 +103,9 @@
 .single-container .primary-photo .fb-share-btn, 
 .single-container .primary-photo .kakao-share-btn {
 	position:absolute;
-	bottom:10px;
-	width:39.54px;
-	height:34.64px;
+	right:10px;
+	width:40px;
+	height:33px;
 
 	border:2px solid #fff;
 	background-color:transparent;
@@ -124,10 +124,10 @@
 }
 
 .single-container .primary-photo .like-btn {
-	right:10px;
+	bottom:10px;
 
 	background-image:url('/front-assets/common/like-btn.png');
-	background-size: 31.15px 12.6px;
+	background-size: 27px auto;
 }
 
 .single-container .primary-photo .like-btn.liked {
@@ -135,17 +135,17 @@
 }
 
 .single-container .primary-photo .fb-share-btn {
-	right:55px;
+	bottom:48px;
 
 	background-image:url('/front-assets/common/facebook-share.png');
-	background-size: 10.28px 23.81px;
+	background-size: 10px auto;
 }
 
 .single-container .primary-photo .kakao-share-btn {
-	right:100px;
+	bottom:86px;
 
 	background-image:url('/front-assets/common/kakao-share.png');
-	background-size: 26.93px 23.81px;
+	background-size: 24px auto;
 }
 
 .single-container .primary-footer {
