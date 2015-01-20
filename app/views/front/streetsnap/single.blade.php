@@ -264,8 +264,8 @@ var LikeButtons={
 	token:"{{csrf_token()}}",
 	init:function() {
 		//Bind event handlers to like buttons
-		$(document).on('click', '.like-btn', null, function(e) {
-			LikeButtons.like($(this));
+		$(document).on('click', '.like-btn', {likeAction:this.like.bind(this)}, function(e) {
+			likeAction($(this));
 		});
 
 		//Bind callback to LoginModal{}
@@ -295,7 +295,6 @@ var LikeButtons={
 			if('total' in response) {
 				var totalLikesDisplay=module.findTotalLikesDisplay(response.target_type, response.target_id);
 				totalLikesDisplay.text(response.total);
-				console.log(totalLikesDisplay);
 			}
 		}, 'json').fail(function(response) {
 			//console.log(response.status);
