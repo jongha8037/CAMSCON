@@ -50,6 +50,8 @@
 			@else
 			<button type="button" class="like-btn" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
 			@endif
+			<span class="pointer likes-display icon-right-open-big"></span>
+			<span class="total-likes likes-display" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{$snap->likes->count()}}</span>
 			<button type="button" class="fb-share-btn" data-url="{{$snap->single_url}}">f</button>
 			<div class="pin-container"></div>
 			<img src="{{$snap->primary->url}}" alt="" width="{{$snap->primary->width}}" height="{{$snap->primary->height}}" />
@@ -293,6 +295,7 @@ var LikeButtons={
 			if('total' in response) {
 				var totalLikesDisplay=module.findTotalLikesDisplay(response.target_type, response.target_id);
 				totalLikesDisplay.text(response.total);
+				console.log(totalLikesDisplay);
 			}
 		}, 'json').fail(function(response) {
 			//console.log(response.status);

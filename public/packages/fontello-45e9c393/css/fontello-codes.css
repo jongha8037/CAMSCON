@@ -8,3 +8,8 @@
 .icon-toggle-on:before { content: '\e806'; } /* '' */
 .icon-check:before { content: '\e807'; } /* '' */
 .icon-check-empty:before { content: '\e808'; } /* '' */
+.icon-chat-empty:before { content: '\e809'; } /* '' */
+.icon-facebook:before { content: '\e80a'; } /* '' */
+.icon-right-open-big:before { content: '\e80b'; } /* '' */
+.icon-ok:before { content: '\e80c'; } /* '' */
+.icon-link-ext:before { content: '\e80d'; } /* '' */

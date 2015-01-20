@@ -45,8 +45,6 @@
 	height: auto;
 }
 
-
-/*Primary Photo*/
 .single-container .primary-photo {
 	position: relative;
 }
@@ -55,15 +53,9 @@
 .single-container .primary-photo .fb-share-btn, 
 .single-container .primary-photo .kakao-share-btn {
 	position:absolute;
-	right:10px;
-
-	/*btn size for md, lg*/
-	/*
-	width:33.86px;
-	height:29.41px;
-	*/
-	width:47.79px;
-	height:41.51px;
+	top:10px;
+	width:40px;
+	height:33px;
 
 	border:2px solid #fff;
 	background-color:transparent;
@@ -82,24 +74,69 @@
 }
 
 .single-container .primary-photo .like-btn {
-	bottom:10px;
+	left:10px;
 
-	/*background-image:url('http://cdn.camscon.kr/front-assets/common/like-btn.png');*/
 	background-image:url('/front-assets/common/like-btn.png');
-	background-size: 26.45px 10.65px;
+	background-size: 27px auto;
 }
 
 .single-container .primary-photo .like-btn.liked {
-	/*background-image:url('http://cdn.camscon.kr/front-assets/common/like-btn-active.png');*/
 	background-image:url('/front-assets/common/like-btn-active.png');
 }
 
-.single-container .primary-photo .fb-share-btn {
-	bottom:56px;
+.single-container .primary-photo .likes-display {
+	position: absolute;
+	color: #fff;
+}
 
-	/*background-image:url('http://cdn.camscon.kr/front-assets/common/facebook-share.png');*/
+.single-container .primary-photo .likes-display.pointer {
+	top:15px;
+	left:51px;
+	font-size:17px;
+}
+
+.single-container .primary-photo .likes-display.total-likes {
+	top:10px;
+	left:72px;
+	font-size: 23px;
+	font-weight: 700;
+}
+
+.single-container .primary-photo .fb-share-btn {
+	right:10px;
+
 	background-image:url('/front-assets/common/facebook-share.png');
-	background-size: 8.75px 20.19px;
+	background-size: 10px auto;
+}
+
+@media (min-width: 768px) {
+	.single-container .primary-photo .like-btn, 
+	.single-container .primary-photo .fb-share-btn, 
+	.single-container .primary-photo .kakao-share-btn {
+		width:70px;
+		height:58px;
+	}
+
+	.single-container .primary-photo .like-btn {
+		background-size: 46px auto;
+	}
+
+	.single-container .primary-photo .likes-display.pointer {
+		top:19px;
+		left:85px;
+		font-size: 27px;
+	}
+
+	.single-container .primary-photo .likes-display.total-likes {
+		top:14px;
+		left:121px;
+		font-size:33px;
+		font-weight: 700;
+	}
+
+	.single-container .primary-photo .fb-share-btn {
+		background-size: 17px auto;
+	}
 }
 
 .single-container .data-col {
@@ -205,21 +242,6 @@
 		text-overflow: ellipsis;
 	}
 
-	.single-container .primary-photo .like-btn {
-		padding: 9px;
-	}
-
-	.single-container .primary-photo .likes {
-		padding: 9px;
-		left:62px;
-	}
-
-	.single-container .primary-photo .fb-share-btn {
-		font-size: 25px;
-		padding: 1px 19px;
-		top: 53px;
-	}
-
 	.single-container .data-col {
 		margin-bottom:40px;
 		padding-top:0px;
@@ -246,20 +268,6 @@
 }
 
 @media (min-width:768px) and (max-width:991px) {
-	.single-container .primary-photo .like-btn {
-		padding: 13px;
-	}
-
-	.single-container .primary-photo .likes {
-		padding: 13px;
-		left:70px;
-	}
-
-	.single-container .primary-photo .fb-share-btn {
-		font-size: 30px;
-		top: 60px;
-	}
-
 	.single-container .data-col .photographer-section {
 		padding:10px;
 	}
