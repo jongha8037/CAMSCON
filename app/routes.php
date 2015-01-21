@@ -135,7 +135,7 @@ Route::group(array('prefix' => 'admin', 'before'=>'auth.is_admin'), function() {
 	/*Admin User Groups*/
 	Route::get('user-groups/{queryType?}/{field?}', array('uses'=>'GroupsController@showUsers'));
 	Route::post('user-groups/delete-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@deleteUsers'));
-	Route::post('user-groups/copy-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@copyUsers'));
+	//Route::post('user-groups/copy-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@copyUsers'));
 	Route::post('user-groups/move-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@moveUsers'));
 
 	/*Override user*/
