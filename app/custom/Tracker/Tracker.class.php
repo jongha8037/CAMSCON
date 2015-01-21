@@ -6,6 +6,7 @@ class TrackerClass {
 
 	private $totalPageCount=0;
 	private $restrictedPageCount=0;
+	private $isRestrictedPage=false;
 	private $session;
 
 	public function __construct() {
@@ -24,6 +25,7 @@ class TrackerClass {
 		$outputObj=new \stdClass();
 		$outputObj->total_page_count=$this->totalPageCount;
 		$outputObj->restricted_page_count=$this->restrictedPageCount;
+		$outputObj->is_restricted_page=$this->isRestrictedPage;
 		
 		return $outputObj;
 	}//get()
@@ -38,6 +40,14 @@ class TrackerClass {
 	public function addRestrictedCount() {
 		$this->restrictedPageCount++;
 		$this->session->put('restricted_page_count', $this->restrictedPageCount);
+
+		return $this;
+	}
+
+	public function isRestrictedPage($value=false) {
+		if($value===true || $value===false) {
+			$this->isRestrictedPage=$value;
+		}
 
 		return $this;
 	}

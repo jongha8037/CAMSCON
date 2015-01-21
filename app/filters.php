@@ -178,7 +178,7 @@ Route::filter('tracker', function() {
 });
 
 Route::filter('restricted-page', function() {
-	Tracker::addRestrictedCount();
+	Tracker::addRestrictedCount()->isRestrictedPage(true);
 });
 
 Route::filter('front', function() {
