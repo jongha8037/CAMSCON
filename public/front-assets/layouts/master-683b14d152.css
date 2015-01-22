@@ -234,6 +234,11 @@
 	color: #707070;
 	font-weight: 700;
 	text-decoration: none;
+
+	/*Truncate with Ellipsis*/
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .layout-header .category-nav .sub-menu li a:hover {
@@ -906,6 +911,7 @@
 }
 
 .primary-slider .slide img {
+	width:100%;
 	max-width:100%;
 	height:auto;
 
