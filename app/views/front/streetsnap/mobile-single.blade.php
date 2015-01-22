@@ -19,7 +19,7 @@
 <meta property="og:locale" content="ko_KR" />
 
 <!--Single View styles-->
-<link href="{{asset('front-assets/single-view/mobile-single.css')}}" rel="stylesheet" />
+<link href="{{asset('front-assets/single-view/mobile-single-ebe96caa2e.css')}}" rel="stylesheet" />
 @stop
 
 @section('content')
@@ -58,19 +58,24 @@
 	<div id="photoCol" class="pin-on">
 		<figure id="snapPrimary" class="primary-photo pinned">
 			@if($snap->liked->count()>0)
-			<button type="button" class="like-btn liked" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
+			<div class="like-btn liked" data-type="StreetSnap" data-id="{{$snap->id}}">
 			@else
-			<button type="button" class="like-btn" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
+			<div class="like-btn" data-type="StreetSnap" data-id="{{$snap->id}}">
 			@endif
-			<button type="button" class="fb-share-btn" data-url="{{$snap->single_url}}">f</button>
-			<button type="button" class="kakao-share-btn" data-url="{{$snap->single_url}}">Kakao talk</button>
+				<span class="total-likes" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{$snap->cached_total_likes}}</span>
+				<span class="caption"></span>
+			</div><!--/.like-btn-->
+			<button type="button" class="fb-share-btn" data-url="{{$snap->single_url}}"></button>
+			<button type="button" class="kakao-share-btn" data-url="{{$snap->single_url}}"></button>
 			<div class="pin-container"></div>
 			<img src="{{$snap->primary->url}}" alt="" width="{{$snap->primary->width}}" height="{{$snap->primary->height}}" />
 		</figure><!--/.primary-photo-->
 
 		<div class="primary-footer clearfix">
 			<div class="pin-toggle-btn">PIN <span class="icon-toggle-on"></span></div>
-			<div class="snap-stats">댓글 <strong>{{$total_comments}}</strong> | 좋아요 <strong class="total-likes" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{$snap->cached_total_likes}}</strong></div>
+			<div class="snap-stats">
+				댓글 <strong class="total-comments" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{count($snap->comments)}}</strong>
+			</div>
 		</div>
 	</div><!--/#photoCol-->
 
@@ -83,9 +88,9 @@
 	@if(!empty($snap->subject_comment))
 		<div class="icon-comment">
 		@if($snap->gender=='female')
-		<h4>She says:</h4>
+		<h4><span class="icon-chat-empty"></span> SHE SAYS</h4>
 		@else
-		<h4>He says:</h4>
+		<h4><span class="icon-chat-empty"></span> HE SAYS</h4>
 		@endif
 			{{autop($snap->subject_comment)}}
 		</div>
@@ -101,7 +106,7 @@
 		
 	@if(!empty($snap->photographer_comment))
 		<div class="photographers-note">
-		<h4>Inspirer's note:</h4>
+		<h4><span class="icon-edit"></span> INSPIRER'S NOTE</h4>
 			{{autop($snap->photographer_comment)}}
 		</div>
 	@endif
@@ -128,13 +133,7 @@
 		@include(
 			'includes.comments', 
 			array(
-				'comments'=>$snap->comments()->with(
-					'user', 
-					'user.profileImage', 
-					'children', 
-					'children.user', 
-					'children.user.profileImage'
-				)->get(), 
+				'comments'=>$snap->comments, 
 				'target_type'=>'StreetSnap', 
 				'target_id'=>$snap->id
 			)

@@ -270,6 +270,7 @@ var CommentsModule={
 
 		//Update commentCount
 		this.objx.commentCount.text(clen);
+		$('.total-comments[data-target-type="'+this.target.type+'"][data-target-id="'+this.target.id+'"]').text(clen);
 
 		/*Removed scroll bar
 		if(scrollToBottom) {

@@ -165,9 +165,11 @@ var ProfileView={
 			if(snaps[i].liked.length>0) {
 				likeBtnClass='liked';
 			}
-			$('<button type="button" data-type="" data-id="" class="like-btn">LIKE</button>').attr('data-type', 'StreetSnap').attr('data-id', snaps[i].id).addClass(likeBtnClass).appendTo(snap);
-			$('<span class="likes"></span>').text(snaps[i].cached_total_likes).appendTo(snap);
-			$('<button type="button" class="fb-share-btn" data-url="">f</button>').attr('data-url', snaps[i].single_url).appendTo(snap);
+			var likeBtn=$('<button type="button" data-type="" data-id="" class="like-btn"></button>').attr('data-type', 'StreetSnap').attr('data-id', snaps[i].id).addClass(likeBtnClass);
+			$('<span class="total-likes" data-target-type="StreetSnap" data-target-id=""></span>').attr('data-target-id', snaps[i].id).text(snaps[i].cached_total_likes).appendTo(likeBtn);
+			$('<span class="caption"></span>').appendTo(likeBtn);
+			likeBtn.appendTo(snap);
+			$('<button type="button" class="fb-share-btn" data-url=""></button>').attr('data-url', snaps[i].single_url).appendTo(snap);
 			var link=$('<a href=""></a>').attr('href', snaps[i].single_url);
 			$('<img src="" alt="" class="snap-primary" />').attr('src', snaps[i].primary.url).attr('width', snaps[i].primary.width).attr('height', snaps[i].primary.height).appendTo(link);
 			link.appendTo(snap);
