@@ -17,6 +17,9 @@
 <meta property="og:image" content="{{$snap->primary->url}}" />
 <meta property="fb:app_id" content="562009567255774" />
 <meta property="og:locale" content="ko_KR" />
+
+<!--Single View styles-->
+<link href="{{asset('front-assets/single-view/single.css')}}" rel="stylesheet" />
 @stop
 
 @section('content')
@@ -47,7 +50,6 @@
 			@else
 			<button type="button" class="like-btn" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
 			@endif
-			<span class="likes">{{$snap->cached_total_likes}}</span>
 			<button type="button" class="fb-share-btn" data-url="{{$snap->single_url}}">f</button>
 			<div class="pin-container"></div>
 			<img src="{{$snap->primary->url}}" alt="" width="{{$snap->primary->width}}" height="{{$snap->primary->height}}" />
@@ -63,11 +65,11 @@
 		<div class="icon-section">
 			<h3 class="name">{{{$snap->name}}}</h3>
 			@if($snap->meta_type=='BlogMeta')
-			<h3 class="category">{{{$snap->meta->name}}} / {{$snap->meta->country}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			<h3 class="category">{{{$snap->meta->name}}} / {{$snap->meta->country}} @if(Auth::check() && Auth::user()->is_admin){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@elseif($snap->affiliation)
-			<h3 class="category">{{{$snap->meta->name}}} / {{{$snap->affiliation}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			<h3 class="category">{{{$snap->meta->name}}} / {{{$snap->affiliation}}} @if(Auth::check() && Auth::user()->is_admin){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@else
-			<h3 class="category">{{{preg_replace('/Meta$/', '', $snap->meta_type)}}} / {{{$snap->meta->name}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			<h3 class="category">{{{preg_replace('/Meta$/', '', $snap->meta_type)}}} / {{{$snap->meta->name}}} @if(Auth::check() && Auth::user()->is_admin){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@endif
 		</div>
 
@@ -277,6 +279,7 @@ var LikeButtons={
 	},
 	like:function(btn) {
 		btn.prop('disabled', true);
+		var module=this;
 
 		var data={
 			_token:"{{csrf_token()}}",
@@ -292,8 +295,10 @@ var LikeButtons={
 			} else if(response.proc=='canceled') {
 				btn.removeClass('liked');
 			}
+
 			if('total' in response) {
-				btn.siblings('span.likes').text(response.total);
+				var totalLikesDisplay=module.findTotalLikesDisplay(response.target_type, response.target_id);
+				totalLikesDisplay.text(response.total);
 			}
 		}, 'json').fail(function(response) {
 			//console.log(response.status);
@@ -305,6 +310,9 @@ var LikeButtons={
 		}).always(function() {
 			btn.prop('disabled', false);
 		});
+	},
+	findTotalLikesDisplay:function(targetType, targetId) {
+		return $('.total-likes[data-target-type="'+targetType+'"][data-target-id="'+targetId+'"]');
 	},
 	loginCallback:function() {
 		var data={

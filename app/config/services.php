@@ -28,4 +28,8 @@ return array(
 		'secret' => '',
 	),
 
+	'kakao' => array(
+		'js_key'  => getenv('KAKAO_JS_KEY'),
+	),
+
 );

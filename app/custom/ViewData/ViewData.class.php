@@ -33,14 +33,14 @@ class ViewDataClass {
 	}
 
 	public function add($key=null,$value=null) {
-		if((is_int($key) || is_string($key)) && !in_array($key, $this->payload) && !in_array($key, $this->protected)) {
+		if((is_int($key) || is_string($key)) && !array_key_exists($key, $this->payload) && !in_array($key, $this->protected)) {
 			$this->payload[$key]=$value;
 		}
 		return $this;
 	}
 
 	public function update($key=null,$value=null) {
-		if(in_array($key, $this->payload) && !in_array($key, $this->protected)) {
+		if(array_key_exists($key, $this->payload) && !in_array($key, $this->protected)) {
 			$this->payload=$value;
 		} else {
 			$this->add($key,$value);
@@ -49,7 +49,7 @@ class ViewDataClass {
 	}
 
 	public function remove($key=null) {
-		if(in_array($key, $this->payload) && !in_array($key, $this->protected)) {
+		if(array_key_exists($key, $this->payload) && !in_array($key, $this->protected)) {
 			unset($this->payload[$key]);
 		}
 		return $this;

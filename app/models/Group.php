@@ -3,7 +3,7 @@
 class Group extends Eloquent {
 
 	public function users() {
-		return $this->belongsToMany('User', 'groupings');
+		return $this->hasMany('User');
 	}
 
 }

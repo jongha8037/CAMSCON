@@ -23,6 +23,9 @@
 	<!-- Bootstrap -->
 	<link href="{{asset('packages/bootstrap-3.2.0/css/bootstrap.min.css')}}" rel="stylesheet" />
 
+	<!--Fontello-->
+	<link href="{{asset('packages/fontello-40b72f1a/css/fontello.css')}}" rel="stylesheet" />
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -33,7 +36,7 @@
 	<!--Google Web Fonts-->
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css' />
 
-	<!--Admin Layout styles-->
+	<!--Layout styles-->
 	<link href="{{asset('front-assets/layouts/master.css')}}" rel="stylesheet" />
 
 	@yield('head_styles')

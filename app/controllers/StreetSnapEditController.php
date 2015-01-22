@@ -10,6 +10,7 @@ class StreetSnapEditController extends BaseController {
 		//Get published
 		$published=Auth::user()->snaps()->with('meta')->where('status','=','published')->orderBy('created_at', 'DESC')->get();
 		ViewData::add('published', $published);
+		
 
 		return View::make('front.streetsnap.starter', ViewData::get());
 	}
@@ -56,7 +57,6 @@ class StreetSnapEditController extends BaseController {
 		foreach ($tree_temp as $element) {
 			$tree_output[]=$element;
 		}
-
 		ViewData::add('itemCategories', $tree_output);
 
 		if($snap) {

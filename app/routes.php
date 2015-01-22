@@ -59,22 +59,22 @@ Route::group(array('before' => 'front'), function() {
 
 
 	/*Style StreetSnap editor routes*/
-	Route::get('post/street-snap/starter', array('before'=>'auth.active_photographers', 'uses'=>'StreetSnapEditController@showStarter'));
-	Route::get('post/street-snap/{id?}', array('before'=>'auth.active_photographers', 'uses'=>'StreetSnapEditController@showEditor'))->where('id','[0-9]+');
-	Route::post('post/street-snap/upload/primary', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@uploadPrimary'));
-	Route::post('post/street-snap/upload/attachment', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@uploadAttachment'));
-	Route::post('post/street-snap/delete/attachment', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deleteAttachment'));
+	Route::get('post/street-snap/starter', array('before'=>'auth.can_upload_snaps', 'uses'=>'StreetSnapEditController@showStarter'));
+	Route::get('post/street-snap/{id?}', array('before'=>'auth.can_upload_snaps', 'uses'=>'StreetSnapEditController@showEditor'))->where('id','[0-9]+');
+	Route::post('post/street-snap/upload/primary', array('before'=>'auth.can_upload_snaps|csrf', 'uses'=>'StreetSnapEditController@uploadPrimary'));
+	Route::post('post/street-snap/upload/attachment', array('before'=>'auth.can_upload_snaps|csrf', 'uses'=>'StreetSnapEditController@uploadAttachment'));
+	Route::post('post/street-snap/delete/attachment', array('before'=>'auth.can_upload_snaps|csrf', 'uses'=>'StreetSnapEditController@deleteAttachment'));
 	Route::get('post/street-snap/data/brands/{query?}', array('uses'=>'BrandsController@jsonList'));
-	Route::post('post/street-snap/save/pin', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@savePin'));
-	Route::post('post/street-snap/delete/pin', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deletePin'));
-	Route::post('post/street-snap/publish', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@publishPost'));
-	Route::post('post/street-snap/delete', array('before'=>'auth.active_photographers|csrf', 'uses'=>'StreetSnapEditController@deletePost'));
+	Route::post('post/street-snap/save/pin', array('before'=>'auth.can_upload_snaps|csrf', 'uses'=>'StreetSnapEditController@savePin'));
+	Route::post('post/street-snap/delete/pin', array('before'=>'auth.can_upload_snaps|csrf', 'uses'=>'StreetSnapEditController@deletePin'));
+	Route::post('post/street-snap/publish', array('before'=>'auth.can_upload_snaps|csrf', 'uses'=>'StreetSnapEditController@publishPost'));
+	Route::post('post/street-snap/delete', array('before'=>'auth.can_upload_snaps|csrf', 'uses'=>'StreetSnapEditController@deletePost'));
 	Route::get('post/street-snap/data/meta/{query?}', array('uses'=>'StreetSnapEditController@getMetaJson'));
 
 
 	/*New Snap Editor Development Routes*/
-	Route::get('neweditor/starter', array('before'=>'auth.superuser', 'uses'=>'StreetSnapEditor@showStarter'));
-	Route::get('neweditor/editor/{id?}', array('before'=>'auth.superuser', 'uses'=>'StreetSnapEditor@showEditor'));
+	Route::get('neweditor/starter', array('before'=>'auth.is_superuser', 'uses'=>'StreetSnapEditor@showStarter'));
+	Route::get('neweditor/editor/{id?}', array('before'=>'auth.is_superuser', 'uses'=>'StreetSnapEditor@showEditor'));
 
 
 	/*Profile Edit routes*/
@@ -115,7 +115,7 @@ Route::group(array('before' => 'front'), function() {
 
 /*Admin Routes*/
 Route::get('admin', function() {return Redirect::to('admin/dashboard');});
-Route::group(array('prefix' => 'admin', 'before'=>'auth.admin'), function() {
+Route::group(array('prefix' => 'admin', 'before'=>'auth.is_admin'), function() {
 
 	Route::get('dashboard', array('uses'=>'AdminController@showDashboard'));
 
@@ -135,7 +135,7 @@ Route::group(array('prefix' => 'admin', 'before'=>'auth.admin'), function() {
 	/*Admin User Groups*/
 	Route::get('user-groups/{queryType?}/{field?}', array('uses'=>'GroupsController@showUsers'));
 	Route::post('user-groups/delete-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@deleteUsers'));
-	Route::post('user-groups/copy-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@copyUsers'));
+	//Route::post('user-groups/copy-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@copyUsers'));
 	Route::post('user-groups/move-checked', array('filter'=>'csrf', 'uses'=>'GroupsController@moveUsers'));
 
 	/*Override user*/
@@ -207,11 +207,6 @@ Route::get('mockup/detail', function() {
 
 
 /*Dev Routes*/
-
-/*Kakao sharing*/
-Route::get('test/kakao', function() {
-	return View::make('tests.kakao-share');
-});
 
 /*Query liked
 Route::get('test/liked', function() {
