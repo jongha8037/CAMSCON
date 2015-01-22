@@ -8,7 +8,7 @@
 	<div class="inner clearfix">
 		<!-- <figure class="slide"><img src="http://cdn.camscon.kr/assets/primary-slider/1.jpg" /></figure> -->
 		<figure class="slide">
-			<a href="{{action('InspirerRegisterController@showRegister')}}"><img src="http://cdn.camscon.kr/front-assets/primary-slider/inspirer-register-slider-1.png" /></a>
+			<a href="{{action('InspirerRegisterController@showRegister')}}"><img src="http://cdn.camscon.kr/front-assets/primary-slider/inspirer-register-slider-2.png" /></a>
 		</figure>
 	</div>
 </div>
