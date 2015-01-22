@@ -70,7 +70,10 @@ class StreetSnap extends Eloquent {
 
 	public function getSnapTitleAttribute() {
 		$title=null;
-		if($this->meta_type=='CampusMeta') {
+
+		if(empty($this->meta_type)) {
+			$title=$this->name;
+		} elseif($this->meta_type=='CampusMeta') {
 			/* {CampusName} {Major?} {IconName} */
 			$title.=' '.$this->meta->name;
 			if($this->affiliation) {

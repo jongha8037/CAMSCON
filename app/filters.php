@@ -47,29 +47,17 @@ Route::filter('auth', function()
 });
 
 
-Route::filter('auth.active_photographers', function() {
-	if(Auth::check()) {
-		//User is logged in check groups
-		$groups=Auth::user()->groups;
-		$authGroup=array(1,2,3,4,5,6);
-		$auth=false;
-		foreach($groups as $group) {
-			if( in_array(intval($group->id), $authGroup) ) {
-				$auth=true;
-				break;
-			}
-		}
-
-		if(!$auth) {
-			if (Request::ajax()) {
+Route::filter('auth.can_upload_snaps', function() {
+	if(Auth::check()) {//User is logged in check group
+		if( !Auth::user()->can_upload_snaps ) {
+			if(Request::ajax()) {
 				return Response::make('Unauthorized', 401);
-			} else {
+			} else {	
 				return View::make('error-pages.not-authorized', ViewData::get());
 			}
 		}
-	} else {
-		//User is not logged in
-		if (Request::ajax()) {
+	} else {//User is not logged in
+		if(Request::ajax()) {
 			return Response::make('Unauthorized', 401);
 		} else {
 			return Redirect::to('error/login-required')->with('intended',Request::url());
@@ -77,23 +65,16 @@ Route::filter('auth.active_photographers', function() {
 	}
 });
 
-Route::filter('auth.admin', function() {
-	if(Auth::check()) {
-		//User is logged in check groups
-		$groups=Auth::user()->groups;
-		$isAdmin=false;
-		foreach($groups as $group) {
-			if(intval($group->id)===5 || intval($group->id)===6) {
-				$isAdmin=true;
-				break;
+Route::filter('auth.is_admin', function() {
+	if(Auth::check()) {//User is logged in check group
+		if( !Auth::user()->is_admin ) {
+			if (Request::ajax()) {
+				return Response::make('Unauthorized', 401);
+			} else {
+				return View::make('error-pages.not-authorized', ViewData::get());
 			}
 		}
-
-		if(!$isAdmin) {
-			App::abort(401);
-		}
-	} else {
-		//User is not logged in
+	} else {//User is not logged in
 		if (Request::ajax()) {
 			return Response::make('Unauthorized', 401);
 		} else {
@@ -102,28 +83,16 @@ Route::filter('auth.admin', function() {
 	}
 });
 
-Route::filter('auth.superuser', function() {
-	if(Auth::check()) {
-		//User is logged in check groups
-		$groups=Auth::user()->groups;
-		$authGroup=array(6);
-		$auth=false;
-		foreach($groups as $group) {
-			if( in_array(intval($group->id), $authGroup) ) {
-				$auth=true;
-				break;
-			}
-		}
-
-		if(!$auth) {
+Route::filter('auth.is_superuser', function() {
+	if(Auth::check()) {//User is logged in check group
+		if( !Auth::user()->is_superuser ) {
 			if (Request::ajax()) {
 				return Response::make('Unauthorized', 401);
 			} else {
 				return View::make('error-pages.not-authorized', ViewData::get());
 			}
 		}
-	} else {
-		//User is not logged in
+	} else {//User is not logged in
 		if (Request::ajax()) {
 			return Response::make('Unauthorized', 401);
 		} else {
@@ -178,7 +147,7 @@ Route::filter('tracker', function() {
 });
 
 Route::filter('restricted-page', function() {
-	Tracker::addRestrictedCount();
+	Tracker::addRestrictedCount()->isRestrictedPage(true);
 });
 
 Route::filter('front', function() {

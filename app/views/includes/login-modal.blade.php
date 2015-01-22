@@ -227,6 +227,7 @@ var LoginModal={
 	login_status:@if(Auth::check()){{'true'}}@else{{'false'}}@endif,
 	total_page_count:{{$tracker->total_page_count}},
 	restricted_page_count:{{$tracker->restricted_page_count}},
+	is_restricted_page:{{json_encode($tracker->is_restricted_page)}},
 	@if(Session::has('intended'))
 	intended:"{{Session::get('intended')}}",
 	@else
@@ -272,7 +273,7 @@ var LoginModal={
 		});
 
 		//Login wall
-		if(this.restricted_page_count>1 && this.login_status===false) {
+		if(this.restricted_page_count>1 && this.login_status===false && this.is_restricted_page===true) {
 			this.launch();
 		}
 

@@ -80,9 +80,13 @@ User groups
 
 	<div class="user-groups">
 		<ul class="group-list">
-		@foreach($groups as $group)
-		<li><a href="{{action('GroupsController@showUsers', array('group', $group->id))}}">{{$group->name}}</a> <span class="badge">{{$userCount[$group->id]}}</span></li>
-		@endforeach
+			<li><a href="{{action('GroupsController@showUsers', array('group', 0))}}">Users</a> <span class="badge">{{$userCount[0]}}</span></li>
+			@foreach($groups as $group)
+			@if(intval($group->id)!==7)
+			<li><a href="{{action('GroupsController@showUsers', array('group', $group->id))}}">{{$group->name}}</a> <span class="badge">{{$userCount[$group->id]}}</span></li>
+			@endif
+			@endforeach
+			<li><a href="{{action('GroupsController@showUsers', array('group', 7))}}">Blacklist</a> <span class="badge">{{$userCount[7]}}</span></li>
 		</ul>
 	</div>
 </div>
@@ -98,16 +102,16 @@ User groups
 		또는
 		<div class="group-mod-control input-group">
 			<select id="groupSelector" class="form-control">
+				<option value="0">Users</option>
 				@foreach($groups as $group)
+				@if(intval($group->id)!==7)
 				<option value="{{$group->id}}">{{{$group->name}}}</option>
+				@endif
 				@endforeach
+				<option value="7">Blacklist</option>
 			</select>
 			<div class="input-group-btn">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">그룹으로 <span class="caret"></span></button>
-				<ul class="dropdown-menu dropdown-menu-right" role="menu">
-					<li><a href="#" id="copyCheckedBtn">복사</a></li>
-					<li><a href="#" id="moveCheckedBtn">이동</a></li>
-				</ul>
+				<button type="button" id="moveCheckedBtn" class="btn btn-default">그룹으로 이동</button>
 			</div><!-- /btn-group -->
 		</div><!-- /input-group -->
 	</div>
@@ -134,31 +138,14 @@ User groups
 				<th>이메일</th>
 				<th>성별</th>
 				<th>가입 일자</th>
-				<th>기여</th>
 			</tr>
 		</thead>
 		<tbody>
 		@foreach($users as $user)
 			@if($user->id==375 || $user->id==7133)
-			<tr>
-				<td><input type="checkbox" name="selected_users[]" value="{{$user->id}}" /></td>
-				<td>{{$user->id}}</td>
-				<td>{{{$user->nickname}}} <a href="{{action('AdminController@overrideUser', $user->id)}}"><span class="glyphicon glyphicon-fire"></span></a></td>
-				<td>{{$user->email}}</td>
-				<td>{{$user->gender}}</td>
-				<td>{{$user->created_at}}</td>
-				<td>{{count($user->snaps)}}</td>
-			</tr>
+			<tr><td><input type="checkbox" name="selected_users[]" value="{{$user->id}}" /></td><td>{{$user->id}}</td><td>{{{$user->nickname}}} <a href="{{action('AdminController@overrideUser', $user->id)}}"><span class="glyphicon glyphicon-fire"></span></a></td><td>{{$user->email}}</td><td>{{$user->gender}}</td><td>{{$user->created_at}}</td></tr>
 			@else
-			<tr>
-				<td><input type="checkbox" name="selected_users[]" value="{{$user->id}}" /></td>
-				<td>{{$user->id}}</td>
-				<td>{{{$user->nickname}}}</td>
-				<td>{{$user->email}}</td>
-				<td>{{$user->gender}}</td>
-				<td>{{$user->created_at}}</td>
-				<td>{{count($user->snaps)}}</td>
-			</tr>
+			<tr><td><input type="checkbox" name="selected_users[]" value="{{$user->id}}" /></td><td>{{$user->id}}</td><td>{{{$user->nickname}}}</td><td>{{$user->email}}</td><td>{{$user->gender}}</td><td>{{$user->created_at}}</td></tr>
 			@endif
 		@endforeach
 		</tbody>
@@ -178,7 +165,6 @@ User groups
 {{ Form::open( array('id'=>'userActionForm', 'method'=>'POST') ) }}
 	<input type="hidden" name="checked" />
 	<input type="hidden" name="group_id" />
-	<input type="hidden" name="current_group" value="{{$currentGroup or ''}}" />
 {{ Form::close() }}
 @stop
 
@@ -194,7 +180,6 @@ var UserActionsController={
 	},
 	endpoints:{
 		delete:"{{action('GroupsController@deleteUsers')}}",
-		copy:"{{action('GroupsController@copyUsers')}}",
 		move:"{{action('GroupsController@moveUsers')}}"
 	},
 	groupSelector:null,
@@ -206,7 +191,7 @@ var UserActionsController={
 		this.groupSelector=$('#groupSelector');
 		this.btns.checkAll=$('#selectAllUsers');
 		this.btns.deleteChecked=$('#deleteCheckedBtn');
-		this.btns.copyChecked=$('#copyCheckedBtn');
+		/*this.btns.copyChecked=$('#copyCheckedBtn');*/
 		this.btns.moveChecked=$('#moveCheckedBtn');
 		this.form=$('#userActionForm');
 
@@ -217,10 +202,6 @@ var UserActionsController={
 			AdminMaster.confirmModal.launch('진심으로 선택한 사용자들을 삭제하시겠습니까?', function() {
 				UserActionsController.deleteChecked();
 			}, null);
-		});
-		this.btns.copyChecked.click(function(e) {
-			e.preventDefault();
-			scope.copyChecked();
 		});
 		this.btns.moveChecked.click(function(e) {
 			e.preventDefault();
@@ -246,17 +227,6 @@ var UserActionsController={
 			this.checked_null_msg();
 		}
 	}/*deleteChecked()*/,
-	copyChecked:function() {
-		var checked=this.get_checked();
-		if(checked.length>0) {
-			this.form.find('input[name="checked"]').val(checked);
-			this.form.find('input[name="group_id"]').val(this.groupSelector.val());
-			this.form.prop('action', this.endpoints.copy);
-			this.form.submit();
-		} else {
-			this.checked_null_msg();
-		}
-	}/*copyChecked()*/,
 	moveChecked:function() {
 		var checked=this.get_checked();
 		if(checked.length>0) {

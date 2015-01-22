@@ -19,7 +19,7 @@
 <meta property="og:locale" content="ko_KR" />
 
 <!--Single View styles-->
-<link href="{{asset('front-assets/single-view/single-d06dba08e4.css')}}" rel="stylesheet" />
+<link href="{{asset('front-assets/single-view/single-a9636f1b36.css')}}" rel="stylesheet" />
 @stop
 
 @section('content')
@@ -46,13 +46,14 @@
 
 		<figure id="snapPrimary" class="primary-photo pinned">
 			@if($snap->liked->count()>0)
-			<button type="button" class="like-btn liked" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
+			<div class="like-btn liked" data-type="StreetSnap" data-id="{{$snap->id}}">
 			@else
-			<button type="button" class="like-btn" data-type="StreetSnap" data-id="{{$snap->id}}">LIKE</button>
+			<div class="like-btn" data-type="StreetSnap" data-id="{{$snap->id}}">
 			@endif
-			<span class="pointer likes-display icon-right-open-big"></span>
-			<span class="total-likes likes-display" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{$snap->likes->count()}}</span>
-			<button type="button" class="fb-share-btn" data-url="{{$snap->single_url}}">f</button>
+				<span class="total-likes" data-target-type="StreetSnap" data-target-id="{{$snap->id}}">{{$snap->cached_total_likes}}</span>
+				<span class="caption"></span>
+			</div><!--/.like-btn-->
+			<button type="button" class="fb-share-btn" data-url="{{$snap->single_url}}"></button>
 			<div class="pin-container"></div>
 			<img src="{{$snap->primary->url}}" alt="" width="{{$snap->primary->width}}" height="{{$snap->primary->height}}" />
 		</figure><!--/.primary-photo-->
@@ -67,11 +68,11 @@
 		<div class="icon-section">
 			<h3 class="name">{{{$snap->name}}}</h3>
 			@if($snap->meta_type=='BlogMeta')
-			<h3 class="category">{{{$snap->meta->name}}} / {{$snap->meta->country}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			<h3 class="category">{{{$snap->meta->name}}} / {{$snap->meta->country}} @if(Auth::check() && Auth::user()->is_admin){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@elseif($snap->affiliation)
-			<h3 class="category">{{{$snap->meta->name}}} / {{{$snap->affiliation}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			<h3 class="category">{{{$snap->meta->name}}} / {{{$snap->affiliation}}} @if(Auth::check() && Auth::user()->is_admin){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@else
-			<h3 class="category">{{{preg_replace('/Meta$/', '', $snap->meta_type)}}} / {{{$snap->meta->name}}} @if(Auth::check() && ($snap->user->id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			<h3 class="category">{{{preg_replace('/Meta$/', '', $snap->meta_type)}}} / {{{$snap->meta->name}}} @if(Auth::check() && Auth::user()->is_admin){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@endif
 		</div>
 
@@ -265,7 +266,7 @@ var LikeButtons={
 	init:function() {
 		//Bind event handlers to like buttons
 		$(document).on('click', '.like-btn', {likeAction:this.like.bind(this)}, function(e) {
-			likeAction($(this));
+			e.data.likeAction($(this));
 		});
 
 		//Bind callback to LoginModal{}

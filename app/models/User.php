@@ -24,8 +24,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 	protected $visible=array('id', 'nickname', 'profileImage');
+	protected $appends = array('can_upload_snaps', 'is_staff', 'is_admin', 'is_superuser');
 
-	public function groups() {
+	/*Relationship definitions*/
+	public function group() {
 		return $this->belongsTo('Group');
 	}
 
@@ -47,6 +49,42 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function likes() {
 		return $this->hasMany('UserLike', 'user_id');
+	}
+
+	/*Accessor definitions*/
+	public function getCanUploadSnapsAttribute() {
+		$authArray=array( 1, 3, 4, 5, 6, 8 );
+		if( in_array(intval($this->group->id), $authArray) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getIsStaffAttribute() {
+		$authArray=array( 4, 5, 6 );
+		if( in_array(intval($this->group->id), $authArray) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getIsAdminAttribute() {
+		$authArray=array( 5, 6 );
+		if( in_array(intval($this->group->id), $authArray) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getIsSuperuserAttribute() {
+		if( intval($this->group->id)===6 ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
