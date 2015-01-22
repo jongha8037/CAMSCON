@@ -54,12 +54,11 @@
 .single-container .primary-photo .kakao-share-btn {
 	position:absolute;
 	top:10px;
-	width:40px;
-	height:33px;
+	width:47px;
+	padding:0px;
 
-	border:2px solid #fff;
-	background-color:transparent;
-	color:rgba(255,255,255,0);
+	border:none;
+	background-color:#97cec3;
 
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
@@ -75,67 +74,105 @@
 
 .single-container .primary-photo .like-btn {
 	left:10px;
-
-	background-image:url('/front-assets/common/like-btn.png');
-	background-size: 27px auto;
 }
 
-.single-container .primary-photo .like-btn.liked {
-	background-image:url('/front-assets/common/like-btn-active.png');
+.single-container .primary-photo .like-btn .total-likes {
+	display: block;
+	text-align: center;
+	background-color:#fff;
+	color:#666;
+	line-height: 29px;
+	font-size:16px;
+
+	-webkit-border-top-left-radius: 4px; /* Safari 3-4, iOS 1-3.2, Android 1.6- */
+	-webkit-border-top-right-radius: 4px; /* Safari 3-4, iOS 1-3.2, Android 1.6- */
+	-moz-border-top-left-radius: 4px; /* Firefox 1-3.6 */
+	-moz-border-top-right-radius: 4px; /* Firefox 1-3.6 */
+	border-top-left-radius: 4px; /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
+	border-top-right-radius: 4px; /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
 }
 
-.single-container .primary-photo .likes-display {
-	position: absolute;
-	color: #fff;
+.single-container .primary-photo .like-btn.liked .total-likes {
+	color:#97cec3;
 }
 
-.single-container .primary-photo .likes-display.pointer {
-	top:15px;
-	left:51px;
-	font-size:17px;
+.single-container .primary-photo .like-btn .caption {
+	border:none;
+	background-color:#97cec3;
+	display: block;
+	text-align: center;
+	color:#fff;
+	font-weight:700;
+	font-size:13px;
+
+	-webkit-border-bottom-left-radius: 4px; /* Safari 3-4, iOS 1-3.2, Android 1.6- */
+	-webkit-border-bottom-right-radius: 4px; /* Safari 3-4, iOS 1-3.2, Android 1.6- */
+	-moz-border-bottom-left-radius: 4px; /* Firefox 1-3.6 */
+	-moz-border-bottom-right-radius: 4px; /* Firefox 1-3.6 */
+	border-bottom-left-radius: 4px; /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
+	border-bottom-right-radius: 4px; /* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
 }
 
-.single-container .primary-photo .likes-display.total-likes {
-	top:10px;
-	left:72px;
-	font-size: 23px;
-	font-weight: 700;
+.single-container .primary-photo .like-btn .caption:before {
+	content:'LIKE';
+}
+
+.single-container .primary-photo .like-btn.liked .caption {
+	font-size:12px;
+}
+
+.single-container .primary-photo .like-btn.liked .caption:before {
+	font-family:'Fontello';
+	content:'\e80c';
 }
 
 .single-container .primary-photo .fb-share-btn {
+	height:32px;
 	right:10px;
 
 	background-image:url('/front-assets/common/facebook-share.png');
 	background-size: 10px auto;
 }
 
+.single-container .primary-photo .kakao-share-btn {
+	height:32px;
+	right:10px;
+	top:47px;
+
+	background-image:url('/front-assets/common/kakao-share.png');
+	background-size: 27px auto;
+}
+
 @media (min-width: 768px) {
 	.single-container .primary-photo .like-btn, 
 	.single-container .primary-photo .fb-share-btn, 
 	.single-container .primary-photo .kakao-share-btn {
-		width:70px;
-		height:58px;
+		width:83px;
 	}
 
-	.single-container .primary-photo .like-btn {
-		background-size: 46px auto;
+	.single-container .primary-photo .like-btn .total-likes {
+		line-height: 56px;
+		font-size:26px;
 	}
 
-	.single-container .primary-photo .likes-display.pointer {
-		top:19px;
-		left:85px;
-		font-size: 27px;
+	.single-container .primary-photo .like-btn .caption {
+		font-size:19px;
 	}
 
-	.single-container .primary-photo .likes-display.total-likes {
-		top:14px;
-		left:121px;
-		font-size:33px;
-		font-weight: 700;
+	.single-container .primary-photo .like-btn.liked .caption {
+		font-size:19px;
+		line-height: 26px;
 	}
 
 	.single-container .primary-photo .fb-share-btn {
-		background-size: 17px auto;
+		height:55px;
+		background-size: 19px auto;
+	}
+
+	.single-container .primary-photo .kakao-share-btn {
+		height:55px;
+		top:47px;
+		background-size: 46px auto;
 	}
 }
 
@@ -177,7 +214,7 @@
 }
 
 .single-container .data-col .photographer-section {
-	border: 1px solid #20cfc5;
+	border: 1px solid #ddd;
 	padding:15px;
 	margin-bottom:30px;
 }
