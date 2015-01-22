@@ -95,7 +95,7 @@ class StreetSnapEditController extends BaseController {
 		if($validator->passes()) {
 			$snap=StreetSnap::find($input['streetsnap_id']);
 
-			if($snap->user_id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false)) {
+			if($snap->user_id===Auth::user()->id || Auth::user()->is_staff) {
 				if(!empty($input['id'])) {
 					$pin=PinTag::find($input['id']);
 				} else {
@@ -183,7 +183,7 @@ class StreetSnapEditController extends BaseController {
 
 		if($validator->passes()) {
 			$snap=StreetSnap::find($input['streetsnap_id']);
-			if($snap->user_id===Auth::user()->id || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false)) {
+			if($snap->user_id===Auth::user()->id || Auth::user()->is_staff) {
 				DB::beginTransaction();
 				try {
 					$pin=PinTag::find($input['id']);
@@ -445,7 +445,7 @@ class StreetSnapEditController extends BaseController {
 			$snap=StreetSnap::with('primary', 'user')->find($input['streetsnap_id']);
 
 			//Check ownership or authorization
-			if($snap->user->id===Auth::user()->id || Session::get('is_su', false)) {
+			if($snap->user->id===Auth::user()->id || Auth::user()->is_superuser) {
 				if($snap->primary) {
 					$snap->name=$input['name'];
 					if(!empty($input['birth_year'])) {
@@ -530,7 +530,7 @@ class StreetSnapEditController extends BaseController {
 	private function loadStreetSnap($id=0) {
 		$snap=StreetSnap::with('user', 'primary', 'attachments', 'pins', 'pins.brand', 'pins.itemCategory', 'pins.links', 'meta')->find(intval($id));
 		if($snap) {
-			if(is_object($snap->user) && (intval($snap->user->id)===intval(Auth::user()->id) || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false))) {
+			if(is_object($snap->user) && (intval($snap->user->id)===intval(Auth::user()->id) || Auth::user()->is_staff)) {
 				return $snap;
 			} else {
 				return false;
@@ -567,7 +567,7 @@ class StreetSnapEditController extends BaseController {
 		$response->blog_meta=new stdClass();
 		$response->blog_meta->matches=true;
 		$response->blog_meta->data=array();
-		if(Session::get('is_blogger', false) || Session::get('is_staff', false) || Session::get('is_manager', false) || Session::get('is_su', false)) {
+		if(Auth::user()->can_upload_snaps) {
 			$response->blog_meta->data=BlogMeta::where('name', 'LIKE', '%'.$query.'%')->get(array('id','name'));
 		}
 		
