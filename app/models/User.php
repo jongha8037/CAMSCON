@@ -54,7 +54,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	/*Accessor definitions*/
 	public function getCanUploadSnapsAttribute() {
 		$authArray=array( 1, 3, 4, 5, 6, 8 );
-		if( in_array(intval($this->group->id), $authArray) ) {
+		if( $this->group && in_array(intval($this->group->id), $authArray) ) {
 			return true;
 		} else {
 			return false;
@@ -63,7 +63,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function getIsStaffAttribute() {
 		$authArray=array( 4, 5, 6 );
-		if( in_array(intval($this->group->id), $authArray) ) {
+		if( $this->group && in_array(intval($this->group->id), $authArray) ) {
 			return true;
 		} else {
 			return false;
@@ -72,7 +72,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function getIsAdminAttribute() {
 		$authArray=array( 5, 6 );
-		if( in_array(intval($this->group->id), $authArray) ) {
+		if( $this->group && in_array(intval($this->group->id), $authArray) ) {
 			return true;
 		} else {
 			return false;
@@ -80,7 +80,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public function getIsSuperuserAttribute() {
-		if( intval($this->group->id)===6 ) {
+		if( $this->group && intval($this->group->id)===6 ) {
 			return true;
 		} else {
 			return false;
