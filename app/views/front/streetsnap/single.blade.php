@@ -68,11 +68,11 @@
 		<div class="icon-section">
 			<h3 class="name">{{{$snap->name}}}</h3>
 			@if($snap->meta_type=='BlogMeta')
-			<h3 class="category">{{{$snap->meta->name}}} / {{$snap->meta->country}} @if(Auth::check() && Auth::user()->is_admin){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			<h3 class="category">{{{$snap->meta->name}}} / {{$snap->meta->country}} @if(Auth::check() && Auth::user()->is_staff){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@elseif($snap->affiliation)
-			<h3 class="category">{{{$snap->meta->name}}} / {{{$snap->affiliation}}} @if(Auth::check() && Auth::user()->is_admin){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			<h3 class="category">{{{$snap->meta->name}}} / {{{$snap->affiliation}}} @if(Auth::check() && Auth::user()->is_staff){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@else
-			<h3 class="category">{{{preg_replace('/Meta$/', '', $snap->meta_type)}}} / {{{$snap->meta->name}}} @if(Auth::check() && Auth::user()->is_admin){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
+			<h3 class="category">{{{preg_replace('/Meta$/', '', $snap->meta_type)}}} / {{{$snap->meta->name}}} @if(Auth::check() && Auth::user()->is_staff){{'<a href="'.action('StreetSnapEditController@showEditor', $snap->id).'" class="btn btn-primary btn-xs">Edit</a>'}}@endif</h3>
 			@endif
 		</div>
 
