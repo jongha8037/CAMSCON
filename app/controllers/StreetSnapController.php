@@ -18,6 +18,7 @@ class StreetSnapController extends BaseController {
 		ViewData::add('RouteParams', $routeParams);
 
 		//Get street snaps
+		$snaps=null;
 		switch($category) {
 			case 'all':
 				if($ordering=='hot') {
