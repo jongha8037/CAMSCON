@@ -132,7 +132,7 @@
 		</div>
 
 		<div id="bannerSection" class="banner-section">
-			<a href="{{action('InspirerRegisterController@showRegister')}}"><img src="http://cdn.camscon.kr/front-assets/single-banners/inspirer-register-banner.png" /></a>
+			<a href="{{action('InspirerRegisterController@showRegister')}}"><img src="http://cdn.camscon.kr/front-assets/single-banners/inspirer-register-banner-1.png" /></a>
 		</div>
 	</div>
 </div><!--/.single-container-->
