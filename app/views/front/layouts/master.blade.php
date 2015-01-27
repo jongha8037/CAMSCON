@@ -217,7 +217,7 @@
 	</script>
 
 	<!--Admin Layout-->
-	<script src="{{asset('front-assets/layouts/master.js')}}?version=1.0.0"></script>
+	<script src="{{asset('front-assets/layouts/master.76bfe9b0b9.js')}}?version=1.0.0"></script>
 	@yield('footer_scripts')
 </body>
 </html>
