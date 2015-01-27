@@ -868,6 +868,19 @@ var MetaEditor={
 			}
 		});
 		blog.initialize();
+
+		var magazine = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			limit: 15,
+			remote:{
+				url:EditorData.endpoints.metaData+'/%QUERY',
+				filter:function(response) {
+					return response.magazine_meta.data;
+				}
+			}
+		});
+		magazine.initialize();
 		 
 		this.objects.metaInput.typeahead({
 			hint: true,
@@ -932,6 +945,16 @@ var MetaEditor={
 			source: blog.ttAdapter(),
 			templates:{
 				header:'<h5 class="tt-header">Blog</h5>'
+			}
+		},
+		{
+			name: 'MagazineMeta',
+			displayKey: 'name',
+			// `ttAdapter` wraps the suggestion engine in an adapter that
+			// is compatible with the typeahead jQuery plugin
+			source: magazine.ttAdapter(),
+			templates:{
+				header:'<h5 class="tt-header">Magazine</h5>'
 			}
 		}).bind('typeahead:selected', function(e,suggestion,dataset) {
 			MetaEditor.objects.metaValue.val(suggestion.id);

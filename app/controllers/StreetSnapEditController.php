@@ -570,6 +570,10 @@ class StreetSnapEditController extends BaseController {
 		if(Auth::user()->can_upload_snaps) {
 			$response->blog_meta->data=BlogMeta::where('name', 'LIKE', '%'.$query.'%')->get(array('id','name'));
 		}
+
+		$response->magazine_meta=new stdClass();
+		$response->magazine_meta->matches=true;
+		$response->magazine_meta->data=MagazineMeta::where('name_ko', 'LIKE', '%'.$query.'%')->orWhere('name_en', 'LIKE', '%'.$query.'%')->get(array('id','name_en','name_ko'));
 		
 		return Response::json($response);
 	}
