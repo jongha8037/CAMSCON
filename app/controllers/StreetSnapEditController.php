@@ -395,6 +395,9 @@ class StreetSnapEditController extends BaseController {
 				case 'BlogMeta':
 					$meta=BlogMeta::find($value);
 					break;
+				case 'MagazineMeta':
+					$meta=MagazineMeta::find($value);
+					break;
 				default:
 					return false;
 			}
@@ -423,7 +426,7 @@ class StreetSnapEditController extends BaseController {
 			'streetsnap_id'=>array('required', 'exists:street_snaps,id'),
 			'name'=>array('required'),
 			'birth_year'=>array('sometimes', 'date_format:Y'),
-			'meta_type'=>array('required', 'in:CampusMeta,StreetMeta,FestivalMeta,ClubMeta,FashionWeekMeta,BlogMeta'),
+			'meta_type'=>array('required', 'in:CampusMeta,StreetMeta,FestivalMeta,ClubMeta,FashionWeekMeta,BlogMeta,MagazineMeta'),
 			'meta_id'=>array('required', 'meta_exists:'.$input['meta_type']),
 			/*'affiliation',*/
 			'gender'=>array('required', 'in:male,female'),

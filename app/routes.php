@@ -24,14 +24,14 @@ Route::group(array('before' => 'front'), function() {
 	//List View
 	Route::get('{category}/{slug?}/{ordering?}',
 		array('uses'=>"StreetSnapController@getList")
-	)->where(array('category'=>'all|campus|street|brand|fashion-week|festival|club|filter|blog', 'ordering'=>'new|hot'));
+	)->where(array('category'=>'all|campus|street|brand|fashion-week|festival|club|filter|blog|magazine', 'ordering'=>'new|hot'));
 
 	Route::get('/', array('uses'=>"StreetSnapController@getList"));
 
 	//Single View for campus,street,brand,fashion-week,festival,club,blog
 	Route::get('{category}/{slug}/{id}',
 		array('before'=>'restricted-page', 'uses'=>"StreetSnapController@getSingle")
-	)->where(array('category'=>'filter|campus|street|brand|fashion-week|festival|blog', 'id'=>'^[0-9]+$'));
+	)->where(array('category'=>'filter|campus|street|brand|fashion-week|festival|blog|magazine', 'id'=>'^[0-9]+$'));
 
 	//Profile View
 	Route::get('profile/{id}', array('uses'=>'ProfileController@showProfile'));
