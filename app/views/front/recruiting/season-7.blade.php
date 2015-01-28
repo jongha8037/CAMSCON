@@ -15,6 +15,10 @@ Camtographer Season 7 Recruiting - CAMSCON
 <meta property="og:locale" content="ko_KR" />
 
 <style type="text/css">
+.recruiting {
+	margin-bottom:60px;
+}
+
 .recruiting section {
 	margin:40px 0px;
 }
