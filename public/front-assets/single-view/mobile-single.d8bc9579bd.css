@@ -1,8 +1,16 @@
-/*Default Single View*/
+/*Mobile optimized single view*/
 
+
+/*Breadcrumbs*/
 .breadcrumbs {
 	color: #737373;
-	margin: 20px 0px;
+	margin:0px -15px;
+	padding:16px 15px;
+	border-bottom:1px solid #7f7f7f;
+
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .breadcrumbs a {
@@ -10,9 +18,15 @@
 	text-decoration: none;
 }
 
+.breadcrumbs a:last-child {
+	font-weight: 700;
+}
+
+
+/*Content Navigation*/
 .content-nav {
 	color: #000;
-	margin-bottom: 20px;
+	margin:21px 0px;
 }
 
 .content-nav a {
@@ -33,20 +47,56 @@
 	padding-left:15px;
 }
 
-.single-container .photo-col figure {
+
+/*General styles for figure and img elements*/
+.single-container figure {
 	display: table;
-	margin:0px auto 30px auto;
+	margin:0px auto 10px auto;
 	max-width: 100%;
 }
 
-.single-container .photo-col img {
+.single-container img {
 	width: auto;
 	max-width: 100%;
 	height: auto;
 }
 
+
+/*Icon Section*/
+.single-container .icon-section {
+	margin:33px 0px 13px 0px;
+	border-bottom:0;
+}
+
+.single-container .icon-section h3 {
+	margin:0px;
+	display: inline;
+	vertical-align: middle;
+}
+
+.single-container .icon-section h3.name {
+	font-size:19px;
+	font-weight: 700;
+	color:#3d3c3b;
+	margin-right:4px;
+}
+
+.icon-section h3.category {
+	font-size:13px;
+	color:#808080;
+	position: relative;
+	top:1px;
+}
+
+.single-container .icon-section h3.category a {
+	display: none;
+}
+
+
+/*Primary photo*/
 .single-container .primary-photo {
 	position: relative;
+	margin-bottom:0px;
 }
 
 .single-container .primary-photo .like-btn, 
@@ -123,7 +173,7 @@
 
 .single-container .primary-photo .like-btn.liked .caption:before {
 	font-family:'Fontello';
-	content:'\e80c';
+	content:'\e80b';
 }
 
 .single-container .primary-photo .fb-share-btn {
@@ -143,124 +193,69 @@
 	background-size: 27px auto;
 }
 
-@media (min-width: 992px) {
-	.single-container .primary-photo .like-btn, 
-	.single-container .primary-photo .fb-share-btn, 
-	.single-container .primary-photo .kakao-share-btn {
-		width:67px;
-	}
-
-	.single-container .primary-photo .like-btn .total-likes {
-		line-height: 45px;
-		font-size:23px;
-	}
-
-	.single-container .primary-photo .like-btn .caption {
-		font-size:16px;
-	}
-
-	.single-container .primary-photo .like-btn.liked .caption {
-		font-size:16px;
-		line-height: 22px;
-	}
-
-	.single-container .primary-photo .fb-share-btn {
-		height:44px;
-		background-size: 15px auto;
-	}
-
-	.single-container .primary-photo .kakao-share-btn {
-		height:44px;
-		top:47px;/*TODO: modify when implemented*/
-		background-size: 57px auto;
-	}
+.single-container .primary-footer {
+	border-bottom:1px solid #e5e1dc;
+	padding:5px 0px;
 }
 
-@media (min-width: 1170px) {
-	.single-container .primary-photo .like-btn, 
-	.single-container .primary-photo .fb-share-btn, 
-	.single-container .primary-photo .kakao-share-btn {
-		width:83px;
-	}
-
-	.single-container .primary-photo .like-btn .total-likes {
-		line-height: 56px;
-		font-size:26px;
-	}
-
-	.single-container .primary-photo .like-btn .caption {
-		font-size:19px;
-	}
-
-	.single-container .primary-photo .like-btn.liked .caption {
-		font-size:19px;
-		line-height: 26px;
-	}
-
-	.single-container .primary-photo .fb-share-btn {
-		height:55px;
-		background-size: 19px auto;
-	}
-
-	.single-container .primary-photo .kakao-share-btn {
-		height:55px;
-		top:47px;
-		background-size: 46px auto;
-	}
+.primary-footer .pin-toggle-btn {
+	float:left;
+	font-size: 20px;
 }
 
-.single-container .data-col {
-	padding-top:40px;
+.primary-footer .snap-stats {
+	float:right;
+	font-size: 14px;
+	line-height: 28px;
 }
 
-.single-container .icon-section {
-	padding-bottom: 20px;
-	border-bottom: 1px solid #000;
-	margin-bottom: 20px;
-}
 
-.single-container .icon-section h3 {
-	margin:0px;
-}
-
-.single-container .icon-section h3.name {
-	font-weight: 700;
-}
-
-.single-container .icon-section h3.category {
-	margin-top:5px;
-}
-
-.single-container .data-col .pins-section {
-	border-bottom: 1px solid #000;
-	margin-bottom: 20px;
-}
-
-.single-container .data-col .notes-section .icon-comment, 
-.single-container .data-col .notes-section .photographers-note {
+/*Pins Section*/
+.single-container .pins-section {
+	padding:20px 0px;
 	margin-bottom:30px;
-	border-bottom: 1px solid #eee;
+	border-bottom:1px solid #e5e1dc;
 }
 
-.single-container .data-col .pin-list {
-	margin-bottom: 20px;
+.single-container .pins-section .pin-list li:last-child {
+	margin-bottom:0px;
 }
 
-.single-container .data-col .photographer-section {
+
+/*Attachments*/
+.single-container .attachments {
+	padding-bottom:20px;
+	border-bottom:1px solid #e5e1dc;
+	margin-bottom:40px;
+}
+
+
+/*Icon Comment*/
+.single-container .icon-comment {
+	margin-bottom:40px;
+}
+
+
+/*Inspirer's Note*/
+.single-container .photographers-note {
+	margin-bottom:40px;
+}
+
+.single-container .photographer-section {
+	padding: 10px;
 	border: 1px solid #ddd;
-	padding:15px;
-	margin-bottom:30px;
+	margin-bottom:40px;
 }
 
 .single-container .photographer-section .profile-img {
 	width: auto;
-	max-width: 100px;
+	max-width: 80px;
 	height: auto;
 	float: left;
 }
 
 .single-container .photographer-section .profile-data {
-	padding-left: 115px;
+	padding-left: 90px;
 }
 
 .single-container .photographer-section .profile-data .name {
@@ -279,12 +274,15 @@
 .single-container .photographer-section .profile-data a {
 	color: #666;
 	word-break: break-all;
+
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
-.single-container .photographer-section .profile-data a:hover {
-	color: #000;
-}
 
+/*Banner Section*/
 .single-container .banner-section {
 	margin-bottom:30px;
 	text-align: center;
@@ -293,73 +291,11 @@
 .single-container .banner-section img {
 	max-width: 100%;
 	height:auto;
-
-	-webkit-transition: opacity 200ms ease-out;
-	-moz-transition: opacity 200ms ease-out;
-	-o-transition: opacity 200ms ease-out;
-	transition: opacity 200ms ease-out;
 }
 
-.single-container .banner-section img:hover {
-	opacity: 0.8;
-}
 
-@media (max-width:767px) {
-	/*Default single view*/
-	.breadcrumbs {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.single-container .data-col {
-		margin-bottom:40px;
-		padding-top:0px;
-	}
-
-	.single-container .data-col .photographer-section {
-		padding:10px;
-	}
-
-	.single-container .photographer-section .profile-img {
-		max-width: 80px;
-	}
-
-	.single-container .photographer-section .profile-data {
-		padding-left: 90px;
-	}
-
-	.single-container .photographer-section .profile-data a {
-		display: block;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-}
-
-@media (min-width:768px) and (max-width:991px) {
-	.single-container .data-col .photographer-section {
-		padding:10px;
-	}
-
-	.single-container .photographer-section .profile-img {
-		max-width: 80px;
-	}
-
-	.single-container .photographer-section .profile-data {
-		padding-left: 90px;
-	}
-
-	.single-container .photographer-section .profile-data a {
-		display: block;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-}
-
+/*Pins*/
 .single-container .pin-container .pin {
-	opacity: 0;
 	position: absolute;
 	background-color: #20cfc5;
 	font-size: 13px;
@@ -375,11 +311,21 @@
 	cursor: pointer;
 	margin-top: -10px;
 	margin-left: -10px;
+
+	/*Transitions*/
+	-webkit-transition: opacity 200ms ease-out;
+	-moz-transition: opacity 200ms ease-out;
+	-o-transition: opacity 200ms ease-out;
+	transition: opacity 200ms ease-out;
 }
 
 .single-container .pin-container .pin.highlight, 
-.single-container .pinned:hover .pin-container .pin {
-	opacity: 1;
+.single-container .pin-container .pin {
+	opacity:1;
+}
+
+#photoCol.pin-off .pin-container .pin {
+	opacity:0;
 }
 
 .single-container .pin-list {
@@ -432,12 +378,11 @@
 	display: block;
 }
 
-.single-container .pin-list li.highlight .pin-numbering, 
-.single-container .pin-list li:hover .pin-numbering {
-	background-color: #20cfc5;
+/*Pin Toggle btn*/
+#photoCol.pin-on .primary-footer .pin-toggle-btn {
+	color:#20cfc5;
 }
 
-.single-container .pin-list li.highlight .meta, 
-.single-container .pin-list li:hover .meta {
-	color: #20cfc5;
+#photoCol.pin-off .primary-footer .pin-toggle-btn {
+	color:inherit;
 }

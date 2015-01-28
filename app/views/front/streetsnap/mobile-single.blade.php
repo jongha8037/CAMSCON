@@ -19,7 +19,7 @@
 <meta property="og:locale" content="ko_KR" />
 
 <!--Single View styles-->
-<link href="{{asset('front-assets/single-view/mobile-single.c6c4089ec1.css')}}" rel="stylesheet" />
+<link href="{{asset('front-assets/single-view/mobile-single.d8bc9579bd.css')}}" rel="stylesheet" />
 @stop
 
 @section('content')
