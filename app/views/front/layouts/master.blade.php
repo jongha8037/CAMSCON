@@ -37,7 +37,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css' />
 
 	<!--Layout styles-->
-	<link href="{{asset('front-assets/layouts/master.683b14d152.css')}}" rel="stylesheet" />
+	<link href="{{asset('front-assets/layouts/master.d8a3a870d2.css')}}" rel="stylesheet" />
 
 	@yield('head_styles')
 	</head>
