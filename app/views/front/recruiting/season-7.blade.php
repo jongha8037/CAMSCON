@@ -248,6 +248,7 @@ Camtographer Season 7 Recruiting - CAMSCON
 	<section class="section-1">
 		<figure class="head-hero">
 			<img src="http://cdn.camscon.kr/front-assets/recruiting/season7/hero.jpg" />
+			<figcaption>캠토그래퍼 이채령(전남대), 조유경(전주대)</figcaption>
 		</figure>
 
 		<div class="section-body">
@@ -370,7 +371,7 @@ Camtographer Season 7 Recruiting - CAMSCON
 
 			<h3>[지원방법]</h3>
 			<ul class="guide">
-				<li>상단 카테고리 중, 'Application Download'에서 지원서를 다운로드 받아 recruiting@camscon.kr로 보내주시면 됩니다.</li>
+				<li>하단의 'Download Application' 링크를 이용하여 지원서를 다운로드 받아 recruiting@camscon.kr로 보내주시면 됩니다.</li>
 				<li>보내주실 때 메일제목 및 파일명 : [학교_이름], 예시) [한국대학교_홍길동]</li>
 			</ul>
 
@@ -393,7 +394,7 @@ Camtographer Season 7 Recruiting - CAMSCON
 		</figure>
 
 		<div class="section-body" style="text-align:center;">
-			<a href="http://cdn.camscon.kr/front-assets/recruiting/season7/CamsconApplication.pptx" class="btn btn-primary" style="margin:17px 0px;"><span class="glyphicon glyphicon-save"></span> Download Application</a>
+			<a href="{{asset('front-assets/recruiting/season7/University_Name.pptx')}}" class="btn btn-primary" style="margin:17px 0px;"><span class="glyphicon glyphicon-save"></span> Download Application</a>
 		</div>
 	</section>
 </div>
