@@ -80,11 +80,28 @@ CAMTOGRAPHER SEASON 7 RECRUITING - CAMSCON
 	font-size: 13px;
 }
 
+.recruiting .section-5 .intro-list ul li:before {
+	font-family: "fontello";
+	content:"\e80a";
+	float: left;
+	margin-left: -8px;
+	margin-top: 1px;
+}
+
 .recruiting .section-5 .schedule li, 
 .recruiting .section-5 .guide li, 
 .recruiting .section-5 .tips li {
 	margin-bottom:10px;
 	font-size:13px;
+}
+.recruiting .section-5 .schedule li:before, 
+.recruiting .section-5 .guide li:before, 
+.recruiting .section-5 .tips li:before {
+	font-family: "fontello";
+	content:"\e80a";
+	float: left;
+	margin-left: -8px;
+	margin-top: 1px;
 }
 .recruiting .section-5 .schedule {
 	list-style-type: none;
