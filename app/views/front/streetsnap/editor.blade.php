@@ -276,5 +276,5 @@ var EditorData={
 };//EditorData{}
 </script>
 
-<script type="text/javascript" src="{{asset('admin-assets/street-snap/editor.js')}}"></script>
+<script type="text/javascript" src="{{asset('admin-assets/street-snap/editor.379522f6e3.js')}}"></script>
 @stop

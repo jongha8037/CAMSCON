@@ -10,11 +10,9 @@ Camtographer Season 7 Recruiting - CAMSCON
 <meta property="og:site_name" content="CAMSCON" />
 <meta property="og:url" content="{{url('recruiting/season-7')}}" />
 <meta property="og:description" content="캠토그래퍼 시즌7 프로그램에 참여할 패션을 사랑하는 대학생들을 모집합니다" />
-<meta property="og:image" content="/front-assets/recruiting/season7/fb_og.jpg" />
+<meta property="og:image" content="http://cdn.camscon.kr/front-assets/recruiting/season7/fb_og.jpg" />
 <meta property="fb:app_id" content="562009567255774" />
 <meta property="og:locale" content="ko_KR" />
-
-<link rel="stylesheet" type="text/css" href="{{asset('front-assets/user-feedback/form.css')}}">
 
 <style type="text/css">
 .recruiting section {
@@ -249,7 +247,7 @@ Camtographer Season 7 Recruiting - CAMSCON
 <div class="recruiting">
 	<section class="section-1">
 		<figure class="head-hero">
-			<img src="/front-assets/recruiting/season7/hero.jpg" />
+			<img src="http://cdn.camscon.kr/front-assets/recruiting/season7/hero.jpg" />
 		</figure>
 
 		<div class="section-body">
@@ -265,7 +263,7 @@ Camtographer Season 7 Recruiting - CAMSCON
 
 	<section class="section-2">
 		<figure>
-			<img src="/front-assets/recruiting/season7/1.jpg" />
+			<img src="http://cdn.camscon.kr/front-assets/recruiting/season7/1.jpg" />
 			<figcaption>캠토그래퍼 정예하(서울대), 최원정(단국대)</figcaption>
 		</figure>
 
@@ -278,7 +276,7 @@ Camtographer Season 7 Recruiting - CAMSCON
 
 	<section class="section-3">
 		<figure>
-			<img src="/front-assets/recruiting/season7/2.jpg" />
+			<img src="http://cdn.camscon.kr/front-assets/recruiting/season7/2.jpg" />
 			<figcaption>캠토그래퍼 최원정(단국대), 유민욱(국민대)</figcaption>
 		</figure>
 
@@ -314,7 +312,7 @@ Camtographer Season 7 Recruiting - CAMSCON
 
 	<section class="section-4">
 		<figure>
-			<img src="/front-assets/recruiting/season7/3.jpg" />
+			<img src="http://cdn.camscon.kr/front-assets/recruiting/season7/3.jpg" />
 			<figcaption>캠토그래퍼 서희원(한국외대), 인선모(중앙대-안성)</figcaption>
 		</figure>
 
@@ -327,7 +325,7 @@ Camtographer Season 7 Recruiting - CAMSCON
 
 	<section class="section-5">
 		<figure>
-			<img src="/front-assets/recruiting/season7/4.jpg" />
+			<img src="http://cdn.camscon.kr/front-assets/recruiting/season7/4.jpg" />
 			<figcaption>캠토그래퍼 서서린(영남대)</figcaption>
 		</figure>
 
@@ -390,12 +388,12 @@ Camtographer Season 7 Recruiting - CAMSCON
 
 	<section class="section-6">
 		<figure>
-			<img src="/front-assets/recruiting/season7/5.jpg" />
+			<img src="http://cdn.camscon.kr/front-assets/recruiting/season7/5.jpg" />
 			<figcaption>캠토그래퍼 김가람(세종대)</figcaption>
 		</figure>
 
 		<div class="section-body" style="text-align:center;">
-			<a href="/front-assets/recruiting/season7/CamsconApplication.pptx" class="btn btn-primary" style="margin:17px 0px;"><span class="glyphicon glyphicon-save"></span> Download Application</a>
+			<a href="http://cdn.camscon.kr/front-assets/recruiting/season7/CamsconApplication.pptx" class="btn btn-primary" style="margin:17px 0px;"><span class="glyphicon glyphicon-save"></span> Download Application</a>
 		</div>
 	</section>
 </div>
