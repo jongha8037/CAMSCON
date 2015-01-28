@@ -9,55 +9,55 @@
     {
       "uid": "8b80d36d4ef43889db10bc1f0dc9a862",
       "css": "user",
-      "code": 59392,
+      "code": 59393,
       "src": "fontawesome"
     },
     {
       "uid": "12f4ece88e46abd864e40b35e05b11cd",
       "css": "ok",
-      "code": 59404,
+      "code": 59403,
       "src": "fontawesome"
     },
     {
       "uid": "e15f0d620a7897e2035c18c80142f6d9",
       "css": "link-ext",
-      "code": 59405,
+      "code": 59408,
       "src": "fontawesome"
     },
     {
       "uid": "d35a1d35efeb784d1dc9ac18b9b6c2b6",
       "css": "pencil",
-      "code": 59393,
+      "code": 59394,
       "src": "fontawesome"
     },
     {
       "uid": "41087bc74d4b20b55059c60a33bf4008",
       "css": "edit",
-      "code": 59394,
+      "code": 59395,
       "src": "fontawesome"
     },
     {
       "uid": "31951fbb9820ed0690f675b3d495c8da",
       "css": "chat-empty",
-      "code": 59401,
+      "code": 59398,
       "src": "fontawesome"
     },
     {
       "uid": "b091a8bd0fdade174951f17d936f51e4",
       "css": "folder-empty",
-      "code": 59395,
+      "code": 59396,
       "src": "fontawesome"
     },
     {
       "uid": "2a4e6c99b732a57da40e32fa2a7800a4",
       "css": "toggle-off",
-      "code": 59397,
+      "code": 59404,
       "src": "fontawesome"
     },
     {
       "uid": "3256ef03b16e7ab51235bc7378b53bb5",
       "css": "toggle-on",
-      "code": 59398,
+      "code": 59405,
       "src": "fontawesome"
     },
     {
@@ -73,22 +73,40 @@
       "src": "fontawesome"
     },
     {
-      "uid": "8e04c98c8f5ca0a035776e3001ad2638",
-      "css": "facebook",
-      "code": 59402,
-      "src": "fontawesome"
-    },
-    {
       "uid": "4c1ef492f1d2c39a2250ae457cee2a6e",
       "css": "instagramm",
-      "code": 59396,
+      "code": 59397,
       "src": "fontawesome"
     },
     {
       "uid": "004882ab2d5c418c5b2060e80596279b",
       "css": "right-open-big",
-      "code": 59403,
+      "code": 59402,
       "src": "entypo"
+    },
+    {
+      "uid": "661bd5ba1dad15ad9acbfcd8b8af76f3",
+      "css": "quote-left",
+      "code": 59406,
+      "src": "iconic"
+    },
+    {
+      "uid": "bc0af4824c8eedcad7bc0d35911dac2a",
+      "css": "quote-right",
+      "code": 59407,
+      "src": "iconic"
+    },
+    {
+      "uid": "240979dd9fcf2e46250e66792edb8092",
+      "css": "facebook",
+      "code": 59401,
+      "src": "brandico"
+    },
+    {
+      "uid": "b59cc4d390a6df564a055f43c03a6af5",
+      "css": "camera",
+      "code": 59392,
+      "src": "linecons"
     }
   ]
 }

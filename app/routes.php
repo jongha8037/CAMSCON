@@ -110,6 +110,11 @@ Route::group(array('before' => 'front'), function() {
 		return View::make('legal/privacy-policy', ViewData::get());
 	});
 
+	/*Recruiting pages*/
+	Route::get('recruiting/season-7', function() {
+		return View::make('front.recruiting.season-7', ViewData::get());
+	});
+
 });//Front-end route group
 
 
