@@ -1,7 +1,7 @@
 @extends('front.layouts.master')
 
 @section('head_title')
-Camtographer Season 7 Recruiting - CAMSCON
+CAMTOGRAPHER SEASON 7 RECRUITING - CAMSCON
 @stop
 
 @section('head_styles')
@@ -259,7 +259,7 @@ Camtographer Season 7 Recruiting - CAMSCON
 			<h2>Looking for SEASON7 CAMTOGRAPHERS</h2>
 
 			<p>캠토그래퍼(CAMTOGRAPHER)는 '캠퍼스 포토그래퍼'의 줄임말로 패션소셜매거진 캠스콘이 매학기 단위로 대학생을 대상으로 운영하는 교육/실습 프로그램입니다.</p>
-			<p>70만원짜리 셔츠, 200만원짜리 코트를 캠퍼스패션이라고 제안하는 기성잡지에 대한 반항정신을 기반으로, 있는 그대로의 캠퍼스패션을 보여주자는 취지에서 시작되었습니다.</p>
+			<p>70만원짜리 셔츠, 200만원짜리 코트를 캠퍼스패션이라고 제안하는 기성잡지에 대한 반항정신을 기반으로 있는 그대로의 캠퍼스패션을 보여주자는 취지에서 시작되었습니다.</p>
 			<p>2011년 여름, 한양대를 시작으로 서울 8개 주요대학에서 학생들의 자발적인 참여로 확산되었고 해가 거듭할수록 패션과 멋을 사랑하는 대학생들의 참여가 많아져 현재는 전국 80여개, 해외 10여개 캠퍼스, 누적인원 294명의 대학생들이 이 움직임에 동참하였습니다.</p>
 		</div>
 	</section>
@@ -375,7 +375,7 @@ Camtographer Season 7 Recruiting - CAMSCON
 
 			<h3>[지원방법]</h3>
 			<ul class="guide">
-				<li>하단의 'Download Application' 링크를 이용하여 지원서를 다운로드 받아 recruiting@camscon.kr로 보내주시면 됩니다.</li>
+				<li>하단의 'Download Application' 링크를 이용하여 지원서를 다운로드 받아 <b>{{HTML::email('recruiting@camscon.kr')}}</b>로 보내주시면 됩니다.</li>
 				<li>보내주실 때 메일제목 및 파일명 : [학교_이름], 예시) [한국대학교_홍길동]</li>
 			</ul>
 
@@ -386,7 +386,7 @@ Camtographer Season 7 Recruiting - CAMSCON
 				<li>1차 서류접수와 2차 인터뷰에서 떨어지신 분들은 불합격사실을 별도로 통보해드리지 않습니다.</li>
 				<li>활동기간은 올해 3월부터 7월까지이며 한 학교당 최대 1명이 선발됩니다.</li>
 				<li>1차서류접수를 통해 학교별로 최대2명씩 2차인터뷰 대상자가 선정되며, 인터뷰시간은 13일 저녁부터 15일 저녁까지 학교의 가나다역순으로 배치되니 참고해주시기 바랍니다. (홍익대로 시작되어 가천대로 끝납니다.)</li>
-				<li>문의사항이 있으시거나 지원서가 다운로드되지 않는 분들께서는 캠스콘 페이지(www.facebook.com/camscon)나 메일(recruiting@camscon.kr)으로 문의/요청해주시면 감사하겠습니다.</li>
+				<li>문의사항이 있으시거나 지원서가 다운로드되지 않는 분들께서는 캠스콘 페이지(www.facebook.com/camscon)나 메일(<b>{{HTML::email('recruiting@camscon.kr')}}</b>)으로 문의/요청해주시면 감사하겠습니다.</li>
 			</ul>
 		</div>
 	</section>
