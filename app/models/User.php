@@ -51,6 +51,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('UserLike', 'user_id');
 	}
 
+	public function editorials() {
+		return $this->hasMany('EditorialPost');
+	}
+
 	/*Accessor definitions*/
 	public function getCanUploadSnapsAttribute() {
 		$authArray=array( 1, 3, 4, 5, 6, 8 );

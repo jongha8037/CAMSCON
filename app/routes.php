@@ -154,6 +154,10 @@ Route::group(array('prefix' => 'admin', 'before'=>'auth.is_admin'), function() {
 	/*User Feedback*/
 	Route::get('user-feedback', array('uses'=>'UserFeedbackController@showAdmin'));
 	Route::post('user-feedback/delete', array('before'=>'csrf', 'uses'=>'UserFeedbackController@deleteFeedback'));
+
+	/*Pictorial Admin routes*/
+	Route::get('editorials/pictorials', array('uses'=>'PictorialEditController@showList'));
+	Route::get('editorials/pictorials/edit/{post_id?}', array('uses'=>'PictorialEditController@showEditor'));
 });
 
 /*Admin Auth Routes*/
