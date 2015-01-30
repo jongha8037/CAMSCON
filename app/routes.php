@@ -158,6 +158,10 @@ Route::group(array('prefix' => 'admin', 'before'=>'auth.is_admin'), function() {
 	/*Pictorial Admin routes*/
 	Route::get('editorials/pictorials', array('uses'=>'PictorialEditController@showList'));
 	Route::get('editorials/pictorials/edit/{post_id?}', array('uses'=>'PictorialEditController@showEditor'));
+	Route::post('editorials/pictorials/save', array('before'=>'csrf', 'uses'=>'PictorialEditController@saveEntry'));
+	Route::post('editorials/pictorials/delete', array('before'=>'csrf', 'uses'=>'PictorialEditController@deleteEntry'));
+	Route::post('editorials/pictorials/attachment/upload', array('before'=>'csrf', 'uses'=>'PictorialEditController@uploadAttachment'));
+	Route::post('editorials/pictorials/attachment/delete', array('before'=>'csrf', 'uses'=>'PictorialEditController@deleteAttachment'));
 });
 
 /*Admin Auth Routes*/
