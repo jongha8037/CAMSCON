@@ -41,6 +41,11 @@ CAMSCON Pictorials
 .pictorial-listview .pictorial-list .entry-wrapper a.fullpost-btn {
 	margin:25px 0px;
 }
+
+.pictorial-listview .pictorial-list .entry-wrapper figure img {
+	max-width: 100%;
+	height:auto;
+}
 </style>
 @stop
 

@@ -33,6 +33,11 @@ CAMSCON Pictorial - {{{$pictorial->title}}}
 	margin:15px 0px;
 }
 
+.pictorial-singleview figure img {
+	max-width:100%;
+	height:auto;
+}
+
 .pictorial-singleview footer {
 	margin:30px;
 	text-align: center;
