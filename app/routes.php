@@ -115,6 +115,26 @@ Route::group(array('before' => 'front'), function() {
 		return View::make('front.recruiting.season-7', ViewData::get());
 	});
 
+	/*Simple Pictorial routes*/
+	Route::get('editorials/pictorials', function() {
+		$pictorials=SimplePictorial::with('attachments')->where('status', '=', 'published')->orderBy('id', 'DESC')->get();
+		ViewData::add('pictorials', $pictorials);
+
+		return View::make('front.editorials.pictorials.list', ViewData::get());
+	});
+
+	Route::get('editorials/pictorials/{entry_id}', function($entry_id=null) {
+		$pictorial=SimplePictorial::with('attachments')->find($entry_id);
+
+		if($pictorial) {
+			ViewData::add('pictorial', $pictorial);
+		} else {
+			App::abort(404);
+		}
+
+		return View::make('front.editorials.pictorials.single', ViewData::get());
+	});
+
 });//Front-end route group
 
 

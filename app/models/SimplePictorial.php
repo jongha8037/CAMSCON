@@ -2,11 +2,9 @@
 
 class SimplePictorial extends Eloquent {
 
-	/*Relations*/
-	public function thumbnail() {
-		return $this->hasMany('SimplePictorialAttachment', 'pictorial_id')->first();
-	}
+	protected $appends = array('pretty_date');
 
+	/*Relations*/
 	public function attachments() {
 		return $this->hasMany('SimplePictorialAttachment', 'pictorial_id');
 	}
@@ -25,6 +23,13 @@ class SimplePictorial extends Eloquent {
 		} else {
 			return $this->morphMany('UserLike', 'target')->where('user_id', '=', 0);
 		}
+	}
+
+	/*Accessor definitions*/
+	public function getPrettyDateAttribute() {
+		$time=strtotime($this->created_at);
+		$prettyDate=date('y.m.d', $time);
+		return $prettyDate;
 	}
 
 }
