@@ -13,6 +13,5 @@
 .icon-ok:before { content: '\e80b'; } /* '' */
 .icon-toggle-off:before { content: '\e80c'; } /* '' */
 .icon-toggle-on:before { content: '\e80d'; } /* '' */
-.icon-quote-left:before { content: '\e80e'; } /* '' */
-.icon-quote-right:before { content: '\e80f'; } /* '' */
-.icon-link-ext:before { content: '\e810'; } /* '' */
+.icon-camera-1:before { content: '\e80e'; } /* '' */
+.icon-link-ext-alt:before { content: '\e80f'; } /* '' */
