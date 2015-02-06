@@ -25,7 +25,8 @@ Route::group(array('before' => 'front'), function() {
 	Route::get('{category}/{slug?}/{ordering?}',
 		array('uses'=>"StreetSnapController@getList")
 	)->where(array('category'=>'all|campus|street|brand|fashion-week|festival|club|filter|blog|magazine', 'ordering'=>'new|hot'));
-
+	Route::get('inspirers', array('uses'=>"InspirersPageController@getList"));
+	
 	Route::get('/', array('uses'=>"StreetSnapController@getList"));
 
 	//Single View for campus,street,brand,fashion-week,festival,club,blog
