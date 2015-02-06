@@ -171,24 +171,20 @@
 </head>
 <body>
 	<div class="inspirer-container">
-		
-		@foreach($users as $users)
-		<div class="inspirer-profilebox">
-			<?php
-			$userimg=User::find($users->id)->ProfileImage;
-			?>
-			
-			@if ($userimg['url'] != NULL)
-			<img src="{{$userimg['url']}}">
+		@foreach($users as $user)
+		<div class="inspirer-profilebox">			
+			<div>
+			@if ($user->profileImage)
+				<img src="{{$user->profileImage->url}}">
 			@else
-			<div><img src="/img/05.jpg"></div>
+				<img src="/img/05.jpg">
 			@endif
-
+			</div>
 			<div class="inspirer-profilename">
 				<strong>
-					<span class="inspirer-profilename-sub1">{{$users->nickname}}</span>
+					<span class="inspirer-profilename-sub1">{{$user->nickname}}</span>
 					<span class="inspirer-profilename-sub2">&nbsp|</span>
-					<span class="inspirer-profilename-sub3"><i class="icon-camera-1"></i>&nbsp{{$snaplist[$users->id]}}</span>
+					<span class="inspirer-profilename-sub3"><i class="icon-camera-1"></i>&nbsp{{$user->snaps->count()}}</span>
 				</strong>
 			</div>
 	<!--{{--@if (($users->inspirer-profiledata) != NULL)
@@ -204,18 +200,17 @@
 				</div>
 			</div>
 	<!--{{--	@endif--}}-->
-
 			<div class="inspirer-profiledata inspirer-profileicon">
 				<div class="inspirer-profileicon-inner1">
-					<a href="profile/{{$users->id}}">
+					<a href="profile/{{$user->id}}">
 						<div><i class="icon-user iconsize"></i></div>
 						<div class="inspirer-profileiconname">profile</div>
 					</a>
 				</div>
 				
-				@if (($users->instagram) != NULL)
+				@if (($user->instagram) != NULL)
 				<div class="inspirer-profileicon-inner2">
-					<a href="http://instagram.com/{{$users->instagram}}">
+					<a href="http://instagram.com/{{$user->instagram}}">
 						<div><i class="icon-instagramm iconsize"></i></div>
 						<div class="inspirer-profileiconname">instagram</div>
 					</a>
@@ -227,9 +222,9 @@
 				</div>
 				@endif
 
-				@if (($users->instagram) != NULL)
+				@if (($user->instagram) != NULL)
 				<div class="inspirer-profileicon-inner3">
-					<a href="{{$users->blog}}">
+					<a href="{{$user->blog}}">
 						<div><i class="icon-pencil iconsize"></i></div>
 						<div class="inspirer-profileiconname">blog</div>
 					</a>
